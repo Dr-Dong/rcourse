@@ -1,0 +1,81 @@
+---
+title: "SSE Intro to R"
+author: "Andrew Proctor"
+output: 
+  html_document:
+    df_print: kable
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    collapsed: no
+---
+
+## Intro to R
+
+This is the course webpage for the Introduction to R mini-course.  Here, you will
+find the notes/lecture materials, seminar exercises, and helpful resources.
+
+```{r setup, include=FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+
+## Course Content
+
+### Module 1:  Introduction to Base R Environment
+
+- Lecture Notes: **Slides** / **Webpages**
+
+- Seminar Exercises:
+
+    <a class="btn btn-primary" href="https://www.datacamp.com//teach/repositories/115256665/go" role="button">DataCamp Exercises</a>
+
+
+### Module 2:  Data Analysis Using the Tidyverse
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+
+### Module 3:  Loops, Conditionals, and Joins
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+
+
+### Module 4:  Data Presentation:  RMarkdown and ggplot2
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+
+
+### Module 5: Regression Modelling in R
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+  
+
+### Module 6:  Capstone Project
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+
+
+### Module 7:  Intro to Bayesian Methods in R
+
+  - Lecture Notes: **Slides** / **Webpages**
+  
+  - Seminar Exercise:
+
+## Contact:
+
+   **Course Teacher:**  Andrew Proctor
+  
+   **Office:**  A 711 (Arrange by email or stop in if I'm there.)
+  
+   **Email:**  andrew.proctor@phdstudent.hhs.se
+

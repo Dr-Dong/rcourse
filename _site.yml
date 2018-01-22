@@ -5,7 +5,6 @@ navbar:
   left:
     - text: "Overview"
       href: index.html
-    - text: "Weekly schedule"
-      href: schedule.html
-    - text: "Assignments"
-      href: assignments.html
+    - text: "Bayesian lecture"
+      href: BayesianLecture.html
+

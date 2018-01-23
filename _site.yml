@@ -1,10 +1,13 @@
-name: "my-website-name"
+name: "SSE Intro to R"
 output_dir: "."
 navbar:
-  title: "Website title"
+  title: "SSE Intro to R"
   left:
     - text: "Overview"
       href: index.html
     - text: "Bayesian lecture"
       href: BayesianLecture.html
 
+output:
+  html_document:
+    theme: flatly

@@ -6,6 +6,9 @@ output:
     df_print: kable
     highlight: haddock
     theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: no
    
 ---
 

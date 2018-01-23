@@ -6,9 +6,7 @@ output:
     df_print: kable
     highlight: haddock
     theme: flatly
-    toc: yes
-    toc_float: yes
-    collapsed: no
+   
 ---
 
 ## Intro to R

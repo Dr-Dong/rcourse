@@ -7,6 +7,18 @@ navbar:
       href: index.html
     - text: "Bayesian lecture"
       href: BayesianLecture.html
+    - text: "More"
+      icon: fa-gear  
+      menu:
+              - text: "Resources"
+              - text: "SSE"
+                href: www.hhs.se
+              - text: "DataCamp"  
+                href: https://www.datacamp.com/
+              - text: "---------"
+              - text: "Download"
+              - text: "RStudio"
+                href: https://www.rstudio.com/
 
 output:
   html_document:

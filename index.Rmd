@@ -12,6 +12,8 @@ output:
    
 ---
 
+<br>
+
 ## Intro to R
 
 This is the course webpage for the Introduction to R mini-course.  Here, you will
@@ -20,6 +22,9 @@ find the notes/lecture materials, seminar exercises, and helpful resources.
 ```{r setup, include=FALSE}
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
+
+
+<br>
 
 ## Course Content
 
@@ -71,6 +76,8 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
   - Lecture Notes: **Slides** / **Webpages**
   
   - Seminar Exercise:
+
+<br>
 
 ## Contact:
 

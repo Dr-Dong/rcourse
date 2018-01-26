@@ -59,41 +59,41 @@ collectively known as the "Tidyverse."  Covers how to subset data, arrange it,
 transform it, and aggregate it.  Participants will also learn convenient tools to
 import and export data.
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes: 
   
   - Seminar Exercise:
 
 ### Module 3:  Loops, Conditionals, and Joins
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes: 
   
   - Seminar Exercise:
 
 
 ### Module 4:  Data Presentation:  RMarkdown and ggplot2
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes:
   
   - Seminar Exercise:
 
 
 ### Module 5: Regression Modelling in R
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes: 
   
   - Seminar Exercise:
   
 
 ### Module 6:  Capstone Project
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes: 
   
   - Seminar Exercise:
 
 
 ### Module 7:  Intro to Bayesian Methods in R
 
-  - Lecture Notes: **Slides** / **Webpage**
+  - Lecture Notes:
   
   - Seminar Exercise:
 

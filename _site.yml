@@ -46,6 +46,8 @@ navbar:
                 href: https://miktex.org/download                
               - text: "Git"
                 href: https://git-scm.com/downloads
+              - text: "GitHub (account only)"
+                href: https://github.com/                
               - text: "---------"
               - text: "Code"
               - text: "Course on Github"

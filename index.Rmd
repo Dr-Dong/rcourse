@@ -21,7 +21,7 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ## Course Description
 
 This is an introduction to the R statistical programming language, focusing on
-essential skills needs to perform data analysis from entry, to preparation, analysis,
+essential skills needed to perform data analysis from entry, to preparation, analysis,
 and finally presentation.  During the minicourse, you will not only learn basic
 R functionality, but also how to leverage the exensive community-driven package 
 ecosystem, as well as how to write your own functions in R.
@@ -42,8 +42,8 @@ so that you can famliarize yourself with the material ahead of time if you like
 ### Module 1:  Introduction to Base R Environment
 
 This model introduces the R programming language and the RStudio software.  R 
-programming content will include coverage of basic operations
-and data object types, including vectors, matrices, and data frames.
+programming topics will include coverage of basic operations
+and data object types, especially vectors, matrices, and data frames.
 
 - Lecture Notes: **Slides** / **Webpage**
 
@@ -55,9 +55,9 @@ and data object types, including vectors, matrices, and data frames.
 ### Module 2:  Data Manipulation Using the Tidyverse
 
 This module introduces a series of tools for data manipulation/preparation 
-collectively known as the "Tidyverse."  Covers how to subset data, arrange it,
-transform it, and aggregate it.  Participants will also learn convenient tools to
-import and export data.
+collectively known as the "Tidyverse."  Specifically, this module covers how to 
+subset data, arrange it, transform it, and aggregate it.  Participants will also 
+learn convenient tools to import and export data.
 
   - Lecture Notes: 
   

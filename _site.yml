@@ -42,6 +42,8 @@ navbar:
                 href: https://cran.r-project.org/
               - text: "RStudio"
                 href: https://www.rstudio.com/
+              - text: "MiKTex"
+                href: https://miktex.org/download                
               - text: "Git"
                 href: https://git-scm.com/downloads
               - text: "---------"

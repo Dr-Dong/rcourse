@@ -7,22 +7,26 @@ output:
     highlight: haddock
     theme: flatly
     toc: yes
+    toc_depth: 3
     toc_float:
       collapsed: no
    
 ---
-
-<br>
-
-## Intro to R
-
-This is the course webpage for the Introduction to R mini-course.  Here, you will
-find the notes/lecture materials, seminar exercises, and helpful resources.
-
 ```{r setup, include=FALSE}
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
+<br>
+
+## Course Description
+
+This is an introduction to the R statistical programming language, focusing on
+essential skills needs to perform data analysis, from entry, to preparation, analysis,
+and finally presentation.  
+
+During the minicourse, you will not only learn basic
+R functionality, but also how to leverage the exensive community-driven package 
+ecosystem, and finally how to write your own functions in R.
 
 <br>
 
@@ -30,50 +34,59 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 ### Module 1:  Introduction to Base R Environment
 
-- Lecture Notes: **Slides** / **Webpages**
+This model introduces the R programming language and the RStudio software.  R 
+programming content will include coverage of basic operations
+and data object types, including vectors, matrices, and data frames.
+
+- Lecture Notes: **Slides** / **Webpage**
 
 - Seminar Exercises:
 
     <a class="btn btn-primary" href="https://www.datacamp.com//teach/repositories/115256665/go" role="button">DataCamp Exercises</a>
 
 
-### Module 2:  Data Analysis Using the Tidyverse
+### Module 2:  Data Manipulation Using the Tidyverse
 
-  - Lecture Notes: **Slides** / **Webpages**
+This module introductes a series of tools for data manipulation/preparation 
+collectively known as the "Tidyverse."  Coverage is select data, arrange it,
+transform it, and aggregate it.  Participants were also learn convenient tools to
+import and export data.
+
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
 
 ### Module 3:  Loops, Conditionals, and Joins
 
-  - Lecture Notes: **Slides** / **Webpages**
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
 
 
 ### Module 4:  Data Presentation:  RMarkdown and ggplot2
 
-  - Lecture Notes: **Slides** / **Webpages**
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
 
 
 ### Module 5: Regression Modelling in R
 
-  - Lecture Notes: **Slides** / **Webpages**
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
   
 
 ### Module 6:  Capstone Project
 
-  - Lecture Notes: **Slides** / **Webpages**
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
 
 
 ### Module 7:  Intro to Bayesian Methods in R
 
-  - Lecture Notes: **Slides** / **Webpages**
+  - Lecture Notes: **Slides** / **Webpage**
   
   - Seminar Exercise:
 

@@ -7,8 +7,7 @@ navbar:
       href: index.html
     - text: "Bayesian lecture"
       href: BayesianLecture.html
-    - text: "More"
-      icon: fa-gear  
+    - text: "Useful Links"
       menu:
               - text: "Resources"
               - text: "SSE"

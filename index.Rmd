@@ -47,8 +47,8 @@ and data object types, including vectors, matrices, and data frames.
 
 ### Module 2:  Data Manipulation Using the Tidyverse
 
-This module introductes a series of tools for data manipulation/preparation 
-collectively known as the "Tidyverse."  Covers of how to subset data, arrange it,
+This module introduces a series of tools for data manipulation/preparation 
+collectively known as the "Tidyverse."  Covers how to subset data, arrange it,
 transform it, and aggregate it.  Participants will also learn convenient tools to
 import and export data.
 

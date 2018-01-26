@@ -5,8 +5,12 @@ navbar:
   left:
     - text: "Overview"
       href: index.html
-    - text: "Bayesian lecture"
-      href: BayesianLecture.html
+    - text: "Modules"
+      menu:
+              - text: "Base R"
+                href: 
+              - text: "Tidyverse Data Manipulation"
+                href: 
     - text: "Useful Links"
       menu:
               - text: "Resources"

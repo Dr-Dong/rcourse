@@ -26,14 +26,14 @@ navbar:
               - text: "Learning Resources"
               - text: "DataCamp"  
                 href: https://www.datacamp.com/
+              - text: "RStudio Cheat Sheets"  
+                href: https://www.rstudio.com/resources/cheatsheets/
               - text: "Quick-R"  
                 href: https://www.statmethods.net/
               - text: "StackOverflow"  
                 href: https://stackoverflow.com/
               - text: "R-Bloggers"  
                 href: https://www.r-bloggers.com/
-              - text: "RStudio Cheat Sheets"  
-                href: https://www.rstudio.com/resources/cheatsheets/
               - text: "R for Data Science Online Book"  
                 href: http://r4ds.had.co.nz/
               - text: "---------"

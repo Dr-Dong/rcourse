@@ -1,6 +1,6 @@
 ---
 title: "SSE Intro to R"
-author: "Andrew Proctor"
+author: "Instructor:  Andrew Proctor"
 output: 
   html_document:
     df_print: kable

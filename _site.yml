@@ -23,15 +23,31 @@ navbar:
                 href: 
     - text: "Useful Links"
       menu:
-              - text: "Resources"
-              - text: "SSE"
-                href: www.hhs.se
+              - text: "Learning Resources"
               - text: "DataCamp"  
                 href: https://www.datacamp.com/
+              - text: "Quick-R"  
+                href: https://www.statmethods.net/
+              - text: "StackOverflow"  
+                href: https://stackoverflow.com/
+              - text: "R-Bloggers"  
+                href: https://www.r-bloggers.com/
+              - text: "RStudio Cheat Sheets"  
+                href: https://www.rstudio.com/resources/cheatsheets/
+              - text: "R for Data Science Online Book"  
+                href: http://r4ds.had.co.nz/
               - text: "---------"
-              - text: "Download"
+              - text: "Downloads"
+              - text: "R"
+                href: https://cran.r-project.org/
               - text: "RStudio"
                 href: https://www.rstudio.com/
+              - text: "Git"
+                href: https://git-scm.com/downloads
+              - text: "---------"
+              - text: "Code"
+              - text: "Course on Github"
+                href: https://github.com/andrewproctor/rminicourse
 
 output:
   html_document:

@@ -45,7 +45,7 @@ This module introduces the R programming language and the RStudio software.  R
 programming topics will include coverage of basic operations
 and data object types, especially vectors, matrices, and data frames.
 
-- Lecture Notes: **Slides** / **Webpage**
+- Lecture Notes:
 
 - Seminar Exercises:
 

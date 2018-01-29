@@ -41,7 +41,7 @@ so that you can famliarize yourself with the material ahead of time if you like
 
 ### Module 1:  Introduction to Base R Environment
 
-This model introduces the R programming language and the RStudio software.  R 
+This module introduces the R programming language and the RStudio software.  R 
 programming topics will include coverage of basic operations
 and data object types, especially vectors, matrices, and data frames.
 
@@ -49,7 +49,11 @@ and data object types, especially vectors, matrices, and data frames.
 
 - Seminar Exercises:
 
-    <a class="btn btn-primary" href="https://www.datacamp.com//teach/repositories/115256665/go" role="button">DataCamp Exercises</a>
+```{r datacamp, include=FALSE}
+# <a class="btn btn-primary" href="https://www.datacamp.com//teach/repositories/115256665/go" role="button">DataCamp Exercises</a>
+```
+
+<br>
 
 
 ### Module 2:  Data Manipulation Using the Tidyverse
@@ -62,42 +66,75 @@ learn convenient tools to import and export data.
   - Lecture Notes: 
   
   - Seminar Exercise:
+  
+  <br>
+
 
 ### Module 3:  Loops, Conditionals, and Joins
+
+This module introduces more advanced programming techniques to adapt R 
+functionality to your own specific problems.  Contents include how to
+perform loops, use conditional statements, and write basic functions.  In 
+addition, this module will cover how to join data sets in R using 
+Tidyverse functions.
 
   - Lecture Notes: 
   
   - Seminar Exercise:
+
+<br>
 
 
 ### Module 4:  Data Presentation:  RMarkdown and ggplot2
 
-  - Lecture Notes:
-  
-  - Seminar Exercise:
-
-
-### Module 5: Regression Modelling in R
-
-  - Lecture Notes: 
-  
-  - Seminar Exercise:
-  
-
-### Module 6:  Capstone Project
-
-  - Lecture Notes: 
-  
-  - Seminar Exercise:
-
-
-### Module 7:  Intro to Bayesian Methods in R
+This module provides an overview of how to present your data in a professional and 
+visually appealing manner using R.  The first emphasis will be using Knitr and
+RMarkdown to generate reports in a variety of formats, such as HTML pages, PDF 
+documents, beamer presentation.  Second, the ggplot2 package will also be 
+introduced as a means to create to create compelling graphs and figures in R.
 
   - Lecture Notes:
   
   - Seminar Exercise:
 
 <br>
+
+
+### Module 5: Regression Modelling in R
+
+In this module, standard methods of regression analysis in R are presented, in 
+addition to coverage of common diagnostics and post-estimation proeedures,
+
+  - Lecture Notes: 
+  
+  - Seminar Exercise:
+  
+ <br>
+ 
+
+### Module 6:  Capstone Project
+
+In this module, you will use the skills developed over the preceding seminars to
+perform an analysis of an empirical problem in R from start to finish.
+
+  - Seminar Exercise:
+
+<br>
+
+
+### Module 7:  Intro to Bayesian Methods in R
+
+This module introduces the basic intuition of Bayesian statistics methods and how
+to perform Bayesian analysis in R, primarily using the rstanarm package.
+
+  - Lecture Notes:
+  
+  - Seminar Exercise:
+  
+
+<br>
+<br>
+
 
 ## Contact:
 

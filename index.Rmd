@@ -22,8 +22,8 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 This is an introduction to the R statistical programming language, focusing on
 essential skills needed to perform data analysis from entry, to preparation, analysis,
-and finally presentation.  During the minicourse, you will not only learn basic
-R functionality, but also how to leverage the exensive community-driven package 
+and finally presentation.  During the mini-course, you will not only learn basic
+R functionality, but also how to leverage the extensive community-driven package 
 ecosystem, as well as how to write your own functions in R.
 
 Course content is broken up into 6 seminars, each covering one content module,
@@ -32,7 +32,7 @@ interested. The length of each seminar may vary from module to module, but shoul
 generally be less than 3 hours.  The first 30-45 minutes will be used to introduce 
 new information, while the remainder of the time will be spent doing hands-on 
 practice.  The content for each module will be posted the day before the seminar,
-so that you can famliarize yourself with the material ahead of time if you like 
+so that you can familiarize yourself with the material ahead of time if you like 
 (though this isn't required).
 
 <br>
@@ -103,7 +103,7 @@ introduced as a means to create to create compelling graphs and figures in R.
 ### Module 5: Regression Modelling in R
 
 In this module, standard methods of regression analysis in R are presented, in 
-addition to coverage of common diagnostics and post-estimation proeedures,
+addition to coverage of common diagnostics and post-estimation procedures,
 
   - Lecture Notes: 
   

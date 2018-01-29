@@ -47,7 +47,9 @@ navbar:
               - text: "Git"
                 href: https://git-scm.com/downloads
               - text: "GitHub (account only)"
-                href: https://github.com/                
+                href: https://github.com/         
+              - text: "Sumatra PDF"
+                href: https://www.sumatrapdfreader.org/free-pdf-reader.html   
               - text: "---------"
               - text: "Code"
               - text: "Course on Github"

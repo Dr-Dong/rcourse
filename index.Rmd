@@ -27,7 +27,7 @@ R functionality, but also how to leverage the extensive community-driven package
 ecosystem, as well as how to write your own functions in R.
 
 Course content is broken up into 6 seminars, each covering one content module,
-with a short session additional session on Bayesian methods at the end for those 
+with a short additional session on Bayesian methods at the end for those 
 interested. The length of each seminar may vary from module to module, but should 
 generally be less than 3 hours.  The first 30-45 minutes will be used to introduce 
 new information, while the remainder of the time will be spent doing hands-on 
@@ -124,7 +124,7 @@ perform an analysis of an empirical problem in R from start to finish.
 
 ### Module 7:  Intro to Bayesian Methods in R
 
-This module introduces the basic intuition of Bayesian statistics methods and how
+This module introduces the basic intuition of Bayesian statistical methods and how
 to perform Bayesian analysis in R, primarily using the rstanarm package.
 
   - Lecture Notes:

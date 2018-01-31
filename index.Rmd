@@ -47,10 +47,7 @@ and data object types, especially vectors, matrices, and data frames.
 
 - Lecture Notes: **[Slides](https://andrewproctor.github.io/rminicourse/baseRlecture.pdf) / [Webpage](https://andrewproctor.github.io/rminicourse/baseRlectureweb.html)**
 
-- Seminar Exercises:
-
-
-# <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
+- Seminar Exercises:   \ \ \ \ \   <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
 
 
 <br>

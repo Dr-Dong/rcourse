@@ -8,7 +8,7 @@ navbar:
     - text: "Modules"
       menu:
               - text: "M1:  Base R"
-                href: Module1.html
+                href: module1.html
               - text: "M2: Tidyverse Data Manipulation"
                 href: 
               - text: "M3: Loops, Conditionals, and Joins"

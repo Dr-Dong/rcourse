@@ -20,50 +20,26 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
-</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
 
 
 <style type="text/css">
@@ -188,101 +164,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -391,20 +272,18 @@ div.tocify {
 </div>
 
 
-<p><a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a></p>
-<p><br></p>
 <div id="intro" class="section level1">
 <h1>Intro</h1>
 <div id="learning-outcomes" class="section level2">
 <h2>Learning Outcomes</h2>
 <p>How to:</p>
-<ol style="list-style-type: decimal">
+<ul>
 <li><p>Import and transform using standard R functions</p></li>
 <li><p>Extend R functionality through packages and user-written programming</p></li>
 <li><p>Create compelling presentations for data analysis projects</p></li>
 <li><p>Peform basic econometric analysis in R</p></li>
-<li><p>Understanding and perform basic Bayesian analysis in R</p></li>
-</ol>
+<li><p>Learn basics of Bayesian methods in R</p></li>
+</ul>
 </div>
 <div id="format" class="section level2">
 <h2>Format</h2>
@@ -416,6 +295,9 @@ div.tocify {
 </ul>
 <p>No homework etc - goal is for everything to be doable in the seminars.</p>
 <p>Course content and helpful resources on the course website:</p>
+<ul>
+<li>andrewproctor.github.io</li>
+</ul>
 </div>
 </div>
 <div id="r-statistical-programming" class="section level1">
@@ -448,7 +330,12 @@ div.tocify {
 </li>
 <li>Stata is also very different than R in that you can only ever work with one dataset at a time, while in R, it’s typical to have a number of data objects in the environment.</li>
 </ul></li>
-<li><p><strong>SAS</strong>: Similar to Stata, but more commonly used in business &amp; the private sector, in part because it’s typically more convenient for massive datasets. Otherwise, I think it’s seen as a bit older and less user-friendly.</p></li>
+<li><strong>SAS</strong>: Similar to Stata, but more commonly used in business &amp; the private sector, in part because it’s typically more convenient for massive datasets. Otherwise, I think it’s seen as a bit older and less user-friendly.</li>
+</ul>
+</div>
+<div id="comparison-to-other-statistical-programming-software-ctd" class="section level2">
+<h2>Comparison to other statistical programming software ctd</h2>
+<ul>
 <li><p><strong>Python</strong>: Another option based more on programming from scratch and with less prewritten commands. Python isn’t specific to math &amp; statistics, but instead is a general programming language used across a range of fields.<br />
 Probably the most similar software choice to R at this point, with better general use (and programming ease) at the cost of less package development specific to econometrics/data analysis.</p></li>
 <li><p><strong>Matlab</strong>: Popular in macroeconomics and theory work, not so much in empirical work. Matlab is powerful, but is much more based on programming “from scratch” using matrices and mathematical expressions.</p></li>
@@ -463,6 +350,11 @@ Probably the most similar software choice to R at this point, with better genera
 </ul></li>
 <li><p><strong>RStudio Cheat Sheets:</strong> Very helpful 1-2 page overviews of common tasks and packages in R.</p></li>
 <li><p><strong>Quick-R:</strong> Website with short example-driven overviews of R functionality.</p></li>
+</ul>
+</div>
+<div id="useful-resources-for-learning-r-ctd" class="section level2">
+<h2>Useful resources for learning R ctd</h2>
+<ul>
 <li><p><strong>StackOverflow:</strong> Part of the Stack Exchange network, StackOverflow is a Q&amp;A community website for people who work in programming. Tons of incredibly good R users and developers interact on StackExchange, so it’s a great place to search for answers to your questions.</p></li>
 <li><p><strong>R-Bloggers:</strong> Blog aggregagator for posts about R. Great place to learn really cool things you can do in R.</p></li>
 <li><p><strong>R for Data Science:</strong> Online version of the book by Hadley Wickham, who has written many of the best packages for R, including the Tidyverse, which we will cover.</p></li>
@@ -475,6 +367,9 @@ Probably the most similar software choice to R at this point, with better genera
 <h2>RStudio GUI</h2>
 <p>RStudio is an is an integrated development environment (IDE).</p>
 <p>This means that in addition to a script editor, it also let’s you view your environments, data objects, plots, help files, etc directly within the application.</p>
+</div>
+<div id="rstudio-gui-ctd" class="section level2">
+<h2>RStudio GUI ctd</h2>
 <p></p>
 </div>
 <div id="executing-code-from-the-script" class="section level2">
@@ -489,39 +384,38 @@ Probably the most similar software choice to R at this point, with better genera
 <h2>Style advise</h2>
 <p>Unlike Stata, with R you don’t need any special code to write multiline code - it’s already the default (functions are written with parentheses, so its clear when the line actually ends.)</p>
 <ul>
-<li><p>So there’s no excuse for really long lines. Accepted style suggests using a 80-character limit for your lines.</p></li>
+<li><p>So there’s no excuse for really long lines. Accepted style suggests use a 80-character limit for your lines.</p></li>
 <li>RStudio has the option to show a guideline for margins. <strong>Use it!</strong>
 <ul>
-<li>Go to <strong>Tools -&gt; Global Options -&gt; Code -&gt; Display</strong>, then select <strong>Show Margin</strong> and enter 80 characters.</li>
+<li>Go to <strong>Tools -&gt; Global Options -&gt; Code -&gt; Display</strong>, then select <strong>Show Margin</strong> and enter 80 characters. You can also write multiple expressions on the same line by using <span class="math inline">\(\color{blue} \textbf{;}\)</span> as a manual line break.</li>
 </ul></li>
 </ul>
-<p>You can also write multiple expressions on the same line by using <span style="color:blue">;</span> as a manual line break.</p>
 </div>
 <div id="help-files-in-r" class="section level2">
 <h2>Help files in R</h2>
 <p>You can access the help file for any given function using the <strong>help function.</strong> You can call it a few different ways:</p>
 <ol style="list-style-type: decimal">
-<li>In the console, use <span style="color:blue"> <strong>help()</strong></span></li>
-<li>In the console, use <span style="color:blue"> <strong>?</strong></span> immediately followed by the name of the function (no space inbetween)</li>
+<li>In the console, use <span class="math inline">\(\color{blue} \textbf{help()}\)</span></li>
+<li>In the console, use <span style="color:blue"> <strong>?</strong></span>. immediately followed by the name of the function (no space inbetween)</li>
 <li>In the Help pane, search for the function in question.</li>
 </ol>
-<p><span style="color:blue"> <strong>?()</strong></span> is shorter, so that’s the most frequent method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Help on the lm (linear regression) function</span>
-?lm</code></pre></div>
+<p><span class="math inline">\(\color{blue} \textbf{?()}\)</span> is shorter, so that’s the most frequent method.</p>
+<pre class="r"><code># Help on the lm (linear regression) function
+?(lm)</code></pre>
 </div>
 <div id="setting-the-working-directory" class="section level2">
 <h2>Setting the working directory</h2>
-<p>To set the working directory, use the function <span style="color:blue"> <strong>setwd()</strong></span>. The argument for the function is simply the path to the working directory, in quotes.</p>
+<p>To set the working directory, use the function <span class="math inline">\(\color{blue} \textbf{setwd()}\)</span>. The argument for the function is simply the path to the working directory, in quotes.</p>
 <p>However: be sure that the slashes in the path are backslashes (<span class="math inline">\(\backslash\)</span>). For Windows, this is not the case if you copy the path from File Explorer.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set Working Directory</span>
-<span class="kw">setwd</span>(<span class="st">&quot;C:/Users/AN.4271/OneDrive - </span>
-<span class="st">      Handelshögskolan i Stockholm/MyProject&quot;</span>)</code></pre></div>
+<pre class="r"><code># Set Working Directory
+setwd(&quot;C:/Users/AN.4271/OneDrive - 
+      Handelshögskolan i Stockholm/MyProject&quot;)</code></pre>
 </div>
 <div id="comments" class="section level2">
 <h2>Comments</h2>
-<p>To create a comment in R, use a hash (<span style="color:blue"> <strong>#</strong></span>. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Here I add 2 + 2</span>
-<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>To create a comment in R, use a hash (<span class="math inline">\(\color{blue} \textbf{\#}\)</span>). For example:</p>
+<pre class="r"><code># Here I add 2 + 2
+2 + 2</code></pre>
 <pre><code>## [1] 4</code></pre>
 </div>
 </div>
@@ -530,48 +424,51 @@ Probably the most similar software choice to R at this point, with better genera
 <div id="math-operations-in-r" class="section level2">
 <h2>Math operations in R</h2>
 <p>Examples of basic mathematical operations in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Addition and Subtraction</span>
-<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre class="r"><code># Addition and Subtraction
+2 + 2</code></pre>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multiplication and Division</span>
-<span class="dv">2</span>*<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span>/<span class="dv">2</span></code></pre></div>
+<pre class="r"><code># Multiplication and Division
+2*2 + 2/2</code></pre>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Exponentiation and Logarithms</span>
-<span class="dv">2</span>^<span class="dv">2</span> +<span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>)</code></pre></div>
+<pre class="r"><code># Exponentiation and Logarithms
+2^2 + log(2)</code></pre>
 <pre><code>## [1] 4.693147</code></pre>
 </div>
 <div id="logical-operations-in-r" class="section level2">
 <h2>Logical operations in R</h2>
 <p>You can also evaluate logical expressions in R</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Less than
-<span class="dv">5</span> &lt;=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre class="r"><code>## Less than
+5 &lt;= 6</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Greater than or equal to
-<span class="dv">5</span> &gt;=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre class="r"><code>## Greater than or equal to
+5 &gt;= 6</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Equality
-<span class="dv">5</span> ==<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre class="r"><code>## Equality
+5 == 6</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Negatiion
-<span class="dv">5</span> !=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre class="r"><code>## Negatiion
+5 != 6</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>You can also use AND (<span style="color:blue"> <strong>&amp;</strong></span>) and OR (<span style="color:blue"> <strong>|</strong></span>) operation with logical expressions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Is 5 equal to 5 OR 5 is equal to 6
-(<span class="dv">5</span> ==<span class="st"> </span><span class="dv">5</span>) |<span class="st"> </span>(<span class="dv">5</span> ==<span class="st"> </span><span class="dv">6</span>)</code></pre></div>
+</div>
+<div id="logical-operations-in-r-ctd" class="section level2">
+<h2>Logical operations in R ctd</h2>
+<p>You can also use AND (<span class="math inline">\(\color{blue} \textbf{\&amp;}\)</span>) and OR (<span class="math inline">\(\color{blue} \textbf{\textbar}\)</span>) operation with logical expressions:</p>
+<pre class="r"><code>## Is 5 equal to 5 OR 5 is equal to 6
+(5 == 5) | (5 == 6)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 5 less 6 AND 6 &lt; 5
-(<span class="dv">5</span> &lt;<span class="st"> </span><span class="dv">6</span>) &amp;<span class="st"> </span>(<span class="dv">7</span> &lt;<span class="st"> </span><span class="dv">6</span>)</code></pre></div>
+<pre class="r"><code>## 5 less 6 AND 6 &lt; 5
+(5 &lt; 6) &amp; (7 &lt; 6)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 </div>
 <div id="defining-an-object" class="section level2">
 <h2>Defining an object</h2>
-<p>To define an object, use <span style="color:blue"><strong>&lt;-</strong></span>. For example</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assign 2 + 2 to the variable x</span>
-x &lt;-<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>To define an object, use <span class="math inline">\(\color{blue} \textbf{&lt;-}\)</span>. For example</p>
+<pre class="r"><code># Assign 2 + 2 to the variable x
+x &lt;- 2 + 2</code></pre>
 <p><strong>Note:</strong> In R, there is no distinction between defining and redefining an object (<em>a la</em> gen/replace in Stata).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># Define y</span>
-y &lt;-<span class="st"> </span>y^<span class="dv">2</span> <span class="co"># Redefine y</span>
-y <span class="co">#Print y </span></code></pre></div>
+<pre class="r"><code>y &lt;- 4 # Define y
+y &lt;- y^2 # Redefine y
+y #Print y </code></pre>
 <pre><code>## [1] 16</code></pre>
 </div>
 <div id="data-classes" class="section level2">
@@ -589,13 +486,13 @@ y <span class="co">#Print y </span></code></pre></div>
 </div>
 <div id="whats-the-object-class" class="section level2">
 <h2>What’s the object class?</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">2</span>; <span class="kw">class</span>(a)</code></pre></div>
+<pre class="r"><code>a &lt;- 2; class(a)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> &quot;2&quot;</span>; <span class="kw">class</span>(b)</code></pre></div>
+<pre class="r"><code>b &lt;- &quot;2&quot;; class(b)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c &lt;-<span class="st"> </span><span class="ot">TRUE</span>; <span class="kw">class</span>(c)</code></pre></div>
+<pre class="r"><code>c &lt;- TRUE; class(c)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> &quot;True&quot;</span>; <span class="kw">class</span>(d)</code></pre></div>
+<pre class="r"><code>d &lt;- &quot;True&quot;; class(d)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 </div>
@@ -612,45 +509,45 @@ y <span class="co">#Print y </span></code></pre></div>
 </div>
 <div id="creating-vectors" class="section level2">
 <h2>Creating vectors</h2>
-<p>To create a vector, use the function <span style="color:blue"><strong>c()</strong></span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create `days` vectors</span>
-days &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tues&quot;</span>,<span class="st">&quot;Wed&quot;</span>,
-           <span class="st">&quot;Thurs&quot;</span>, <span class="st">&quot;Fri&quot;</span>)
+<p>To create a vector, use the function <span class="math inline">\(\color{blue} \textbf{c()}\)</span>.</p>
+<pre class="r"><code># Create `days` vectors
+days &lt;- c(&quot;Mon&quot;,&quot;Tues&quot;,&quot;Wed&quot;,
+           &quot;Thurs&quot;, &quot;Fri&quot;)
 
-<span class="co"># Create `temps` vectors</span>
-temps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">13</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">20</span>,<span class="dv">21</span>)
-<span class="co"># Display `temps` vector</span>
-temps</code></pre></div>
+# Create `temps` vectors
+temps &lt;- c(13,18,17,20,21)
+# Display `temps` vector
+temps</code></pre>
 <pre><code>## [1] 13 18 17 20 21</code></pre>
 </div>
 <div id="naming-vectors" class="section level2">
 <h2>Naming vectors</h2>
-<p>You can name a vector by assigning a vector of names to <span style="color:blue"><strong>c()</strong></span>, where the vector to be named goes in the parentheses.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assign `days` as names for `temps` vector</span>
-<span class="kw">names</span>(temps) &lt;-<span class="st"> </span>days 
-<span class="co"># Display `temps` vector</span>
-temps</code></pre></div>
+<p>You can name a vector by assigning a vector of names to <span class="math inline">\(\color{blue} \textbf{c()}\)</span>, where the vector to be named goes in the parentheses.</p>
+<pre class="r"><code># Assign `days` as names for `temps` vector
+names(temps) &lt;- days 
+# Display `temps` vector
+temps</code></pre>
 <pre><code>##   Mon  Tues   Wed Thurs   Fri 
 ##    13    18    17    20    21</code></pre>
 </div>
 <div id="subsetting-vectors" class="section level2">
 <h2>Subsetting vectors</h2>
 <p>There are multiple ways of subsetting data in R. One of the easiest methods for vectors is to put the subset condition in brackets:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subset temps greater than or equal to 10</span>
-temps[temps&gt;=<span class="dv">18</span>]</code></pre></div>
+<pre class="r"><code># Subset temps greater than or equal to 10
+temps[temps&gt;=18]</code></pre>
 <pre><code>##  Tues Thurs   Fri 
 ##    18    20    21</code></pre>
 </div>
 <div id="operations-on-vectors" class="section level2">
 <h2>Operations on vectors</h2>
 <p>Operations on vectors are element-wise. So if 2 vectors are added together, each element of the <span class="math inline">\(2^{nd}\)</span> vector would be added to the corresponding element from the <span class="math inline">\(1^{st}\)</span> vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Temp vector for week 2</span>
-temps2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">16</span>)
-<span class="kw">names</span>(temps2) &lt;-<span class="st"> </span>days
-<span class="co"># Create average temperature by day</span>
-avg_temp &lt;-<span class="st"> </span>(temps +<span class="st"> </span>temps2) /<span class="st"> </span><span class="dv">2</span>
-<span class="co"># Display `avg_temp`</span>
-avg_temp</code></pre></div>
+<pre class="r"><code># Temp vector for week 2
+temps2 &lt;- c(8,10,10,15,16)
+names(temps2) &lt;- days
+# Create average temperature by day
+avg_temp &lt;- (temps + temps2) / 2
+# Display `avg_temp`
+avg_temp</code></pre>
 <pre><code>##   Mon  Tues   Wed Thurs   Fri 
 ##  10.5  14.0  13.5  17.5  18.5</code></pre>
 </div>
@@ -662,31 +559,37 @@ avg_temp</code></pre></div>
 <ul>
 <li>Usually, matrices are composed of numeric objects.</li>
 </ul></li>
-<li><p>To create a matrix, use the <span style="color:blue"><strong>matrix()</strong></span> command.</p></li>
+<li><p>To create a matrix, use the <span class="math inline">\(\color{blue} \textbf{matrix()}\)</span> command.</p></li>
 </ul>
-<p>The syntax of <span style="color:blue">** matrix() **</span> is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(x, <span class="dt">nrow=</span>a, <span class="dt">nrow=</span>b, <span class="dt">byrow=</span><span class="ot">FALSE</span>/<span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="matrices-ctd" class="section level2">
+<h2>Matrices ctd</h2>
+<p>The syntax of <span class="math inline">\(\color{blue} \textbf{matrix()}\)</span> is:</p>
+<pre class="r"><code>matrix(x, nrow=a, nrow=b, byrow=FALSE/TRUE)</code></pre>
 <p>-<em>x</em> is the data that will populate the matrix.</p>
 <p>-<em>nrow</em> and <em>ncol</em> specify the number of rows and columns, respectively.<br />
 Generally need to specify just 1 since the number of elements and a single condition will determine the other.</p>
-<p>-<em>byrow</em> specifies whether to fill in the elements by row or column. The default is <span style="color:blue"><strong>byrow=FALSE</strong></span>, ie the data is filled in by column.</p>
+<p>-<em>byrow</em> specifies whether to fill in the elements by row or column. The default is <span class="math inline">\(\color{blue} \textbf{byrow=FALSE}\)</span>, ie the data is filled in by column.</p>
 </div>
 <div id="creating-a-matrix-from-scratch" class="section level2">
 <h2>Creating a matrix from scratch</h2>
 <p>A simple example of creating a matrix would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre class="r"><code>matrix(1:6, nrow=2, ncol=3, byrow=FALSE)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
 <p>Note the difference in appearance if we instead <strong>byrow=TRUE</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre class="r"><code>matrix(1:6, nrow=2, ncol=3, byrow=TRUE)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<p>Using the same <span style="color:blue"><strong>c()</strong></span> function as in the creation of a vector, we can specify the values of a matrix:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">13</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">20</span>,<span class="dv">21</span>,
-         <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">16</span>), 
-         <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="creating-a-matrix-from-scratch-ctd" class="section level2">
+<h2>Creating a matrix from scratch ctd</h2>
+<p>Using the same <strong>c()</strong> function as in the creation of a vector, we can specify the values of a matrix:</p>
+<pre class="r"><code>matrix(c(13,18,17,20,21,
+         8,10,10,15,16), 
+         nrow=2, byrow=TRUE)</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]   13   18   17   20   21
 ## [2,]    8   10   10   15   16</code></pre>
@@ -699,11 +602,11 @@ code over multiple lines without any extra line break syntax.</li>
 <div id="creating-a-matrix-from-vectors" class="section level2">
 <h2>Creating a matrix from vectors</h2>
 <p>Instead of entering in the matrix data yourself, you may want to make a matrix from existing data vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create temps matrix</span>
-temps.matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(temps,temps2), <span class="dt">nrow=</span><span class="dv">2</span>, 
-                        <span class="dt">ncol=</span><span class="dv">5</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
-<span class="co"># Display matrix</span>
-temps.matrix</code></pre></div>
+<pre class="r"><code># Create temps matrix
+temps.matrix &lt;- matrix(c(temps,temps2), nrow=2, 
+                        ncol=5, byrow=TRUE)
+# Display matrix
+temps.matrix</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]   13   18   17   20   21
 ## [2,]    8   10   10   15   16</code></pre>
@@ -711,32 +614,32 @@ temps.matrix</code></pre></div>
 <div id="naming-rows-and-columns" class="section level2">
 <h2>Naming rows and columns</h2>
 <p>-Naming rows and columns of a matrix is pretty similar to naming vectors.</p>
-<p>-Only here, instead of using <span style="color:blue"><strong>names()</strong></span>, we use <span style="color:blue"><strong>rownames()</strong></span> and <span style="color:blue"><strong>colnames()</strong></span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create temps matrix</span>
-<span class="kw">rownames</span>(temps.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Week1&quot;</span>, <span class="st">&quot;week2&quot;</span>)
-<span class="kw">colnames</span>(temps.matrix) &lt;-<span class="st"> </span>days
-<span class="co"># Display matrix</span>
-temps.matrix</code></pre></div>
+<p>-Only here, instead of using <span class="math inline">\(\color{blue} \textbf{names()}\)</span>, we use <span class="math inline">\(\color{blue} \textbf{rownames()}\)</span> and <span class="math inline">\(\color{blue} \textbf{colnames()}\)</span></p>
+<pre class="r"><code># Create temps matrix
+rownames(temps.matrix) &lt;- c(&quot;Week1&quot;, &quot;week2&quot;)
+colnames(temps.matrix) &lt;- days
+# Display matrix
+temps.matrix</code></pre>
 <pre><code>##       Mon Tues Wed Thurs Fri
 ## Week1  13   18  17    20  21
 ## week2   8   10  10    15  16</code></pre>
 </div>
 <div id="matrix-operations" class="section level2">
 <h2>Matrix operations</h2>
-<p>In R, matrix multiplication is denoted by <span style="color:blue"><strong>%<em>%<strong></span>, as in <span style="color:blue"></strong> A %</em>% B </strong></span></p>
-<p><span style="color:blue"><strong>A * B</strong></span> instead performs <em>element-wise</em> (Hadamard) multiplication of matrices, so that <span style="color:blue"><strong>A * B</strong></span> has the entries <span class="math inline">\(a_1,b_1\)</span>, <span class="math inline">\(a_2 b_2\)</span> etc.</p>
+<p>In R, matrix multiplication is denoted by <span class="math inline">\(\color{blue} \%{*}\%\)</span>, as in <span class="math inline">\(\color{blue} A \ \%{*}\% \ B\)</span></p>
+<p><span class="math inline">\(\color{blue} A * B\)</span> instead performs <em>element-wise</em> (Hadamard) multiplication of matrices, so that <span class="math inline">\(\color{blue} A * B\)</span> has the entries <span class="math inline">\(a_1,b_1\)</span>, <span class="math inline">\(a_2 b_2\)</span> etc.</p>
 <ul>
-<li>An important thing to be aware of with R’s <span style="color:blue"><strong>A * B</strong></span> notation, however, is that if either of the terms is a 2D vector, the terms of this vector will be distributed elementwise to each colomn of the matrix.</li>
+<li>An important thing to be aware of with R’s <span class="math inline">\(\color{blue} A * B\)</span> notation, however, is that if either of the terms is a 2D vector, the terms of this vector will be distributed elementwise to each colomn of the matrix.</li>
 </ul>
 </div>
 <div id="elementwise-operations-with-a-vector-and-matrix" class="section level2">
 <h2>Elementwise operations with a vector and Matrix</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecA; matB</code></pre></div>
+<pre class="r"><code>vecA; matB</code></pre>
 <pre><code>## [1] 1 2</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecA *<span class="st"> </span>matB</code></pre></div>
+<pre class="r"><code>vecA * matB</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    8   10   12</code></pre>
@@ -751,16 +654,17 @@ temps.matrix</code></pre></div>
 <li><p>But you can also easily create your own data frames.</p></li>
 <li><p>This might be as simple as converting a matrix to a data frame:</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(matB)
-mydf</code></pre></div>
+<pre class="r"><code>mydf &lt;- as.data.frame(matB)
+mydf</code></pre>
 <pre><code>##   V1 V2 V3
 ## 1  1  2  3
 ## 2  4  5  6</code></pre>
-<ul>
-<li>Another way of creating a data frame is to combine other vectors or matrices (of the same length) together.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(vecA,matB)
-mydf</code></pre></div>
+</div>
+<div id="creating-a-data-frame-ctd" class="section level2">
+<h2>Creating a data frame ctd</h2>
+<p>Another way of creating a data frame is to combine other vectors or matrices (of the same length) together.</p>
+<pre class="r"><code>mydf &lt;- data.frame(vecA,matB)
+mydf</code></pre>
 <pre><code>##   vecA X1 X2 X3
 ## 1    1  1  2  3
 ## 2    2  4  5  6</code></pre>
@@ -772,12 +676,12 @@ mydf</code></pre></div>
 </div>
 <div id="example-of-adding-a-new-column-to-a-data-frame" class="section level2">
 <h2>Example of adding a new column to a data frame</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages <span class="co"># View wages data frame</span></code></pre></div>
+<pre class="r"><code>wages # View wages data frame</code></pre>
 <pre><code>##        wage schooling    sex exper
 ## 1 134.23058        13 female     8
 ## 2 249.67744        13 female    11
 ## 3  53.56478        10 female    11</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages$expersq &lt;-<span class="st"> </span>wages$exper^<span class="dv">2</span>; wages  <span class="co"># Add expersq</span></code></pre></div>
+<pre class="r"><code>wages$expersq &lt;- wages$exper^2; wages  # Add expersq</code></pre>
 <pre><code>##        wage schooling    sex exper expersq
 ## 1 134.23058        13 female     8      64
 ## 2 249.67744        13 female    11     121
@@ -787,10 +691,10 @@ mydf</code></pre></div>
 <h2>Viewing the structure of a data frame</h2>
 <p>Like viewing the class of a homogenous data object, it’s often helpful to view the structure of data frames (or other 2D objects).</p>
 <ul>
-<li>You can easily do this using the <span style="color:blue">** str() **</span> function.</li>
+<li>You can easily do this using the <span class="math inline">\(\color{blue} str()\)</span> function.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View the structure of the wages data frame</span>
-<span class="kw">str</span>(wages)</code></pre></div>
+<pre class="r"><code># View the structure of the wages data frame
+str(wages)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    3 obs. of  5 variables:
 ##  $ wage     : num  134.2 249.7 53.6
 ##  $ schooling: int  13 13 10
@@ -804,30 +708,32 @@ mydf</code></pre></div>
 <ul>
 <li><p>Common commands can help you with this when the data is formatted suitably:</p>
 <ul>
-<li><p><span style="color:blue"><strong>as.numeric()</strong></span> will take data that “looks like numbers” but are formatted as characters/factors and change their formatting to numeric.</p></li>
-<li><p><span style="color:blue"><strong>as.character()</strong></span> will take data formatted as numbers/factors and change their class to character.</p></li>
-<li><p><span style="color:blue"><strong>as.factor()</strong></span> will reformat data as factors, taking by default the unique values of each column as the possible factor levels.</p></li>
+<li><p><span class="math inline">\(\color{blue} as.numeric()\)</span> will take data that “looks like numbers” but are formatted as characters/factors and change their formatting to numeric.</p></li>
+<li><p><span class="math inline">\(\color{blue} as.character()\)</span> will take data formatted as numbers/factors and change their class to character.</p></li>
+<li><p><span class="math inline">\(\color{blue} as.factor()\)</span> will reformat data as factors, taking by default the unique values of each column as the possible factor levels.</p></li>
 </ul></li>
 </ul>
 </div>
 <div id="more-about-factors" class="section level2">
 <h2>More about factors</h2>
-<p>Although <span style="color:blue"><strong>as.factor()</strong></span> will suggest factors from the data, you may want more control over how factors are specified.</p>
-<p>With the <span style="color:blue"><strong>factor()</strong></span> function, you supply the possible values of the factor and you can also specify ordering of factor values if your data is ordinal.</p>
+<p>Although <span class="math inline">\(\color{blue} as.factor()\)</span> will suggest factors from the data, you may want more control over how factors are specified.</p>
+<p>With the <span class="math inline">\(\color{blue} factor()\)</span> function, you supply the possible values of the factor and you can also specify ordering of factor values if your data is ordinal.</p>
 </div>
 <div id="example-of-creating-ordered-factors" class="section level2">
 <h2>Example of creating ordered Factors</h2>
 <p>A dataset on number of extramarital affairs from Fair (Econometrica 1977) has the following variables: number of affairs, years married, presence of children, and a self-rated (Likert scale) 1-5 measure of marital happiness.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(affairs) <span class="co"># view structure</span></code></pre></div>
+<pre class="r"><code>str(affairs) # view structure</code></pre>
 <pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
 ##  $ affairs: num  0 0 1
 ##  $ yrsmarr: num  15 1.5 7
 ##  $ child  : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 1 2
 ##  $ mrating: int  1 5 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Format mrating as ordered factor
-affairs$mrating &lt;-<span class="kw">factor</span>(affairs$mrating, 
-   <span class="dt">levels=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dt">ordered=</span><span class="ot">TRUE</span>)
-<span class="kw">str</span>(affairs)</code></pre></div>
+</div>
+<div id="example-of-creating-ordered-factors-ctd" class="section level2">
+<h2>Example of creating ordered factors ctd</h2>
+<pre class="r"><code>affairs$mrating &lt;-factor(affairs$mrating, 
+   levels=c(1,2,3,4,5), ordered=TRUE)
+str(affairs)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
 ##  $ affairs: num  0 0 1
 ##  $ yrsmarr: num  15 1.5 7
@@ -835,8 +741,8 @@ affairs$mrating &lt;-<span class="kw">factor</span>(affairs$mrating,
 ##  $ mrating: Ord.factor w/ 5 levels &quot;1&quot;&lt;&quot;2&quot;&lt;&quot;3&quot;&lt;&quot;4&quot;&lt;..: 1 5 3</code></pre>
 <p>Note that the marital rating (<em>mrating</em>) initially was stored as an integer, which is incorrect. Using factors preserves the ordering while not asserting a numerical relationship between values.</p>
 </div>
-<div id="selections-and-subsets-in-data-frames" class="section level2">
-<h2>Selections and subsets in data frames</h2>
+<div id="subsets-and-selections-in-data-frames" class="section level2">
+<h2>Subsets and selections in data frames</h2>
 <p>Similar to subsetting a vector, matrices &amp; data frames can also be subsetted for both rows and columns by placing the selection arguments in brackets after the name of the data object:</p>
 
 <p>Arguments can be:</p>
@@ -848,8 +754,8 @@ affairs$mrating &lt;-<span class="kw">factor</span>(affairs$mrating,
 </div>
 <div id="example-of-subsetting-a-data-frame" class="section level2">
 <h2>Example of subsetting a data frame</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subset of wages df with schooling &gt; 10, exper &gt; 10</span>
-wages[(wages$schooling &gt;<span class="st"> </span><span class="dv">10</span>) &amp;<span class="st"> </span>(wages$exper &gt;<span class="st"> </span><span class="dv">10</span>),]</code></pre></div>
+<pre class="r"><code># Subset of wages df with schooling &gt; 10, exper &gt; 10
+wages[(wages$schooling &gt; 10) &amp; (wages$exper &gt; 10),]</code></pre>
 <pre><code>##       wage schooling    sex exper expersq
 ## 2 249.6774        13 female    11     121</code></pre>
 <p><strong>Notice</strong> that the column argument was left empty, so all columns are returned by default.</p>
@@ -858,8 +764,6 @@ wages[(wages$schooling &gt;<span class="st"> </span><span class="dv">10</span>) 
 
 
 
-</div>
-</div>
 
 </div>
 

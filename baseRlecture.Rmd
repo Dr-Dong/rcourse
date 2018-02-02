@@ -50,7 +50,7 @@ No homework etc - goal is for everything to be doable in the seminars.
 
 Course content and helpful resources on the course website:
 
-- andrewproctor.github.io
+- andrewproctor.github.io/rminicourse/
 
 
 # R & Statistical Programming 
@@ -169,12 +169,13 @@ Unlike Stata, with R you don't need any special code to write multiline code -
 it's already the default (functions are written with parentheses, so its clear
 when the line actually ends.)
 
-- So there's no excuse for really long lines.  Accepted style suggests use a 
+- So there's no excuse for really long lines.  Accepted style suggests using a 
 80-character limit for your lines.
 
 - RStudio has the option to show a guideline for margins.  **Use it!**
     + Go to **Tools -> Global Options -> Code -> Display**, then select
     **Show Margin** and enter 80 characters.
+    
 You can also write multiple expressions on the same line by using 
 $\color{blue} \textbf{;}$ as a manual line break.
 
@@ -184,7 +185,8 @@ You can access the help file for any given function using the **help function.**
 You can call it a few different ways:
 
 1.  In the console, use $\color{blue} \textbf{help()}$
-2.  In the console, use $\color{blue} \textbf{?()}$.
+2.  In the console, use $\color{blue} \textbf{?}$
+immediately followed by the name of the function (no space inbetween)
 3.  In the Help pane, search for the function in question.
 
 $\color{blue} \textbf{?()}$ is shorter, so that's the most frequent method.  

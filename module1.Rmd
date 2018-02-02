@@ -16,21 +16,26 @@ output:
 
 
 ```
+
+<a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
+
+<br>
+
 # Intro
 
 ## Learning Outcomes
 
 How to:
 
-- Import and transform using standard R functions
+1. Import and transform using standard R functions
 
-- Extend R functionality through packages and user-written programming
+2. Extend R functionality through packages and user-written programming
 
-- Create compelling presentations for data analysis projects
+3. Create compelling presentations for data analysis projects
 
-- Peform basic econometric analysis in R
+4. Peform basic econometric analysis in R
 
-- Learn basics of Bayesian methods in R
+5. Understanding and perform basic Bayesian analysis in R
 
 ## Format
 
@@ -158,7 +163,7 @@ Unlike Stata, with R you don't need any special code to write multiline code -
 it's already the default (functions are written with parentheses, so its clear
 when the line actually ends.)
 
-- So there's no excuse for really long lines.  Accepted style suggests use a 
+- So there's no excuse for really long lines.  Accepted style suggests using a 
 80-character limit for your lines.
 
 - RStudio has the option to show a guideline for margins.  **Use it!**
@@ -174,14 +179,15 @@ You can access the help file for any given function using the **help function.**
 You can call it a few different ways:
 
 1.  In the console, use <span style="color:blue"> **help()**</span>
-2.  In the console, use <span style="color:blue"> **?()**</span>.
+2.  In the console, use <span style="color:blue"> **?**</span> 
+immediately followed by the name of the function (no space inbetween)
 3.  In the Help pane, search for the function in question.
 
 <span style="color:blue"> **?()**</span> is shorter, so that's the most frequent method.  
 
 ```{r help, eval=FALSE}
 # Help on the lm (linear regression) function
-?(lm)
+?lm
 ```
 
 

@@ -55,7 +55,7 @@ and data object types, especially vectors, matrices, and data frames.
 <br>
 
 
-### **Module 2:**  Data Manipulation Using the Tidyverse (Feb 5^th^ and $6^th^)
+### **Module 2:**  Data Manipulation Using the Tidyverse (Feb 5^th^ and 6^th^)
 
 This module introduces a series of tools for data manipulation/preparation 
 collectively known as the "Tidyverse."  Specifically, this module covers how to 

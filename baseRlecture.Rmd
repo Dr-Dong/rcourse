@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R"
-subtitle: "Lecture 1: Basic Environment"
+subtitle: "Module 2: Data Preparation using the Tidyverse"
 author: "Andrew Proctor" 
 institute: "andrew.proctor@phdstudent.hhs.se"
 date: "February 1, 2018"

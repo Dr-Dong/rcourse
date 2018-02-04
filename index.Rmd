@@ -39,7 +39,7 @@ so that you can familiarize yourself with the material ahead of time if you like
 
 ## Course Content
 
-### Module 1:  Introduction to Base R Environment
+### Module 1:  Introduction to Base R Environment (Feb 1^st^ and 2^nd^)
 
 This module introduces the R programming language and the RStudio software.  R 
 programming topics will include coverage of basic operations
@@ -53,7 +53,7 @@ and data object types, especially vectors, matrices, and data frames.
 <br>
 
 
-### Module 2:  Data Manipulation Using the Tidyverse
+### Module 2:  Data Manipulation Using the Tidyverse (Feb 5^th^ and $6^th^)
 
 This module introduces a series of tools for data manipulation/preparation 
 collectively known as the "Tidyverse."  Specifically, this module covers how to 
@@ -67,7 +67,7 @@ learn convenient tools to import and export data.
   <br>
 
 
-### Module 3:  Loops, Conditionals, and Joins
+### Module 3:  Loops, Conditionals, and Joins (Feb 13^th^ and 14^th^)
 
 This module introduces more advanced programming techniques to adapt R 
 functionality to your own specific problems.  Contents include how to
@@ -82,7 +82,7 @@ Tidyverse functions.
 <br>
 
 
-### Module 4:  Data Presentation:  RMarkdown and ggplot2
+### Module 4:  Data Presentation:  RMarkdown and ggplot2 (Feb 15^th^ and 16^th^)
 
 This module provides an overview of how to present your data in a professional and 
 visually appealing manner using R.  The first emphasis will be using Knitr and
@@ -97,7 +97,7 @@ introduced as a means to create to create compelling graphs and figures in R.
 <br>
 
 
-### Module 5: Regression Modelling in R
+### Module 5: Regression Modelling in R (Feb 22^nd^ and 23^rd^)
 
 In this module, standard methods of regression analysis in R are presented, in 
 addition to coverage of common diagnostics and post-estimation procedures,
@@ -109,7 +109,7 @@ addition to coverage of common diagnostics and post-estimation procedures,
  <br>
  
 
-### Module 6:  Capstone Project
+### Module 6:  Capstone Project (Feb 28^st^ and March 1^st^)
 
 In this module, you will use the skills developed over the preceding seminars to
 perform an analysis of an empirical problem in R from start to finish.
@@ -119,7 +119,7 @@ perform an analysis of an empirical problem in R from start to finish.
 <br>
 
 
-### Module 7:  Intro to Bayesian Methods in R
+### Module 7:  Intro to Bayesian Methods in R (March 1^st^)
 
 This module introduces the basic intuition of Bayesian statistical methods and how
 to perform Bayesian analysis in R, primarily using the rstanarm package.

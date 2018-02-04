@@ -391,7 +391,7 @@ div.tocify {
 </div>
 
 
-<p><a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a></p>
+<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/baseRlecture.pdf" role="button">PDF Slides</a> <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a></p>
 <p><br></p>
 <div id="intro" class="section level1">
 <h1>Intro</h1>
@@ -475,7 +475,7 @@ Probably the most similar software choice to R at this point, with better genera
 <h2>RStudio GUI</h2>
 <p>RStudio is an is an integrated development environment (IDE).</p>
 <p>This means that in addition to a script editor, it also let’s you view your environments, data objects, plots, help files, etc directly within the application.</p>
-<p></p>
+
 </div>
 <div id="executing-code-from-the-script" class="section level2">
 <h2>Executing code from the script</h2>
@@ -521,7 +521,7 @@ Probably the most similar software choice to R at this point, with better genera
 <h2>Comments</h2>
 <p>To create a comment in R, use a hash (<span style="color:blue"> <strong>#</strong></span>. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Here I add 2 + 2</span>
-<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </div>
 </div>
@@ -531,46 +531,46 @@ Probably the most similar software choice to R at this point, with better genera
 <h2>Math operations in R</h2>
 <p>Examples of basic mathematical operations in R:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Addition and Subtraction</span>
-<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multiplication and Division</span>
-<span class="dv">2</span>*<span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span>/<span class="dv">2</span></code></pre></div>
+<span class="dv">2</span><span class="op">*</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Exponentiation and Logarithms</span>
-<span class="dv">2</span>^<span class="dv">2</span> +<span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>)</code></pre></div>
+<span class="dv">2</span><span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 4.693147</code></pre>
 </div>
 <div id="logical-operations-in-r" class="section level2">
 <h2>Logical operations in R</h2>
 <p>You can also evaluate logical expressions in R</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Less than
-<span class="dv">5</span> &lt;=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<span class="dv">5</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Greater than or equal to
-<span class="dv">5</span> &gt;=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<span class="dv">5</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Equality
-<span class="dv">5</span> ==<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Negatiion
-<span class="dv">5</span> !=<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<span class="dv">5</span> <span class="op">!=</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also use AND (<span style="color:blue"> <strong>&amp;</strong></span>) and OR (<span style="color:blue"> <strong>|</strong></span>) operation with logical expressions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Is 5 equal to 5 OR 5 is equal to 6
-(<span class="dv">5</span> ==<span class="st"> </span><span class="dv">5</span>) |<span class="st"> </span>(<span class="dv">5</span> ==<span class="st"> </span><span class="dv">6</span>)</code></pre></div>
+(<span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">5</span>) <span class="op">|</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">6</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 5 less 6 AND 6 &lt; 5
-(<span class="dv">5</span> &lt;<span class="st"> </span><span class="dv">6</span>) &amp;<span class="st"> </span>(<span class="dv">7</span> &lt;<span class="st"> </span><span class="dv">6</span>)</code></pre></div>
+(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">7</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 </div>
 <div id="defining-an-object" class="section level2">
 <h2>Defining an object</h2>
 <p>To define an object, use <span style="color:blue"><strong>&lt;-</strong></span>. For example</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assign 2 + 2 to the variable x</span>
-x &lt;-<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+x &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <p><strong>Note:</strong> In R, there is no distinction between defining and redefining an object (<em>a la</em> gen/replace in Stata).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># Define y</span>
-y &lt;-<span class="st"> </span>y^<span class="dv">2</span> <span class="co"># Redefine y</span>
+y &lt;-<span class="st"> </span>y<span class="op">^</span><span class="dv">2</span> <span class="co"># Redefine y</span>
 y <span class="co">#Print y </span></code></pre></div>
 <pre><code>## [1] 16</code></pre>
 </div>
@@ -637,7 +637,7 @@ temps</code></pre></div>
 <h2>Subsetting vectors</h2>
 <p>There are multiple ways of subsetting data in R. One of the easiest methods for vectors is to put the subset condition in brackets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subset temps greater than or equal to 10</span>
-temps[temps&gt;=<span class="dv">18</span>]</code></pre></div>
+temps[temps<span class="op">&gt;=</span><span class="dv">18</span>]</code></pre></div>
 <pre><code>##  Tues Thurs   Fri 
 ##    18    20    21</code></pre>
 </div>
@@ -648,7 +648,7 @@ temps[temps&gt;=<span class="dv">18</span>]</code></pre></div>
 temps2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">16</span>)
 <span class="kw">names</span>(temps2) &lt;-<span class="st"> </span>days
 <span class="co"># Create average temperature by day</span>
-avg_temp &lt;-<span class="st"> </span>(temps +<span class="st"> </span>temps2) /<span class="st"> </span><span class="dv">2</span>
+avg_temp &lt;-<span class="st"> </span>(temps <span class="op">+</span><span class="st"> </span>temps2) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
 <span class="co"># Display `avg_temp`</span>
 avg_temp</code></pre></div>
 <pre><code>##   Mon  Tues   Wed Thurs   Fri 
@@ -665,7 +665,7 @@ avg_temp</code></pre></div>
 <li><p>To create a matrix, use the <span style="color:blue"><strong>matrix()</strong></span> command.</p></li>
 </ul>
 <p>The syntax of <span style="color:blue">** matrix() **</span> is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(x, <span class="dt">nrow=</span>a, <span class="dt">nrow=</span>b, <span class="dt">byrow=</span><span class="ot">FALSE</span>/<span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(x, <span class="dt">nrow=</span>a, <span class="dt">ncol=</span>b, <span class="dt">byrow=</span><span class="ot">FALSE</span><span class="op">/</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>-<em>x</em> is the data that will populate the matrix.</p>
 <p>-<em>nrow</em> and <em>ncol</em> specify the number of rows and columns, respectively.<br />
 Generally need to specify just 1 since the number of elements and a single condition will determine the other.</p>
@@ -674,12 +674,12 @@ Generally need to specify just 1 since the number of elements and a single condi
 <div id="creating-a-matrix-from-scratch" class="section level2">
 <h2>Creating a matrix from scratch</h2>
 <p>A simple example of creating a matrix would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
 <p>Note the difference in appearance if we instead <strong>byrow=TRUE</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
@@ -724,7 +724,7 @@ temps.matrix</code></pre></div>
 <div id="matrix-operations" class="section level2">
 <h2>Matrix operations</h2>
 <p>In R, matrix multiplication is denoted by <span style="color:blue"><strong>%<em>%<strong></span>, as in <span style="color:blue"></strong> A %</em>% B </strong></span></p>
-<p><span style="color:blue"><strong>A * B</strong></span> instead performs <em>element-wise</em> (Hadamard) multiplication of matrices, so that <span style="color:blue"><strong>A * B</strong></span> has the entries <span class="math inline">\(a_1,b_1\)</span>, <span class="math inline">\(a_2 b_2\)</span> etc.</p>
+<p><span style="color:blue"><strong>A * B</strong></span> instead performs <em>element-wise</em> (Hadamard) multiplication of matrices, so that <span style="color:blue"><strong>A * B</strong></span> has the entries <span class="math inline">\(a_1 b_1\)</span>, <span class="math inline">\(a_2 b_2\)</span> etc.</p>
 <ul>
 <li>An important thing to be aware of with R’s <span style="color:blue"><strong>A * B</strong></span> notation, however, is that if either of the terms is a 2D vector, the terms of this vector will be distributed elementwise to each colomn of the matrix.</li>
 </ul>
@@ -736,7 +736,7 @@ temps.matrix</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    4    5    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecA *<span class="st"> </span>matB</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecA <span class="op">*</span><span class="st"> </span>matB</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    8   10   12</code></pre>
@@ -777,7 +777,7 @@ mydf</code></pre></div>
 ## 1 134.23058        13 female     8
 ## 2 249.67744        13 female    11
 ## 3  53.56478        10 female    11</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages$expersq &lt;-<span class="st"> </span>wages$exper^<span class="dv">2</span>; wages  <span class="co"># Add expersq</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages<span class="op">$</span>expersq &lt;-<span class="st"> </span>wages<span class="op">$</span>exper<span class="op">^</span><span class="dv">2</span>; wages  <span class="co"># Add expersq</span></code></pre></div>
 <pre><code>##        wage schooling    sex exper expersq
 ## 1 134.23058        13 female     8      64
 ## 2 249.67744        13 female    11     121
@@ -816,7 +816,7 @@ mydf</code></pre></div>
 <p>With the <span style="color:blue"><strong>factor()</strong></span> function, you supply the possible values of the factor and you can also specify ordering of factor values if your data is ordinal.</p>
 </div>
 <div id="example-of-creating-ordered-factors" class="section level2">
-<h2>Example of creating ordered Factors</h2>
+<h2>Example of creating ordered factors</h2>
 <p>A dataset on number of extramarital affairs from Fair (Econometrica 1977) has the following variables: number of affairs, years married, presence of children, and a self-rated (Likert scale) 1-5 measure of marital happiness.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(affairs) <span class="co"># view structure</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
@@ -825,7 +825,7 @@ mydf</code></pre></div>
 ##  $ child  : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 1 2
 ##  $ mrating: int  1 5 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Format mrating as ordered factor
-affairs$mrating &lt;-<span class="kw">factor</span>(affairs$mrating, 
+affairs<span class="op">$</span>mrating &lt;-<span class="kw">factor</span>(affairs<span class="op">$</span>mrating, 
    <span class="dt">levels=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dt">ordered=</span><span class="ot">TRUE</span>)
 <span class="kw">str</span>(affairs)</code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
@@ -849,7 +849,7 @@ affairs$mrating &lt;-<span class="kw">factor</span>(affairs$mrating,
 <div id="example-of-subsetting-a-data-frame" class="section level2">
 <h2>Example of subsetting a data frame</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subset of wages df with schooling &gt; 10, exper &gt; 10</span>
-wages[(wages$schooling &gt;<span class="st"> </span><span class="dv">10</span>) &amp;<span class="st"> </span>(wages$exper &gt;<span class="st"> </span><span class="dv">10</span>),]</code></pre></div>
+wages[(wages<span class="op">$</span>schooling <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">&amp;</span><span class="st"> </span>(wages<span class="op">$</span>exper <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>),]</code></pre></div>
 <pre><code>##       wage schooling    sex exper expersq
 ## 2 249.6774        13 female    11     121</code></pre>
 <p><strong>Notice</strong> that the column argument was left empty, so all columns are returned by default.</p>

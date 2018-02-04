@@ -17,6 +17,7 @@ output:
 
 ```
 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/baseRlecture.pdf" role="button">PDF Slides</a>
 <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
 
 <br>
@@ -376,7 +377,7 @@ vectors).
 
 The syntax of <span style="color:blue">** matrix() **</span> is:
 ```{r matrixsynatx, eval=FALSE}
-matrix(x, nrow=a, nrow=b, byrow=FALSE/TRUE)
+matrix(x, nrow=a, ncol=b, byrow=FALSE/TRUE)
 ```
 -*x* is the data that will populate the matrix.
 
@@ -444,7 +445,7 @@ In R, matrix multiplication is denoted by <span style="color:blue">**%*%**</span
 <span style="color:blue">** A %*% B **</span>
 
 <span style="color:blue">**A * B**</span> instead performs *element-wise* (Hadamard) multiplication 
-of matrices, so that <span style="color:blue">**A * B**</span> has the entries $a_1,b_1$, $a_2 b_2$ etc.
+of matrices, so that <span style="color:blue">**A * B**</span> has the entries $a_1 b_1$, $a_2 b_2$ etc.
 
 - An important thing to be aware of with R's <span style="color:blue">**A * B**</span> notation, 
 however, is that if either of the terms is a 2D vector, the terms of this 
@@ -546,7 +547,7 @@ With the <span style="color:blue">**factor()**</span>  function, you supply
 the possible values of the factor and you can also specify ordering of factor 
 values if your data is ordinal.
 
-## Example of creating ordered Factors
+## Example of creating ordered factors
 A dataset  on number of extramarital affairs from Fair (Econometrica 1977) has 
 the following variables:  number of affairs, years married,
 presence of children, and a self-rated (Likert scale) 1-5 measure of marital

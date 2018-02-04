@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R"
-subtitle: "Lecture 1: Basic Environment"
+subtitle: "Module 1: Basic Environment"
 author: "Andrew Proctor" 
 institute: "andrew.proctor@phdstudent.hhs.se"
 date: "February 1, 2018"

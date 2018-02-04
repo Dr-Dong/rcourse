@@ -1,8 +1,6 @@
 ---
 title: "Introduction to R"
 subtitle: "Module 1: Basic Environment"
-author: "Andrew Proctor" 
-institute: "andrew.proctor@phdstudent.hhs.se"
 date: "February 1, 2018"
 output: 
   html_document:

@@ -21,9 +21,8 @@ navbar:
                 href: 
               - text: "M7: Bayesian Methods"
                 href: 
-    - text: "Useful Links"
+    - text: "Learning Resources"
       menu:
-              - text: "Learning Resources"
               - text: "DataCamp"  
                 href: https://www.datacamp.com/
               - text: "RStudio Cheat Sheets"  
@@ -36,22 +35,32 @@ navbar:
                 href: https://www.r-bloggers.com/
               - text: "R for Data Science Online Book"  
                 href: http://r4ds.had.co.nz/
-              - text: "---------"
-              - text: "Downloads"
+    - text: "Downloads"
+      menu:
+              - text: Basic R Software
               - text: "R"
                 href: https://cran.r-project.org/
               - text: "RStudio"
                 href: https://www.rstudio.com/
-              - text: "MiKTex"
+              - text: "---------"
+              - text: "Latex"
+              - text: "MiKTex (Windows)"
                 href: https://miktex.org/download                
+              - text: "MacTex (Mac)"
+                href: http://www.tug.org/mactex/mactex-download.html
+              - text: "Sumatra PDF (Windows)"
+                href: https://www.sumatrapdfreader.org/free-pdf-reader.html   
+              - text: "Skim PDF (Mac)"
+                href: https://skim-app.sourceforge.io/  
+              - text: "---------"
+              - text: "Version Control"
               - text: "Git"
                 href: https://git-scm.com/downloads
               - text: "GitHub (account only)"
                 href: https://github.com/         
-              - text: "Sumatra PDF"
-                href: https://www.sumatrapdfreader.org/free-pdf-reader.html   
               - text: "---------"
-              - text: "Code"
+    - text: "Code"
+      menu:
               - text: "Course on Github"
                 href: https://github.com/andrewproctor/rminicourse
 

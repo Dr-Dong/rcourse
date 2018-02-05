@@ -17,6 +17,7 @@ library(tidyverse)
 
 ```
 
+<a class="btn btn-primary" href="module2-dataprep.pdf" role="button">Slides</a>
 
 <br>
 

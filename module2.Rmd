@@ -1,0 +1,664 @@
+---
+title: "Introduction to R"
+subtitle: "Module 2: Data Preparation using the Tidyverse"
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "February 5, 2018"
+output: 
+  html_document:
+      theme: flatly
+      highlight: haddock
+      toc: true
+      toc_float: true
+
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+```
+
+
+<br>
+
+# Intro
+
+## Goals for Today
+
+1. Learn how to use packages in R
+2. Learn how to import and export data.
+3. Learn how to perform common data prep functions from the tidyverse 
+collection of packages.
+4. Learn how to clean and "tidy" data.
+
+# Packages in R
+
+## Role of Packages in R
+
+- Packages in R are similar to user-written commands (think *ssc install*) in Stata.
+
+- But *most* things you do in Stata probably use core Stata commands.
+
+- In R, most of your analysis will probably be done using packages.
+
+\includegraphics[scale=0.4]{cran.png}
+
+## Installing and using a package
+
+- To install a package, use the function (preferably in the console) [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/install.packages)
+
+
+
+- To begin with, let's install 2 packages:
+    + [tidyverse](https://www.rdocumentation.org/packages/tidyverse):  the
+    umbrella package for common data preparation and visualization in R.
+    + [rio](https://www.rdocumentation.org/packages/rio):  a package for easy
+    data import, export (saving), and conversion.
+
+```{r , eval=FALSE}
+install.packages("tidyverse")    # Install tidyverse
+install.packages("rio")    # Install rio
+```    
+    
+## Loading a package during analysis
+
+Unlike Stata, in R you need to declare what packages you will be using at the
+beginning of each R document.
+
+To do this, use the [library()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/library) 
+function.
+    _ [require()](https://www.rdocumentation.org/packages/tidyverse) also 
+    works, but it's use is discouraged for this purpose.
+
+```{r, warning= FALSE, message=FALSE}
+library("tidyverse")    # Install tidyverse
+library("rio")    # Install rio
+```  
+
+# Data Prep Preliminaries
+
+## Import and export using rio
+
+Previously, importing and exporting data was a mess, with a lot of different 
+functions for different file formats:  
+  
+- Stata DTA files alone required two functions:   read.dta (for Stata 6-12 
+DTA files),  read.dta13 (for Stata 13 and later files), etc.
+
+The [rio](https://www.rdocumentation.org/packages/rio) package simplifies 
+this by reducing all of this to just one function, 
+[import()](https://www.rdocumentation.org/packages/rio/versions/0.5.5/topics/import)
+
+- Automatically determines the file format of the file and uses the appropriate
+function from other packages to load in a file.
+
+## Import and export using rio II
+
+```{r, warning= FALSE}
+PISA_2015 <- import("PISA2015.sas7bdat")
+PISA_2015[1:5,1:6]
+
+export(PISA_2015, "PISA_2015.rds")
+``` 
+
+
+## Tibbles: an update to the data frame
+
+Last class, we covered data frames---the most basic data object class for data 
+sets with a mix of data class.
+
+Today, we introduce one final data object: the **tibble**!
+
+The tibble can be thought of as an update to the data frame---and it's the first 
+part of the *tidyverse* package that we'll look at.
+
+## Tibble vs data frames
+
+There are three main benefits to the tibble:
+
+1.  Displaying data frames:
+    + If you display a data frame, it will print as much as much output as allowed 
+    by the "max.print" option in the R environment.  With large data sets, that's 
+    far too much. Tibbles by default print the first 10 rows and as many columns 
+    as will fit in the window.
+
+2. Partial matching in data frames:  
+    + When using the <span style="color:blue">**$**</span> method to reference columns of a
+    data frame, partial names will be matched if the reference isn't exact.  This
+    might sound good, but the only real reason for there to be a partial match
+    is a typo, in which case the match might be wrong.
+    
+3. Tibbles are required for some functions.
+
+## Creating or converting to tibbles
+The syntax for creating tibbles exactly parallels the syntax for data frames:
+
+- [tibble()](https://www.rdocumentation.org/packages/tibble) creates a 
+tibble from underlying data or vectors.
+
+- [as.tibble()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble)
+coerces an existing data object into a tibble.
+
+```{r, warning= FALSE}
+PISA_2015 <- as.tibble(PISA_2015); PISA_2015[1:5,1:5]
+``` 
+
+## Glimpse
+
+Another tidyverse function that's very useful is 
+[glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) \href{}{}, a function very similar to 
+[str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str).
+
+- Both functions display information about the structure of a data object.
+
+- [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
+provides more information, such as column (variable) attributes embedded 
+from external data formats, but consequently is much less readable for complex 
+data objects.
+
+- [glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) 
+provides only column names, classes, and some data values (much more
+readable)
+
+- I will often use [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
+when I want more detailed information about data structure, but use [glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) 
+for quicker glances at the data.
+
+
+## Pipes
+
+Another major convenience enhancement from the tidyverse is ***pipes***, denoted
+<span style="color:blue">**%>%**</span>,
+
+- Pipes allow you to combine multiple steps into a single piece of code.
+
+- Specifically, after performing a function in one step, a pipe takes the data 
+generated from the first step and uses it as the data input to a second step.
+
+## Pipes Example
+
+```{r}
+
+barro.lee.data <- import("BL2013_MF1599_v2.1.dta") %>% 
+  as.tibble() %>% glimpse(width = 50)
+```
+
+# Data Preparation
+
+## Tidyverse and the verbs of data manipulation
+
+A motivating principle behind the creation of the tidyverse was the language of
+programming should really behave like a language.
+
+Data manipulation in the tidyverse is oriented around a few key "verbs" that 
+perform common types of data manipulation.
+
+1. [filter()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter) 
+subsets the rows of a data frame based on their values.
+2. [select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) 
+keeps variables (columns) based on their names.
+3. [mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+adds new variables that are functions of existing variables.
+4. [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+creates a number of summary statistics out of many values.
+5. [arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange) 
+changes the ordering of the rows.
+
+**Note**:  the first argument for each these functions is the data \ \ \ 
+object (so pipe!).
+
+## Filtering data
+
+Filtering keeps observations (rows) based on conditions.
+
+- Just like using use subset conditions in the row arguments of a bracketed subset
+
+```{r, include=FALSE}
+library(Ecdat)
+data(Males)
+set.seed(28133)
+wages <- Wages1 %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% 
+  select(wage,school, sex, exper) %>% rename(schooling = school) %>% 
+  mutate(wage=exp(wage))
+
+# Source: Verbeek, Marno (2004) A Guide to Modern Econometrics, John Wiley and Sons.
+```
+
+```{r}
+# Using brackets
+wages[(wages$schooling > 10) & (wages$exper > 10),] 
+# Using filter
+wages  %>% filter(schooling > 10,exper > 10)  
+
+
+```
+
+Notice a couple of things about the output:
+
+1.  It doesn't look like we told [filter()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter)
+what data set we would be filtering.
++ That's because the data set has already been supplied by the pipe.  We could
+have also written the filter as:
+```{r}
+filter(wages, schooling > 10,exper > 10)  
+```
+
+2.  We didn't need to use the logical <span style="color:blue">**&**</span>. Though 
+multiple conditions can still be written in this way with filter(), the default
+is just to separate them with a comma.
+
+## Selecting data
+
+Just like filter is in many ways a more convenient form of writing out bracketed
+row subset conditions, the verb 
+[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select)
+is largely a more convenient method for writing column arguments.
+
+```{r, include=FALSE}
+wages_row1 <-wages[1,]
+
+```
+
+```{r}
+# Using brackets
+wages_row1[,c("wage","schooling","exper")]
+# Using select
+wages_row1  %>% select(wage,schooling,exper)  
+```
+
+## An example of dropping a column
+
+One option we have not covered so far in creating subsets is dropping rows or columns.
+
+R has a specific notation for this, easily used with 
+[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select):
+```{r}
+wages_row1 # What wages_row1 looks like:
+wages_row1  %>% select(-exper) #drop exper
+```
+
+## An example of dropping a column
+
+Dropping columns (or rows) using the <span style="color:blue">**-**</span> notation also 
+works with brackets, but only when using the number location of the row or 
+column to be dropped.
+
+```{r}
+wages_row1[,-4] # works
+# wages_row1[,-"exper"] does not work
+```
+
+Because of the ability to use name arguments, dropping with 
+[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select)
+is generally easier.
+
+## "Mutating" data
+
+Creating new variables that are functions of existing variables in a data set 
+can be done with [mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate).
+
+[mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+takes as its first argument the data set to be used and the equation for the new
+variable:
+
+```{r}
+wages <- wages %>% 
+  mutate(expsq = exper^2) # Create expersq
+wages # Display wages
+```
+
+## Summarizing data
+
+Summary statistics can also be easily created using the tidyverse function 
+[summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+
+The [summarize](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise) 
+functions uses summary statistic functions in R to create a new summary tibble, with syntax
+largely identical to mutate().
+
+Let's try summarizing with the [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean) 
+summary statistic.
+
+```{r}
+wages %>% 
+  summarize(avg_wage = mean(wage))
+```
+
+
+## Summary Statistics functions in R
+
+There are a number of summary statistics available in R, which can be used 
+either with the [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise)
+command or outside of it:
+
+**Measures of central tendency and spread:**
+
+- [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean),
+[median()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/median),
+[sd()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/sd),
+[var()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/cor),
+[quantile()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/quantile),
+[IQR()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/IQR) 
+
+**Position:**
+
+- [first()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
+[last()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
+[nth()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
+
+**Count:** 
+
+- [n()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n),
+[n_distinct()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct),
+
+## Multiple summary variables
+
+Let's look at an example of using multiple summary variables with a larger 
+50-observation sample for the `wages` data set.
+
+```{r, include=FALSE}
+library(Ecdat)
+data(Males)
+set.seed(1)
+wages <- Wages1 %>% as.tibble() %>% select(wage,school, sex, exper) %>% 
+  rename(schooling = school) %>% filter(wage > 0) %>% filter(wage < 13) %>% 
+  sample_n(30) %>% mutate(wage=exp(wage))
+
+# Source: Verbeek, Marno (2004) A Guide to Modern Econometrics, John Wiley and Sons.
+```
+
+```{r}
+wages %>% 
+  summarize(avg.wage = mean(wage), sd.wage = sd(wage), 
+        avg.exper = mean(exper), sd.exper = sd(exper))
+```
+
+
+## Grouping data
+
+Creating summary statistics by group is another routine task.  This is 
+accommodated in the tidyverse using the [group_by()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/group_by).
+
+- The arguments of group_by(), in addition to the data set, are simply the grouping
+variables separated by commas.
+
+```{r}
+wages %>% group_by(sex) %>%
+  summarize(avg.wage = mean(wage), sd.wage = sd(wage))
+```
+
+## Arranging (sorting) data
+
+If you want to sort your data by the values of a particular variable, you can 
+easily do so as well with the 
+[arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange)  
+function.
+
+```{r}
+wages[1:3,] %>% arrange(exper)
+```
+
+**Not:** [arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange) 
+sorts values in ascending order by default.  If you want to sort in descending 
+order, wrap the variable name inside <span style="color:blue">**desc()**</span> in the function.
+
+## Sampling from data
+
+Creating a sample from a data set in R is made easy by two main function in R: 
+[sample_n](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample) and [sample_frac](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample).
+
+**Syntax:**
+
+- sample_n(data, size, replace = FALSE/TRUE)
+
+- sample_frac(data, size = 1, replace = FALSE/TRUE)
+
+## A data prep example with fuel economy data
+
+Let's use tidyverse data manipulation verbs to work through a practical data prep 
+problem from start to finish.
+
+For the problem, Let's use fuel economy data again, but with half of the data set. 
+The data comes from the `vehicles` data set in the 
+[fueleconomy](https://cran.r-project.org/web/packages/fueleconomy/index.html) 
+package.
+
+
+```{r}
+# install.packages("fueleconomy") # Run only once
+library(fueleconomy)
+```
+
+Now let's look at how fuel efficiency has changed over time in the data set. 
+Specifically, let's create descriptive statistics of fuel efficiency by year for 
+"normal" passenger vehicles (4-8 cylinders).
+
+## What's in the data set?
+
+```{r}
+glimpse(vehicles[2:12], width=50)
+```
+
+## Create summary tibble
+
+```{r}
+
+annual.mpg <- vehicles %>% sample_frac(0.5) %>% 
+  filter(cyl %in% 4:8) %>% group_by(year) %>%  
+  summarize(hwy.avg = mean(hwy), hwy.sd = sd(hwy),
+            city.avg = mean(cty), city.sd = sd(cty)) %>% 
+  arrange(desc(city.avg))
+```
+
+**Note:** Here I used <span style="color:blue">**%in%**</span>, which works like 
+<span style="color:blue">**inrange**</span> in Stata.  You could alternately write two 
+inequalities to achieve the same thing.
+
+```{r}
+# Print annual.mpg
+annual.mpg
+```
+
+## Summarizing a data set with the summary() function
+
+Although the tidyverse [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise) 
+function is more powerful, often you just a want a quick look at summary statistics 
+for the whole data set.
+
+- You can easily do this with the base R
+[summary()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary) 
+function, which produces summaries not just for data sets, but also for other R output like the 
+results of a regression.
+
+```{r}
+summary(wages)
+
+```
+
+
+# Cleaning data
+
+
+## Common data cleaning tasks
+
+There are a few data cleaning tasks that are pervasive in empirical work:
+
+1. Ensure columns have useful names
+2. Recoding variable values
+3. Addressing missing values
+
+## Renaming columns
+
+Renaming columns is easily accommodated with the tidyverse 
+ [rename()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) \href{}{}
+command.
+
+- Arguments are the data set and *NewVarName* = *OldVarName*.
+
+To see [rename()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) 
+in action, let's go back to the `barro.lee.data` educational data set we imported earlier:
+
+## Renaming columns example
+
+Let's look at columns 1 and 7 through 9:
+```{r}
+glimpse(barro.lee.data[,c(1,7:9)], width = 50)
+```
+
+See how these variable names are uninformative?  Let's use str() now.
+
+```{r}
+str(barro.lee.data[,c(1,7:9)])
+```
+
+**Although** the column names here are uninformative, the imported SAS file
+included variable labels saved as attributes, which can be seen using the more
+verbose [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
+function.
+
+```{r}
+barro.lee.data <- barro.lee.data %>% 
+  rename(countrycode = BLcode, 
+    perc.noschool = lu, 
+    perc.primary = lp,
+    perc.primary.complete = lpc)
+
+```
+
+Now let's look at the variable names again:
+
+```{r}
+glimpse(barro.lee.data[,c(1,7:9)], width = 50)
+```
+
+## Recoding variables
+
+Along with renaming variables, recoding variables is another integral part of 
+data wrangling.  
+
+```{r}
+wages[1:4,"sex"] # Look at sex column
+
+wages$sex <- wages$sex %>% recode("male"=0, 
+                            "female"=1) # recode
+wages[1:4,"sex"] # Look at sex column
+
+```
+
+## Missing Values
+
+Another problem characteristic of observational data is missing data.  In R,
+the way to represent missing data is with the value <span style="color:blue">**NA**</span>.
+
+- You can recode missing value that *should be* NA but are code using a different 
+schema either by using brackets, or the tidyverse 
+[na_if()](http://dplyr.tidyverse.org/reference/na_if.html) function.
+
+```{r, eval=FALSE}
+## Replace 99-denoted missing data with NA
+# bracket method
+wages[wages$schooling==99,] <- NA  
+# tidyverse method
+wages$schooling <- wages$schooling %>% na_if(99) 
+```
+
+## Missing values continued
+
+You can check for (correctly-coded) missing-values using the 
+[is.na()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA) 
+function.
+
+```{r, include=FALSE}
+## Replace 99-denoted missing data with NA
+wages[c(1,8,21),"wage"] <- NA
+
+```
+
+```{r}
+## Missing 
+wages[is.na(wages$wage),]
+
+```
+
+**Note:** R does not naturally support multiple types of missingness like other 
+languages, although it's possible to use the [sjmisc](https://cran.r-project.org/web/packages/sjmisc/index.html) 
+package to do this.
+
+# Tidy data
+
+## Principles of tidy data
+
+Rules for tidy data (from *R for Data Science*):
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+## Tidy data tools in the tidyverse
+
+There two main tidyverse verbs for making data tidy are:
+
+**[gather()](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather)**:  reduces variable values are spread over multiples columns into a single column.
+
+**[spread()](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/spread)**:  when multiple variables values are stored in the same columns, moves each variable into it's own column.
+
+
+## Gathering data
+
+If values for a single variable are spread across multiple columns (e.g. income 
+for different years), [gather](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather) 
+moves this into single "values" column with a "key" 
+column to identify what the different columns differentiated.
+
+**Syntax:** gather(*data*, *key*, *value*, *columnstocombine*)
+
+## Gather example
+```{r, include = FALSE}
+
+person <- c("Elsa","Mickey","Ariel","Gaston","Jasmine","Peter","Alice")
+y1999 <-c(10,20,17,19,32,22,11)
+y2000 <-c(15,28,21,19,35,29,15)
+earnings.panel <-tibble(person,y1999,y2000)
+
+```
+
+```{r}
+earnings.panel
+
+earnings.panel <- earnings.panel %>% 
+  gather(key="year", value="wage",y1999:y2000)
+earnings.panel
+```
+
+## Spread
+
+Spread tackles the other major problem - that often times (particularly in 
+longitudinal data) many variables are condensed into just a "key" (or indicator) 
+column and a value column.
+
+```{r, include = FALSE}
+wages2 <- earnings.panel$person %>% cbind(wages[1:7,c(1,2,4)])  %>%
+  gather(key="indicator",value="values", 2:4)
+
+colnames(wages2)[1] <- "person"
+
+```
+
+```{r}
+wages2
+
+```
+
+```{r, eval=FALSE}
+wages2 %>% spread("indicator", "values")
+
+```
+
+```{r, include = FALSE}
+wages2 <- earnings.panel$person %>% cbind(wages[1:7,c(1,2,4)])
+colnames(wages2)[1] <- "person"
+
+```
+
+```{r, echo = FALSE}
+wages2
+```

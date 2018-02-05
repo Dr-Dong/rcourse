@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Introduction to R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SSE Intro to R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Modules
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="module1.html">M1:  Base R</a>
+    </li>
+    <li>
+      <a href="module1.html">M2: Tidyverse Data Manipulation</a>
+    </li>
+    <li class="dropdown-header">M3: Loops, Conditionals, and Joins</li>
+    <li class="dropdown-header">M4: Data Presentation</li>
+    <li class="dropdown-header">M5: Regression Modelling</li>
+    <li class="dropdown-header">M6: Capstone Project</li>
+    <li class="dropdown-header">M7: Bayesian Methods</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Useful Links
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Learning Resources</li>
+    <li>
+      <a href="https://www.datacamp.com/">DataCamp</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets</a>
+    </li>
+    <li>
+      <a href="https://www.statmethods.net/">Quick-R</a>
+    </li>
+    <li>
+      <a href="https://stackoverflow.com/">StackOverflow</a>
+    </li>
+    <li>
+      <a href="https://www.r-bloggers.com/">R-Bloggers</a>
+    </li>
+    <li>
+      <a href="http://r4ds.had.co.nz/">R for Data Science Online Book</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Downloads</li>
+    <li>
+      <a href="https://cran.r-project.org/">R</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/">RStudio</a>
+    </li>
+    <li>
+      <a href="https://miktex.org/download">MiKTex</a>
+    </li>
+    <li>
+      <a href="https://git-scm.com/downloads">Git</a>
+    </li>
+    <li>
+      <a href="https://github.com/">GitHub (account only)</a>
+    </li>
+    <li>
+      <a href="https://www.sumatrapdfreader.org/free-pdf-reader.html">Sumatra PDF</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Code</li>
+    <li>
+      <a href="https://github.com/andrewproctor/rminicourse">Course on Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R</h1>
+<h3 class="subtitle"><em>Module 2: Data Preparation using the Tidyverse</em></h3>
+<h4 class="date"><em>February 5, 2018</em></h4>
+
+</div>
+
+
+<p><br></p>
+<div id="intro" class="section level1">
+<h1>Intro</h1>
+<div id="goals-for-today" class="section level2">
+<h2>Goals for Today</h2>
+<ol style="list-style-type: decimal">
+<li>Learn how to use packages in R</li>
+<li>Learn how to import and export data.</li>
+<li>Learn how to perform common data prep functions from the tidyverse collection of packages.</li>
+<li>Learn how to clean and “tidy” data.</li>
+</ol>
+</div>
+</div>
+<div id="packages-in-r" class="section level1">
+<h1>Packages in R</h1>
+<div id="role-of-packages-in-r" class="section level2">
+<h2>Role of Packages in R</h2>
+<ul>
+<li><p>Packages in R are similar to user-written commands (think <em>ssc install</em>) in Stata.</p></li>
+<li><p>But <em>most</em> things you do in Stata probably use core Stata commands.</p></li>
+<li><p>In R, most of your analysis will probably be done using packages.</p></li>
+</ul>
+
+</div>
+<div id="installing-and-using-a-package" class="section level2">
+<h2>Installing and using a package</h2>
+<ul>
+<li><p>To install a package, use the function (preferably in the console) <a href="https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/install.packages">install.packages()</a></p></li>
+<li>To begin with, let’s install 2 packages:
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/tidyverse">tidyverse</a>: the umbrella package for common data preparation and visualization in R.</li>
+<li><a href="https://www.rdocumentation.org/packages/rio">rio</a>: a package for easy data import, export (saving), and conversion.</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)    <span class="co"># Install tidyverse</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;rio&quot;</span>)    <span class="co"># Install rio</span></code></pre></div>
+</div>
+<div id="loading-a-package-during-analysis" class="section level2">
+<h2>Loading a package during analysis</h2>
+<p>Unlike Stata, in R you need to declare what packages you will be using at the beginning of each R document.</p>
+<p>To do this, use the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/library">library()</a> function. _ <a href="https://www.rdocumentation.org/packages/tidyverse">require()</a> also works, but it’s use is discouraged for this purpose.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)    <span class="co"># Install tidyverse</span>
+<span class="kw">library</span>(<span class="st">&quot;rio&quot;</span>)    <span class="co"># Install rio</span></code></pre></div>
+</div>
+</div>
+<div id="data-prep-preliminaries" class="section level1">
+<h1>Data Prep Preliminaries</h1>
+<div id="import-and-export-using-rio" class="section level2">
+<h2>Import and export using rio</h2>
+<p>Previously, importing and exporting data was a mess, with a lot of different functions for different file formats:</p>
+<ul>
+<li>Stata DTA files alone required two functions: read.dta (for Stata 6-12 DTA files), read.dta13 (for Stata 13 and later files), etc.</li>
+</ul>
+<p>The <a href="https://www.rdocumentation.org/packages/rio">rio</a> package simplifies this by reducing all of this to just one function, <a href="https://www.rdocumentation.org/packages/rio/versions/0.5.5/topics/import">import()</a></p>
+<ul>
+<li>Automatically determines the file format of the file and uses the appropriate function from other packages to load in a file.</li>
+</ul>
+</div>
+<div id="import-and-export-using-rio-ii" class="section level2">
+<h2>Import and export using rio II</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PISA_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;PISA2015.sas7bdat&quot;</span>)
+PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
+<pre><code>##   CNTRYID CNT CNTSCHID  CYC NatCen Region
+## 1       8 ALB   800001 06MS 000800    800
+## 2       8 ALB   800002 06MS 000800    800
+## 3       8 ALB   800003 06MS 000800    800
+## 4       8 ALB   800004 06MS 000800    800
+## 5       8 ALB   800005 06MS 000800    800</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(PISA_<span class="dv">2015</span>, <span class="st">&quot;PISA_2015.rds&quot;</span>)</code></pre></div>
+</div>
+<div id="tibbles-an-update-to-the-data-frame" class="section level2">
+<h2>Tibbles: an update to the data frame</h2>
+<p>Last class, we covered data frames—the most basic data object class for data sets with a mix of data class.</p>
+<p>Today, we introduce one final data object: the <strong>tibble</strong>!</p>
+<p>The tibble can be thought of as an update to the data frame—and it’s the first part of the <em>tidyverse</em> package that we’ll look at.</p>
+</div>
+<div id="tibble-vs-data-frames" class="section level2">
+<h2>Tibble vs data frames</h2>
+<p>There are three main benefits to the tibble:</p>
+<ol style="list-style-type: decimal">
+<li>Displaying data frames:
+<ul>
+<li>If you display a data frame, it will print as much as much output as allowed by the “max.print” option in the R environment. With large data sets, that’s far too much. Tibbles by default print the first 10 rows and as many columns as will fit in the window.</li>
+</ul></li>
+<li>Partial matching in data frames:
+<ul>
+<li>When using the <span style="color:blue"><strong>$</strong></span> method to reference columns of a data frame, partial names will be matched if the reference isn’t exact. This might sound good, but the only real reason for there to be a partial match is a typo, in which case the match might be wrong.</li>
+</ul></li>
+<li>Tibbles are required for some functions.</li>
+</ol>
+</div>
+<div id="creating-or-converting-to-tibbles" class="section level2">
+<h2>Creating or converting to tibbles</h2>
+<p>The syntax for creating tibbles exactly parallels the syntax for data frames:</p>
+<ul>
+<li><p><a href="https://www.rdocumentation.org/packages/tibble">tibble()</a> creates a tibble from underlying data or vectors.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble">as.tibble()</a> coerces an existing data object into a tibble.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PISA_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">as.tibble</span>(PISA_<span class="dv">2015</span>); PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>## # A tibble: 5 x 5
+##   CNTRYID CNT   CNTSCHID CYC   NatCen
+##     &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1    8.00 ALB     800001 06MS  000800
+## 2    8.00 ALB     800002 06MS  000800
+## 3    8.00 ALB     800003 06MS  000800
+## 4    8.00 ALB     800004 06MS  000800
+## 5    8.00 ALB     800005 06MS  000800</code></pre>
+</div>
+<div id="glimpse" class="section level2">
+<h2>Glimpse</h2>
+<p>Another tidyverse function that’s very useful is <a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse">glimpse()</a> , a function very similar to <a href="https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str">str()</a>.</p>
+<ul>
+<li><p>Both functions display information about the structure of a data object.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str">str()</a> provides more information, such as column (variable) attributes embedded from external data formats, but consequently is much less readable for complex data objects.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse">glimpse()</a> provides only column names, classes, and some data values (much more readable)</p></li>
+<li><p>I will often use <a href="https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str">str()</a> when I want more detailed information about data structure, but use <a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse">glimpse()</a> for quicker glances at the data.</p></li>
+</ul>
+</div>
+<div id="pipes" class="section level2">
+<h2>Pipes</h2>
+<p>Another major convenience enhancement from the tidyverse is <strong><em>pipes</em></strong>, denoted <span style="color:blue"><strong>%&gt;%</strong></span>,</p>
+<ul>
+<li><p>Pipes allow you to combine multiple steps into a single piece of code.</p></li>
+<li><p>Specifically, after performing a function in one step, a pipe takes the data generated from the first step and uses it as the data input to a second step.</p></li>
+</ul>
+</div>
+<div id="pipes-example" class="section level2">
+<h2>Pipes Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">barro.lee.data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;BL2013_MF1599_v2.1.dta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>(<span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
+<pre><code>## Observations: 1,898
+## Variables: 20
+## $ BLcode      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ country     &lt;chr&gt; &quot;Algeria&quot;, &quot;Algeria&quot;, &quot;Al...
+## $ year        &lt;dbl&gt; 1950, 1955, 1960, 1965, 1...
+## $ sex         &lt;chr&gt; &quot;MF&quot;, &quot;MF&quot;, &quot;MF&quot;, &quot;MF&quot;, &quot;...
+## $ agefrom     &lt;dbl&gt; 15, 15, 15, 15, 15, 15, 1...
+## $ ageto       &lt;dbl&gt; 999, 999, 999, 999, 999, ...
+## $ lu          &lt;dbl&gt; 80.68459, 81.05096, 82.61...
+## $ lp          &lt;dbl&gt; 17.563400, 17.018442, 14....
+## $ lpc         &lt;dbl&gt; 3.745905, 3.464397, 3.069...
+## $ ls          &lt;dbl&gt; 1.454129, 1.639253, 2.752...
+## $ lsc         &lt;dbl&gt; 0.4595877, 0.4952279, 1.0...
+## $ lh          &lt;dbl&gt; 0.2978759, 0.2594140, 0.3...
+## $ lhc         &lt;dbl&gt; 0.16479027, 0.14177565, 0...
+## $ yr_sch      &lt;dbl&gt; 0.8464569, 0.8350149, 0.8...
+## $ yr_sch_pri  &lt;dbl&gt; 0.7443995, 0.7284052, 0.7...
+## $ yr_sch_sec  &lt;dbl&gt; 0.09280412, 0.09858591, 0...
+## $ yr_sch_ter  &lt;dbl&gt; 0.009253278, 0.008023791,...
+## $ pop         &lt;dbl&gt; 5241, 5699, 6073, 6374, 7...
+## $ WBcode      &lt;chr&gt; &quot;DZA&quot;, &quot;DZA&quot;, &quot;DZA&quot;, &quot;DZA...
+## $ region_code &lt;chr&gt; &quot;Middle East and North Af...</code></pre>
+</div>
+</div>
+<div id="data-preparation" class="section level1">
+<h1>Data Preparation</h1>
+<div id="tidyverse-and-the-verbs-of-data-manipulation" class="section level2">
+<h2>Tidyverse and the verbs of data manipulation</h2>
+<p>A motivating principle behind the creation of the tidyverse was the language of programming should really behave like a language.</p>
+<p>Data manipulation in the tidyverse is oriented around a few key “verbs” that perform common types of data manipulation.</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter">filter()</a> subsets the rows of a data frame based on their values.</li>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a> keeps variables (columns) based on their names.</li>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate">mutate()</a> adds new variables that are functions of existing variables.</li>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate">summarize()</a> creates a number of summary statistics out of many values.</li>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange">arrange()</a> changes the ordering of the rows.</li>
+</ol>
+<p><strong>Note</strong>: the first argument for each these functions is the data     object (so pipe!).</p>
+</div>
+<div id="filtering-data" class="section level2">
+<h2>Filtering data</h2>
+<p>Filtering keeps observations (rows) based on conditions.</p>
+<ul>
+<li>Just like using use subset conditions in the row arguments of a bracketed subset</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using brackets</span>
+wages[(wages<span class="op">$</span>schooling <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">&amp;</span><span class="st"> </span>(wages<span class="op">$</span>exper <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>),] </code></pre></div>
+<pre><code>##       wage schooling    sex exper
+## 2 249.6774        13 female    11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using filter</span>
+wages  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(schooling <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,exper <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>)  </code></pre></div>
+<pre><code>##       wage schooling    sex exper
+## 1 249.6774        13 female    11</code></pre>
+<p>Notice a couple of things about the output:</p>
+<ol style="list-style-type: decimal">
+<li>It doesn’t look like we told <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter">filter()</a> what data set we would be filtering.</li>
+</ol>
+<ul>
+<li>That’s because the data set has already been supplied by the pipe. We could have also written the filter as:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(wages, schooling <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,exper <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>)  </code></pre></div>
+<pre><code>##       wage schooling    sex exper
+## 1 249.6774        13 female    11</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We didn’t need to use the logical <span style="color:blue"><strong>&amp;</strong></span>. Though multiple conditions can still be written in this way with filter(), the default is just to separate them with a comma.</li>
+</ol>
+</div>
+<div id="selecting-data" class="section level2">
+<h2>Selecting data</h2>
+<p>Just like filter is in many ways a more convenient form of writing out bracketed row subset conditions, the verb <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a> is largely a more convenient method for writing column arguments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using brackets</span>
+wages_row1[,<span class="kw">c</span>(<span class="st">&quot;wage&quot;</span>,<span class="st">&quot;schooling&quot;</span>,<span class="st">&quot;exper&quot;</span>)]</code></pre></div>
+<pre><code>##       wage schooling exper
+## 1 134.2306        13     8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using select</span>
+wages_row1  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(wage,schooling,exper)  </code></pre></div>
+<pre><code>##       wage schooling exper
+## 1 134.2306        13     8</code></pre>
+</div>
+<div id="an-example-of-dropping-a-column" class="section level2">
+<h2>An example of dropping a column</h2>
+<p>One option we have not covered so far in creating subsets is dropping rows or columns.</p>
+<p>R has a specific notation for this, easily used with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1 <span class="co"># What wages_row1 looks like:</span></code></pre></div>
+<pre><code>##       wage schooling    sex exper
+## 1 134.2306        13 female     8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>exper) <span class="co">#drop exper</span></code></pre></div>
+<pre><code>##       wage schooling    sex
+## 1 134.2306        13 female</code></pre>
+</div>
+<div id="an-example-of-dropping-a-column-1" class="section level2">
+<h2>An example of dropping a column</h2>
+<p>Dropping columns (or rows) using the <span style="color:blue"><strong>-</strong></span> notation also works with brackets, but only when using the number location of the row or column to be dropped.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1[,<span class="op">-</span><span class="dv">4</span>] <span class="co"># works</span></code></pre></div>
+<pre><code>##       wage schooling    sex
+## 1 134.2306        13 female</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wages_row1[,-&quot;exper&quot;] does not work</span></code></pre></div>
+<p>Because of the ability to use name arguments, dropping with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a> is generally easier.</p>
+</div>
+<div id="mutating-data" class="section level2">
+<h2>“Mutating” data</h2>
+<p>Creating new variables that are functions of existing variables in a data set can be done with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate">mutate()</a>.</p>
+<p><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate">mutate()</a> takes as its first argument the data set to be used and the equation for the new variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages &lt;-<span class="st"> </span>wages <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">expsq =</span> exper<span class="op">^</span><span class="dv">2</span>) <span class="co"># Create expersq</span>
+wages <span class="co"># Display wages</span></code></pre></div>
+<pre><code>##        wage schooling    sex exper expsq
+## 1 134.23058        13 female     8    64
+## 2 249.67744        13 female    11   121
+## 3  53.56478        10 female    11   121</code></pre>
+</div>
+<div id="summarizing-data" class="section level2">
+<h2>Summarizing data</h2>
+<p>Summary statistics can also be easily created using the tidyverse function <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate">summarize()</a></p>
+<p>The <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise">summarize</a> functions uses summary statistic functions in R to create a new summary tibble, with syntax largely identical to mutate().</p>
+<p>Let’s try summarizing with the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean">mean()</a> summary statistic.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_wage =</span> <span class="kw">mean</span>(wage))</code></pre></div>
+<pre><code>##   avg_wage
+## 1 145.8243</code></pre>
+</div>
+<div id="summary-statistics-functions-in-r" class="section level2">
+<h2>Summary Statistics functions in R</h2>
+<p>There are a number of summary statistics available in R, which can be used either with the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise">summarize()</a> command or outside of it:</p>
+<p><strong>Measures of central tendency and spread:</strong></p>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean">mean()</a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/median">median()</a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/sd">sd()</a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/cor">var()</a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/quantile">quantile()</a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/IQR">IQR()</a></li>
+</ul>
+<p><strong>Position:</strong></p>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth">first()</a>, <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth">last()</a>, <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth">nth()</a>,</li>
+</ul>
+<p><strong>Count:</strong></p>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n">n()</a>, <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct">n_distinct()</a>,</li>
+</ul>
+</div>
+<div id="multiple-summary-variables" class="section level2">
+<h2>Multiple summary variables</h2>
+<p>Let’s look at an example of using multiple summary variables with a larger 50-observation sample for the <code>wages</code> data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg.wage =</span> <span class="kw">mean</span>(wage), <span class="dt">sd.wage =</span> <span class="kw">sd</span>(wage), 
+        <span class="dt">avg.exper =</span> <span class="kw">mean</span>(exper), <span class="dt">sd.exper =</span> <span class="kw">sd</span>(exper))</code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   avg.wage sd.wage avg.exper sd.exper
+##      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1     5942   17526      7.47     2.08</code></pre>
+</div>
+<div id="grouping-data" class="section level2">
+<h2>Grouping data</h2>
+<p>Creating summary statistics by group is another routine task. This is accommodated in the tidyverse using the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/group_by">group_by()</a>.</p>
+<ul>
+<li>The arguments of group_by(), in addition to the data set, are simply the grouping variables separated by commas.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg.wage =</span> <span class="kw">mean</span>(wage), <span class="dt">sd.wage =</span> <span class="kw">sd</span>(wage))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   sex    avg.wage sd.wage
+##   &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 female     5473   18883
+## 2 male       6410   16711</code></pre>
+</div>
+<div id="arranging-sorting-data" class="section level2">
+<h2>Arranging (sorting) data</h2>
+<p>If you want to sort your data by the values of a particular variable, you can easily do so as well with the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange">arrange()</a><br />
+function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(exper)</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##    wage schooling sex    exper
+##   &lt;dbl&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+## 1   175        12 female     5
+## 2   103        11 male       7
+## 3  1411        14 female     8</code></pre>
+<p><strong>Not:</strong> <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange">arrange()</a> sorts values in ascending order by default. If you want to sort in descending order, wrap the variable name inside <span style="color:blue"><strong>desc()</strong></span> in the function.</p>
+</div>
+<div id="sampling-from-data" class="section level2">
+<h2>Sampling from data</h2>
+<p>Creating a sample from a data set in R is made easy by two main function in R: <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample">sample_n</a> and <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample">sample_frac</a>.</p>
+<p><strong>Syntax:</strong></p>
+<ul>
+<li><p>sample_n(data, size, replace = FALSE/TRUE)</p></li>
+<li><p>sample_frac(data, size = 1, replace = FALSE/TRUE)</p></li>
+</ul>
+</div>
+<div id="a-data-prep-example-with-fuel-economy-data" class="section level2">
+<h2>A data prep example with fuel economy data</h2>
+<p>Let’s use tidyverse data manipulation verbs to work through a practical data prep problem from start to finish.</p>
+<p>For the problem, Let’s use fuel economy data again, but with half of the data set. The data comes from the <code>vehicles</code> data set in the <a href="https://cran.r-project.org/web/packages/fueleconomy/index.html">fueleconomy</a> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;fueleconomy&quot;) # Run only once</span>
+<span class="kw">library</span>(fueleconomy)</code></pre></div>
+<p>Now let’s look at how fuel efficiency has changed over time in the data set. Specifically, let’s create descriptive statistics of fuel efficiency by year for “normal” passenger vehicles (4-8 cylinders).</p>
+</div>
+<div id="whats-in-the-data-set" class="section level2">
+<h2>What’s in the data set?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(vehicles[<span class="dv">2</span><span class="op">:</span><span class="dv">12</span>], <span class="dt">width=</span><span class="dv">50</span>)</code></pre></div>
+<pre><code>## Observations: 33,442
+## Variables: 11
+## $ make  &lt;chr&gt; &quot;AM General&quot;, &quot;AM General&quot;, &quot;AM...
+## $ model &lt;chr&gt; &quot;DJ Po Vehicle 2WD&quot;, &quot;DJ Po Veh...
+## $ year  &lt;int&gt; 1984, 1984, 1984, 1984, 1985, 1...
+## $ class &lt;chr&gt; &quot;Special Purpose Vehicle 2WD&quot;, ...
+## $ trans &lt;chr&gt; &quot;Automatic 3-spd&quot;, &quot;Automatic 3...
+## $ drive &lt;chr&gt; &quot;2-Wheel Drive&quot;, &quot;2-Wheel Drive...
+## $ cyl   &lt;int&gt; 4, 4, 6, 6, 4, 6, 6, 4, 4, 6, 4...
+## $ displ &lt;dbl&gt; 2.5, 2.5, 4.2, 4.2, 2.5, 4.2, 3...
+## $ fuel  &lt;chr&gt; &quot;Regular&quot;, &quot;Regular&quot;, &quot;Regular&quot;...
+## $ hwy   &lt;int&gt; 17, 17, 13, 13, 17, 13, 21, 26,...
+## $ cty   &lt;int&gt; 18, 18, 13, 13, 16, 13, 14, 20,...</code></pre>
+</div>
+<div id="create-summary-tibble" class="section level2">
+<h2>Create summary tibble</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annual.mpg &lt;-<span class="st"> </span>vehicles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(cyl <span class="op">%in%</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">hwy.avg =</span> <span class="kw">mean</span>(hwy), <span class="dt">hwy.sd =</span> <span class="kw">sd</span>(hwy),
+            <span class="dt">city.avg =</span> <span class="kw">mean</span>(cty), <span class="dt">city.sd =</span> <span class="kw">sd</span>(cty)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(city.avg))</code></pre></div>
+<p><strong>Note:</strong> Here I used <span style="color:blue"><strong>%in%</strong></span>, which works like <span style="color:blue"><strong>inrange</strong></span> in Stata. You could alternately write two inequalities to achieve the same thing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print annual.mpg</span>
+annual.mpg</code></pre></div>
+<pre><code>## # A tibble: 32 x 5
+##     year hwy.avg hwy.sd city.avg city.sd
+##    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1  2015    28.6   5.42     20.6    4.78
+##  2  2014    27.8   6.44     20.4    5.76
+##  3  2013    27.3   6.02     20.0    5.78
+##  4  2012    26.3   5.83     19.2    5.21
+##  5  2011    25.7   5.36     18.8    4.86
+##  6  2010    25.3   4.90     18.4    4.38
+##  7  1985    22.8   6.21     17.7    4.70
+##  8  2009    24.2   4.54     17.6    3.92
+##  9  1986    22.4   5.82     17.5    4.48
+## 10  1997    23.6   5.11     17.2    3.76
+## # ... with 22 more rows</code></pre>
+</div>
+<div id="summarizing-a-data-set-with-the-summary-function" class="section level2">
+<h2>Summarizing a data set with the summary() function</h2>
+<p>Although the tidyverse <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise">summarize()</a> function is more powerful, often you just a want a quick look at summary statistics for the whole data set.</p>
+<ul>
+<li>You can easily do this with the base R <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary">summary()</a> function, which produces summaries not just for data sets, but also for other R output like the results of a regression.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(wages)</code></pre></div>
+<pre><code>##       wage            schooling      sex         exper       
+##  Min.   :    1.69   Min.   : 8   female:15   Min.   : 3.000  
+##  1st Qu.:   44.07   1st Qu.:11   male  :15   1st Qu.: 6.250  
+##  Median :  160.96   Median :12               Median : 7.500  
+##  Mean   : 5941.66   Mean   :12               Mean   : 7.467  
+##  3rd Qu.: 1519.01   3rd Qu.:13               3rd Qu.: 8.000  
+##  Max.   :73659.06   Max.   :15               Max.   :13.000</code></pre>
+</div>
+</div>
+<div id="cleaning-data" class="section level1">
+<h1>Cleaning data</h1>
+<div id="common-data-cleaning-tasks" class="section level2">
+<h2>Common data cleaning tasks</h2>
+<p>There are a few data cleaning tasks that are pervasive in empirical work:</p>
+<ol style="list-style-type: decimal">
+<li>Ensure columns have useful names</li>
+<li>Recoding variable values</li>
+<li>Addressing missing values</li>
+</ol>
+</div>
+<div id="renaming-columns" class="section level2">
+<h2>Renaming columns</h2>
+<p>Renaming columns is easily accommodated with the tidyverse <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">rename()</a>  command.</p>
+<ul>
+<li>Arguments are the data set and <em>NewVarName</em> = <em>OldVarName</em>.</li>
+</ul>
+<p>To see <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">rename()</a> in action, let’s go back to the <code>barro.lee.data</code> educational data set we imported earlier:</p>
+</div>
+<div id="renaming-columns-example" class="section level2">
+<h2>Renaming columns example</h2>
+<p>Let’s look at columns 1 and 7 through 9:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(barro.lee.data[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>)], <span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
+<pre><code>## Observations: 1,898
+## Variables: 4
+## $ BLcode &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ lu     &lt;dbl&gt; 80.68459, 81.05096, 82.61115, ...
+## $ lp     &lt;dbl&gt; 17.563400, 17.018442, 14.31374...
+## $ lpc    &lt;dbl&gt; 3.745905, 3.464397, 3.069391, ...</code></pre>
+<p>See how these variable names are uninformative? Let’s use str() now.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(barro.lee.data[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>)])</code></pre></div>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    1898 obs. of  4 variables:
+##  $ BLcode: atomic  1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Country Code&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%8.0g&quot;
+##  $ lu    : atomic  80.7 81.1 82.6 80.9 73.6 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Percentage of No Schooling&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%7.2f&quot;
+##  $ lp    : atomic  17.6 17 14.3 14.4 19.2 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Percentage of Primary&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%7.2f&quot;
+##  $ lpc   : atomic  3.75 3.46 3.07 4.01 5.23 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Percentage of Primary Complete&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%7.2f&quot;</code></pre>
+<p><strong>Although</strong> the column names here are uninformative, the imported SAS file included variable labels saved as attributes, which can be seen using the more verbose <a href="https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str">str()</a> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">barro.lee.data &lt;-<span class="st"> </span>barro.lee.data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">countrycode =</span> BLcode, 
+    <span class="dt">perc.noschool =</span> lu, 
+    <span class="dt">perc.primary =</span> lp,
+    <span class="dt">perc.primary.complete =</span> lpc)</code></pre></div>
+<p>Now let’s look at the variable names again:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(barro.lee.data[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>)], <span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
+<pre><code>## Observations: 1,898
+## Variables: 4
+## $ countrycode           &lt;dbl&gt; 1, 1, 1, 1, 1, ...
+## $ perc.noschool         &lt;dbl&gt; 80.68459, 81.05...
+## $ perc.primary          &lt;dbl&gt; 17.563400, 17.0...
+## $ perc.primary.complete &lt;dbl&gt; 3.745905, 3.464...</code></pre>
+</div>
+<div id="recoding-variables" class="section level2">
+<h2>Recoding variables</h2>
+<p>Along with renaming variables, recoding variables is another integral part of data wrangling.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="st">&quot;sex&quot;</span>] <span class="co"># Look at sex column</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 1
+##   sex   
+##   &lt;fct&gt; 
+## 1 female
+## 2 female
+## 3 male  
+## 4 male</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages<span class="op">$</span>sex &lt;-<span class="st"> </span>wages<span class="op">$</span>sex <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">recode</span>(<span class="st">&quot;male&quot;</span>=<span class="dv">0</span>, 
+                            <span class="st">&quot;female&quot;</span>=<span class="dv">1</span>) <span class="co"># recode</span>
+wages[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="st">&quot;sex&quot;</span>] <span class="co"># Look at sex column</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 1
+##     sex
+##   &lt;dbl&gt;
+## 1  1.00
+## 2  1.00
+## 3  0   
+## 4  0</code></pre>
+</div>
+<div id="missing-values" class="section level2">
+<h2>Missing Values</h2>
+<p>Another problem characteristic of observational data is missing data. In R, the way to represent missing data is with the value <span style="color:blue"><strong>NA</strong></span>.</p>
+<ul>
+<li>You can recode missing value that <em>should be</em> NA but are code using a different schema either by using brackets, or the tidyverse <a href="http://dplyr.tidyverse.org/reference/na_if.html">na_if()</a> function.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Replace 99-denoted missing data with NA
+<span class="co"># bracket method</span>
+wages[wages<span class="op">$</span>schooling<span class="op">==</span><span class="dv">99</span>,] &lt;-<span class="st"> </span><span class="ot">NA</span>  
+<span class="co"># tidyverse method</span>
+wages<span class="op">$</span>schooling &lt;-<span class="st"> </span>wages<span class="op">$</span>schooling <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">na_if</span>(<span class="dv">99</span>) </code></pre></div>
+</div>
+<div id="missing-values-continued" class="section level2">
+<h2>Missing values continued</h2>
+<p>You can check for (correctly-coded) missing-values using the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA">is.na()</a> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Missing 
+wages[<span class="kw">is.na</span>(wages<span class="op">$</span>wage),]</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##    wage schooling   sex exper
+##   &lt;dbl&gt;     &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
+## 1    NA        14  1.00     8
+## 2    NA        11  0        8
+## 3    NA        10  0        8</code></pre>
+<p><strong>Note:</strong> R does not naturally support multiple types of missingness like other languages, although it’s possible to use the <a href="https://cran.r-project.org/web/packages/sjmisc/index.html">sjmisc</a> package to do this.</p>
+</div>
+</div>
+<div id="tidy-data" class="section level1">
+<h1>Tidy data</h1>
+<div id="principles-of-tidy-data" class="section level2">
+<h2>Principles of tidy data</h2>
+<p>Rules for tidy data (from <em>R for Data Science</em>):</p>
+<ol style="list-style-type: decimal">
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ol>
+</div>
+<div id="tidy-data-tools-in-the-tidyverse" class="section level2">
+<h2>Tidy data tools in the tidyverse</h2>
+<p>There two main tidyverse verbs for making data tidy are:</p>
+<p><strong><a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather">gather()</a></strong>: reduces variable values are spread over multiples columns into a single column.</p>
+<p><strong><a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/spread">spread()</a></strong>: when multiple variables values are stored in the same columns, moves each variable into it’s own column.</p>
+</div>
+<div id="gathering-data" class="section level2">
+<h2>Gathering data</h2>
+<p>If values for a single variable are spread across multiple columns (e.g. income for different years), <a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather">gather</a> moves this into single “values” column with a “key” column to identify what the different columns differentiated.</p>
+<p><strong>Syntax:</strong> gather(<em>data</em>, <em>key</em>, <em>value</em>, <em>columnstocombine</em>)</p>
+</div>
+<div id="gather-example" class="section level2">
+<h2>Gather example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">earnings.panel</code></pre></div>
+<pre><code>## # A tibble: 7 x 3
+##   person  y1999 y2000
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 Elsa     10.0  15.0
+## 2 Mickey   20.0  28.0
+## 3 Ariel    17.0  21.0
+## 4 Gaston   19.0  19.0
+## 5 Jasmine  32.0  35.0
+## 6 Peter    22.0  29.0
+## 7 Alice    11.0  15.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">earnings.panel &lt;-<span class="st"> </span>earnings.panel <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;year&quot;</span>, <span class="dt">value=</span><span class="st">&quot;wage&quot;</span>,y1999<span class="op">:</span>y2000)
+earnings.panel</code></pre></div>
+<pre><code>## # A tibble: 14 x 3
+##    person  year   wage
+##    &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;
+##  1 Elsa    y1999  10.0
+##  2 Mickey  y1999  20.0
+##  3 Ariel   y1999  17.0
+##  4 Gaston  y1999  19.0
+##  5 Jasmine y1999  32.0
+##  6 Peter   y1999  22.0
+##  7 Alice   y1999  11.0
+##  8 Elsa    y2000  15.0
+##  9 Mickey  y2000  28.0
+## 10 Ariel   y2000  21.0
+## 11 Gaston  y2000  19.0
+## 12 Jasmine y2000  35.0
+## 13 Peter   y2000  29.0
+## 14 Alice   y2000  15.0</code></pre>
+</div>
+<div id="spread" class="section level2">
+<h2>Spread</h2>
+<p>Spread tackles the other major problem - that often times (particularly in longitudinal data) many variables are condensed into just a “key” (or indicator) column and a value column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages2</code></pre></div>
+<pre><code>##     person indicator      values
+## 1     Elsa      wage          NA
+## 2   Mickey      wage  174.932480
+## 3    Ariel      wage  102.668810
+## 4   Gaston      wage    1.690623
+## 5  Jasmine      wage    2.166231
+## 6    Peter      wage 1192.371925
+## 7    Alice      wage   83.363705
+## 8     Elsa      wage          NA
+## 9   Mickey      wage  174.932480
+## 10   Ariel      wage  102.668810
+## 11  Gaston      wage    1.690623
+## 12 Jasmine      wage    2.166231
+## 13   Peter      wage 1192.371925
+## 14   Alice      wage   83.363705
+## 15    Elsa schooling   14.000000
+## 16  Mickey schooling   12.000000
+## 17   Ariel schooling   11.000000
+## 18  Gaston schooling   11.000000
+## 19 Jasmine schooling   14.000000
+## 20   Peter schooling   12.000000
+## 21   Alice schooling   11.000000
+## 22    Elsa schooling   14.000000
+## 23  Mickey schooling   12.000000
+## 24   Ariel schooling   11.000000
+## 25  Gaston schooling   11.000000
+## 26 Jasmine schooling   14.000000
+## 27   Peter schooling   12.000000
+## 28   Alice schooling   11.000000
+## 29    Elsa     exper    8.000000
+## 30  Mickey     exper    5.000000
+## 31   Ariel     exper    7.000000
+## 32  Gaston     exper    8.000000
+## 33 Jasmine     exper   10.000000
+## 34   Peter     exper    8.000000
+## 35   Alice     exper    6.000000
+## 36    Elsa     exper    8.000000
+## 37  Mickey     exper    5.000000
+## 38   Ariel     exper    7.000000
+## 39  Gaston     exper    8.000000
+## 40 Jasmine     exper   10.000000
+## 41   Peter     exper    8.000000
+## 42   Alice     exper    6.000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="st">&quot;indicator&quot;</span>, <span class="st">&quot;values&quot;</span>)</code></pre></div>
+<pre><code>##     person        wage schooling exper
+## 1     Elsa          NA        14     8
+## 2   Mickey  174.932480        12     5
+## 3    Ariel  102.668810        11     7
+## 4   Gaston    1.690623        11     8
+## 5  Jasmine    2.166231        14    10
+## 6    Peter 1192.371925        12     8
+## 7    Alice   83.363705        11     6
+## 8     Elsa          NA        14     8
+## 9   Mickey  174.932480        12     5
+## 10   Ariel  102.668810        11     7
+## 11  Gaston    1.690623        11     8
+## 12 Jasmine    2.166231        14    10
+## 13   Peter 1192.371925        12     8
+## 14   Alice   83.363705        11     6</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

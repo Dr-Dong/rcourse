@@ -41,7 +41,11 @@ collection of packages.
 
 - In R, most of your analysis will probably be done using packages.
 
-\includegraphics[scale=0.4]{cran.png}
+<br>
+
+![](cran.png)
+
+<br>
 
 ## Installing and using a package
 

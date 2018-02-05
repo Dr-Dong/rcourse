@@ -91,8 +91,6 @@ this by reducing all of this to just one function,
 - Automatically determines the file format of the file and uses the appropriate
 function from other packages to load in a file.
 
-## Import and export using rio II
-
 ```{r, warning= FALSE}
 PISA_2015 <- import("PISA2015.sas7bdat")
 PISA_2015[1:5,1:6]
@@ -111,7 +109,7 @@ Today, we introduce one final data object: the **tibble**!
 The tibble can be thought of as an update to the data frame---and it's the first 
 part of the *tidyverse* package that we'll look at.
 
-## Tibble vs data frames
+### Tibble vs data frames
 
 There are three main benefits to the tibble:
 
@@ -129,7 +127,7 @@ There are three main benefits to the tibble:
     
 3. Tibbles are required for some functions.
 
-## Creating or converting to tibbles
+### Creating or converting to tibbles
 The syntax for creating tibbles exactly parallels the syntax for data frames:
 
 - [tibble()](https://www.rdocumentation.org/packages/tibble) creates a 
@@ -174,7 +172,7 @@ Another major convenience enhancement from the tidyverse is ***pipes***, denoted
 - Specifically, after performing a function in one step, a pipe takes the data 
 generated from the first step and uses it as the data input to a second step.
 
-## Pipes Example
+### Pipes Example
 
 ```{r}
 
@@ -265,7 +263,7 @@ wages_row1[,c("wage","schooling","exper")]
 wages_row1  %>% select(wage,schooling,exper)  
 ```
 
-## An example of dropping a column
+### An example of dropping a column
 
 One option we have not covered so far in creating subsets is dropping rows or columns.
 
@@ -275,8 +273,6 @@ R has a specific notation for this, easily used with
 wages_row1 # What wages_row1 looks like:
 wages_row1  %>% select(-exper) #drop exper
 ```
-
-## An example of dropping a column
 
 Dropping columns (or rows) using the <span style="color:blue">**-**</span> notation also 
 works with brackets, but only when using the number location of the row or 
@@ -324,7 +320,7 @@ wages %>%
 ```
 
 
-## Summary Statistics functions in R
+### Summary Statistics functions in R
 
 There are a number of summary statistics available in R, which can be used 
 either with the [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise)
@@ -350,7 +346,7 @@ command or outside of it:
 - [n()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n),
 [n_distinct()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct),
 
-## Multiple summary variables
+### Multiple summary variables
 
 Let's look at an example of using multiple summary variables with a larger 
 50-observation sample for the `wages` data set.
@@ -432,13 +428,13 @@ Now let's look at how fuel efficiency has changed over time in the data set.
 Specifically, let's create descriptive statistics of fuel efficiency by year for 
 "normal" passenger vehicles (4-8 cylinders).
 
-## What's in the data set?
+### What's in the data set?
 
 ```{r}
 glimpse(vehicles[2:12], width=50)
 ```
 
-## Create summary tibble
+### Create summary tibble
 
 ```{r}
 
@@ -497,7 +493,7 @@ command.
 To see [rename()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) 
 in action, let's go back to the `barro.lee.data` educational data set we imported earlier:
 
-## Renaming columns example
+### Renaming columns example
 
 Let's look at columns 1 and 7 through 9:
 ```{r}
@@ -561,8 +557,6 @@ wages[wages$schooling==99,] <- NA
 wages$schooling <- wages$schooling %>% na_if(99) 
 ```
 
-## Missing values continued
-
 You can check for (correctly-coded) missing-values using the 
 [is.na()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA) 
 function.
@@ -611,7 +605,7 @@ column to identify what the different columns differentiated.
 
 **Syntax:** gather(*data*, *key*, *value*, *columnstocombine*)
 
-## Gather example
+### Gather example
 ```{r, include = FALSE}
 
 person <- c("Elsa","Mickey","Ariel","Gaston","Jasmine","Peter","Alice")
@@ -629,7 +623,7 @@ earnings.panel <- earnings.panel %>%
 earnings.panel
 ```
 
-## Spread
+## Spreading data
 
 Spread tackles the other major problem - that often times (particularly in 
 longitudinal data) many variables are condensed into just a "key" (or indicator) 

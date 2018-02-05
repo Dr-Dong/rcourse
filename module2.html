@@ -448,9 +448,6 @@ div.tocify {
 <ul>
 <li>Automatically determines the file format of the file and uses the appropriate function from other packages to load in a file.</li>
 </ul>
-</div>
-<div id="import-and-export-using-rio-ii" class="section level2">
-<h2>Import and export using rio II</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PISA_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;PISA2015.sas7bdat&quot;</span>)
 PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
 <pre><code>##   CNTRYID CNT CNTSCHID  CYC NatCen Region
@@ -466,9 +463,8 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 <p>Last class, we covered data frames—the most basic data object class for data sets with a mix of data class.</p>
 <p>Today, we introduce one final data object: the <strong>tibble</strong>!</p>
 <p>The tibble can be thought of as an update to the data frame—and it’s the first part of the <em>tidyverse</em> package that we’ll look at.</p>
-</div>
-<div id="tibble-vs-data-frames" class="section level2">
-<h2>Tibble vs data frames</h2>
+<div id="tibble-vs-data-frames" class="section level3">
+<h3>Tibble vs data frames</h3>
 <p>There are three main benefits to the tibble:</p>
 <ol style="list-style-type: decimal">
 <li>Displaying data frames:
@@ -482,8 +478,8 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 <li>Tibbles are required for some functions.</li>
 </ol>
 </div>
-<div id="creating-or-converting-to-tibbles" class="section level2">
-<h2>Creating or converting to tibbles</h2>
+<div id="creating-or-converting-to-tibbles" class="section level3">
+<h3>Creating or converting to tibbles</h3>
 <p>The syntax for creating tibbles exactly parallels the syntax for data frames:</p>
 <ul>
 <li><p><a href="https://www.rdocumentation.org/packages/tibble">tibble()</a> creates a tibble from underlying data or vectors.</p></li>
@@ -498,6 +494,7 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 ## 3    8.00 ALB     800003 06MS  000800
 ## 4    8.00 ALB     800004 06MS  000800
 ## 5    8.00 ALB     800005 06MS  000800</code></pre>
+</div>
 </div>
 <div id="glimpse" class="section level2">
 <h2>Glimpse</h2>
@@ -516,9 +513,8 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 <li><p>Pipes allow you to combine multiple steps into a single piece of code.</p></li>
 <li><p>Specifically, after performing a function in one step, a pipe takes the data generated from the first step and uses it as the data input to a second step.</p></li>
 </ul>
-</div>
-<div id="pipes-example" class="section level2">
-<h2>Pipes Example</h2>
+<div id="pipes-example" class="section level3">
+<h3>Pipes Example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">barro.lee.data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;BL2013_MF1599_v2.1.dta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>(<span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
 <pre><code>## Observations: 1,898
@@ -543,6 +539,7 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 ## $ pop         &lt;dbl&gt; 5241, 5699, 6073, 6374, 7...
 ## $ WBcode      &lt;chr&gt; &quot;DZA&quot;, &quot;DZA&quot;, &quot;DZA&quot;, &quot;DZA...
 ## $ region_code &lt;chr&gt; &quot;Middle East and North Af...</code></pre>
+</div>
 </div>
 </div>
 <div id="data-preparation" class="section level1">
@@ -599,9 +596,8 @@ wages_row1[,<span class="kw">c</span>(<span class="st">&quot;wage&quot;</span>,<
 wages_row1  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(wage,schooling,exper)  </code></pre></div>
 <pre><code>##       wage schooling exper
 ## 1 134.2306        13     8</code></pre>
-</div>
-<div id="an-example-of-dropping-a-column" class="section level2">
-<h2>An example of dropping a column</h2>
+<div id="an-example-of-dropping-a-column" class="section level3">
+<h3>An example of dropping a column</h3>
 <p>One option we have not covered so far in creating subsets is dropping rows or columns.</p>
 <p>R has a specific notation for this, easily used with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1 <span class="co"># What wages_row1 looks like:</span></code></pre></div>
@@ -610,15 +606,13 @@ wages_row1  <span class="op">%&gt;%</span><span class="st"> </span><span class="
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>exper) <span class="co">#drop exper</span></code></pre></div>
 <pre><code>##       wage schooling    sex
 ## 1 134.2306        13 female</code></pre>
-</div>
-<div id="an-example-of-dropping-a-column-1" class="section level2">
-<h2>An example of dropping a column</h2>
 <p>Dropping columns (or rows) using the <span style="color:blue"><strong>-</strong></span> notation also works with brackets, but only when using the number location of the row or column to be dropped.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_row1[,<span class="op">-</span><span class="dv">4</span>] <span class="co"># works</span></code></pre></div>
 <pre><code>##       wage schooling    sex
 ## 1 134.2306        13 female</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wages_row1[,-&quot;exper&quot;] does not work</span></code></pre></div>
 <p>Because of the ability to use name arguments, dropping with <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">select()</a> is generally easier.</p>
+</div>
 </div>
 <div id="mutating-data" class="section level2">
 <h2>“Mutating” data</h2>
@@ -641,9 +635,8 @@ wages <span class="co"># Display wages</span></code></pre></div>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_wage =</span> <span class="kw">mean</span>(wage))</code></pre></div>
 <pre><code>##   avg_wage
 ## 1 145.8243</code></pre>
-</div>
-<div id="summary-statistics-functions-in-r" class="section level2">
-<h2>Summary Statistics functions in R</h2>
+<div id="summary-statistics-functions-in-r" class="section level3">
+<h3>Summary Statistics functions in R</h3>
 <p>There are a number of summary statistics available in R, which can be used either with the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise">summarize()</a> command or outside of it:</p>
 <p><strong>Measures of central tendency and spread:</strong></p>
 <ul>
@@ -658,8 +651,8 @@ wages <span class="co"># Display wages</span></code></pre></div>
 <li><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n">n()</a>, <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct">n_distinct()</a>,</li>
 </ul>
 </div>
-<div id="multiple-summary-variables" class="section level2">
-<h2>Multiple summary variables</h2>
+<div id="multiple-summary-variables" class="section level3">
+<h3>Multiple summary variables</h3>
 <p>Let’s look at an example of using multiple summary variables with a larger 50-observation sample for the <code>wages</code> data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg.wage =</span> <span class="kw">mean</span>(wage), <span class="dt">sd.wage =</span> <span class="kw">sd</span>(wage), 
@@ -668,6 +661,7 @@ wages <span class="co"># Display wages</span></code></pre></div>
 ##   avg.wage sd.wage avg.exper sd.exper
 ##      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1     5942   17526      7.47     2.08</code></pre>
+</div>
 </div>
 <div id="grouping-data" class="section level2">
 <h2>Grouping data</h2>
@@ -712,9 +706,8 @@ function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;fueleconomy&quot;) # Run only once</span>
 <span class="kw">library</span>(fueleconomy)</code></pre></div>
 <p>Now let’s look at how fuel efficiency has changed over time in the data set. Specifically, let’s create descriptive statistics of fuel efficiency by year for “normal” passenger vehicles (4-8 cylinders).</p>
-</div>
-<div id="whats-in-the-data-set" class="section level2">
-<h2>What’s in the data set?</h2>
+<div id="whats-in-the-data-set" class="section level3">
+<h3>What’s in the data set?</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(vehicles[<span class="dv">2</span><span class="op">:</span><span class="dv">12</span>], <span class="dt">width=</span><span class="dv">50</span>)</code></pre></div>
 <pre><code>## Observations: 33,442
 ## Variables: 11
@@ -730,8 +723,8 @@ function.</p>
 ## $ hwy   &lt;int&gt; 17, 17, 13, 13, 17, 13, 21, 26,...
 ## $ cty   &lt;int&gt; 18, 18, 13, 13, 16, 13, 14, 20,...</code></pre>
 </div>
-<div id="create-summary-tibble" class="section level2">
-<h2>Create summary tibble</h2>
+<div id="create-summary-tibble" class="section level3">
+<h3>Create summary tibble</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annual.mpg &lt;-<span class="st"> </span>vehicles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(cyl <span class="op">%in%</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span><span class="st">  </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">hwy.avg =</span> <span class="kw">mean</span>(hwy), <span class="dt">hwy.sd =</span> <span class="kw">sd</span>(hwy),
@@ -754,6 +747,7 @@ annual.mpg</code></pre></div>
 ##  9  1986    22.4   5.82     17.5    4.48
 ## 10  1997    23.6   5.11     17.2    3.76
 ## # ... with 22 more rows</code></pre>
+</div>
 </div>
 <div id="summarizing-a-data-set-with-the-summary-function" class="section level2">
 <h2>Summarizing a data set with the summary() function</h2>
@@ -789,9 +783,8 @@ annual.mpg</code></pre></div>
 <li>Arguments are the data set and <em>NewVarName</em> = <em>OldVarName</em>.</li>
 </ul>
 <p>To see <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">rename()</a> in action, let’s go back to the <code>barro.lee.data</code> educational data set we imported earlier:</p>
-</div>
-<div id="renaming-columns-example" class="section level2">
-<h2>Renaming columns example</h2>
+<div id="renaming-columns-example" class="section level3">
+<h3>Renaming columns example</h3>
 <p>Let’s look at columns 1 and 7 through 9:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(barro.lee.data[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>)], <span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
 <pre><code>## Observations: 1,898
@@ -830,6 +823,7 @@ annual.mpg</code></pre></div>
 ## $ perc.primary          &lt;dbl&gt; 17.563400, 17.0...
 ## $ perc.primary.complete &lt;dbl&gt; 3.745905, 3.464...</code></pre>
 </div>
+</div>
 <div id="recoding-variables" class="section level2">
 <h2>Recoding variables</h2>
 <p>Along with renaming variables, recoding variables is another integral part of data wrangling.</p>
@@ -863,9 +857,6 @@ wages[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span
 wages[wages<span class="op">$</span>schooling<span class="op">==</span><span class="dv">99</span>,] &lt;-<span class="st"> </span><span class="ot">NA</span>  
 <span class="co"># tidyverse method</span>
 wages<span class="op">$</span>schooling &lt;-<span class="st"> </span>wages<span class="op">$</span>schooling <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">na_if</span>(<span class="dv">99</span>) </code></pre></div>
-</div>
-<div id="missing-values-continued" class="section level2">
-<h2>Missing values continued</h2>
 <p>You can check for (correctly-coded) missing-values using the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA">is.na()</a> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Missing 
 wages[<span class="kw">is.na</span>(wages<span class="op">$</span>wage),]</code></pre></div>
@@ -899,9 +890,8 @@ wages[<span class="kw">is.na</span>(wages<span class="op">$</span>wage),]</code>
 <h2>Gathering data</h2>
 <p>If values for a single variable are spread across multiple columns (e.g. income for different years), <a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather">gather</a> moves this into single “values” column with a “key” column to identify what the different columns differentiated.</p>
 <p><strong>Syntax:</strong> gather(<em>data</em>, <em>key</em>, <em>value</em>, <em>columnstocombine</em>)</p>
-</div>
-<div id="gather-example" class="section level2">
-<h2>Gather example</h2>
+<div id="gather-example" class="section level3">
+<h3>Gather example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">earnings.panel</code></pre></div>
 <pre><code>## # A tibble: 7 x 3
 ##   person  y1999 y2000
@@ -934,8 +924,9 @@ earnings.panel</code></pre></div>
 ## 13 Peter   y2000  29.0
 ## 14 Alice   y2000  15.0</code></pre>
 </div>
-<div id="spread" class="section level2">
-<h2>Spread</h2>
+</div>
+<div id="spreading-data" class="section level2">
+<h2>Spreading data</h2>
 <p>Spread tackles the other major problem - that often times (particularly in longitudinal data) many variables are condensed into just a “key” (or indicator) column and a value column.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages2</code></pre></div>
 <pre><code>##     person indicator      values

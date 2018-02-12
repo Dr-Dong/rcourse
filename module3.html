@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Introduction to R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SSE Intro to R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Modules
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="module1.html">M1:  Base R</a>
+    </li>
+    <li>
+      <a href="module2.html">M2: Tidyverse Data Manipulation</a>
+    </li>
+    <li class="dropdown-header">M3: Loops, Conditionals, and Joins</li>
+    <li class="dropdown-header">M4: Data Presentation</li>
+    <li class="dropdown-header">M5: Regression Modelling</li>
+    <li class="dropdown-header">M6: Capstone Project</li>
+    <li class="dropdown-header">M7: Bayesian Methods</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Learning Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.datacamp.com/">DataCamp</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets</a>
+    </li>
+    <li>
+      <a href="https://www.statmethods.net/">Quick-R</a>
+    </li>
+    <li>
+      <a href="https://stackoverflow.com/">StackOverflow</a>
+    </li>
+    <li>
+      <a href="https://www.r-bloggers.com/">R-Bloggers</a>
+    </li>
+    <li>
+      <a href="http://r4ds.had.co.nz/">R for Data Science Online Book</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Downloads
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Basic R Software</li>
+    <li>
+      <a href="https://cran.r-project.org/">R</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/">RStudio</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Latex</li>
+    <li>
+      <a href="https://miktex.org/download">MiKTex (Windows)</a>
+    </li>
+    <li>
+      <a href="http://www.tug.org/mactex/mactex-download.html">MacTex (Mac)</a>
+    </li>
+    <li>
+      <a href="https://www.sumatrapdfreader.org/free-pdf-reader.html">Sumatra PDF (Windows)</a>
+    </li>
+    <li>
+      <a href="https://skim-app.sourceforge.io/">Skim PDF (Mac)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Version Control</li>
+    <li>
+      <a href="https://git-scm.com/downloads">Git</a>
+    </li>
+    <li>
+      <a href="https://github.com/">GitHub (account only)</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Code
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://github.com/andrewproctor/rminicourse">Course on Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R</h1>
+<h3 class="subtitle"><em>Module 3: Conditionals, loops, functions, and joins</em></h3>
+
+</div>
+
+
+<p><br></p>
+<div id="intro" class="section level1">
+<h1>Intro</h1>
+<div id="goals-for-module" class="section level3">
+<h3>Goals for Module</h3>
+<ol style="list-style-type: decimal">
+<li>Basics of programming in R—learn how to write and use:
+<ul>
+<li>Iterations (loops and map functions)</li>
+<li>Conditional statements</li>
+<li>Basic functions</li>
+</ul></li>
+<li>Learn how to perform different types of dataset joins.</li>
+</ol>
+<p><br></p>
+</div>
+</div>
+<div id="iteration" class="section level1">
+<h1>Iteration</h1>
+<div id="for-loops" class="section level2">
+<h2>For loops</h2>
+<p>For tasks that you want to iterate over multiple data frames/variables/elements, you may want to think about creating a <strong>loop</strong>.</p>
+<ul>
+<li>A loop performs a function/functions multiple times, across either a list of objects or a set of index values.</li>
+</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(indexname <span class="cf">in</span> range) {
+  do stuff
+}</code></pre></div>
+<div id="for-loop-across-numeric-values" class="section level3">
+<h3>For loop across numeric values</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){
+  <span class="kw">print</span>(i<span class="op">^</span><span class="dv">2</span>)
+}</code></pre></div>
+<pre><code>## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16</code></pre>
+</div>
+<div id="for-loop-across-named-elements" class="section level3">
+<h3>For loop across named elements</h3>
+<p>You can also loop over elements instead of values.</p>
+<ul>
+<li>In the last module exercises, you had to convert many columns to numeric. Here’s how you could do that with a loop:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wdi_data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;./data/wdi_data.rds&quot;</span>)
+
+vars &lt;-<span class="kw">colnames</span>(wdi_data)
+indicators &lt;-<span class="st"> </span>vars[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)]
+
+<span class="cf">for</span> (i <span class="cf">in</span> indicators){
+  wdi_data[,i] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(wdi_data[,i])
+}</code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="the-map-function" class="section level2">
+<h2>The map() function</h2>
+<p>For iterations over vectors and dataframes, the <a href="https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map">map()</a> function is a great alternative to the for loop.</p>
+<p>Map functions take a user-supplied function and iterate it over:</p>
+<ul>
+<li><p>Elements for a vector</p></li>
+<li><p>Objects of a list</p></li>
+<li><p>Columns of a data frame</p></li>
+</ul>
+<p>Map functions are much simpler to write than loops and are also generally a good bit faster.</p>
+<ul>
+<li><strong><em>Sidenote</em></strong>: Map is a part of the tidyverse collection of packages. In base R, the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/apply">apply()</a> family of functions does roughly the same thing, but <a href="https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map">map()</a> simplifies and improves this task.</li>
+</ul>
+<div id="using-the-map-function" class="section level3">
+<h3>Using the map() function</h3>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(data, fxn, option1, option2...)</code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wdi_data[,<span class="dv">4</span><span class="op">:</span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="kw">map</span>(wdi_data[,<span class="dv">4</span><span class="op">:</span><span class="dv">15</span>], as.numeric)</code></pre></div>
+<p><em>Applies the function as.numeric to the columns 4-15 of wdi_data.</em></p>
+</div>
+<div id="using-class-specific-map-variants" class="section level3">
+<h3>Using class-specific map variants</h3>
+<p>There are multiple map variants that enforce a given data type on results. You should use these whenever you want output of a certain class.</p>
+<ul>
+<li><p>map_lgl for logical vector</p></li>
+<li><p>map_dbl for numeric vector</p></li>
+<li><p>map_chr for character vector</p></li>
+<li><p>map_df for a data frame</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(wdi_data, IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##      GDP_pc         pop         pov 
+##    10548.89 40860583.00       65.40</code></pre>
+</div>
+<div id="using-map-with-anonymous-functions" class="section level3">
+<h3>Using map() with anonymous functions</h3>
+<p><strong><a href="https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map">map()</a></strong> works with not only predefined functions, but also “anonymous functions”— unnamed functions defined inside of map().</p>
+<ul>
+<li>In the example below, I z-standardize the values of year, GDP, population, and poverty.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data, <span class="cf">function</span>(x) 
+  (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x,  <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+  )</code></pre></div>
+</div>
+<div id="did-it-work" class="section level3">
+<h3>Did it work?</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
+  <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
+<pre><code>##   year GDP_pc    pop    pov 
+##      0      0      0      0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
+  <span class="kw">round</span>(<span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
+<pre><code>##   year GDP_pc    pop    pov 
+##      1      1      1      1</code></pre>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="conditional-statements" class="section level1">
+<h1>Conditional Statements</h1>
+<div id="if-statements" class="section level2">
+<h2>If statements</h2>
+<p>“If statements” are also a useful part of programming, either in conjunction with iteration or seperately.</p>
+<ul>
+<li>An if statement performs operations only if a specified condition is met.
+<ul>
+<li>An important thing to know, however, is that if statements evaluate conditions of length one (ie non-vector arguments).</li>
+<li>We will cover a vector equivalent to the if statement shortly.</li>
+</ul></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(condition){
+     do stuff
+    }</code></pre></div>
+<div id="example-of-an-if-statement" class="section level3">
+<h3>Example of an if statement</h3>
+<ul>
+<li><p>In the for loop example, the loop was indexed over only the columns of indicator codes.</p></li>
+<li><p>Equally, the loop could be done over all columns with an if-statement to change only the indicator codes.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">colnames</span>(wdi_data)){
+  
+  <span class="cf">if</span>(j <span class="op">%in%</span><span class="st"> </span>indicators){
+      wdi_data[,j] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(wdi_data[,j])
+  }
+}</code></pre></div>
+</div>
+<div id="multiple-conditions" class="section level3">
+<h3>Multiple conditions</h3>
+<p>You can encompass several conditions using the <span style="color:blue"><strong>else if</strong></span> and catch-all <span style="color:blue"><strong>else</strong></span> control statements.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (condition1) {
+do stuff
+} <span class="cf">else</span> <span class="cf">if</span> (condition2) {
+do other stuff
+} <span class="cf">else</span> {
+do other other stuff
+}</code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="vectorized-if-statements" class="section level2">
+<h2>Vectorized if statements</h2>
+<ul>
+<li><p>As alluded to earlier, if statements can’t test-and-do for vectors, but only single-valued objects.</p></li>
+<li><p>Most of the time, you probably want to use conditional statements on vectors. The vector equivalent to the if statement is <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse">ifelse()</a></p></li>
+</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(condition, true_statement, false_statement)</code></pre></div>
+<p>The statements returned can be simple values, but they can also be functions or even further conditions. You can easily nest multiple <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse">ifelses</a> if desired.</p>
+<div id="an-ifelse-example" class="section level3">
+<h3>An ifelse example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> numbers &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dv">7</span>); numbers</code></pre></div>
+<pre><code>## [1] 30 20 28 16  1 29  9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">ifelse</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;even&quot;</span>,<span class="st">&quot;odd&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;</code></pre>
+<p><strong>Note:</strong> What if we tried a normal if statement instead?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="cf">if</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){
+   <span class="kw">print</span>(<span class="st">&quot;even&quot;</span>)} <span class="cf">else</span>{
+     <span class="kw">print</span>(<span class="st">&quot;odd&quot;</span>)}</code></pre></div>
+<pre><code>## [1] &quot;even&quot;</code></pre>
+</div>
+<div id="multiple-vectorized-if-statements" class="section level3">
+<h3>Multiple vectorized if statements</h3>
+<p>A better alternative to multiple nested <code>ifelse</code> statements is the tidyverse <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/case_when">case_when</a> function.</p>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">case_when</span>(
+  condition1 <span class="op">~</span><span class="st"> </span>statement1,
+  condition2 <span class="op">~</span><span class="st"> </span>statement2,
+  condition3 <span class="op">~</span><span class="st"> </span>statement3,
+)</code></pre></div>
+</div>
+<div id="a-case_when-example" class="section level3">
+<h3>A case_when example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nums_df &lt;-<span class="st"> </span>numbers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">interval =</span> <span class="kw">case_when</span>(
+  (numbers <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>numbers <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">~</span><span class="st"> &quot;1-10&quot;</span>,
+  (numbers <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>numbers <span class="op">&lt;=</span><span class="st"> </span><span class="dv">20</span>) <span class="op">~</span><span class="st"> &quot;10-20&quot;</span>,
+  (numbers <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>numbers <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span>) <span class="op">~</span><span class="st"> &quot;20-30&quot;</span>))
+nums_df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,]</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   value interval
+##   &lt;int&gt; &lt;chr&gt;   
+## 1    30 20-30   
+## 2    20 10-20   
+## 3    28 20-30   
+## 4    16 10-20</code></pre>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<div id="when-you-should-write-a-function" class="section level3">
+<h3>When you should write a function</h3>
+<p>If you find yourself performing the same specific steps more than a couple of times (perhaps with slight variations), then you should consider writing a function.</p>
+<p>A function can serve essentially as a wrapper for a series of steps, where you define generalized inputs/arguments.</p>
+</div>
+<div id="writing-a-function" class="section level3">
+<h3>Writing a function</h3>
+<p><strong>Ingredients:</strong></p>
+<ul>
+<li><p>Function name</p></li>
+<li><p>Arguments</p></li>
+<li><p>Function body</p></li>
+</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, ...){
+  do stuff
+}</code></pre></div>
+</div>
+<div id="function-example" class="section level3">
+<h3>Function example</h3>
+<p>Let’s turn the calculation of even or odd that was completed earlier into a function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make odd function</span>
+odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
+   <span class="kw">ifelse</span>(obj <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;even&quot;</span>,<span class="st">&quot;odd&quot;</span>)
+}</code></pre></div>
+<p><strong><em>Notice</em></strong> that <em>obj</em> here is a descriptive placeholder name for the data object to be supplied as an argument for the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odd</span>(numbers)</code></pre></div>
+<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;</code></pre>
+</div>
+<div id="rstudios-extract-function" class="section level3">
+<h3>RStudio’s “Extract Function”</h3>
+<p>A useful way of writing simple functions when you’ve already written the code for a specific instance is to use RStudio’s <em>Extract Function</em> option, which is available from the code menu.</p>
+<ul>
+<li><em>Extract function</em> will take the code chunk and treat any data objects referenced but not created within the chunk as function arguments.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="joins" class="section level1">
+<h1>Joins</h1>
+<div id="merging-data" class="section level2">
+<h2>Merging data</h2>
+<p><em>Shifting gears from programming…</em></p>
+<p>Another staple task in applied work is combining data from multiple data sets. The tidyverse set of packages includes several useful types of merges (or “joins”):</p>
+<ul>
+<li><p><strong><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">left_join()</a></strong> Appends columns from dataset B to dataset A, keeping all observations in dataset A.</p></li>
+<li><p><strong><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">inner_join()</a></strong> Appends columns together, keeping only observations that appear in both dataset A and B.</p></li>
+<li><p><strong><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">semi_join()</a></strong> Keeps only columns of dataset A for observations that appear in both dataset A and B.</p></li>
+<li><p><strong><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">anti_join()</a></strong> Keeps only columns of dataset A for    observations that <em>do not</em> appear in both dataset A and B.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="joining-using-keys" class="section level2">
+<h2>Joining using keys</h2>
+<p>The starting point for any merge is to enumerate the column or columns that uniquely identify observations in the dataset.</p>
+<ul>
+<li><p>For cross-sectional data, this might be a personal identifier or (for aggregate data) something like municipality, state, country, etc.</p></li>
+<li><p>For panel data, this will typically be both the personal/group identifier and a timing variable, for example Sweden in 2015 in a cross-country analysis.</p></li>
+</ul>
+<div id="mismatched-key-names-across-datasets" class="section level3">
+<h3>Mismatched key names across datasets</h3>
+<p>Sometimes the names of the key variables are different across datasets.</p>
+<ul>
+<li><p>You could of course rename the key variables to be consistent.</p></li>
+<li><p>But mismatched key names are easily handled by the tidyverse join functions.</p></li>
+</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">join_function</span>(x, y, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;x_name&quot;</span> =<span class="st"> &quot;y_name&quot;</span>))</code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="left_join" class="section level2">
+<h2>left_join</h2>
+<p>The <strong><a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">left_join()</a></strong> is the most frequent type of join, corresponding to a standard <strong>merge</strong> in Stata.</p>
+<ul>
+<li>left_join simply appends additional variables from a second dataset to a main dataset, keeping all the observations (rows) of the first dataset.</li>
+</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">left_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>)</code></pre></div>
+<p>If the key is muliple columns, use <span style="color:blue"><strong>c()</strong></span> to list them.</p>
+<div id="left_join-example" class="section level3">
+<h3>left_join example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Look at the datasets</span>
+earnings</code></pre></div>
+<pre><code>##   person_id wage
+## 1       001  150
+## 2       002   90
+## 3       003  270</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ</code></pre></div>
+<pre><code>##   person_id schooling
+## 1       001        12
+## 2       003         8
+## 3       004        16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Combine data</span>
+combined_data &lt;-<span class="st"> </span><span class="kw">left_join</span>(earnings, educ, 
+                           <span class="dt">by=</span><span class="st">&quot;person_id&quot;</span>)
+
+<span class="co"># Print data</span>
+combined_data</code></pre></div>
+<pre><code>##   person_id wage schooling
+## 1       001  150        12
+## 2       002   90        NA
+## 3       003  270         8</code></pre>
+<p><strong><em>Notice</em></strong> that schooling is equal to NA for person ‘002’ because    that person does not appear in the <em>educ</em> dataset.</p>
+<p><br></p>
+</div>
+</div>
+<div id="inner_join" class="section level2">
+<h2>inner_join</h2>
+<p>If you want to combine the variables of two data sets, but only keep the observations present in both datasets, use the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">inner_join()</a> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined_data &lt;-<span class="st"> </span><span class="kw">inner_join</span>(earnings, educ, 
+                            <span class="dt">by=</span><span class="st">&quot;person_id&quot;</span>)
+combined_data</code></pre></div>
+<pre><code>##   person_id wage schooling
+## 1       001  150        12
+## 2       003  270         8</code></pre>
+<p><br></p>
+</div>
+<div id="semi_join" class="section level2">
+<h2>semi_join</h2>
+<p>To keep using only the variables in the first dataset, but where observations in the first dataset are matched in the second dataset, use <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">semi_join()</a>.</p>
+<ul>
+<li>semi_join is an example of a <em>filtering join</em>. Filtering joins don’t add new columns, but instead just filter observations for matches in a second dataset.</li>
+<li>left_join and inner_join are instead known as <em>mutating joins</em>, because new variables are added to the dataset.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filtered_data &lt;-<span class="st"> </span><span class="kw">semi_join</span>(earnings, educ, <span class="dt">by=</span><span class="st">&quot;person_id&quot;</span>)
+filtered_data</code></pre></div>
+<pre><code>##   person_id wage
+## 1       001  150
+## 2       003  270</code></pre>
+<p><br></p>
+</div>
+<div id="anti_join" class="section level2">
+<h2>anti_join</h2>
+<p>Another <em>filtering join</em> is <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join">anti_join()</a>, which filters for observations that are <em>not matched</em> in a second dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filtered_data &lt;-<span class="st"> </span><span class="kw">anti_join</span>(earnings, educ, 
+                           <span class="dt">by=</span><span class="st">&quot;person_id&quot;</span>)
+filtered_data</code></pre></div>
+<pre><code>##   person_id wage
+## 1       002   90</code></pre>
+<p>There are still other join types, which you can read about <a href="http://dplyr.tidyverse.org/reference/join.html">here</a>.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

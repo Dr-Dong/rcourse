@@ -155,16 +155,18 @@ wdi_data <- wdi_data %>% select(year,GDP_pc, pop, pov)
 poverty.
 
 ```{r}
+# Create Z Transform
 ztransform <- map_df(wdi_data, function(x) 
   (x - mean(x,  na.rm=TRUE)) / sd(x, na.rm=TRUE)
   )
-```
-
 
 ### Did it work?
-```{r}
+
+# Means
 map_dbl(ztransform, function(x) 
   round(mean(x, na.rm=TRUE),10))
+
+# Standard deviations
 map_dbl(ztransform, function(x) 
   round(sd(x, na.rm=TRUE),10))
 ```

@@ -514,17 +514,20 @@ indicators &lt;-<span class="st"> </span>vars[<span class="op">-</span>(<span cl
 <ul>
 <li>In the example below, I z-standardize the values of year, GDP, population, and poverty.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data, <span class="cf">function</span>(x) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create Z Transform</span>
+ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data, <span class="cf">function</span>(x) 
   (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x,  <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-  )</code></pre></div>
-</div>
-<div id="did-it-work" class="section level3">
-<h3>Did it work?</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
+  )
+
+### Did it work?
+
+<span class="co"># Means</span>
+<span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
   <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
 <pre><code>##   year GDP_pc    pop    pov 
 ##      0      0      0      0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Standard deviations</span>
+<span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
   <span class="kw">round</span>(<span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
 <pre><code>##   year GDP_pc    pop    pov 
 ##      1      1      1      1</code></pre>
@@ -586,9 +589,9 @@ do other other stuff
 <div id="an-ifelse-example" class="section level3">
 <h3>An ifelse example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> numbers &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dv">7</span>); numbers</code></pre></div>
-<pre><code>## [1]  1 10 15 27  7  3 30</code></pre>
+<pre><code>## [1] 25  5 17  3 18 15 30</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">ifelse</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;even&quot;</span>,<span class="st">&quot;odd&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot;</code></pre>
+<pre><code>## [1] &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
 <p><strong>Note:</strong> What if we tried a normal if statement instead?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="cf">if</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){
    <span class="kw">print</span>(<span class="st">&quot;even&quot;</span>)} <span class="cf">else</span>{
@@ -616,10 +619,10 @@ nums_df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</sp
 <pre><code>## # A tibble: 4 x 2
 ##   value interval
 ##   &lt;int&gt; &lt;chr&gt;   
-## 1     1 1-10    
-## 2    10 1-10    
-## 3    15 10-20   
-## 4    27 20-30</code></pre>
+## 1    25 20-30   
+## 2     5 1-10    
+## 3    17 10-20   
+## 4     3 1-10</code></pre>
 <p><br></p>
 </div>
 </div>
@@ -653,7 +656,7 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 }</code></pre></div>
 <p><strong><em>Notice</em></strong> that <em>obj</em> here is a descriptive placeholder name for the data object to be supplied as an argument for the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odd</span>(numbers)</code></pre></div>
-<pre><code>## [1] &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot;</code></pre>
+<pre><code>## [1] &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
 </div>
 <div id="rstudios-extract-function" class="section level3">
 <h3>RStudio’s “Extract Function”</h3>

@@ -12,7 +12,7 @@ navbar:
               - text: "M2: Tidyverse Data Manipulation"
                 href: module2.html
               - text: "M3: Loops, Conditionals, and Joins"
-                href: 
+                href: module3.html
               - text: "M4: Data Presentation"
                 href: 
               - text: "M5: Regression Modelling"

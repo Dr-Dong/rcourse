@@ -70,7 +70,9 @@ learn convenient tools to import and export data.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/regions.csv" role="button">regions.csv</a>   
-  <br>
+
+
+<br>
 
 
 ### **Module 3:**  Loops, Conditionals, and Joins (Feb 13^th^ and 14^th^)
@@ -87,6 +89,8 @@ Tidyverse functions.
   
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
+
+
 <br>
 
 

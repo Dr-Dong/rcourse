@@ -56,8 +56,8 @@ navbar:
               - text: "Version Control"
               - text: "Git"
                 href: https://git-scm.com/downloads
-              - text: "GitHub (account only)"
-                href: https://github.com/         
+              - text: "GitHub for Education"
+                href: https://education.github.com/discount_requests/new         
               - text: "---------"
     - text: "Code"
       menu:

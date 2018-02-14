@@ -131,7 +131,7 @@ perform an analysis of an empirical problem in R from start to finish.
 <br>
 
 
-### **Module 7:**  Intro to Bayesian Methods in R (March 1^st^)
+### **Module 7:**  Intro to Bayesian Methods in R (March 2^nd^)
 
 This module introduces the basic intuition of Bayesian statistical methods and how
 to perform Bayesian analysis in R, primarily using the rstanarm package.

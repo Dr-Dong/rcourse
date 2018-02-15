@@ -3,9 +3,9 @@ title: "SSE Intro to R"
 author: "Instructor:  Andrew Proctor"
 output: 
   html_document:
+    theme: flatly
     df_print: kable
     highlight: haddock
-    theme: flatly
     toc: yes
     toc_depth: 3
     toc_float:
@@ -94,13 +94,14 @@ Tidyverse functions.
 <br>
 
 
-### **Module 4:**  Data Presentation:  RMarkdown and ggplot2 (Feb 15^th^ and 16^th^)
+### **Module 4:**  Project Management and Dynamic Documents:  RMarkdown, Projects, and version Control (Feb 15^th^ and 16^th^)
 
-This module provides an overview of how to present your data in a professional and 
-visually appealing manner using R.  The first emphasis will be using Knitr and
-RMarkdown to generate reports in a variety of formats, such as HTML pages, PDF 
-documents,and beamer presentations.  Second, the ggplot2 package will also be 
-introduced as a means to create compelling graphs and figures in R.
+This module provides a few major enhancements to the workflow process of data 
+analysis in R.  Fist, Knitr and RMarkdown are introduced as a means to create 
+dynamic reports from R using a variety of formats, such as HTML pages, PDF 
+documents, and beamer presentations.  Then, RStudio Projects are introduced as 
+means of organizing folders for empirical projects.  Finally, Git and GitHub are 
+introduced to perform version control.
 
   - Lecture Notes:
   
@@ -109,10 +110,12 @@ introduced as a means to create compelling graphs and figures in R.
 <br>
 
 
-### **Module 5:** Regression Modelling in R (Feb 22^nd^ and 23^rd^)
+### **Module 5:** Regression Modelling and Visualizing Data in R (Feb 22^nd^ and 23^rd^)
 
 In this module, standard methods of regression analysis in R are presented, in 
-addition to coverage of common diagnostics and post-estimation procedures,
+addition to coverage of common diagnostics and post-estimation procedures.  In 
+addition, the ggplot2 package is introduced as a means of creating compelling 
+graphs in R.
 
   - Lecture Notes: 
   

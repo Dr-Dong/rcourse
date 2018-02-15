@@ -89,6 +89,7 @@ Tidyverse functions.
   
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
 
 
 <br>
@@ -107,7 +108,8 @@ introduced to perform version control.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/module4.html" role="button">Webpage</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module4.pdf" role="button">Slides</a> 
   
-  - Seminar Exercise:
+- **Seminar Exercises:**   \ \ \ \ 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
 
 <br>
 

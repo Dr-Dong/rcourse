@@ -14,6 +14,9 @@ library(tidyverse)
 library("rio")
 ```
 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module4.pdf" role="button">Slides</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
+
 <br>
 <br>
 
@@ -23,7 +26,7 @@ library("rio")
 - Learn how to create dynamic R documents in a variety of formats using knitr 
 and RMarkdown
 
-- Learn how to how manage the project structure using RSTudio projects.
+- Learn how to how manage the project structure using RStudio projects.
 
 - Learn how to perform local and online online version control using Git and
  GitHub.
@@ -37,7 +40,7 @@ and RMarkdown
 ### Reproducible R Reports
 
 - So far, we have been working purely with basic "R Script" files, which are 
-very simliar to Stata do-files.
+very similar to Stata do-files.
 
 - But thanks largely to the [knitr package](https://yihui.name/knitr/), you can 
 easily create reports that interweaves text and R code in a neatly structured 
@@ -158,7 +161,7 @@ the current chunk or all of the chunks above a given chunk.
 Anything not written inside of these bacticked sections is interpret as normal 
 writing.
 
-RMarkdown makes styling your writing particlarly easy.  Some common formatting 
+RMarkdown makes styling your writing particularly easy.  Some common formatting 
 options include:
 
 - **Headers:** Headers are defined using hashes (#)
@@ -183,7 +186,7 @@ structure output using lists.  To do so, start each bulleted line with a dash (-
     + To make an indent "sub-list", start the sub-list with a plus sign (+) and use 
     tab to indent the line twice for each of the sub-list items.
 
-- **Latex input:** Most LaTex commands (except for generally longer multiline 
+- **Latex input:** Most LaTex commands (except for generally longer multi-line 
 structures) can be included in RMarkdown documents just as you'd write them 
 in Tex document.
 
@@ -234,9 +237,9 @@ new line and a colon to it.  Then indent under the output type and add the
 desired options.
 
 
-![Before](./assets/output_options_before.png)
+![**Before**](./assets/output_options_before.png)
 
-![After](./assets/output_options_after.png)
+![**After**](./assets/output_options_after.png)
 
 <br>
 
@@ -282,11 +285,11 @@ import(./assets/mydata.rds)
 
 ### R Notebooks
 
-Aside from the standard RMarkdown documents that we've coverd so far, another 
+Aside from the standard RMarkdown documents that we've covered so far, another 
 format worth mentioning is the **R Notebook** format.  
 
 - R Notebooks essentially adapt html RMarkdown documents to be even more similar 
-to something like Juptyer Notebooks.
+to something like Jupyter Notebooks.
 
 - With R Notebooks, you can ***Preview*** documents without knitting them over 
 again.  
@@ -401,7 +404,7 @@ remote location for storing version control repositories.
 your local computer.
 
 Once Git is installed (and recognized in RStudio), you can use Projects to 
-peform local version control.
+perform local version control.
 
 In **File -- New Project -- New Directory**, once you have Git installed there 
 is a checkbox that can be selected to enable to "Create a Git repository".  
@@ -460,10 +463,10 @@ repository).
 
 ### Using a Remote Repository with GitHub
 
-Once you've created an online repository, ***Projects*** once again alows you 
+Once you've created an online repository, ***Projects*** once again allows you 
 to easily connect RStudio with the repository.
 
-- To setup a project for use with GitHub, creat a **New Project** and select 
+- To setup a project for use with GitHub, create a **New Project** and select 
 **Version Control** instead of **New Directory.**
 
   + From there, simply choose "Git" and then copy the url of the repository from 

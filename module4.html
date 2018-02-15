@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Introduction to R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SSE Intro to R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Modules
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="module1.html">M1:  Base R</a>
+    </li>
+    <li>
+      <a href="module2.html">M2: Tidyverse Data Manipulation</a>
+    </li>
+    <li>
+      <a href="module3.html">M3: Loops, Conditionals, and Joins</a>
+    </li>
+    <li class="dropdown-header">M4: Data Presentation</li>
+    <li class="dropdown-header">M5: Regression Modelling</li>
+    <li class="dropdown-header">M6: Capstone Project</li>
+    <li class="dropdown-header">M7: Bayesian Methods</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Learning Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.datacamp.com/">DataCamp</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets</a>
+    </li>
+    <li>
+      <a href="https://www.statmethods.net/">Quick-R</a>
+    </li>
+    <li>
+      <a href="https://stackoverflow.com/">StackOverflow</a>
+    </li>
+    <li>
+      <a href="https://www.r-bloggers.com/">R-Bloggers</a>
+    </li>
+    <li>
+      <a href="http://r4ds.had.co.nz/">R for Data Science Online Book</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Downloads
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Basic R Software</li>
+    <li>
+      <a href="https://cran.r-project.org/">R</a>
+    </li>
+    <li>
+      <a href="https://www.rstudio.com/">RStudio</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Latex</li>
+    <li>
+      <a href="https://miktex.org/download">MiKTex (Windows)</a>
+    </li>
+    <li>
+      <a href="http://www.tug.org/mactex/mactex-download.html">MacTex (Mac)</a>
+    </li>
+    <li>
+      <a href="https://www.sumatrapdfreader.org/free-pdf-reader.html">Sumatra PDF (Windows)</a>
+    </li>
+    <li>
+      <a href="https://skim-app.sourceforge.io/">Skim PDF (Mac)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Version Control</li>
+    <li>
+      <a href="https://git-scm.com/downloads">Git</a>
+    </li>
+    <li>
+      <a href="https://education.github.com/discount_requests/new">GitHub for Education</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Code
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://github.com/andrewproctor/rminicourse">Course on Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R</h1>
+<h3 class="subtitle"><em>Module 4: Data presentation</em></h3>
+
+</div>
+
+
+<p><br> <br></p>
+<div id="goals-for-module" class="section level3">
+<h3>Goals for Module</h3>
+<ul>
+<li><p>Learn how to create dynamic R documents in a variety of formats using knitr and RMarkdown</p></li>
+<li><p>Learn how to how manage the project structure using RSTudio projects.</p></li>
+<li><p>Learn how to perform local and online online version control using Git and GitHub.</p></li>
+</ul>
+<p><br> <br></p>
+</div>
+<div id="rmarkdown-documents" class="section level2">
+<h2>RMarkdown documents</h2>
+<div id="reproducible-r-reports" class="section level3">
+<h3>Reproducible R Reports</h3>
+<ul>
+<li><p>So far, we have been working purely with basic “R Script” files, which are very simliar to Stata do-files.</p></li>
+<li><p>But thanks largely to the <a href="https://yihui.name/knitr/">knitr package</a>, you can easily create reports that interweaves text and R code in a neatly structured manner.</p></li>
+<li><p>Output can be structured as PDF documents, HTML webpages, Word documents, or various presentation formats including Beamer (LaTex) presentations.</p></li>
+<li><p>The course website, lecture slides, and exercise instructions have all been generated in R.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="getting-started" class="section level3">
+<h3>Getting started</h3>
+<ul>
+<li><p>Reports of different file formats are generated using the <a href="https://yihui.name/knitr/">knitr package</a>.</p></li>
+<li><p>Before installing knitr, make sure sure that you have a Latex distribution installed.</p></li>
+<li><p>Then install the knitr package and initialize it in the usual manner.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run only once (ie in the console)</span>
+    <span class="co"># install.packages(&quot;knitr&quot;) </span>
+
+<span class="co"># Initialize library</span>
+<span class="kw">library</span>(<span class="st">&quot;knitr&quot;</span>)</code></pre></div>
+<p><br></p>
+</div>
+<div id="knitr-and-rmarkdown" class="section level3">
+<h3>Knitr and RMarkdown</h3>
+<p>Knitr allows for the creation of documents structured using two different typesetting languages:</p>
+<ul>
+<li><p>LaTex with the .RNW file</p></li>
+<li><p>Markdown (specifically <em>RMarkdown</em>), which was originally created as a simple language for structuring HTML markup.</p></li>
+</ul>
+<p>For this course, we will focus on the <strong>RMarkdown</strong> format, which has become the dominant method for “knitting” document because of it’s lightweight and flexibility.</p>
+<ul>
+<li>More information about how to generate R reports using the Latex format can be found at <a href="https://rpubs.com/YaRrr/SweaveIntro" class="uri">https://rpubs.com/YaRrr/SweaveIntro</a>.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="creating-an-rmarkdown-document" class="section level3">
+<h3>Creating an RMarkdown document</h3>
+<ul>
+<li><p>After installing knitr, to create an RMarkdown document, go to <strong>File—New File—R Markdown</strong>.</p></li>
+<li><p>A popup shows up to ask enter the document Title and Author, as well as what type of document you want to create.</p></li>
+</ul>
+<p><img src="data/NewRMD.png" /> <br></p>
+</div>
+<div id="writing-and-code-in-rmarkdown" class="section level3">
+<h3>Writing and Code in RMarkdown</h3>
+<p>In RMarkdown, expository writing and code “chunks” are differentiated in writing code in specific code chunks.</p>
+<pre><code>```{r}
+# Here is an example of a code chunk
+2 +2 
+```</code></pre>
+<p>When you create the document, that statement gets evaluated as:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Here is an example of a code chunk</span>
+    <span class="dv">2</span> <span class="op">+</span><span class="dv">2</span> </code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p><br></p>
+</div>
+<div id="inline-chunks" class="section level3">
+<h3>Inline Chunks</h3>
+<p>You can also include inline code by using initializing with a backtick and the letter r (no space between), writing the code, then closing the chunk with another backtick.</p>
+<ul>
+<li>For example: <code  class="r"><code>`r 2+2`</code></code></li>
+</ul>
+<p><br></p>
+</div>
+<div id="knitting-a-document" class="section level3">
+<h3>Knitting a document</h3>
+<p>To generate a document in the desired output format from a RMarkdown document, you need to <strong>“Knit”</strong> the document, which appears as a clickable icon on the menu atop the script pane.</p>
+<p>You do not need to Knit a document after every change, however. You can just as easily run the code chunks. There are specific specific buttons to run either the current chunk or all of the chunks above a given chunk.</p>
+<p><img src="data/RMDbuttons.png" /> <br></p>
+</div>
+<div id="writing-outside-of-code-chunks" class="section level3">
+<h3>Writing outside of code chunks</h3>
+<p>Anything not written inside of these bacticked sections is interpret as normal writing.</p>
+<p>RMarkdown makes styling your writing particlarly easy. Some common formatting options include:</p>
+<ul>
+<li><strong>Headers:</strong> Headers are defined using hashes (#)
+<ul>
+<li>A single # indicates a top level heading (and bigger font), while each additional hash indicates a smaller heading size</li>
+<li>So while # is the largest heading size, #### is a small heading</li>
+</ul></li>
+<li><strong>Bold</strong>: To bold text, wrap it in two asterisks: <code>**Bold Statement**</code></li>
+<li><strong>Italics:</strong> To italicize text, wrap in a single asterisk:        <code>*Italics Statement*</code></li>
+</ul>
+<p><br></p>
+</div>
+<div id="lists-and-latex-input" class="section level3">
+<h3>Lists and Latex Input</h3>
+<ul>
+<li><p><strong>Lists/Bullet Points</strong>: Like the bullet points here, you will often want to structure output using lists. To do so, start each bulleted line with a dash (-).</p>
+<ul>
+<li><p>Make sure to leave an empty line between the start of the list and any other text.</p></li>
+<li><p>To make an indent “sub-list”, start the sub-list with a plus sign (+) and use tab to indent the line twice for each of the sub-list items.</p></li>
+</ul></li>
+<li><p><strong>Latex input:</strong> Most LaTex commands (except for generally longer multiline structures) can be included in RMarkdown documents just as you’d write them in Tex document.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="seperating-lines-in-rmarkdown" class="section level3">
+<h3>Seperating Lines in RMarkdown</h3>
+<ul>
+<li><p>Something you might wonder is how to obey the RStudio 80-character margins while allowing your text to wrap normally in the generated documents.</p></li>
+<li><p>The answer lies in how new lines are treated in RMarkdown documents.</p>
+<ul>
+<li>If the line ends with one space or less, a new line in RMarkdown will not be treated as a new line in the documents generated.</li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="code-chunk-options" class="section level3">
+<h3>Code chunk options</h3>
+<p>There are several output options you can specify for how R code and the code output are expressed in reports. These options are expressed as options in the {r} declaration at the top of the chunk.</p>
+<ul>
+<li><p><strong>echo=FALSE</strong>: do not show the R code itself (but potentially the code output depending on other chunk options).</p></li>
+<li><p><strong>include=FALSE</strong>: do not show the R code or the output in the document.</p></li>
+<li><p><strong>eval=FALSE:</strong> do not actually execute the code inside the chunk, only display it.</p></li>
+<li><p><strong>results=hide</strong>: run the code but do not show the results output.</p></li>
+<li><p><strong>warning=FALSE</strong> / <strong>message=FALSE</strong>: do not show    warnings or messages associated with the R code.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="output-options" class="section level3">
+<h3>Output options</h3>
+<p>When a RMarkdown document is generated in a given output format, there are several common things you can do to customize the appearance of the document.</p>
+<p>To add options to your document, indent the name of the output type to an indented new line and a colon to it. Then indent under the output type and add the desired options.</p>
+<div class="figure">
+<img src="data/output_options_before.png" alt="Before" />
+<p class="caption">Before</p>
+</div>
+<div class="figure">
+<img src="data/output_options_after.png" alt="After" />
+<p class="caption">After</p>
+</div>
+<p><br></p>
+</div>
+<div id="common-output-options" class="section level3">
+<h3>Common output options</h3>
+<p>Here are a few common options:</p>
+<ul>
+<li><p><strong>table of contents</strong>: to include a table of contents in your document, use the <span style="color:blue"><strong>toc: yes</strong></span> option.</p></li>
+<li><p>To change the way data frame output is printed, use the <span style="color:blue"><strong>df_print</strong></span> option. Good options are <span style="color:blue"><strong>kable</strong></span> or <span style="color:blue"><strong>tibble</strong></span>.</p></li>
+<li><p>To add code highlighting for R chunks, use the <span style="color:blue"><strong>highlight:</strong></span> option.</p>
+<ul>
+<li><strong>Options include:</strong> default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, and textmate.</li>
+</ul></li>
+<li><p>You can also specify output themes for html documents and beamer presentations. For html documents, possible themes are listed <a href="https://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style">here</a> while beamer themes are typically supplied       by .sty files in your project folder.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="working-directories-in-rmarkdown" class="section level3">
+<h3>Working Directories in RMarkdown</h3>
+<p>In RMarkdown documents, the working directory is automatically set to the folder in which the RMarkdown document is saved.</p>
+<ul>
+<li><p>From there, you can use <em>relative file paths</em>. If data etc is in the root of the project folder, then just refer to the file name directly.</p></li>
+<li><p>If data is in a subfolder, eg <em>data</em>, use a relative path like:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">import</span>(.<span class="op">/</span>data<span class="op">/</span>mydata.rds)</code></pre></div>
+<p><br></p>
+</div>
+<div id="r-notebooks" class="section level3">
+<h3>R Notebooks</h3>
+<p>Aside from the standard RMarkdown documents that we’ve coverd so far, another format worth mentioning is the <strong>R Notebook</strong> format.</p>
+<ul>
+<li><p>R Notebooks essentially adapt html RMarkdown documents to be even more similar to something like Juptyer Notebooks.</p></li>
+<li><p>With R Notebooks, you can <strong><em>Preview</em></strong> documents without knitting them over again.</p></li>
+<li><p>The document also generally has the Notebook-style code-output-code layout.</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+</div>
+</div>
+<div id="rstudio-projects" class="section level2">
+<h2>RStudio Projects</h2>
+<div id="projects-intro" class="section level3">
+<h3>Projects Intro</h3>
+<p>In addition to using RMarkdown documents to make your scripts and reports more compelling, another process upgrade is using <strong>RStudio Projects</strong>.</p>
+<p>Projects are useful because they:</p>
+<ul>
+<li>Define a project root folder</li>
+<li>Save a RStudio environment that is unique to each project</li>
+<li>Allow for easy version control</li>
+</ul>
+<p><br></p>
+</div>
+<div id="working-folder-benefits-of-a-project" class="section level3">
+<h3>Working folder benefits of a Project</h3>
+<ul>
+<li><p>A project root folder is not only preferable to the need to use <strong>setwd()</strong>, but also to the default working directory used in RMarkdown documents outside of R Projects. Why?</p></li>
+<li><p>Because for substantial research projects, you likely will have a lot of files that you split into different subfolders, one of which is probably something like <strong><em>code</em></strong>.</p>
+<ul>
+<li>In this case, you’d need to use somewhat convoluted relative file paths to indicate that the paths should be from the parent folder of <strong><em>code</em></strong>.</li>
+</ul>
+<p><br></p></li>
+</ul>
+</div>
+<div id="using-rstudio-projects" class="section level3">
+<h3>Using RStudio Projects</h3>
+<p>To create a RStudio Project, go to <strong>File – New Project</strong>. From there, you can choose whether to create a new directory, use an existing directory, or use a Version Control repository.</p>
+<ul>
+<li><p>In practice, I’d suggest you use either a <strong>New Directory</strong> or <strong>Version Control</strong> depending on whether or not you want to sync your scripts to GitHub.</p>
+<ul>
+<li>We’ll go over version control shortly.</li>
+</ul></li>
+</ul>
+<p>Once you have created a Project, you can either open it from the File Menu or by opening the .RProj file in the project directory     root.</p>
+<p><br></p>
+</div>
+<div id="project-workflow-structure" class="section level3">
+<h3>Project workflow structure</h3>
+<p><strong>Sample Folder Structure:</strong></p>
+<ul>
+<li>analysis/</li>
+<li>cache</li>
+<li>citation/</li>
+<li>code/</li>
+</ul>
+
+<ul>
+<li>data/
+<ul>
+<li>raw_data/</li>
+<li>derived_data/</li>
+</ul></li>
+<li>figures/</li>
+<li>images/</li>
+</ul>
+<p><strong>Some workflow management packages:</strong></p>
+<ul>
+<li><a href="https://github.com/benmarwick/rrtools">rrtools</a></li>
+<li><a href="https://jdblischak.github.io/workflowr/index.html">workflowr</a></li>
+<li><a href="http://projecttemplate.net/">ProjectTemplate</a></li>
+<li><a href="http://pirategrunt.com/represtools/">represtools</a></li>
+</ul>
+<p><br> <br></p>
+</div>
+</div>
+<div id="version-control" class="section level2">
+<h2>Version Control</h2>
+<div id="what-is-version-control" class="section level3">
+<h3>What is version control?</h3>
+<p>Version control is a means to track changes made to files</p>
+<p>Version control allows you to:</p>
+<ul>
+<li>See a history of every change made to files -Annotate changes -Allow you to revert files to previous versions</li>
+</ul>
+<p><br></p>
+</div>
+<div id="local-version-control-with-git" class="section level3">
+<h3>Local Version Control with Git</h3>
+<p>The most popular software for managing version control is Git.</p>
+<ul>
+<li><p>There’s a good chance you’ve at least seen GitHub before, which is an online remote location for storing version control repositories.</p></li>
+<li><p>The Git software, however, is equally adept at managing version control on your local computer.</p></li>
+</ul>
+<p>Once Git is installed (and recognized in RStudio), you can use Projects to peform local version control.</p>
+<p>In <strong>File – New Project – New Directory</strong>, once you have Git installed there is a checkbox that can be selected to enable to “Create a Git repository”.</p>
+<ul>
+<li><p>A repository is a location that Git uses to track the changes of a file or folder, here the project folder. The Git repository is stored as a folder named “.git” in the project root.</p></li>
+<li><p>Creating a Project in this manner with a Git repository will enable version control on your local computer.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="remote-version-control-with-github" class="section level3">
+<h3>Remote version control with GitHub</h3>
+<ul>
+<li><p>In addition to local version control, you can also back up the history of file changes to online repositories using GitHub.</p></li>
+<li><p>GitHub connects to the local Git repository on your computer, “pushing” and “pulling” changes between the local and remote repositories.</p></li>
+<li><p>This also allows for easy collaboration on coding projects, as multiple person can sync to files by connecting to the remote repository.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="using-github-for-remote-version-control" class="section level3">
+<h3>Using GitHub for remote version control</h3>
+<p>With a GitHub account, you can create a new online repository by clicking the “+” icon in the top right of a GitHub page, and then clicking “New Repository”.</p>
+<div class="figure">
+<img src="data/github.png" />
+
+</div>
+<p><br></p>
+</div>
+<div id="setting-up-a-new-repository" class="section level3">
+<h3>Setting up a new repository</h3>
+<p>From there, you need to:</p>
+<ul>
+<li><p>Supply GitHub with a repository name (think folder name)</p></li>
+<li><p>Choose whether or not the repository should be public or private (ie whether or not you want other people to be able to visit your GitHub page and view the repository).</p>
+<ul>
+<li>If you have a GitHub education account, then Private repositories are free. Otherwiwse, you’d need a paid GitHub subscription.</li>
+</ul></li>
+<li><p>Click on the checkbox to enable “Initialize this repository with a README”.</p>
+<ul>
+<li>Each repository is required to have a readme file, which you may want to comment but is not strictly necessary. Commenting uses Markdown, which is essentially the same as RMarkdown!</li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="using-a-remote-repository-with-github" class="section level3">
+<h3>Using a Remote Repository with GitHub</h3>
+<p>Once you’ve created an online repository, <strong><em>Projects</em></strong> once again alows you to easily connect RStudio with the repository.</p>
+<ul>
+<li><p>To setup a project for use with GitHub, creat a <strong>New Project</strong> and select <strong>Version Control</strong> instead of <strong>New Directory.</strong></p></li>
+<li><p>From there, simply choose “Git” and then copy the url of the repository from GitHub into RStudio.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="tracking-changes-with-git" class="section level3">
+<h3>Tracking changes with Git</h3>
+<p>Once you have a Project setup with version control, the first key component of tracking changes is “Committing” them to the repository</p>
+<ul>
+<li>A “commit” is an update that saves revisions of files into the Git repository.</li>
+</ul>
+<p>You can commit changes by going to the “Git” tab in the upper right-hand side of the RStudio IDE.</p>
+<ul>
+<li><p>In the Git tab, any files that have changed since the last commit are listed. From there, click on the files you’d like to commit and click on the commit button.</p></li>
+<li><p>A Commit box appears which shows you the changes since    the last revision and asks for a commit message, where you should very briefly describe the changes.</p></li>
+</ul>
+<div class="figure">
+<img src="data/commit.png" />
+
+</div>
+<p><br></p>
+</div>
+<div id="syncing-changes-with-a-remote-repository" class="section level3">
+<h3>Syncing changes with a remote repository</h3>
+<ul>
+<li><p>If you are just tracking changes with a local repository, commit is sufficient to manage version control.</p></li>
+<li><p>But if you are using version control with an remote (ie online) repository, you will two other steps to make sure changes are sync between the local repository and online.</p>
+<ul>
+<li><p>To send changes made locally to the online repository, after comitting changes click on “Push.”</p></li>
+<li><p>To sync changes from the online repository to local files, click on “Pull”.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="viewing-previous-commits" class="section level3">
+<h3>Viewing previous commits</h3>
+<ul>
+<li><p>To view previous versions of the files (along with annotations supplied with the commit message), click on the clock icon in the Git pane.</p></li>
+<li><p>From there, you can see not only a “difference” view of the file changes, but you can also open the document exactly how it was written in a previous commit.</p></li>
+<li><p>From there, if you wanted to revert changes, you <em>could</em> explicitly revert the file with Git, or simply copy over the file with code from the previous commit — my preferred method of reverting changes.</p></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -94,7 +94,7 @@ Tidyverse functions.
 <br>
 
 
-### **Module 4:**  Project Management and Dynamic Documents:  RMarkdown, Projects, and version Control (Feb 15^th^ and 16^th^)
+### **Module 4:**  Project Management and Dynamic Documents (Feb 15^th^ and 16^th^)
 
 This module provides a few major enhancements to the workflow process of data 
 analysis in R.  Fist, Knitr and RMarkdown are introduced as a means to create 

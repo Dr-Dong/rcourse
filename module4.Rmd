@@ -98,7 +98,7 @@ found at [https://rpubs.com/YaRrr/SweaveIntro](https://rpubs.com/YaRrr/SweaveInt
 - A popup shows up to ask enter the document Title and Author, as well as what 
 type of document you want to create.
 
-  ![](./data/NewRMD.png)
+  ![](./assets/NewRMD.png)
 <br>
 
 
@@ -149,7 +149,7 @@ You do not need to Knit a document after every change, however.  You can just as
 easily run the code chunks.  There are specific specific buttons to run either 
 the current chunk or all of the chunks above a given chunk.
 
-![](./data/RMDbuttons.png)
+![](./assets/RMDbuttons.png)
 <br>
 
 
@@ -234,9 +234,9 @@ new line and a colon to it.  Then indent under the output type and add the
 desired options.
 
 
-![Before](./data/output_options_before.png)
+![Before](./assets/output_options_before.png)
 
-![After](./data/output_options_after.png)
+![After](./assets/output_options_after.png)
 
 <br>
 
@@ -275,7 +275,7 @@ project folder, then just refer to the file name directly.
 - If data is in a subfolder, eg *data*, use a relative path like: 
 
 ```{r, eval=FALSE}
-import(./data/mydata.rds)
+import(./assets/mydata.rds)
 ```
 
 <br>
@@ -433,7 +433,7 @@ can sync to files by connecting to the remote repository.
 With a GitHub account, you can create a new online repository by clicking the "+" 
 icon in the top right of a GitHub page, and then clicking "New Repository".
 
-  ![](./data/github.png)
+  ![](./assets/github.png)
 
 <br>
 
@@ -489,7 +489,7 @@ revision and asks for a commit message, where you should very briefly describe t
 changes.
 
 
-  ![](./data/commit.png)
+  ![](./assets/commit.png)
 
 <br>
 

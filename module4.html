@@ -315,7 +315,9 @@ div.tocify {
     <li>
       <a href="module3.html">M3: Loops, Conditionals, and Joins</a>
     </li>
-    <li class="dropdown-header">M4: Data Presentation</li>
+    <li>
+      <a href="module4.html">M4: Data Presentation</a>
+    </li>
     <li class="dropdown-header">M5: Regression Modelling</li>
     <li class="dropdown-header">M6: Capstone Project</li>
     <li class="dropdown-header">M7: Bayesian Methods</li>
@@ -472,7 +474,7 @@ div.tocify {
 <li><p>After installing knitr, to create an RMarkdown document, go to <strong>File—New File—R Markdown</strong>.</p></li>
 <li><p>A popup shows up to ask enter the document Title and Author, as well as what type of document you want to create.</p></li>
 </ul>
-<p><img src="data/NewRMD.png" /> <br></p>
+<p><img src="assets/NewRMD.png" /> <br></p>
 </div>
 <div id="writing-and-code-in-rmarkdown" class="section level3">
 <h3>Writing and Code in RMarkdown</h3>
@@ -499,7 +501,7 @@ div.tocify {
 <h3>Knitting a document</h3>
 <p>To generate a document in the desired output format from a RMarkdown document, you need to <strong>“Knit”</strong> the document, which appears as a clickable icon on the menu atop the script pane.</p>
 <p>You do not need to Knit a document after every change, however. You can just as easily run the code chunks. There are specific specific buttons to run either the current chunk or all of the chunks above a given chunk.</p>
-<p><img src="data/RMDbuttons.png" /> <br></p>
+<p><img src="assets/RMDbuttons.png" /> <br></p>
 </div>
 <div id="writing-outside-of-code-chunks" class="section level3">
 <h3>Writing outside of code chunks</h3>
@@ -556,11 +558,11 @@ div.tocify {
 <p>When a RMarkdown document is generated in a given output format, there are several common things you can do to customize the appearance of the document.</p>
 <p>To add options to your document, indent the name of the output type to an indented new line and a colon to it. Then indent under the output type and add the desired options.</p>
 <div class="figure">
-<img src="data/output_options_before.png" alt="Before" />
+<img src="assets/output_options_before.png" alt="Before" />
 <p class="caption">Before</p>
 </div>
 <div class="figure">
-<img src="data/output_options_after.png" alt="After" />
+<img src="assets/output_options_after.png" alt="After" />
 <p class="caption">After</p>
 </div>
 <p><br></p>
@@ -586,7 +588,7 @@ div.tocify {
 <li><p>From there, you can use <em>relative file paths</em>. If data etc is in the root of the project folder, then just refer to the file name directly.</p></li>
 <li><p>If data is in a subfolder, eg <em>data</em>, use a relative path like:</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">import</span>(.<span class="op">/</span>data<span class="op">/</span>mydata.rds)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">import</span>(.<span class="op">/</span>assets<span class="op">/</span>mydata.rds)</code></pre></div>
 <p><br></p>
 </div>
 <div id="r-notebooks" class="section level3">
@@ -705,7 +707,7 @@ div.tocify {
 <h3>Using GitHub for remote version control</h3>
 <p>With a GitHub account, you can create a new online repository by clicking the “+” icon in the top right of a GitHub page, and then clicking “New Repository”.</p>
 <div class="figure">
-<img src="data/github.png" />
+<img src="assets/github.png" />
 
 </div>
 <p><br></p>
@@ -747,7 +749,7 @@ div.tocify {
 <li><p>A Commit box appears which shows you the changes since    the last revision and asks for a commit message, where you should very briefly describe the changes.</p></li>
 </ul>
 <div class="figure">
-<img src="data/commit.png" />
+<img src="assets/commit.png" />
 
 </div>
 <p><br></p>

@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R"
-subtitle: "Module 4: Data presentation"
+subtitle: "Module 4: Dynamic documents and project management"
 output: 
   html_document:
       theme: flatly

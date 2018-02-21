@@ -13,10 +13,10 @@ navbar:
                 href: module2.html
               - text: "M3: Loops, Conditionals, and Joins"
                 href: module3.html
-              - text: "M4: Data Presentation"
+              - text: "M4: RMarkdown and Project Management"
                 href: module4.html
-              - text: "M5: Regression Modelling"
-                href: 
+              - text: "M5: Regression Modelling and Data Viz"
+                href: module5.html
               - text: "M6: Capstone Project"
                 href: 
               - text: "M7: Bayesian Methods"

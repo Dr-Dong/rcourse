@@ -101,15 +101,17 @@ package.
 
 library(stargazer)
 
-stargazer(cex_linreg, header=FALSE, type='latex')
+stargazer(cex_linreg, header=FALSE, type='html')
 ```
 
 ```{r, include=FALSE}
 library(stargazer)
 ```
 
+<br>
+
 ```{r, results='asis', echo=FALSE, message=FALSE}
-stargazer(cex_linreg, header=FALSE, type='latex')
+stargazer(cex_linreg, header=FALSE, type='html')
 ```
 
 <br>

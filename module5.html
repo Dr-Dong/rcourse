@@ -318,9 +318,7 @@ div.tocify {
     <li>
       <a href="module4.html">M4: Data Presentation</a>
     </li>
-    <li>
-      <a href="module5.html">M5: Regression Modelling</a>
-    </li>
+    <li class="dropdown-header">M5: Regression Modelling</li>
     <li class="dropdown-header">M6: Capstone Project</li>
     <li class="dropdown-header">M7: Bayesian Methods</li>
   </ul>
@@ -504,8 +502,136 @@ div.tocify {
 
 <span class="kw">library</span>(stargazer)
 
-<span class="kw">stargazer</span>(cex_linreg, <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">type=</span><span class="st">&#39;latex&#39;</span>)</code></pre></div>
-
+<span class="kw">stargazer</span>(cex_linreg, <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">type=</span><span class="st">&#39;html&#39;</span>)</code></pre></div>
+<p><br></p>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+expenditures
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+educ_ref
+</td>
+<td>
+109.350<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(7.137)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-641.062<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(97.866)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+305,972
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+7,024.151 (df = 305970)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+234.746<sup>***</sup> (df = 1; 305970)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
 <p><br></p>
 </div>
 <div id="interactions-and-indicator-variables" class="section level3">

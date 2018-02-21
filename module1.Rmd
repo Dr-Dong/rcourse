@@ -144,7 +144,8 @@ RStudio is an is an integrated development environment (IDE).
 This means that in addition to a script editor, it also let's you view your 
 environments, data objects, plots, help files, etc directly within the application.
 
-\includegraphics[scale=0.4]{RStudioGUI.png}
+![](./data/RStudioGUI.png)
+
 
 ## Executing code from the script 
 
@@ -182,7 +183,7 @@ You can call it a few different ways:
 immediately followed by the name of the function (no space inbetween)
 3.  In the Help pane, search for the function in question.
 
-<span style="color:blue"> **?()**</span> is shorter, so that's the most frequent method.  
+<span style="color:blue"> **?**</span> is shorter, so that's the most frequent method.  
 
 ```{r help, eval=FALSE}
 # Help on the lm (linear regression) function

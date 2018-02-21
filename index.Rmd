@@ -115,7 +115,7 @@ introduced to perform version control.
 <br>
 
 
-### **Module 5:** Regression Modelling and Visualizing Data in R (Feb 22^nd^ and 23^rd^)
+### **Module 5:** Regression analysis and data visualization in R (Feb 22^nd^ and 23^rd^)
 
 In this module, standard methods of regression analysis in R are presented, in 
 addition to coverage of common diagnostics and post-estimation procedures.  In 

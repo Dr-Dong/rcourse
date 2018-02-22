@@ -369,7 +369,7 @@ myreg <- plm(y ~ x1 + x2 + x3,
 
 <br>
 
-## Panel regression: fixed effects
+### Panel regression: fixed effects
 
 Of course, in most cases fixed effects regression is a more efficient alternative 
 to first-difference regression.  
@@ -397,7 +397,7 @@ crime_NC[1:2,]
 
 <br>
 
-#### First differences regression on the crime dataset
+##### First differences regression on the crime dataset
 ```{r}
 crime_reg <- plm(crimerate ~ police_pc + tax_pc +
                 region + urban, data=crime_NC, 
@@ -407,7 +407,7 @@ tidy(crime_reg)
 
 <br>
 
-## Fixed effects regression on the crime dataset
+##### Fixed effects regression on the crime dataset
 ```{r}
 crime_reg <- plm(crimerate ~ police_pc + police_pc +
                 tax_pc + urban, data=crime_NC, 

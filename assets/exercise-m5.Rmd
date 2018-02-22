@@ -1,0 +1,202 @@
+---
+title: "Module 5 Exercise"
+output: 
+  pdf_document:
+    df_print: kable
+    highlight: zenburn
+urlcolor: blue
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rio)
+library(plm)
+```
+
+## 1. Preliminaries
+
+### a. Create a Project and RMarkdown document 
+
+Either in a preexisting RStudio Project folder, or in a new Project, create a 
+RMarkdown document for the exercise.
+
+### b. Initialize the Ecdat library
+
+For the first part of the exercise, you will be working with the [Ecdat](https://www.rdocumentation.org/packages/Ecdat/) package, 
+which has many economics datasets.
+
+- Install and initalize the package.
+
+```{r, include=FALSE}
+library(Ecdat)
+```
+
+## 2. Extramarital Affairs Exercise
+
+### b. Create an "affairs" tibble from the Fair data
+
+For the first part of the exercise, you will be working the extramaritals data from 
+Fair (Econometrica 1977).  
+
+- Create an "affairs" data frame from the Fair data in Ecdat as follows:
+
+```{r}
+affairs <- Fair 
+```
+
+- Turn the data set into a tibble
+- Select the following variables: `nbaffairs, ym, child, rate, age`.
+- Rename the variables as follows:
+    
+    + Change "nbaffairs" to "affairs"
+    + Change "ym" to "yrsmarr"
+    + Change "rate" to "mrating"
+
+```{r, include=FALSE}
+library(Ecdat)
+affairs <- Fair %>% as.tibble() %>% select(nbaffairs, ym, child, rate, age) %>% rename(affairs = nbaffairs, yrsmarr= ym, mrating = rate) 
+```
+
+### c. Convert mrating to a factor
+
+```{r, include=FALSE}
+affairs$mrating <- ordered(affairs$mrating)
+```
+
+
+### d. Perform regression 
+
+- Create a regression object that regresses affairs on age, child, yrsmarr and 
+$yrsmarr^2$.
+
+```{r, include=FALSE}
+
+affairs_reg <- lm(affairs ~ age + child + yrsmarr + I(yrsmarr^2), data = affairs)
+
+```
+
+- Then view the summary output of the regression.
+
+```{r, include=FALSE}
+summary(affairs_reg)
+```
+
+
+### f. Perform model diagnostics
+
+- **Test for heteroskestacity.** 
+- **Test for missing polynomial terms.** 
+
+Write the statistical decision from each test in your RMarkdown report.
+
+```{r, include=FALSE}
+library(lmtest)
+bptest(affairs_reg)
+resettest(affairs_reg)
+```
+
+### g. Create a bar plot of average number of affairs by marital rating
+
+- Create a summary data frame of number of affairs by marital rating
+- Create a bar plot of the results, adding a graph title, axis labels, and 
+style it like a Stata graph using **theme_stata()** from the [ggthemes](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) 
+package.
+
+```{r, include=FALSE}
+library(ggthemes)
+
+ggplot(affairs,
+aes(x=mrating, y=affairs)) +
+geom_bar( stat = "summary", fun.y = "mean") +
+ggtitle("Affairs by Marital Rating") + 
+xlab("Marital Rating [1-5]") + ylab("# of Affairs") + 
+theme_stata()
+
+```
+
+## 3. Inequality in the World Development Indicators Example
+
+For the next part of the exercise, let's revisit the inequality indicators from 
+the World Development Indicators dataset.  
+
+- Import "wdi_data", which is just the data from Exercise 2, summarized by 
+country and year from 2000.
+
+```{r, include=FALSE}
+wdi_data <- import("C:/Users/AN.4271/OneDrive - Handelshögskolan i Stockholm/Teaching/R Course/Modules/Regression Modelling/Exercise/wdi_data.rds")
+```
+
+
+### a. Create scatter plots 
+
+- Create twos scatterplots: each with secondary school completion as the x-axis.
+    + For the first scatterplot, choose female-to-male employment ratio as the 
+    y-variable. 
+    + For the second scatterplot, make unemployment among those with basic education 
+    the y-variables:
+
+- Color the points based on the value of GDP.
+
+- Add titles and axis labels.
+
+```{r, include=FALSE}
+ggplot(wdi_data, aes(x=secondary.complet.avg,y =unemp.basic.educ.)) + 
+  geom_point(aes(color=GDP.avg))
+
+ggplot(wdi_data, aes(x=secondary.complet.avg,y =femaletomale.avg)) + 
+  geom_point(aes(color=GDP.avg))
+
+```
+
+
+### b. Perform regression
+
+Perform a pooled OLS regression of GDP average on secondary school completion and 
+view summary information from the regression.
+
+```{r, include=FALSE}
+WDI_regs <- lm(GDP.avg ~ secondary.complet.avg, data= wdi_data)
+summary(WDI_regs)
+
+```
+
+### c. Test for autocorrelation
+
+```{r, include=FALSE}
+bgtest(WDI_regs)
+```
+
+### d. Fixed effects regression
+
+Now instead perform the regression of GDP on secondary school completion as a fixed 
+effects regression (including fixed effects for country and year).
+
+```{r, include=FALSE}
+wdi_fixedeffects <- plm(GDP.avg ~ secondary.complet.avg, data=wdi_data, 
+                 index=c("country","year"), model="within", effect="twoways")
+
+summary(wdi_fixedeffects)
+
+wdi_fixedeffects2 <- plm(GDP.avg ~ secondary.complet.avg + year, data=wdi_data, 
+                 index=c("country","year"), model="within")
+summary(wdi_fixedeffects2)
+
+
+```
+
+### e. Autocorrelation robust inference
+
+Test the coefficients of the model using the Stata-style $HC_1$ estimation of  
+Newey-West heteroskedasticity and autocorrelated (HAC) robust standard errors.
+
+- Use the function [vcovNW()](https://www.rdocumentation.org/packages/plm/versions/1.6-5/topics/vcovNW) 
+for specifying the variance method inside of [coeftest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/coeftest).
+
+```{r, include=FALSE}
+coeftest(wdi_fixedeffects,vcov = vcovNW(wdi_fixedeffects,type="HC1"))
+
+```
+
+

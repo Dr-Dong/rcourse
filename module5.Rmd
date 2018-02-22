@@ -553,7 +553,7 @@ mygraph <- ggplot(mydata, aes(...)) + geom(...) + ...
 First, let's look at a simple scatterplot, which is defined by using the geometry 
 **geom_point()**.
 
-```{r}
+```{r scatter}
 ggplot(col_origins, aes(x=legalprotect, 
             y = logGDP95)) + geom_point() 
 
@@ -565,7 +565,7 @@ ggplot(col_origins, aes(x=legalprotect,
 ### Adding an aesthetic option to the points 
 
 Graphs can be extensively customized using additional arguments inside of elements:
-```{r}
+```{r aesth}
 ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) + 
   geom_point(aes(size=logGDP95))
 
@@ -578,7 +578,7 @@ ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) +
 Instead of using a scatter plot, we could use the names of the data points in 
 place of the dots.
 
-```{r}
+```{r countrynames}
 ggplot(col_origins, 
        aes(x=legalprotect, y = logGDP95, 
        label=country)) +  geom_text()
@@ -591,7 +591,7 @@ ggplot(col_origins,
 
 A line graph uses the geometry **geom_line()**.
 
-```{r}
+```{r line}
 ggplot(col_origins, aes(x=legalprotect, 
             y = logGDP95)) + geom_line()
 
@@ -604,7 +604,7 @@ ggplot(col_origins, aes(x=legalprotect,
 A standard task in making the graph is specifying graph titles (main and axes), 
 as well as potentially specifying the scale of the axes.
 
-```{r}
+```{r titles}
 ggplot(col_origins, aes(x=legalprotect, 
             y = logGDP95)) + geom_line() + 
   ggtitle("GDP and Legal Protection") +
@@ -620,7 +620,7 @@ ggplot(col_origins, aes(x=legalprotect,
 
 The geometry point for histogram is **geom_histogram()**.
 
-```{r, message=FALSE}
+```{r histo, message=FALSE}
 
 ggplot(col_origins, aes(x=legalprotect)) + 
   geom_histogram() + 
@@ -640,7 +640,7 @@ frequencies for its values, but you can use values from a column by specifying
 *** stat = "identity" *** inside **geom_bar()**.
 
 
-```{r}
+```{r bar}
 
 coeffs_IV <- tidy(col_origins_iv)
 
@@ -659,7 +659,7 @@ ggplot(coeffs_IV,
 You can easily add error bars by specifying the values for the error bar inside 
 of **geom_errorbar()**.
 
-```{r}
+```{r errorbar}
 
 ggplot(coeffs_IV, 
   aes(x=term, y=estimate)) + 
@@ -680,7 +680,7 @@ You can easily add color to graph points as well.  There are a lot of aesthetic
 options to do that --- here I demonstrate adding a color *scale* to the graph.
 
 
-```{r}
+```{r colors1}
 
 ggplot(col_origins, aes(x=legalprotect, 
   y = logGDP95 , col= log.settler.mort)) + geom_point() + 
@@ -716,13 +716,13 @@ affect a number of general aspects concerning how graphs are displayed.
 - Some default themes come installed with ggplot2/tidyverse, but some of the best 
 in my opinion come from the package [ggthemes](https://github.com/jrnold/ggthemes).
 
-```{r, message=FALSE}
+```{r theme, message=FALSE}
 library(ggthemes)
 ```
 
 - To apply a theme, just add **+ themename()** to your ggplot graphic.
 
-```{r, message=FALSE}
+```{r themeex, message=FALSE}
 
 ggplot(col_origins, aes(x=legalprotect)) + 
   geom_histogram(col="white", fill="red2") + 

@@ -611,7 +611,7 @@ A line graph uses the geometry **geom_line()**.
 
 ```{r, eval=FALSE}
 ggplot(col_origins, aes(x=legalprotect, 
-            y = logGDP95)) + geom_line() + scale()
+            y = logGDP95)) + geom_line()
 
 ```
 

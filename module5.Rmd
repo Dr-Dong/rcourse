@@ -133,20 +133,10 @@ wages <- Wages1 %>% as.tibble() %>% as.data.frame() %>%
   select(wage,school, sex, exper) %>% rename(schooling = school)
 ```
 
-```{r, eval=FALSE}
-wages_reg <- lm(wage ~ schooling + sex + 
-          schooling*sex + I(exper^2), data=wages)
-```
-
-<br>
-
-#### Example with interactions and factors
-```{r, echo=FALSE}
-wages_reg <- lm(wage ~ schooling + sex + 
-          schooling*sex + I(exper^2), data=wages)
-```
-
 ```{r}
+wages_reg <- lm(wage ~ schooling + sex + 
+          schooling*sex + I(exper^2), data=wages)
+
 tidy(wages_reg)
 ```
 
@@ -164,6 +154,7 @@ function.
 **Example:**
 ```{r}
 wages$sex <- wages$sex %>% relevel(ref="male")
+
 wagereg2 <- lm(wage ~ sex, data=wages); tidy(wagereg2)
 ```
 
@@ -483,6 +474,7 @@ col_origins_iv <- ivreg(logGDP95 ~ legalprotect |
 **Estimates:**
 ```{r}
 IVsummary <- summary(col_origins_iv, diagnostics = TRUE)
+
 IVsummary["coefficients"]
 ```
 
@@ -549,6 +541,7 @@ the appearance of the graph is determined by specifying:
     + The **data**(frame) to be used.
     + The **aes**(thetics)s of the graph --- like size, color, x and y variables.
     + The **geom**(etry) of the graph ---  type of data to be used.
+    
 ```{r, eval=FALSE}
 mygraph <- ggplot(mydata, aes(...)) + geom(...) + ... 
 ```
@@ -585,17 +578,10 @@ ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) +
 Instead of using a scatter plot, we could use the names of the data points in 
 place of the dots.
 
-```{r, eval=FALSE}
+```{r}
 ggplot(col_origins, 
        aes(x=legalprotect, y = logGDP95, 
        label=country)) +  geom_text()
-
-```
-
-```{r, echo=FALSE}
-ggplot(col_origins, 
-       aes(x=legalprotect, y = logGDP95, 
-       label=country)) +   geom_text()
 
 ```
 
@@ -605,15 +591,9 @@ ggplot(col_origins,
 
 A line graph uses the geometry **geom_line()**.
 
-```{r, eval=FALSE}
+```{r}
 ggplot(col_origins, aes(x=legalprotect, 
             y = logGDP95)) + geom_line()
-
-```
-
-```{r, echo=FALSE}
-ggplot(col_origins, aes(x=legalprotect, 
-            y = logGDP95)) + geom_line() 
 
 ```
 
@@ -624,7 +604,7 @@ ggplot(col_origins, aes(x=legalprotect,
 A standard task in making the graph is specifying graph titles (main and axes), 
 as well as potentially specifying the scale of the axes.
 
-```{r, eval=FALSE}
+```{r}
 ggplot(col_origins, aes(x=legalprotect, 
             y = logGDP95)) + geom_line() + 
   ggtitle("GDP and Legal Protection") +
@@ -636,35 +616,12 @@ ggplot(col_origins, aes(x=legalprotect,
 
 <br>
 
-#### Specifying axis and titles example
-
-```{r, echo=FALSE}
-ggplot(col_origins, aes(x=legalprotect, 
-            y = logGDP95)) + geom_line() + 
-  ggtitle("GDP and Legal Protection") +
-  xlab("Legal Protection Index [0-10]") + 
-  ylab("Log of 1995 GDP") +
-  xlim(0, 10) + ylim(5,10.5)
-
-```
-
-<br>
-
 ### Histogram
 
 The geometry point for histogram is **geom_histogram()**.
 
-```{r, eval=FALSE}
-ggplot(col_origins, aes(x=legalprotect)) + 
-  geom_histogram() + 
-  ggtitle("Histogram of Legal Protection Scores") +
-  xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") 
+```{r, message=FALSE}
 
-
-```
-
-```{r, echo=FALSE, message=FALSE}
 ggplot(col_origins, aes(x=legalprotect)) + 
   geom_histogram() + 
   ggtitle("Histogram of Legal Protection Scores") +
@@ -683,19 +640,7 @@ frequencies for its values, but you can use values from a column by specifying
 *** stat = "identity" *** inside **geom_bar()**.
 
 
-```{r, eval=FALSE}
-
-coeffs_IV <- tidy(col_origins_iv)
-
-ggplot(coeffs_IV, 
-  aes(x=term, y=estimate)) + 
-  geom_bar(stat = "identity") + 
-  ggtitle("Parameter Estimates for Colonial Origins") +
-  xlab("Parameter") + ylab("Estimate")
-
-```
-
-```{r, echo=FALSE}
+```{r}
 
 coeffs_IV <- tidy(col_origins_iv)
 
@@ -714,19 +659,8 @@ ggplot(coeffs_IV,
 You can easily add error bars by specifying the values for the error bar inside 
 of **geom_errorbar()**.
 
-```{r, eval=FALSE}
-ggplot(coeffs_IV, 
-  aes(x=term, y=estimate)) + 
-  geom_bar(stat = "identity") + 
-  ggtitle("Parameter Estimates for Colonial Origins") +
-  xlab("Parameter") + ylab("Estimate") +
-  geom_errorbar(aes(ymin=estimate - 1.96 * std.error, 
-                    ymax=estimate + 1.96 * std.error), 
-                    size=.75, width=.3, color="darkblue")
+```{r}
 
-```
-
-```{r, echo=FALSE}
 ggplot(coeffs_IV, 
   aes(x=term, y=estimate)) + 
   geom_bar(stat = "identity") + 
@@ -745,20 +679,9 @@ ggplot(coeffs_IV,
 You can easily add color to graph points as well.  There are a lot of aesthetic 
 options to do that --- here I demonstrate adding a color *scale* to the graph.
 
-```{r, eval = FALSE}
 
-ggplot(col_origins, aes(x=legalprotect, 
-  y = logGDP95 , col= log.settler.mort)) +
-  geom_point() + 
-  ggtitle("GDP and Legal Protection") +
-  xlab("Legal Protection Index [0-10]") + 
-  ylab("Log of 1995 GDP") + 
-  scale_color_gradient(low="green",high="red3", 
-                       name="Log Settler Mortality")
+```{r}
 
-```
-
-```{r, echo = FALSE}
 ggplot(col_origins, aes(x=legalprotect, 
   y = logGDP95 , col= log.settler.mort)) + geom_point() + 
   ggtitle("GDP and Legal Protection") +
@@ -773,22 +696,13 @@ ggplot(col_origins, aes(x=legalprotect,
 
 #### Adding colors:  example 2
 
-```{r, eval=FALSE}
+```{r, message=FALSE}
+
 ggplot(col_origins, aes(x=legalprotect)) + 
   geom_histogram(col="black", fill="red2") + 
   ggtitle("Histogram of Legal Protection Scores") +
   xlab("Legal Protection Index [0-10]") +
   ylab("Frequency") 
-
-```
-
-```{r, echo=FALSE, message=FALSE}
-ggplot(col_origins, aes(x=legalprotect)) + 
-  geom_histogram(col="black", fill="red2") + 
-  ggtitle("Histogram of Legal Protection Scores") +
-  xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") 
-
 
 ```
 
@@ -808,22 +722,15 @@ library(ggthemes)
 
 - To apply a theme, just add **+ themename()** to your ggplot graphic.
 
-```{r, eval=FALSE}
-ggplot(col_origins, aes(x=legalprotect)) + 
-  geom_histogram(col="white", fill="red2") + 
-  ggtitle("Histogram of Legal Protection Scores") +
-  xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") + 
-  theme_economist()
-```
+```{r, message=FALSE}
 
-```{r, echo=FALSE, message=FALSE}
 ggplot(col_origins, aes(x=legalprotect)) + 
   geom_histogram(col="white", fill="red2") + 
   ggtitle("Histogram of Legal Protection Scores") +
   xlab("Legal Protection Index [0-10]") +
   ylab("Frequency") + 
   theme_economist()
+
 ```
 
 <br>

@@ -3,6 +3,7 @@ title: "Introduction to R"
 subtitle: "Module 5: Regression analysis and data visualization"
 output: 
   html_document:
+      self_contained: true
       theme: flatly
       highlight: haddock
       toc: true

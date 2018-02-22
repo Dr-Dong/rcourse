@@ -839,15 +839,18 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
           <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;groupvar&quot;</span>, <span class="st">&quot;timevar&quot;</span>), <span class="dt">model=</span><span class="st">&quot;fd&quot;</span>)</code></pre></div>
 <p><br></p>
 </div>
-<div id="panel-regression-fixed-effects" class="section level3">
-<h3>Panel regression: fixed effects</h3>
+</div>
+<div id="panel-regression-fixed-effects" class="section level2">
+<h2>Panel regression: fixed effects</h2>
 <p>Of course, in most cases fixed effects regression is a more efficient alternative to first-difference regression.</p>
 <p>To use fixed effects regression, instead specify the argument <strong>model = “within”</strong>.</p>
+<ul>
+<li>Use the option <strong>effect = “twoway”</strong> to include group and year fixed effects.</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myreg &lt;-<span class="st"> </span><span class="kw">plm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3, 
              <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;groupvar&quot;</span>, <span class="st">&quot;timevar&quot;</span>), 
-             <span class="dt">model=</span><span class="st">&quot;within&quot;</span>)</code></pre></div>
+             <span class="dt">model=</span><span class="st">&quot;within&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;twoway&quot;</span>)</code></pre></div>
 <p><br></p>
-</div>
 <div id="a-crime-example" class="section level3">
 <h3>A crime example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_NC &lt;-<span class="st"> </span>Crime <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
@@ -872,19 +875,19 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 ## 2    tax_pc 6.847968e-06 4.862808e-05  0.1408233 8.880622e-01</code></pre>
 <p><br></p>
 </div>
-<div id="fixed-effects-regression-on-the-crime-dataset" class="section level4">
-<h4>Fixed effects regression on the crime dataset</h4>
+</div>
+</div>
+<div id="fixed-effects-regression-on-the-crime-dataset" class="section level2">
+<h2>Fixed effects regression on the crime dataset</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_reg &lt;-<span class="st"> </span><span class="kw">plm</span>(crimerate <span class="op">~</span><span class="st"> </span>police_pc <span class="op">+</span><span class="st"> </span>police_pc <span class="op">+</span>
 <span class="st">                </span>tax_pc <span class="op">+</span><span class="st"> </span>urban, <span class="dt">data=</span>crime_NC, 
                 <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;year&quot;</span>), 
-                <span class="dt">model=</span><span class="st">&quot;within&quot;</span>)
+                <span class="dt">model=</span><span class="st">&quot;within&quot;</span>, <span class="dt">effect=</span><span class="st">&quot;twoway&quot;</span>)
 <span class="kw">tidy</span>(crime_reg)</code></pre></div>
 <pre><code>##        term     estimate    std.error statistic      p.value
-## 1 police_pc 1.659873e+00 1.491565e-01 11.128396 4.949091e-26
-## 2    tax_pc 4.560624e-05 3.463317e-05  1.316837 1.884539e-01</code></pre>
+## 1 police_pc 1.7782245327 0.1437963335 12.366272 4.710683e-31
+## 2    tax_pc 0.0000626595 0.0000450301  1.391503 1.646546e-01</code></pre>
 <p><br></p>
-</div>
-</div>
 <div id="instrumental-variables-regression" class="section level3">
 <h3>Instrumental variables regression</h3>
 <p>The most popular function for doing IV regression is the <a href="https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg">ivreg()</a> in the <a href="https://www.rdocumentation.org/packages/AER">AER package</a>.</p>
@@ -987,9 +990,9 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <div id="adding-an-aesthetic-option-to-the-points" class="section level3">
 <h3>Adding an aesthetic option to the points</h3>
 <p>Graphs can be extensively customized using additional arguments inside of elements:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect,<span class="dt">y =</span> logGDP95, 
-  <span class="dt">label=</span>country)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>logGDP95))</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect,<span class="dt">y =</span> logGDP95)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>logGDP95))</code></pre></div>
+<p><img src="module5_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="using-country-names-instead-of-points" class="section level3">
@@ -998,7 +1001,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, 
        <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, <span class="dt">y =</span> logGDP95, 
        <span class="dt">label=</span>country)) <span class="op">+</span><span class="st">  </span><span class="kw">geom_text</span>()</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="line-graph" class="section level3">
@@ -1006,7 +1009,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p>A line graph uses the geometry <strong>geom_line()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, 
             <span class="dt">y =</span> logGDP95)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="specifying-axis-and-titles" class="section level3">
@@ -1021,7 +1024,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><br></p>
 <div id="specifying-axis-and-titles-example" class="section level4">
 <h4>Specifying axis and titles example</h4>
-<p><img src="module5_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <p><br></p>
 </div>
 </div>
@@ -1033,7 +1036,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Legal Protection Scores&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Legal Protection Index [0-10]&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) </code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="bar-plot" class="section level3">
@@ -1046,7 +1049,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Parameter Estimates for Colonial Origins&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Parameter&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Estimate&quot;</span>)</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="adding-error-bars" class="section level3">
@@ -1060,7 +1063,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>estimate <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>std.error, 
                     <span class="dt">ymax=</span>estimate <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>std.error), 
                     <span class="dt">size=</span>.<span class="dv">75</span>, <span class="dt">width=</span>.<span class="dv">3</span>, <span class="dt">color=</span><span class="st">&quot;darkblue&quot;</span>)</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="adding-colors" class="section level3">
@@ -1074,7 +1077,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Log of 1995 GDP&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low=</span><span class="st">&quot;green&quot;</span>,<span class="dt">high=</span><span class="st">&quot;red3&quot;</span>, 
                        <span class="dt">name=</span><span class="st">&quot;Log Settler Mortality&quot;</span>)</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p><br></p>
 <div id="adding-colors-example-2" class="section level4">
 <h4>Adding colors: example 2</h4>
@@ -1083,7 +1086,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Legal Protection Scores&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Legal Protection Index [0-10]&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) </code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p><br></p>
 </div>
 </div>
@@ -1103,7 +1106,7 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Legal Protection Index [0-10]&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_economist</span>()</code></pre></div>
-<p><img src="module5_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="module5_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="more-with-ggplot2" class="section level3">

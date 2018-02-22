@@ -378,16 +378,18 @@ myreg <- plm(y ~ x1 + x2 + x3,
 
 <br>
 
-### Panel regression: fixed effects
+## Panel regression: fixed effects
 
 Of course, in most cases fixed effects regression is a more efficient alternative 
 to first-difference regression.  
 
 To use fixed effects regression, instead specify the argument **model = "within"**.
+
+- Use the option **effect = "twoway"** to include group and year fixed effects.
 ```{r, eval=FALSE}
 myreg <- plm(y ~ x1 + x2 + x3, 
              index=c("groupvar", "timevar"), 
-             model="within")
+             model="within", effect = "twoway")
 ```
 
 <br>
@@ -414,12 +416,12 @@ tidy(crime_reg)
 
 <br>
 
-#### Fixed effects regression on the crime dataset
+## Fixed effects regression on the crime dataset
 ```{r}
 crime_reg <- plm(crimerate ~ police_pc + police_pc +
                 tax_pc + urban, data=crime_NC, 
                 index=c("county", "year"), 
-                model="within")
+                model="within", effect="twoway")
 tidy(crime_reg)
 ```
 
@@ -570,15 +572,9 @@ ggplot(col_origins, aes(x=legalprotect,
 ### Adding an aesthetic option to the points 
 
 Graphs can be extensively customized using additional arguments inside of elements:
-```{r, eval = FALSE}
-ggplot(col_origins, aes(x=legalprotect,y = logGDP95, 
-  label=country)) + geom_point(aes(size=logGDP95))
-
-```
-
-```{r, echo = FALSE}
-ggplot(col_origins, aes(x=legalprotect,y = logGDP95, 
-  label=country)) + geom_point(aes(size=logGDP95))
+```{r}
+ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) + 
+  geom_point(aes(size=logGDP95))
 
 ```
 

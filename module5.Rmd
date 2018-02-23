@@ -125,6 +125,8 @@ include indicators for each value of the factor.
 
 - To specify higher order terms, write it mathematically inside of **I()**.
 
+<br>
+
 **Example:**
 ```{r wageprep, include=FALSE}
 library(Ecdat)
@@ -151,6 +153,8 @@ is treated as the omitted reference group.
 - An easy way to instead specify the omitted reference group is to use the 
 [relevel()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/relevel) 
 function.
+
+<br>
 
 **Example:**
 ```{r ref}
@@ -364,7 +368,7 @@ library(plm)
 ```
 **Syntax:**
 ```{r plmsynt, eval=FALSE}
-myreg <- plm(y ~ x1 + x2 + x3, 
+myreg <- plm(y ~ x1 + x2 + x3, data = mydata,
           index=c("groupvar", "timevar"), model="fd")
 ```
 
@@ -379,7 +383,7 @@ To use fixed effects regression, instead specify the argument **model = "within"
 
 - Use the option **effect = "twoway"** to include group and year fixed effects.
 ```{r fd, eval=FALSE}
-myreg <- plm(y ~ x1 + x2 + x3, 
+myreg <- plm(y ~ x1 + x2 + x3, data = mydata, 
              index=c("groupvar", "timevar"), 
              model="within", effect = "twoway")
 ```
@@ -593,8 +597,26 @@ ggplot(col_origins,
 A line graph uses the geometry **geom_line()**.
 
 ```{r line}
-ggplot(col_origins, aes(x=legalprotect, 
-            y = logGDP95)) + geom_line()
+ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  + 
+  geom_line() 
+```
+
+<br>
+
+#### Plotting a regression line
+
+A more useful line is the fitted values from the regression.  Here's a plot of 
+that line with the points from the scatterplot for the Acemoglu IV: 
+
+```{r regline}
+
+col_origins_fitted <- tibble(col_origins$legalprotect, 
+                             fitted(col_origins_iv))
+colnames(col_origins_fitted) <- c("legalprotect", "hat")
+
+ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  + 
+  geom_point(color="red")  +  
+  geom_line(data = col_origins_fitted, aes(x=legalprotect, y=hat)) 
 
 ```
 
@@ -606,8 +628,9 @@ A standard task in making the graph is specifying graph titles (main and axes),
 as well as potentially specifying the scale of the axes.
 
 ```{r titles}
-ggplot(col_origins, aes(x=legalprotect, 
-            y = logGDP95)) + geom_line() + 
+ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  + 
+  geom_point(color="red")  +  
+  geom_line(data = col_origins_fitted, aes(x=legalprotect, y=hat))  + 
   ggtitle("GDP and Legal Protection") +
   xlab("Legal Protection Index [0-10]") + 
   ylab("Log of 1995 GDP") +
@@ -627,7 +650,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
   geom_histogram() + 
   ggtitle("Histogram of Legal Protection Scores") +
   xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") 
+  ylab("# of Countries") 
 
 
 ```
@@ -638,7 +661,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
 
 The geometry for a bar plot is **geom_bar()**. By default, a bar plot uses 
 frequencies for its values, but you can use values from a column by specifying 
-*** stat = "identity" *** inside **geom_bar()**.
+**stat = "identity"** inside **geom_bar()**.
 
 
 ```{r bar}
@@ -703,7 +726,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
   geom_histogram(col="black", fill="red2") + 
   ggtitle("Histogram of Legal Protection Scores") +
   xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") 
+  ylab("# of Countries") 
 
 ```
 
@@ -729,7 +752,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
   geom_histogram(col="white", fill="red2") + 
   ggtitle("Histogram of Legal Protection Scores") +
   xlab("Legal Protection Index [0-10]") +
-  ylab("Frequency") + 
+  ylab("# of Countries") + 
   theme_economist()
 
 ```
@@ -738,7 +761,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
 
 ### More with ggplot2
 
-This has just been small overview of things you can do with ggplot2. To learn 
+This has been just a small overview of things you can do with ggplot2. To learn 
 more about it, here are some useful references:
 
 [**The ggplot2 website:**](http://ggplot2.tidyverse.org/)

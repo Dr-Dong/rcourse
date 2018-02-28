@@ -138,7 +138,9 @@ graphs in R.
 In this module, you will use the skills developed over the preceding seminars to
 perform an analysis of an empirical problem in R from start to finish.
 
-  - Seminar Exercise:
+- **Seminar Exercises:**   \ \ \ \ 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone.pdf" role="button">Exercise</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/datanames.csv" role="button">datanames.csv</a> 
 
 <br>
 

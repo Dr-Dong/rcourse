@@ -10,7 +10,7 @@ urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(include = FALSE)
+#knitr::opts_chunk$set(include = FALSE)
 library(rio)
 library(tidyverse)
 library(multiwayvcov)
@@ -28,8 +28,8 @@ Svirsky and published in the *American Economic Journal: Applied Economics* last
 April.
 
 In this article, Edelman, Luca, and Svirsky conduct an experiment wherein they 
-apply for Airbnb apartments using guest names that have distinctively African 
-American names.  Using this experiment, they then investigate racial 
+apply for Airbnb apartments using guest names that have distinctively white or 
+African American names.  Using this experiment, they then investigate racial 
 discrimination based on a number of host and location characteristics.
 
 # Data Preparation
@@ -67,18 +67,17 @@ main_data <- import("./data/main_data.csv", header=FALSE)
 
 
 ### Recode missing values and convert to a tibble
-
+- Using a map or for-loop, change text to lower case using the [tolower()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/chartr) function.
 - Using a map or for-loop, recode the following values to missing throughout the 
 dataset: "\textbackslash \textbackslash N", "Null", "-1".
 - Then convert the dataframe to a tibble.
 
 ```{r}
-main_data <- main_data %>% map(na_if,"Null")
-main_data <- main_data %>% map(na_if,"NULL")
-main_data <- main_data %>% map(na_if,"\\N")
+main_data <- main_data %>% map(tolower)
+main_data <- main_data %>% map(na_if,"null")
+main_data <- main_data %>% map(na_if,"\\n")
 main_data <- main_data %>% map(na_if,"-1")
 main_data <- main_data %>% map(na_if,-1)
-main_data <- main_data %>% map(na_if,"N")
 main_data <- main_data %>% as.tibble()
 
 ```
@@ -87,6 +86,7 @@ main_data <- main_data %>% as.tibble()
 
 Import the "datanames" csv file and assign it as the column names of the main 
 dataset.
+- You may want to change the format of *datanames* to matrix after you import it.
 
 ```{r}
 datanames <- c("host_response", "response_date", "number_of_messages",
@@ -102,6 +102,8 @@ datanames <- c("host_response", "response_date", "number_of_messages",
   "september_price", "census_tract", "host_id", "new_number_of_listings")
 datanames <- as.matrix(datanames)
 export(datanames, "./data/datanames.csv")
+datanames <-  import("./data/datanames.csv")
+datanames <- as.matrix(datanames)
 colnames(main_data) <- datanames
 ```
 
@@ -156,13 +158,16 @@ function to do this.
 
 ### Import and merge survey results
 
-- Import the file "name_survey_results.xlsx" 
+- Import the file "name_survey_results.xlsx"
+- Again apply tolower() to the *guest_first_name* variable.
 - Merge in additional variables from this dataset for observations from the main 
 dataset, using the key *guest_first_name*.
+
 
 ```{r}
 # Import
 survey_results <- import("./data/name_survey_results.xlsx")
+survey_results$guest_first_name <- tolower(survey_results$guest_first_name)
 
 # Merge
 merged_data <- left_join(main_data, survey_results, by="guest_first_name")
@@ -190,14 +195,14 @@ Create the following indicator variables:
 *host_race* variable.
 - *host_race_white* equal to 1 if the host's race is "white" according to the 
 *host_race* variable.
-- *host_male* equal to 1 if the host's race is "M" according to the *host_gender* 
+- *host_male* equal to 1 if the host's race is "m" according to the *host_gender* 
 variable.
 
 ```{r}
 merged_data <- merged_data  %>% mutate(
   host_race_black = ifelse(host_race=="black", 1,0),
   host_race_white = ifelse(host_race=="white", 1,0),
-  host_male = ifelse(host_gender =="M", 1,0)
+  host_male = ifelse(host_gender =="m", 1,0)
 )
 ```
 
@@ -205,27 +210,27 @@ merged_data <- merged_data  %>% mutate(
 
 Make a categorical host age variable, *host_age_cat*, with values as follows:
 
-- Value of 0 if *host_age* is equal to any of "young","young/UU", "UU/young", 
-"young/NA", or "NA/young".
-- Value of 1 if *host_age* is equal to any of "middle/young",or "young/middle".
-- Value of 2 if *host_age* is equal to any of "middle","middle/UU","UU/middle","middle/NA",
-or "NA/middle".
+- Value of 0 if *host_age* is equal to any of "young","young/uu", "uu/young", 
+"young/na", or "na/young".
+- Value of 1 if *host_age* is equal to any of "middle/young", or "young/middle".
+- Value of 2 if *host_age* is equal to any of "middle","middle/uu","uu/middle","middle/na", 
+or "na/middle".
 - Value of 3 if *host_age* is equal to any of "middle/old" or "old/middle".
-- Value of 4 if *host_age* is equal to any of "old/middle","old","old/UU","UU/old","old/NA",
-or "NA/old".
+- Value of 4 if *host_age* is equal to any of "old/middle","old","old/uu","uu/old","old/na",
+or "na/old".
 
 ```{r}
 
 merged_data <- merged_data %>% 
   mutate(host_age_cat = case_when(
-    host_age %in% c("young","young/UU", "UU/young", 
-                    "young/NA", "NA/young") ~ 0,
+    host_age %in% c("young","young/uu", "uu/young", 
+                    "young/na", "na/young") ~ 0,
     host_age %in% c("middle/young","young/middle") ~ 1,
-    host_age %in% c("middle","middle/UU","UU/middle",
-                    "middle/NA","NA/middle") ~ 2,
+    host_age %in% c("middle","middle/uu","uu/middle",
+                    "middle/na","na/middle") ~ 2,
     host_age %in% c("middle/old","old/middle") ~ 3,
     host_age %in% c("old/middle","old","old/UU",
-                    "UU/old","old/NA","NA/old") ~ 3,
+                    "uu/old","old/na","na/old") ~ 3,
     ))
 ```
 
@@ -255,12 +260,11 @@ Create the following binary variables:
 to 10.
 - *five_star_property* indicating whether or not *apt_rating* is equal to five.
 - *multiple_listings* indicating whether or not *number_of_listings* is greater than 1.
-- *shared_property* indicating whether *property_setup* is ***either*** "Private Room" or 
-"Shared Room".
-- *shared_bathroom* for the conditions that *bathrooms* is less than 1.5 and the property is 
-shared according to your variable above.
+- *shared_property* indicating whether *property_setup* is ***either*** "private room" or 
+"shared room".
+- *shared_bathroom* for the conditions that *bathrooms* is less than 1.5 and the property is shared according to your variable above.
 - *has_cleaning_fee* indicating whether *cleaning_fee* is not missing.
-- *strict_cancellation* indicating whether *cancellation_policy* is equal to "Strict".
+- *strict_cancellation* indicating whether *cancellation_policy* is equal to "strict".
 - *young* indicating whether *host_age_cat* is equal to zero.
 - *middle* indicating whether *host_age_cat* is equal to one or two.
 - *old* indicating whether *host_age_cat* is equal to three or four.
@@ -271,12 +275,12 @@ merged_data <- merged_data %>%
   mutate(ten_reviews = ifelse(number_of_reviews >= 10, "yes", "no"),
     five_star_property = ifelse(apt_rating == 5, "yes", "no"),
     multiple_listings = ifelse(number_of_listings > 1, "yes", "no"),
-    shared_property = ifelse((property_setup == "Private Room" | 
-                                property_setup == "Shared Room"), "yes", "no"),
+    shared_property = ifelse((property_setup == "private room" | 
+                                property_setup == "shared room"), "yes", "no"),
     shared_bathroom = ifelse((shared_property=="yes" 
                               & bathrooms<1.5), "yes", "no"),
     has_cleaning_fee = ifelse(!is.na(cleaning_fee), "yes", "no"),
-    strict_cancellation = ifelse(cancellation_policy == "Strict", "yes", "no"),
+    strict_cancellation = ifelse(cancellation_policy == "strict", "yes", "no"),
     young = ifelse(host_age_cat == 0, "yes", "no"),
     middle = ifelse((host_age_cat == 1 | host_age_cat == 2), "yes", "no"),
     old = ifelse((host_age_cat == 3 | host_age_cat == 4), "yes", "no"))
@@ -327,7 +331,7 @@ The experiment could not be completed in Tampa or Atlanta, so drop the observati
 where *city* is equal to either of these two values.
 
 ```{r}
-merged_data <- merged_data %>% filter(!((city == "Tampa") | (city == "Atlanta")))
+merged_data <- merged_data %>% filter(!((city == "tampa") | (city == "atlanta")))
 ```
 
 
@@ -346,16 +350,19 @@ final_data <- merged_data %>% left_join(hosts, by="host_id")
 
 # Main Analysis
 
-### Reproduce estimates from Table 2
+### Reproduce estimates from Table 2: The Impact of Race on Likelihood of Acceptance
 
 - Perform separate regressions corresponding to each of the columns of Table 2 
-and save the regressions objects.
+and save the regressions objects
+
+    + "Guest is African-American" is captured by the *host_race* variable.
+  
 - For the first regression:
 
     + Obtain the cluster-robust standard errors and test-statistics using the function 
     [cluster.vcov](https://www.rdocumentation.org/packages/multiwayvcov/versions/1.2.3/topics/cluster.vcov) from
     the [multiwayvcov package](https://www.rdocumentation.org/packages/multiwayvcov).
-    
+    + Cluster on *namebycity*
     + The syntax of [cluster.vcov](https://www.rdocumentation.org/packages/multiwayvcov/versions/1.2.3/topics/cluster.vcov) is:
 
 ```{r, eval=FALSE, include=TRUE}
@@ -404,7 +411,7 @@ t2c3_clustered
 ```
 
 
-### Reproduce Figure 2
+### Reproduce Figure 2: Host Responses by Race
 
  Create a grouped bar plot of host responses by Race, as in Figure 2 of 
 Edelman, Luca, and Svirsky.
@@ -428,12 +435,14 @@ figure2_df$simplified_response <- factor(figure2_df$simplified_response,
 # Grouped
 ggplot(figure2_df, aes(fill=guest_race, y=responses, x=simplified_response)) + 
     geom_bar(position="dodge", stat="identity") + 
-  ggtitle("Figure 2: Host Reponses by Race") + xlab("") + ylab("")
+  ggtitle("Figure 2: Host Reponses by Race") + xlab("") + ylab("")  +
+  labs(fill='Guest Race') 
 
 ```
 
+\newpage
 
-### Table 5. Are Effects Driven by Host Characteristics?
+# [Bonus!] Table 5. Are Effects Driven by Host Characteristics?
 
 Reproduce columns 4 and 5 from Table 5 (again using your helper function 
 for cluster-robust test statistics).
@@ -469,9 +478,7 @@ table5_c5_clustered
 
 ```
 
-\newpage
-
-# [Bonus] Table 6: Are Effects Driven by Location Characteristics?
+# Table 6: Are Effects Driven by Location Characteristics?
 
 ## Data Preperation
 

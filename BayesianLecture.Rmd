@@ -26,37 +26,58 @@ library(tidyverse)
 
 #### Question
 
-- Imagine I'm conducting a raffle lottery.  I have a large bowl, and inside of it are many raffle entries, each with different numbers on them.  
+- Imagine I'm conducting a raffle lottery.  I have a large bowl, and inside of 
+it are many raffle entries, each with different numbers on them.  
 - Let the variable $x$ represent the number drawn from the bowl.  
 
 - Before reaching into the bowl, I want to know: 
     *''What is the probability that I'm going to pick up a number less than 10 from the bowl,''* ...
   That is, what is $p(x \leq 10)$?
 
-  + Does this probability change if I tell you that all the numbers in the bowl have at least 3 digits (ie $\geq 100$)?
+  + Does this probability change if I tell you that all the numbers in the bowl 
+  have at least 3 digits (ie $\geq 100$)?
 
 #### Answer
 
 **Classical Statistics:** No. 
 
-- Probability is defined as:  $\lim_{n \rightarrow \infty} \frac{n_S}{n}$, where $n$ is the number of times I repeat the experiment and $n_S$ is the number of times a number $x \leq 10$ is drawn.
+- Probability is defined as:  $\lim_{n \rightarrow \infty} \frac{n_S}{n}$, 
+where $n$ is the number of times I repeat the experiment and $n_S$ is the number 
+of times a number $x \leq 10$ is drawn.
 
-- $p(x \leq 10)$ was always equal to zero, all that change was your knowledge of the experiment.
+- $p(x \leq 10)$ was always equal to zero, all that change was your knowledge of 
+the experiment.
 
 **Bayesian Statistics:** Almost certainly. 
 
--  Probability is a measure of subjective belief about how likely an event is, based on prior understanding and new information.
+-  Probability is a measure of subjective belief about how likely an event is, 
+based on prior understanding and new information.
   
   + Prior $\rightarrow$ Information $\rightarrow$ Posterior
     
 ### Epistomological difference 
-- Bayesian statistics integrates the epistemological uncertainty of statistical estimation into its core procedures.  It's fundamental goal is to assess and improve the accuracy of one's beliefs based on a set of identifying statistical assumptions.
+- Bayesian statistics integrates the epistemological uncertainty of statistical 
+estimation into its core procedures.  It's fundamental goal is to assess and 
+improve the accuracy of one's beliefs based on a set of identifying statistical 
+assumptions.
 
-- Classical statistics attempts to instead conduct inference on the (unknown) underlying reality, based on its own set of identifying assumptions.
+- Classical statistics attempts to instead conduct inference on the (unknown) 
+underlying reality, based on its own set of identifying assumptions.
 
 ** NOT mutually exclusive **
 
+## Some Features of Bayesian methods
+
+Use of prior information
+Probability values and intervals have intuitive interpretation
+More useful and unbiased with small samples
+
 ## Bayesian Methods in R
+
+## Stan
+
+Show Stan and why it's too much work
+
 
 
 ### Installation
@@ -67,7 +88,8 @@ Then install the **rstan** and **rstanarm** packages.
 
 ```{r, eval=FALSE}
 # Run only once
-install.packages("rstan", repos = "https://cloud.r-project.org/", dependencies=TRUE)
+install.packages("rstan", repos = "https://cloud.r-project.org/", 
+                 dependencies=TRUE)
 
 install.packages("rstanarm", dependencies=TRUE)
 
@@ -119,7 +141,8 @@ titanic$class <- as.numeric(titanic$class)
 
 ```{r, message=FALSE}
 
-TitanicGLMbasic <- stan_glm(Survived ~ Age + SexCode  + as.factor(class), data = titanic, family = gaussian())
+TitanicGLMbasic <- stan_glm(Survived ~ Age + SexCode  + as.factor(class), 
+                            data = titanic, family = gaussian())
 
 
 ```
@@ -131,8 +154,27 @@ plot(TitanicGLMbasic)
 
 ```
 
-### Test test test
+## Plotting estimates with prediction intervals
+
+http://rpubs.com/tjmahr/rstanarm-tour exampmle
+
+
+### Shinystan
 ```{r}
  #launch_shinystan(TitanicGLMbasic)
 
 ```
+
+## Prior Distributions
+
+# Model Checking
+
+Expected vs observed y:
+See ppc_scatter_avg in bayesplot.
+
+See ppc_dens_overlay in bayesplot.
+
+## Posterior Predictive Checks
+
+##
+

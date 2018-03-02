@@ -20,7 +20,7 @@ navbar:
               - text: "M6: Capstone Project"
                 href: 
               - text: "M7: Bayesian Methods"
-                href: 
+                href: m7.html
     - text: "Learning Resources"
       menu:
               - text: "DataCamp"  

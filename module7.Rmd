@@ -51,9 +51,12 @@ it are many raffle entries, each with different numbers on them.
     + ***Does this probability change if I tell you that all the numbers in the 
     bowl have at least 3 digits (ie are $\geq 100$)?***
 
+<br>
+<br>
+    
 #### Answer
 
-**Classical Statistics:** No. 
+**Classical Statistics:** *No.* 
 
 - Probability is defined as:  $\lim_{n \rightarrow \infty} \frac{n_S}{n}$, 
 where $n$ is the number of times I repeat the experiment and $n_S$ is the number 
@@ -62,7 +65,7 @@ of times a number $x \leq 10$ is drawn.
 - $p(x \leq 10)$ was always equal to zero, all that changed was your knowledge of 
 the experiment.
 
-**Bayesian Statistics:** Almost certainly. 
+**Bayesian Statistics:** *Almost certainly.* 
 
 -  Probability is a measure of subjective belief about how likely an event is, 
 based on prior understanding and new information.
@@ -71,9 +74,8 @@ based on prior understanding and new information.
 
 <br>
 <br>
-<br>
     
-### Epistomological difference
+### **Epistomological difference**
 - Bayesian statistics integrates the epistemological uncertainty of statistical 
 estimation into its core procedures.  It's fundamental goal is to assess and 
 improve the accuracy of one's beliefs based on a set of identifying statistical 
@@ -86,7 +88,7 @@ underlying reality, based on its own set of identifying assumptions.
 
 <br>
 
-### Bayes Rule
+### **Bayes Rule**
 
 The cornerstone of the Bayesian approach (and the source of its name) is the 
 conditional likelihood theorem known as **Bayes' rule**.
@@ -98,6 +100,7 @@ Or, if A can take on multiple values, we
 have the **extended form**:
 
 $$ p(A_i|B) = \frac{p(B | A_i) P(A_i)}{\sum_j P(B|A_j)P(A_j)} $$
+### **Inference using Bayes' Rule**
 
 Adapting Bayes' Rule to the case of a parameter value, $\theta$ and observed data *y*, we have:
 
@@ -125,7 +128,7 @@ $$ Posterior \propto Likelihood \times Prior $$
 
 <br>
 
-### Priors
+### **Priors**
 
 Given this *compromise with prior beliefs*, Bayesian analysis is often attacked as 
 subjective and a lot of emphasis is placed on the role of prior beliefs.  **But fear 
@@ -205,6 +208,8 @@ solutions are not available for the integral in the denominator.
 Hence, Bayesian analysis instead typically relies on numerical methods, usually 
 Markov Chain Monte Carlo (MCMC) methods.
 
+<br>
+
 #### **MCMC Methods**
 
 This method relies on sequentially sampling values of $\theta$ from an approximation 
@@ -244,6 +249,8 @@ Bayesian analysis
 - Instead, analysis is oriented around estimation of the posterior distribution 
 of parameters (or predictions).
 
+<br>
+
 #### **Bayesian Inference with Credible Intervals**
 
 Without NHST to tell us if our results are significant, does that mean we just 
@@ -268,12 +275,11 @@ a confidence interval.
 there is a 95% chance that the true value lies within the 95% credible interval.
 
 <br>
-<br>
 
 
 ## Bayesian Regression with rstanarm
 
-### Stan
+### **Stan**
 
 Probably the best approach to doing Bayesian analysis in any software environment 
 is with [rstan](https://www.rdocumentation.org/packages/rstan), which is 
@@ -284,6 +290,8 @@ install **RTools** from [this link](https://github.com/stan-dev/rstan/wiki/Insta
 
 - Then install the package [rstan](https://www.rdocumentation.org/packages/rstan) 
 from RStudio (make sure to set `dependencies=TRUE` when installing).
+
+<br>
 
 #### **Parallelization support**
 
@@ -299,6 +307,8 @@ rstan_options (auto_write=TRUE)
 # Run on multiple cores
 options (mc.cores=parallel::detectCores ()) 
 ```
+
+<br>
 
 #### **A Stan regression example**
 
@@ -344,7 +354,7 @@ fit1 <- stan(
 
 <br>
 
-### Rstanarm:  making RStan easy
+### **Rstanarm:  making RStan easy**
 
 ***Oops!  That was a lot of code!***  And there's still a bit more left out. Luckily, 
 there are a couple of packages that exist to make your life easier:
@@ -443,7 +453,6 @@ You can also easily get print the credible intervals with the function [posterio
 posterior_interval(TitanicLinear, prob=0.95)
 ```
 
-<br>
 
 #### **Graphical credible intervals**
 
@@ -491,7 +500,7 @@ Today, we'll cover some of them included with rstanarm as well as the very usefu
 
 <br>
 
-### **Graphical posterior predictive analysis **
+### **Graphical posterior predictive analysis**
 
 To check the predictive accuracy of the posterior distribution, you can use the 
 function [pp_check()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/pp_check.stanreg), 

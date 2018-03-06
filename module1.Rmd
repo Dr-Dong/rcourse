@@ -4,6 +4,7 @@ subtitle: "Module 1: Basic Environment"
 date: "February 1, 2018"
 output: 
   html_document:
+      self_contained: true
       theme: flatly
       highlight: haddock
       toc: true
@@ -36,6 +37,8 @@ How to:
 
 5. Understanding and perform basic Bayesian analysis in R
 
+<br>
+
 ## Format
 
 Seven modules:
@@ -52,6 +55,8 @@ No homework etc - goal is for everything to be doable in the seminars.
 
 Course content and helpful resources on the course website:
 
+<br>
+<br>
 
 # R & Statistical Programming 
 
@@ -71,6 +76,8 @@ versatility and customizability in what you can do with data.
 - *Typically* statistical programming software has a much more comprehensive 
 range of built-in analysis functions than spreadsheets etc.
 
+<br>
+
 ## Characteristics of R
 
 * R is an open-source language specifically designed for statistical computing
@@ -85,6 +92,7 @@ prewritten functions, it is equally adept at programming solutions for yourself.
 
 * Because it's usage is broader, R also has a steeper learning curve than Stata.
 
+<br>
 
 ## Comparison to other statistical programming software
 
@@ -111,6 +119,8 @@ specific to econometrics/data analysis.
 empirical work. Matlab is powerful, but is much more based on programming "from 
 scratch" using matrices and mathematical expressions.
 
+<br>
+
 ## Useful resources for learning R
 
 - **DataCamp:**  interactive online lessons in R. 
@@ -135,7 +145,12 @@ really cool things you can do in R.
 written many of the best packages for R, including the Tidyverse, which we will 
 cover.
 
+<br>
+<br>
+
 # Getting Started in R
+
+<br>
 
 ## RStudio GUI
 
@@ -146,6 +161,7 @@ environments, data objects, plots, help files, etc directly within the applicati
 
 ![](./data/RStudioGUI.png)
 
+<br>
 
 ## Executing code from the script 
 
@@ -156,6 +172,8 @@ Ctrl-Enter.
 into that line.
 
 - To execute the whole document, the hotkey is Ctrl-Shift-Enter.
+
+<br>
 
 ## Style advise
 
@@ -172,6 +190,8 @@ when the line actually ends.)
     
 You can also write multiple expressions on the same line by using 
 <span style="color:blue">;</span>  as a manual line break.
+
+<br>
 
 ## Help files in R
 
@@ -190,6 +210,7 @@ immediately followed by the name of the function (no space inbetween)
 ?lm
 ```
 
+<br>
 
 ## Setting the working directory
 
@@ -208,7 +229,7 @@ setwd("C:/Users/AN.4271/OneDrive -
 ```
 
 
-
+<br>
 
 ## Comments
 
@@ -219,7 +240,8 @@ To create a comment in R, use a hash (<span style="color:blue"> **#**</span>.  F
 2 + 2
 ```
 
-
+<br>
+<br>
 
 # Data Types & Operations
 
@@ -233,6 +255,8 @@ Examples of basic mathematical operations in R:
 # Exponentiation and Logarithms
 2^2 + log(2)
 ```
+
+<br>
 
 ## Logical operations in R
 
@@ -258,6 +282,7 @@ You can also use AND (<span style="color:blue"> **&**</span>) and OR
 (5 < 6) & (7 < 6)
 ```
 
+<br>
 
 ## Defining an object
 
@@ -277,6 +302,8 @@ y <- y^2 # Redefine y
 y #Print y 
 ```
 
+<br>
+
 ## Data classes
 Data elements in R are categorized into a few seperate classes (ie types)
 
@@ -292,6 +319,8 @@ Data elements in R are categorized into a few seperate classes (ie types)
 interprets the variable as taking on one of limited number of possible values 
 (e.g. sex, municipality, industry etc) 
 
+<br>
+
 ## What's the object class?
 ```{r test}
 a <- 2; class(a)
@@ -301,8 +330,12 @@ d <- "True"; class(d)
 
 ```    
 
+<br>
+<br>
+
 # Vectors & Matrices
 
+<br>
 
 ## Vectors
 
@@ -314,6 +347,8 @@ basically a 1D array of elements.
 - Typical vectors are of a single-type (these are called atomic vectors).
 
 - A *list* vector can also have elements of different types.
+
+<br>
 
 ## Creating vectors
 
@@ -330,6 +365,8 @@ temps <- c(13,18,17,20,21)
 temps
 ```
 
+<br>
+
 ## Naming vectors
 You can name a vector by assigning a vector of names to <span style="color:blue">**c()**</span>, 
 where the vector to be named goes in the parentheses. 
@@ -340,6 +377,8 @@ names(temps) <- days
 temps
 ```
 
+<br>
+
 ## Subsetting vectors
 There are multiple ways of subsetting data in R.  One of the easiest methods for 
 vectors is to put the subset condition in brackets:
@@ -348,6 +387,8 @@ vectors is to put the subset condition in brackets:
 temps[temps>=18]
 
 ```
+
+<br>
 
 ## Operations on vectors
 Operations on vectors are element-wise.  So if 2 vectors are added together, 
@@ -363,6 +404,8 @@ avg_temp <- (temps + temps2) / 2
 avg_temp
 
 ```
+
+<br>
 
 ## Matrices
 - Data in a 2-dimensional structure can be represented in two formats, as a 
@@ -388,6 +431,7 @@ condition will determine the other.
 default is <span style="color:blue">**byrow=FALSE**</span>, ie the data is filled in by 
 column.
 
+<br>
 
 ## Creating a matrix from scratch
 
@@ -412,6 +456,8 @@ matrix(c(13,18,17,20,21,
 readability purposes.  Unlike Stata, R allows you to break  
 code over multiple lines without any extra line break syntax. 
 
+<br>
+
 ## Creating a matrix from vectors
 
 Instead of entering in the matrix data yourself, you may want to make a matrix 
@@ -423,7 +469,9 @@ temps.matrix <- matrix(c(temps,temps2), nrow=2,
 # Display matrix
 temps.matrix
 ```
- 
+
+<br>
+
 ## Naming rows and columns
 -Naming rows and columns of a matrix is pretty similar to naming  vectors.
 
@@ -438,6 +486,8 @@ colnames(temps.matrix) <- days
 temps.matrix
 ```
 
+<br>
+
 ## Matrix operations
 
 In R, matrix multiplication is denoted by <span style="color:blue">**%*%**</span>, as in 
@@ -449,6 +499,8 @@ of matrices, so that <span style="color:blue">**A * B**</span> has the entries $
 - An important thing to be aware of with R's <span style="color:blue">**A * B**</span> notation, 
 however, is that if either of the terms is a 2D vector, the terms of this 
 vector will be distributed elementwise to each colomn of the matrix.
+
+<br>
 
 ## Elementwise operations with a vector and Matrix
 
@@ -462,7 +514,12 @@ vecA; matB
 vecA * matB
 ```
 
+<br>
+<br>
+
 # Data Frames
+
+<br>
 
 ## Creating a data frame
 
@@ -486,6 +543,8 @@ mydf <- data.frame(vecA,matB)
 mydf
 ```
 
+<br>
+
 ## Defining a column of a data frame (or other 2D object):
 
 Once you have a multidimensional data object, you will usually want to create or
@@ -494,7 +553,9 @@ manipulate particular columns of the object.
 The default way of invoking a named
 column in R is by appending a dollar sign and the column name to the data object.
 
-## Example of adding a new column to a data frame
+<br>
+
+### Example of adding a new column to a data frame
 ```{r, include=FALSE}
 library(Ecdat)
 library(tidyverse)
@@ -510,6 +571,8 @@ wages # View wages data frame
 wages$expersq <- wages$exper^2; wages  # Add expersq
 ```
 
+<br>
+
 ## Viewing the structure of a data frame
 
 Like viewing the class of a homogenous data object, it's often helpful to view
@@ -521,6 +584,8 @@ the structure of data frames (or other 2D objects).
 # View the structure of the wages data frame
 str(wages)
 ```
+
+<br>
 
 ## Changing the structure of a data frame:
 
@@ -537,6 +602,8 @@ A common task is to redefine the classes of columns in a data frame.
     + <span style="color:blue">**as.factor()**</span> will reformat data as factors, taking by 
     default the unique values of each column as the possible factor levels.
 
+<br>
+
 ## More about factors
 
 Although <span style="color:blue">**as.factor()**</span> will suggest factors 
@@ -546,7 +613,9 @@ With the <span style="color:blue">**factor()**</span>  function, you supply
 the possible values of the factor and you can also specify ordering of factor 
 values if your data is ordinal.
 
-## Example of creating ordered factors
+<br>
+
+### Example of creating ordered factors
 A dataset  on number of extramarital affairs from Fair (Econometrica 1977) has 
 the following variables:  number of affairs, years married,
 presence of children, and a self-rated (Likert scale) 1-5 measure of marital
@@ -574,6 +643,8 @@ Note that the marital rating (*mrating*) initially was stored as an integer,
 which is incorrect.  Using factors preserves the ordering while
 not asserting a numerical relationship between values.
 
+<br>
+
 ## Selections and subsets in data frames
 
 Similar to subsetting a vector, matrices & data frames can also be subsetted for 
@@ -591,7 +662,9 @@ Arguments can be:
 
 - Rows (ie observations) that meet a given condition
 
-## Example of subsetting a data frame
+<br>
+
+### Example of subsetting a data frame
 
 ```{r}
 # Subset of wages df with schooling > 10, exper > 10

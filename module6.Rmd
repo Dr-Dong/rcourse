@@ -447,10 +447,11 @@ ggplot(figure2_df, aes(fill=guest_race, y=responses, x=simplified_response)) +
 ```
 
 <br>
-
-### **[Bonus!]** 
-
 <br>
+<br>
+
+
+### **Bonus!** 
 
 ### Table 5. Are Effects Driven by Host Characteristics?
 

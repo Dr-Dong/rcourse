@@ -5,6 +5,7 @@ institute: "andrew.proctor@phdstudent.hhs.se"
 date: "February 5, 2018"
 output: 
   html_document:
+      self_contained: true
       theme: flatly
       highlight: haddock
       toc: true

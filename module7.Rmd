@@ -100,6 +100,9 @@ Or, if A can take on multiple values, we
 have the **extended form**:
 
 $$ p(A_i|B) = \frac{p(B | A_i) P(A_i)}{\sum_j P(B|A_j)P(A_j)} $$
+
+<br>
+
 ### **Inference using Bayes' Rule**
 
 Adapting Bayes' Rule to the case of a parameter value, $\theta$ and observed data *y*, we have:

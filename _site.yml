@@ -1,69 +1,71 @@
-name: "SSE Intro to R"
-output_dir: "."
+name: SSE Intro to R
+output_dir: '.'
 navbar:
-  title: "SSE Intro to R"
+  title: SSE Intro to R
   left:
-    - text: "Overview"
-      href: index.html
-    - text: "Modules"
-      menu:
-              - text: "M1:  Base R"
-                href: module1.html
-              - text: "M2: Tidyverse Data Manipulation"
-                href: module2.html
-              - text: "M3: Loops, Conditionals, and Joins"
-                href: module3.html
-              - text: "M4: RMarkdown and Project Management"
-                href: module4.html
-              - text: "M5: Regression Modelling and Data Viz"
-                href: module5.html
-              - text: "M6: Capstone Project"
-                href: 
-              - text: "M7: Bayesian Methods"
-                href: m7.html
-    - text: "Learning Resources"
-      menu:
-              - text: "DataCamp"  
-                href: https://www.datacamp.com/
-              - text: "RStudio Cheat Sheets"  
-                href: https://www.rstudio.com/resources/cheatsheets/
-              - text: "Quick-R"  
-                href: https://www.statmethods.net/
-              - text: "StackOverflow"  
-                href: https://stackoverflow.com/
-              - text: "R-Bloggers"  
-                href: https://www.r-bloggers.com/
-              - text: "R for Data Science Online Book"  
-                href: http://r4ds.had.co.nz/
-    - text: "Downloads"
-      menu:
-              - text: Basic R Software
-              - text: "R"
-                href: https://cran.r-project.org/
-              - text: "RStudio"
-                href: https://www.rstudio.com/
-              - text: "---------"
-              - text: "Latex"
-              - text: "MiKTex (Windows)"
-                href: https://miktex.org/download                
-              - text: "MacTex (Mac)"
-                href: http://www.tug.org/mactex/mactex-download.html
-              - text: "Sumatra PDF (Windows)"
-                href: https://www.sumatrapdfreader.org/free-pdf-reader.html   
-              - text: "Skim PDF (Mac)"
-                href: https://skim-app.sourceforge.io/  
-              - text: "---------"
-              - text: "Version Control"
-              - text: "Git"
-                href: https://git-scm.com/downloads
-              - text: "GitHub for Education"
-                href: https://education.github.com/discount_requests/new         
-              - text: "---------"
-    - text: "Code"
-      menu:
-              - text: "Course on Github"
-                href: https://github.com/andrewproctor/rminicourse
-
+  - text: Overview
+    href: index.html
+  - text: Modules
+    menu:
+    - text: 'M1:  Base R'
+      href: module1.html
+    - text: 'M2: Tidyverse Data Manipulation'
+      href: module2.html
+    - text: 'M3: Loops, Conditionals, and Joins'
+      href: module3.html
+    - text: 'M4: RMarkdown and Project Management'
+      href: module4.html
+    - text: 'M5: Regression Modelling and Data Viz'
+      href: module5.html
+    - text: 'M6: Capstone Project'
+      href: module6.html
+    - text: 'M7: Bayesian Methods'
+      href: module7.html
+  - text: Learning Resources
+    menu:
+    - text: DataCamp
+      href: https://www.datacamp.com/
+    - text: RStudio Cheat Sheets
+      href: https://www.rstudio.com/resources/cheatsheets/
+    - text: Quick-R
+      href: https://www.statmethods.net/
+    - text: StackOverflow
+      href: https://stackoverflow.com/
+    - text: R-Bloggers
+      href: https://www.r-bloggers.com/
+    - text: R for Data Science Online Book
+      href: http://r4ds.had.co.nz/
+  - text: Downloads
+    menu:
+    - text: Basic R Software
+    - text: R
+      href: https://cran.r-project.org/
+    - text: RStudio
+      href: https://www.rstudio.com/
+    - text: '---------'
+    - text: Latex
+    - text: MiKTex (Windows)
+      href: https://miktex.org/download
+    - text: MacTex (Mac)
+      href: http://www.tug.org/mactex/mactex-download.html
+    - text: Sumatra PDF (Windows)
+      href: https://www.sumatrapdfreader.org/free-pdf-reader.html
+    - text: Skim PDF (Mac)
+      href: https://skim-app.sourceforge.io/
+    - text: '---------'
+    - text: Version Control
+    - text: Git
+      href: https://git-scm.com/downloads
+    - text: GitHub for Education
+      href: https://education.github.com/discount_requests/new
+    - text: '---------'
+  - text: Code
+    menu:
+    - text: Course on Github
+      href: https://github.com/andrewproctor/rminicourse
 output:
   html_document:
     theme: flatly
+    lib_dir: site_libs
+    self_contained: no
+

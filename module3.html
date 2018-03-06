@@ -321,8 +321,12 @@ div.tocify {
     <li>
       <a href="module5.html">M5: Regression Modelling and Data Viz</a>
     </li>
-    <li class="dropdown-header">M6: Capstone Project</li>
-    <li class="dropdown-header">M7: Bayesian Methods</li>
+    <li>
+      <a href="module6.html">M6: Capstone Project</a>
+    </li>
+    <li>
+      <a href="module7.html">M7: Bayesian Methods</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -593,14 +597,14 @@ do other other stuff
 <div id="an-ifelse-example" class="section level3">
 <h3>An ifelse example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> numbers &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dv">7</span>); numbers</code></pre></div>
-<pre><code>## [1]  7 18  6 22 10 24 11</code></pre>
+<pre><code>## [1]  8 10 18  1 28  3  6</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">ifelse</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;even&quot;</span>,<span class="st">&quot;odd&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;odd&quot;  &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;</code></pre>
+<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
 <p><strong>Note:</strong> What if we tried a normal if statement instead?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="cf">if</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){
    <span class="kw">print</span>(<span class="st">&quot;even&quot;</span>)} <span class="cf">else</span>{
      <span class="kw">print</span>(<span class="st">&quot;odd&quot;</span>)}</code></pre></div>
-<pre><code>## [1] &quot;odd&quot;</code></pre>
+<pre><code>## [1] &quot;even&quot;</code></pre>
 </div>
 <div id="multiple-vectorized-if-statements" class="section level3">
 <h3>Multiple vectorized if statements</h3>
@@ -623,10 +627,10 @@ nums_df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</sp
 <pre><code>## # A tibble: 4 x 2
 ##   value interval
 ##   &lt;int&gt; &lt;chr&gt;   
-## 1     7 1-10    
-## 2    18 10-20   
-## 3     6 1-10    
-## 4    22 20-30</code></pre>
+## 1     8 1-10    
+## 2    10 1-10    
+## 3    18 10-20   
+## 4     1 1-10</code></pre>
 <p><br></p>
 </div>
 </div>
@@ -660,7 +664,7 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 }</code></pre></div>
 <p><strong><em>Notice</em></strong> that <em>obj</em> here is a descriptive placeholder name for the data object to be supplied as an argument for the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odd</span>(numbers)</code></pre></div>
-<pre><code>## [1] &quot;odd&quot;  &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;</code></pre>
+<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
 </div>
 <div id="rstudios-extract-function" class="section level3">
 <h3>RStudio’s “Extract Function”</h3>

@@ -69,7 +69,7 @@ learn convenient tools to import and export data.
   
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/regions.csv" role="button">regions.csv</a>   
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/regions.csv" role="button">regions.csv</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m2_solutions.pdf" role="button">Solutions (PDF)</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m2_solutions.R" role="button">Solutions (R Script)</a> 
 <br>

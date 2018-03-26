@@ -1,0 +1,109 @@
+---
+title: "Module 7 (Bayesian) Exercise"
+output: 
+  pdf_document:
+    df_print: kable
+    highlight: zenburn
+urlcolor: blue
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rstanarm)
+library(rio)
+library(tidyverse)
+library(rstan)
+library(bayesplot)
+```
+
+## Preliminaries
+
+- Install RTools  from 
+[here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows):
+
+- Install and initialize the packages rstan, rstanarm, and shinystan.  
+
+    + Be sure to initialize any other packages you would normally use.
+    
+- In a new or existing RStudio Project, create an RMarkdown document.
+
+## Analysis of Well Switching
+
+- Check out the descriptions of the datasets included with the rstanarm package [here](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/rstanarm-datasets):
+
+
+- Using the **wells** dataset, perform a Bayesian linear regression that uses arsenic level, 
+distance from well, and years of education to predict well-switching.
+    
+```{r, message=FALSE}
+wellsLM <- stan_glm(switch ~ arsenic + 
+    dist + educ, 
+    data = wells, family = gaussian)
+
+```
+
+- View the summary of the regression output.
+
+```{r}
+summary(wellsLM)
+```
+
+- Create a histogram of the posterior distribution of the *dist* variable
+
+```{r}
+wells_posterior <- wellsLM %>% as.tibble()
+
+ggplot(wells_posterior, aes(x=dist)) + geom_histogram()
+```
+
+- Use the leave-one-out method of measuring out-of-sample predictivenes to compute 
+the expected log predictive density.
+
+```{r}
+loo(wellsLM)
+
+
+```
+
+## Analysis of doctors visits
+
+- If necessary, install the package "Ecdat" and initialize it.
+
+- Using the dataset **Doctor**, perform a Bayesian Poisson regression that 
+estimates the number of doctor visits as a function of health care access and health 
+status.
+
+```{r, message=FALSE}
+library(Ecdat)
+doctordata <- Doctor
+
+doctorvisits_poissonreg <- stan_glm(doctor ~ access + 
+    health, 
+    data = doctordata, family = poisson)
+
+
+
+```
+
+- Once again view the summary of the output but this time view a graphical plot 
+of the credible intervals for *access*.
+
+```{r}
+
+doctorvisits_posterior <- doctorvisits_poissonreg %>% as.tibble()
+
+ggplot(doctorvisits_posterior, aes(x=access)) + geom_histogram()
+
+```
+
+- Use the Watanabe-Aikake information criterion to view the predictiveness of the 
+Poisson model.
+
+```{r}
+
+waic(doctorvisits_poissonreg)
+
+```
+
+

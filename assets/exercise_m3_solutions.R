@@ -56,7 +56,7 @@ cex_data <- cex_data %>% mutate(region1 = ifelse(region == 1,1,0),
                                 region4 = ifelse(is.na(region),1,0)
                                 )
                                 
-# Define ols function
+# Define OLS function
 my_ols <- function(indvars,depvar){
   
   # Keep only observations with no missing values for indvars and depvar
@@ -85,6 +85,7 @@ my_ols <- function(indvars,depvar){
 
 # Estimate Coefficients
 coeffs_schooling <- my_ols(cex_data$educ_ref, cex_data$cost)
+
 # Display results
 coeffs_schooling
 

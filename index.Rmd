@@ -70,8 +70,8 @@ learn convenient tools to import and export data.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/regions.csv" role="button">regions.csv</a>   
-
-
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m2_solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m2_solutions.R" role="button">Solutions (R Script)</a> 
 <br>
 
 
@@ -89,7 +89,8 @@ Tidyverse functions.
   
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m4_solution.R" role="button">Solutions</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m3_solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m3_solutions.R" role="button">Solutions (R Script)</a> 
 
 
 <br>
@@ -111,7 +112,7 @@ introduced to perform version control.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="m4_SetupInstructions.pdf" role="button">Setup Instructions</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
-
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.Rmd" role="button">RMarkdown File</a> 
 <br>
 
 
@@ -129,7 +130,8 @@ graphs in R.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
-  
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m5_solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise_m5_solutions.Rmd" role="button">Solutions (Rmd File)</a> 
  <br>
  
 
@@ -141,7 +143,8 @@ perform an analysis of an empirical problem in R from start to finish.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/datanames.csv" role="button">datanames.csv</a> 
-
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone_solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone_solutions.Rmd" role="button">Solutions (Rmd File)</a> 
 <br>
 
 
@@ -156,7 +159,8 @@ to perform Bayesian analysis in R, primarily using the rstanarm package.
   
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m7.pdf" role="button">Exercise</a> 
-  
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/bayesian_solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/bayesian_solutions.Rmd" role="button">Solutions (Rmd File)</a>   
 
 <br>
 <br>

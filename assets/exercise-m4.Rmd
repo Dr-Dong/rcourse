@@ -1,0 +1,74 @@
+---
+title: "Module 4 Exercise"
+output: 
+  pdf_document:
+      highlight: haddock
+urlcolor: blue
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Create a project with remote version control
+
+- From GitHub, create a new repository for the R minicourse.  Remember to initialize it 
+with a ReadMe file.  
+
+- In RStudio, then create a new project with remote version control, setting it 
+up for use with the online repository you've just created.
+
+- Now as make changes on the document below, use version control to routinely 
+update your documents on GitHub.
+
+### Create a PDF document with Module 3 Exercise instructions and results
+
+- Using the Module 3 instructions and either your own code or the suggested 
+solutions code to Module 3 exercises, try to create a single PDF document which 
+shows:
+  
+    + The instructions for each task, formatted as in the PDF,
+    + Your code
+    + The output of each step.  If a step doesn't have any explicit output, 
+    print the tibbles that result from changes you make in the given step.
+
+- Make sure the results have the following:
+
+    + Code highlighting with your style of choice
+    + A table of contents
+    + Dataframes printed as tibbles
+    
+#### Create an HTML copy
+
+Now that you have a PDF copy, try saving a new copy of your RMarkdown file that 
+you will then use to generate the same document as a webpage.
+
+- After saving the new copy, change the output type so that it is a HTML document. 
+
+- Choose a theme for your HTML page.
+
+- Change the chunks so that there is 
+[code folding](https://rmarkdown.rstudio.com/html_document_format.html#code_folding). 
+Also check out what happens if you instead set *echo* to FALSE for some chunks.
+
+- Change the dataframe printing to Kable, looking at the dataframe after each 
+step using [head()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/head) 
+instead of displaying the data frame itself.
+
+#### Now create a Beamer presentation copy
+
+Once again, save another copy of your work, now for use in generating a Beamer 
+presentation (you can try out other presentation types if you prefer).
+
+- This time, keep [head()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/head) 
+in the document but set the chunk options so that no output is displayed, just 
+the code itself.
+
+- Choose a Beamer Theme and Color Theme to apply to your presentation.  Check out 
+the RStudio page on how to specify these options [here](https://rmarkdown.rstudio.com/beamer_presentation_format.html#themes) 
+and then choose a theme and color theme from the [Theme Matrix](https://hartwork.org/beamer-theme-matrix/).
+
+- Try adding an [image](http://s2.quickmeme.com/img/99/9903c7c14add3fd0758b7b5b80c24d48101f296f13ce34736799a82c71f61bc2.jpg) to the last slide of
+your presentation.
+

@@ -72,6 +72,7 @@ learn convenient tools to import and export data.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/regions.csv" role="button">regions.csv</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m2-solutions.pdf" role="button">Solutions (PDF)</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m2-solutions.R" role="button">Solutions (R Script)</a> 
+
 <br>
 
 
@@ -91,7 +92,6 @@ Tidyverse functions.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3-solutions.pdf" role="button">Solutions (PDF)</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3-solutions.R" role="button">Solutions (R Script)</a> 
-
 
 <br>
 
@@ -113,6 +113,7 @@ introduced to perform version control.
 <a class="btn btn-primary" href="m4_SetupInstructions.pdf" role="button">Setup Instructions</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.Rmd" role="button">RMarkdown File</a> 
+
 <br>
 
 
@@ -132,6 +133,7 @@ graphs in R.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m5-solutions.pdf" role="button">Solutions (PDF)</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m5-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
+
  <br>
  
 
@@ -145,6 +147,7 @@ perform an analysis of an empirical problem in R from start to finish.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/datanames.csv" role="button">datanames.csv</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone-solutions.pdf" role="button">Solutions (PDF)</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/capstone-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
+
 <br>
 
 

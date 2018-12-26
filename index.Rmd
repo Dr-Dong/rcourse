@@ -39,7 +39,7 @@ so that you can familiarize yourself with the material ahead of time if you like
 
 ## Course Content
 
-### **Module 1:**  Introduction to Base R Environment (Feb 1^st^ and 2^nd^)
+### **Module 1:**  Introduction to Base R Environment
 
 This module introduces the R programming language and the RStudio software.  R 
 programming topics will include coverage of basic operations
@@ -55,7 +55,7 @@ and data object types, especially vectors, matrices, and data frames.
 <br>
 
 
-### **Module 2:**  Data Manipulation Using the Tidyverse (Feb 5^th^ and 6^th^)
+### **Module 2:**  Data Manipulation Using the Tidyverse
 
 This module introduces a series of tools for data manipulation/preparation 
 collectively known as the "Tidyverse."  Specifically, this module covers how to 
@@ -63,20 +63,25 @@ subset data, arrange it, transform it, and aggregate it.  Participants will also
 learn convenient tools to import and export data.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module2.html" role="button">Webpage</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module2-dataprep.pdf" role="button">Slides</a> 
-
+```{r, include=FALSE}
+# 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module2.html" role="button">Webpage</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module2-dataprep.pdf" role="button">Slides</a> 
+```
   
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/regions.csv" role="button">regions.csv</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.R" role="button">Solutions (R Script)</a> 
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/regions.csv" role="button">regions.csv</a>
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.pdf" role="button">Solutions (PDF)</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.R" role="button">Solutions (R Script)</a> 
+```
 
 <br>
 
 
-### **Module 3:**  Loops, Conditionals, and Joins (Feb 13^th^ and 14^th^)
+### **Module 3:**  Loops, Conditionals, and Joins
 
 This module introduces more advanced programming techniques to adapt R 
 functionality to your own specific problems.  Contents include how to
@@ -85,18 +90,24 @@ addition, this module will cover how to join data sets in R using
 Tidyverse functions.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module3.html" role="button">Webpage</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module3.pdf" role="button">Slides</a> 
-  
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module3.html" role="button">Webpage</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module3.pdf" role="button">Slides</a> 
+```
+
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.R" role="button">Solutions (R Script)</a> 
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.pdf" role="button">Solutions (PDF)</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.R" role="button">Solutions (R Script)</a> 
+```
 
 <br>
 
 
-### **Module 4:**  Project Management and Dynamic Documents (Feb 15^th^ and 16^th^)
+### **Module 4:**  Project Management and Dynamic Documents
 
 This module provides a few major enhancements to the workflow process of data 
 analysis in R.  Fist, Knitr and RMarkdown are introduced as a means to create 
@@ -106,18 +117,24 @@ means of organizing folders for empirical projects.  Finally, Git and GitHub are
 introduced to perform version control.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module4.html" role="button">Webpage</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module4.pdf" role="button">Slides</a> 
-  
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module4.html" role="button">Webpage</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module4.pdf" role="button">Slides</a> 
+```
+
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="m4_SetupInstructions.pdf" role="button">Setup Instructions</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.Rmd" role="button">RMarkdown File</a> 
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="m4_SetupInstructions.pdf" role="button">Setup Instructions</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.Rmd" role="button">RMarkdown File</a> 
+```
 
 <br>
 
 
-### **Module 5:** Regression Analysis and Data Visualization in R (Feb 22^nd^ and 23^rd^)
+### **Module 5:** Regression Analysis and Data Visualization in R
 
 In this module, standard methods of regression analysis in R are presented, in 
 addition to coverage of common diagnostics and post-estimation procedures.  In 
@@ -125,45 +142,58 @@ addition, the ggplot2 package is introduced as a means of creating compelling
 graphs in R.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module5.html" role="button">Webpage</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> 
-  
+```{r, include=FALSE}
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module5.html" role="button">Webpage</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> 
+```
+
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
+```{r, include=FALSE}
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Solutions (PDF)</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
+```
 
  <br>
  
 
-### **Module 6:**  Capstone Project (Feb 28^st^ and March 1^st^)
+### **Module 8:**  Review Seminar for Capstone Project
 
-In this module, you will use the skills developed over the preceding seminars to
-perform an analysis of an empirical problem in R from start to finish.
+In this module, an extended empirical exercise is utilized to review the skills developed over the preceding seminars.  The review will function as preparation for the capstone project, in which students individually complete their a replication exercise of a recent economics paper.
 
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/datanames.csv" role="button">datanames.csv</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
+```{r, include=FALSE}
 
-<br>
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/datanames.csv" role="button">datanames.csv</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.pdf" role="button">Solutions (PDF)</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.Rmd" role="button">Solutions (Rmd File)</a> 
 
+#
+```
 
+ <br>
+ 
 ### **Module 7:**  Intro to Bayesian Methods in R (March 2^nd^)
 
 This module introduces the basic intuition of Bayesian statistical methods and how
 to perform Bayesian analysis in R, primarily using the rstanarm package.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module7.html" role="button">Webpage</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module7.pdf" role="button">Slides</a> 
-  
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module7.html" role="button">Webpage</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module7.pdf" role="button">Slides</a> 
+```
+
 - **Seminar Exercises:**   \ \ \ \ 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m7.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/bayesian-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/bayesian-solutions.Rmd" role="button">Solutions (Rmd File)</a>   
+```{r, include=FALSE}
+
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m7.pdf" role="button">Exercise</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/bayesian-solutions.pdf" role="button">Solutions (PDF)</a> 
+# <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/bayesian-solutions.Rmd" role="button">Solutions (Rmd File)</a>   
+```
 
 <br>
 <br>

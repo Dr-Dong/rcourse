@@ -10,17 +10,17 @@ navbar:
     - text: 'M1:  Base R'
       href: module1.html
     - text: 'M2: Tidyverse Data Manipulation'
-      href: module2.html
+      href: 
     - text: 'M3: Loops, Conditionals, and Joins'
-      href: module3.html
+      href: 
     - text: 'M4: RMarkdown and Project Management'
-      href: module4.html
+      href: 
     - text: 'M5: Regression Modelling and Data Viz'
-      href: module5.html
+      href: 
     - text: 'M6: Capstone Project'
-      href: module6.html
+      href: 
     - text: 'M7: Bayesian Methods'
-      href: module7.html
+      href: 
   - text: Learning Resources
     menu:
     - text: DataCamp

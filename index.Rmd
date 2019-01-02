@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Data Analysis in R"
+subtitle: "SSE Masters Course 7316"
 author: "Instructor:  Andrew Proctor"
 output: 
   html_document:

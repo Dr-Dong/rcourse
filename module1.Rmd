@@ -1,7 +1,6 @@
 ---
-title: "Introduction to R"
-subtitle: "Module 1: Basic Environment"
-date: "February 1, 2018"
+title: "Module 1: Basic Environment"
+date: "January 16, 2019"
 output: 
   html_document:
       self_contained: true
@@ -225,7 +224,7 @@ path from File Explorer.
 ```{r wd, eval=FALSE}
 # Set Working Directory
 setwd("C:/Users/AN.4271/OneDrive - 
-      Handelshögskolan i Stockholm/MyProject")
+      Handelsh?gskolan i Stockholm/MyProject")
 ```
 
 
@@ -593,7 +592,7 @@ A common task is to redefine the classes of columns in a data frame.
 
 - Common commands can help you with this when the data is formatted suitably:
  
-    + <span style="color:blue">**as.numeric()**</span> will take data that “looks like numbers” but 
+    + <span style="color:blue">**as.numeric()**</span> will take data that ?looks like numbers? but 
     are formatted as characters/factors and change their formatting to numeric.
     
     + <span style="color:blue">**as.character()**</span> will take data formatted as numbers/factors 
@@ -627,7 +626,7 @@ data(Fair)
 set.seed(321789)
 affairs <- Fair %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% select(nbaffairs, ym, child, rate) %>% rename(affairs = nbaffairs, yrsmarr= ym, mrating = rate) 
 
-# Source:  Fair, R. (1977) “A note on the computation of the tobit estimator”, Econometrica, 45, 1723-1727. 
+# Source:  Fair, R. (1977) ?A note on the computation of the tobit estimator?, Econometrica, 45, 1723-1727. 
 ```
 
 ```{r}

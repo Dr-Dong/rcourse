@@ -48,6 +48,8 @@ navbar:
       href: https://miktex.org/download
     - text: MacTex (Mac)
       href: http://www.tug.org/mactex/mactex-download.html
+    - text: TeX Live (Linux)
+      href: https://www.tug.org/texlive/debian.html
     - text: Sumatra PDF (Windows)
       href: https://www.sumatrapdfreader.org/free-pdf-reader.html
     - text: Skim PDF (Mac)

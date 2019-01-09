@@ -1,7 +1,6 @@
 ---
 title: "Introduction to Data Analysis in R"
 subtitle: "SSE Masters Course 7316"
-author: "Instructor:  Andrew Proctor"
 output: 
   html_document:
     theme: flatly
@@ -37,14 +36,13 @@ and finally presentation.  During the mini-course, you will not only learn basic
 R functionality, but also how to leverage the extensive community-driven package 
 ecosystem, as well as how to write your own functions in R.
 
-Course content is broken up into 6 seminars, each covering one content module,
-with a short additional session on Bayesian methods at the end for those 
-interested. The length of each seminar may vary from module to module, but should 
-generally be less than 3 hours.  The first 30-45 minutes will be used to introduce 
-new information, while the remainder of the time will be spent doing hands-on 
-practice.  The content for each module will be posted the day before the seminar,
-so that you can familiarize yourself with the material ahead of time if you like 
-(though this isn't required).
+Course content is broken up into 8 seminars, each covering one content module 
+except for the final review seminar. The length of each seminar may vary from 
+module to module, but should generally be less than 3 hours.  The first 30-45 
+minutes will be used to introduce new information, while the remainder of the 
+time will be spent doing hands-on practice.  The content for each module will be 
+posted the day before the seminar, so that you can familiarize yourself with the 
+material ahead of time if you like (though this isn't required).
 
 <br>
 
@@ -149,8 +147,8 @@ introduced to perform version control.
 
 ### **Module 5:** Regression Analysis and Data Visualization in R
 
-In this module, standard methods of regression analysis in R are introduce, in 
-addition to coverage of common diagnostics and post-estimation procedures.  In 
+In this module, standard methods of regression analysis in R are introduced, as 
+well as coverage of common diagnostics and post-estimation procedures.  In 
 addition, the ggplot2 package is introduced as a means of creating compelling 
 graphs in R.
 
@@ -172,7 +170,10 @@ graphs in R.
 
 ### **Module 6:** Further Regression Methods
 
-In this module, further types of regression analysis found in empirical analysis are presented.  Focus is primarily on instrumental variables estimation and panel data methods, with a basic introduction to methods based on limited dependent variables and regression discontinuity design.
+In this module, further types of regression analysis found in empirical analysis 
+are presented.  Focus is primarily on instrumental variables estimation and panel 
+data methods, with a basic introduction to methods based on limited dependent 
+variables and regression discontinuity design.
 
 - **Lecture** **Notes**:   \ \ \ \ \ 
 ```{r, include=FALSE}
@@ -213,7 +214,10 @@ how to perform Bayesian analysis in R, primarily using the rstanarm package.
 
 ### **Module 8:**  Review Seminar for Capstone Project
 
-In this module, an extended empirical exercise is utilized to review the skills developed over the preceding seminars.  The review will function as preparation for the capstone project, in which students individually replicate results from a recent economics paper.
+In this module, an extended empirical exercise is utilized to review the skills 
+developed over the preceding seminars.  The review will function as preparation 
+for the capstone project, in which students individually replicate results from 
+a recent economics paper.
 
 - **Seminar Exercises:**   \ \ \ \ 
 ```{r, include=FALSE}

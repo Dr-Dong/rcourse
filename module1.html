@@ -540,10 +540,8 @@ div.tocify {
 
 <p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module1-baseR.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a></p>
 <p><br></p>
-<div id="intro" class="section level1">
-<h1>Intro</h1>
-<div id="learning-outcomes" class="section level2">
-<h2>Learning Outcomes</h2>
+<div id="learning-outcomes" class="section level1">
+<h1>Learning Outcomes</h1>
 <p>How to:</p>
 <ol style="list-style-type: decimal">
 <li><p>Import and transform using standard R functions</p></li>
@@ -552,20 +550,7 @@ div.tocify {
 <li><p>Peform basic econometric analysis in R</p></li>
 <li><p>Understanding and perform basic Bayesian analysis in R</p></li>
 </ol>
-<p><br></p>
-</div>
-<div id="format" class="section level2">
-<h2>Format</h2>
-<p>Seven modules:</p>
-<ul>
-<li><p>Five introducing new topics, with the first ~ 30-45 minutes going over material and the remainder of the time working on exercises.</p></li>
-<li><p>One capstone module that brings together everything covered in the first 5 lessons.</p></li>
-<li><p>A brief Bayesian methods course at the end.</p></li>
-</ul>
-<p>No homework etc - goal is for everything to be doable in the seminars.</p>
-<p>Course content and helpful resources on the course website:</p>
 <p><br> <br></p>
-</div>
 </div>
 <div id="r-statistical-programming" class="section level1">
 <h1>R &amp; Statistical Programming</h1>
@@ -901,7 +886,7 @@ temps.matrix</code></pre></div>
 </div>
 <div id="matrix-operations" class="section level2">
 <h2>Matrix operations</h2>
-<p>In R, matrix multiplication is denoted by <span style="color:blue"><strong>%<em>%<strong></span>, as in <span style="color:blue"></strong> A %</em>% B </strong></span></p>
+<p>In R, matrix multiplication is denoted by <span style="color:blue"><strong>%<span class="math inline">\(*\)</span>%</strong></span>, as in <span style="color:blue"><strong>A %<span class="math inline">\(*\)</span>% B</strong></span></p>
 <p><span style="color:blue"><strong>A * B</strong></span> instead performs <em>element-wise</em> (Hadamard) multiplication of matrices, so that <span style="color:blue"><strong>A * B</strong></span> has the entries <span class="math inline">\(a_1 b_1\)</span>, <span class="math inline">\(a_2 b_2\)</span> etc.</p>
 <ul>
 <li>An important thing to be aware of with R’s <span style="color:blue"><strong>A * B</strong></span> notation, however, is that if either of the terms is a 2D vector, the terms of this vector will be distributed elementwise to each colomn of the matrix.</li>
@@ -989,7 +974,7 @@ mydf</code></pre></div>
 <ul>
 <li><p>Common commands can help you with this when the data is formatted suitably:</p>
 <ul>
-<li><p><span style="color:blue"><strong>as.numeric()</strong></span> will take data that ?looks like numbers? but are formatted as characters/factors and change their formatting to numeric.</p></li>
+<li><p><span style="color:blue"><strong>as.numeric()</strong></span> will take data that <em>looks like numbers</em> but are formatted as characters/factors and change their formatting to numeric.</p></li>
 <li><p><span style="color:blue"><strong>as.character()</strong></span> will take data formatted as numbers/factors and change their class to character.</p></li>
 <li><p><span style="color:blue"><strong>as.factor()</strong></span> will reformat data as factors, taking by default the unique values of each column as the possible factor levels.</p></li>
 </ul></li>

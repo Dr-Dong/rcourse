@@ -19,9 +19,7 @@ output:
 
 <br>
 
-# Intro
-
-## Learning Outcomes
+# Learning Outcomes
 
 How to:
 
@@ -34,24 +32,6 @@ How to:
 4. Peform basic econometric analysis in R
 
 5. Understanding and perform basic Bayesian analysis in R
-
-<br>
-
-## Format
-
-Seven modules:
-
-- Five introducing new topics, with the first ~ 30-45 minutes going
-over material and the remainder of the time working on exercises.
-
-- One capstone module that brings together everything covered in the first 5
-lessons.
-
-- A brief Bayesian methods course at the end.
-
-No homework etc - goal is for everything to be doable in the seminars.
-
-Course content and helpful resources on the course website:
 
 <br>
 <br>
@@ -488,8 +468,8 @@ temps.matrix
 
 ## Matrix operations
 
-In R, matrix multiplication is denoted by <span style="color:blue">**%*%**</span>, as in 
-<span style="color:blue">** A %*% B **</span>
+In R, matrix multiplication is denoted by <span style="color:blue">**%$*$%**</span>, as in 
+<span style="color:blue">**A %$*$% B**</span>
 
 <span style="color:blue">**A * B**</span> instead performs *element-wise* (Hadamard) multiplication 
 of matrices, so that <span style="color:blue">**A * B**</span> has the entries $a_1 b_1$, $a_2 b_2$ etc.
@@ -591,7 +571,7 @@ A common task is to redefine the classes of columns in a data frame.
 
 - Common commands can help you with this when the data is formatted suitably:
  
-    + <span style="color:blue">**as.numeric()**</span> will take data that ?looks like numbers? but 
+    + <span style="color:blue">**as.numeric()**</span> will take data that *looks like numbers* but 
     are formatted as characters/factors and change their formatting to numeric.
     
     + <span style="color:blue">**as.character()**</span> will take data formatted as numbers/factors 

@@ -1,43 +1,112 @@
 ---
-title: "Module 1: Basic Environment"
+title: "Introduction to Data Analysis in R"
+subtitle: "Module 1: The basic R environment"
+author: "Andrew Proctor" 
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "January 16, 2019"
 output: 
-  html_document:
-      self_contained: true
-      theme: flatly
-      highlight: haddock
+  beamer_presentation:
+      theme: "Amsterdam"
+      highlight: espresso
+      slide_level: 2
       toc: true
-      toc_float: true
+header-includes:
+  - \definecolor{links}{HTML}{2A1B81}
+  - \hypersetup{colorlinks,linkcolor=,urlcolor=links}
 ---
 
 ```{r setup, include=FALSE}
 
 
 ```
+# Prelimaries
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module1_slides.pdf" role="button">Slides</a>
-```{r, eval=FALSE, include=FALSE}
-<a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
+## Goals
 
-```
+  - This is an introduction to the R statistical programming language, focusing 
+  on the skills needed to perform data analysis.
+  
+    + R has quickly become the language of choice for data analysis and many new 
+    routines for economics and related fields are either introduced first or 
+    exclusively in R.
+  
+  
+  - During the course, you'll not only learn basic R functionality, but 
+  also how to leverage the extensive community-driven package ecosystem, and 
+  how to write your own functions in R.
 
-<br>
+## Content
 
-# Learning Outcomes
+The course is broken up into 8 interactive seminars. Each seminar 
+  (except for the last) introduces a new topic in R, corresponding to:
+  
+  1. The basics of the R environment and RStudio.
+  2. Data preparation using R packages
+  3. Programming techniques and managing datasets
+  4. Project management and creating dynamic documents using R
+  5. Regression analysis and data visualization
+  6. Advanced regression methods in R (IV and panel data)
+  7. Bayesian methods in R
 
-How to:
+## Seminar structure  
 
-1. Import and transform using standard R functions
+Each seminar is structured as follows:    
+      
+  - Starts with an introduction to the new content (for about 30-45 minutes)
+  
+  - The remainder of the time is spent doing hands-on practice through 
+  exercises that incorporate the content.
 
-2. Extend R functionality through packages and user-written programming
+Attendance is not mandatory, but will make your life much easier.
 
-3. Create compelling presentations for data analysis projects
+  - To ensure adequate support during each seminar, you are expected to go to 
+  your assigned seminar.  
+  
+  - If you're not able to make a specific seminar, you are welcome to 
+  arrange with a student in another seminar to swap times as long as you notify 
+  me beforehand.
+  
+  
+## Grading and course credit
 
-4. Peform basic econometric analysis in R
+The course gives you 4 ECTS and is graded Pass/Fail, based on the completion 
+  of seminar exercises for each module and a capstone project.
+  
+  - The goal is to give you an opportunity to learn R and have the opportunity 
+  to show that skill on your transcripts.
+      
+  - So while you need to do the work, you shouldn't need to stress too much 
+  about grading.
+  
+  - However, it is essential that you **do your own work.**
+    
+      + During the seminar, you can ask me for help and are similarly free to discuss 
+      the exercise with other students, but you're expected to provide your own 
+      code.  Do not simply rewrite or copy someone's else work.
+   
+   
+    
+## Seminar Exercises
+  
+After each seminar, you are expected to submit your own completed 
+    solutions to the seminar exercise.
+    
 
-5. Understanding and perform basic Bayesian analysis in R
+    
+    + Completed exercises should be uploaded by the end of the day (ie 23:59) following 
+    the seminar into your GitHub course repository.
+  
+    + Today's exercise will be completed online via the DataCamp platform, 
+    but otherwise you will be submitting your R code for each assignment.
+      
+    + The capstone exercise will focus on replicating analysis from a recent 
+    paper in economics and will involve using skills from each part of the course.
+    
+## Seminar Exercises
 
-<br>
-<br>
+
+
+
 
 # R & Statistical Programming 
 
@@ -57,8 +126,6 @@ versatility and customizability in what you can do with data.
 - *Typically* statistical programming software has a much more comprehensive 
 range of built-in analysis functions than spreadsheets etc.
 
-<br>
-
 ## Characteristics of R
 
 * R is an open-source language specifically designed for statistical computing
@@ -73,7 +140,6 @@ prewritten functions, it is equally adept at programming solutions for yourself.
 
 * Because it's usage is broader, R also has a steeper learning curve than Stata.
 
-<br>
 
 ## Comparison to other statistical programming software
 
@@ -89,6 +155,9 @@ prewritten functions, it is equally adept at programming solutions for yourself.
 sector, in part because it's typically more convenient for massive datasets.  Otherwise, 
 I think it's seen as a bit older and less user-friendly.
 
+
+## Comparison to other statistical programming software ctd 
+
 * **Python**: Another option based more on programming from scratch and with 
 less prewritten commands.  Python isn't specific to math \& statistics, but 
 instead is a general programming language used across a range of fields.  
@@ -100,8 +169,6 @@ specific to econometrics/data analysis.
 empirical work. Matlab is powerful, but is much more based on programming "from 
 scratch" using matrices and mathematical expressions.
 
-<br>
-
 ## Useful resources for learning R
 
 - **DataCamp:**  interactive online lessons in R. 
@@ -112,6 +179,8 @@ scratch" using matrices and mathematical expressions.
 and packages in R.
 
 - **Quick-R:**  Website with short example-driven overviews of R functionality.
+
+## Useful resources for learning R ctd
 
 - **StackOverflow:**  Part of the Stack Exchange network, StackOverflow is a 
 Q&A community website for people who work in programming.  Tons of incredibly
@@ -126,12 +195,7 @@ really cool things you can do in R.
 written many of the best packages for R, including the Tidyverse, which we will 
 cover.
 
-<br>
-<br>
-
 # Getting Started in R
-
-<br>
 
 ## RStudio GUI
 
@@ -140,9 +204,9 @@ RStudio is an is an integrated development environment (IDE).
 This means that in addition to a script editor, it also let's you view your 
 environments, data objects, plots, help files, etc directly within the application.
 
-![](./assets/RStudioGUI.png)
+## RStudio GUI ctd
 
-<br>
+\includegraphics[scale=0.4]{RStudioGUI.png}
 
 ## Executing code from the script 
 
@@ -153,8 +217,6 @@ Ctrl-Enter.
 into that line.
 
 - To execute the whole document, the hotkey is Ctrl-Shift-Enter.
-
-<br>
 
 ## Style advise
 
@@ -170,32 +232,29 @@ when the line actually ends.)
     **Show Margin** and enter 80 characters.
     
 You can also write multiple expressions on the same line by using 
-<span style="color:blue">;</span>  as a manual line break.
-
-<br>
+$\color{blue} \textbf{;}$ as a manual line break.
 
 ## Help files in R
 
 You can access the help file for any given function using the **help function.** 
 You can call it a few different ways:
 
-1.  In the console, use <span style="color:blue"> **help()**</span>
-2.  In the console, use <span style="color:blue"> **?**</span> 
+1.  In the console, use $\color{blue} \textbf{help()}$
+2.  In the console, use $\color{blue} \textbf{?}$
 immediately followed by the name of the function (no space inbetween)
 3.  In the Help pane, search for the function in question.
 
-<span style="color:blue"> **?**</span> is shorter, so that's the most frequent method.  
+$\color{blue} \textbf{?}$ is shorter, so that's the most frequent method.  
 
 ```{r help, eval=FALSE}
 # Help on the lm (linear regression) function
 ?lm
 ```
 
-<br>
 
 ## Setting the working directory
 
-To set the working directory, use the function  <span style="color:blue"> **setwd()**</span>. 
+To set the working directory, use the function  $\color{blue} \textbf{setwd()}$. 
 The argument for the function is simply the path to the working directory, in 
 quotes.
 
@@ -210,19 +269,18 @@ setwd("C:/Users/AN.4271/OneDrive -
 ```
 
 
-<br>
+
 
 ## Comments
 
-To create a comment in R, use a hash (<span style="color:blue"> **#**</span>.  For example:
+To create a comment in R, use a hash ($\color{blue} \textbf{\#}$).  For example:
 
 ```{r comments}
 # Here I add 2 + 2
 2 + 2
 ```
 
-<br>
-<br>
+
 
 # Data Types & Operations
 
@@ -236,8 +294,6 @@ Examples of basic mathematical operations in R:
 # Exponentiation and Logarithms
 2^2 + log(2)
 ```
-
-<br>
 
 ## Logical operations in R
 
@@ -254,8 +310,10 @@ You can also evaluate logical expressions in R
 5 != 6
 ```
 
-You can also use AND (<span style="color:blue"> **&**</span>) and OR 
-(<span style="color:blue"> **|**</span>) operation with logical expressions:
+## Logical operations in R ctd
+
+You can also use AND ($\color{blue} \textbf{\&}$) and OR 
+($\color{blue} \textbf{\textbar}$) operation with logical expressions:
 ```{r logical2}
 ## Is 5 equal to 5 OR 5 is equal to 6
 (5 == 5) | (5 == 6)
@@ -263,11 +321,10 @@ You can also use AND (<span style="color:blue"> **&**</span>) and OR
 (5 < 6) & (7 < 6)
 ```
 
-<br>
 
 ## Defining an object
 
-To define an object, use <span style="color:blue">**<-**</span>.  For example
+To define an object, use $\color{blue} \textbf{<-}$.  For example
 
 
 ```{r define}
@@ -282,8 +339,6 @@ y <- 4 # Define y
 y <- y^2 # Redefine y
 y #Print y 
 ```
-
-<br>
 
 ## Data classes
 Data elements in R are categorized into a few seperate classes (ie types)
@@ -300,8 +355,6 @@ Data elements in R are categorized into a few seperate classes (ie types)
 interprets the variable as taking on one of limited number of possible values 
 (e.g. sex, municipality, industry etc) 
 
-<br>
-
 ## What's the object class?
 ```{r test}
 a <- 2; class(a)
@@ -311,12 +364,8 @@ d <- "True"; class(d)
 
 ```    
 
-<br>
-<br>
-
 # Vectors & Matrices
 
-<br>
 
 ## Vectors
 
@@ -329,11 +378,9 @@ basically a 1D array of elements.
 
 - A *list* vector can also have elements of different types.
 
-<br>
-
 ## Creating vectors
 
-To create a vector, use the function <span style="color:blue">**c()**</span>.  
+To create a vector, use the function $\color{blue} \textbf{c()}$.
 
 ```{r days}
 # Create `days` vectors
@@ -346,10 +393,8 @@ temps <- c(13,18,17,20,21)
 temps
 ```
 
-<br>
-
 ## Naming vectors
-You can name a vector by assigning a vector of names to <span style="color:blue">**c()**</span>, 
+You can name a vector by assigning a vector of names to $\color{blue} \textbf{c()}$, 
 where the vector to be named goes in the parentheses. 
 ```{r namedays}
 # Assign `days` as names for `temps` vector
@@ -357,8 +402,6 @@ names(temps) <- days
 # Display `temps` vector
 temps
 ```
-
-<br>
 
 ## Subsetting vectors
 There are multiple ways of subsetting data in R.  One of the easiest methods for 
@@ -368,8 +411,6 @@ vectors is to put the subset condition in brackets:
 temps[temps>=18]
 
 ```
-
-<br>
 
 ## Operations on vectors
 Operations on vectors are element-wise.  So if 2 vectors are added together, 
@@ -386,8 +427,6 @@ avg_temp
 
 ```
 
-<br>
-
 ## Matrices
 - Data in a 2-dimensional structure can be represented in two formats, as a 
 *matrix* or as a *data frame.* 
@@ -396,9 +435,11 @@ avg_temp
 vectors). 
     + Usually, matrices are composed of numeric objects.
 
-- To create a matrix, use the <span style="color:blue">**matrix()**</span> command. 
+- To create a matrix, use the $\color{blue} \textbf{matrix()}$ command. 
 
-The syntax of <span style="color:blue">** matrix() **</span> is:
+## Matrices ctd
+
+The syntax of $\color{blue} \textbf{matrix()}$ is:
 ```{r matrixsynatx, eval=FALSE}
 matrix(x, nrow=a, ncol=b, byrow=FALSE/TRUE)
 ```
@@ -409,10 +450,9 @@ Generally need to specify just 1 since the number of elements and a single
 condition will determine the other.
 
 -*byrow* specifies whether to fill in the elements by row or column. The
-default is <span style="color:blue">**byrow=FALSE**</span>, ie the data is filled in by 
+default is $\color{blue} \textbf{byrow=FALSE}$, ie the data is filled in by 
 column.
 
-<br>
 
 ## Creating a matrix from scratch
 
@@ -424,8 +464,9 @@ Note the difference in appearance if we instead **byrow=TRUE**
 ```{r matrix1thru6b}
 matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
 ```
+## Creating a matrix from scratch ctd
 
-Using the same <span style="color:blue">**c()**</span> function as in the creation of a vector, we can specify 
+Using the same **c()** function as in the creation of a vector, we can specify 
 the values of a matrix:
 
 ```{r matrixc}
@@ -436,8 +477,6 @@ matrix(c(13,18,17,20,21,
 - Note that the line breaks in the code are purely for   
 readability purposes.  Unlike Stata, R allows you to break  
 code over multiple lines without any extra line break syntax. 
-
-<br>
 
 ## Creating a matrix from vectors
 
@@ -450,14 +489,12 @@ temps.matrix <- matrix(c(temps,temps2), nrow=2,
 # Display matrix
 temps.matrix
 ```
-
-<br>
-
+ 
 ## Naming rows and columns
 -Naming rows and columns of a matrix is pretty similar to naming  vectors.
 
--Only here, instead of using <span style="color:blue">**names()**</span>, we use
-<span style="color:blue">**rownames()**</span> and <span style="color:blue">**colnames()**</span>
+-Only here, instead of using $\color{blue} \textbf{names()}$, we use 
+$\color{blue} \textbf{rownames()}$ and $\color{blue} \textbf{colnames()}$
  
 ```{r matrixnames}
 # Create temps matrix
@@ -467,21 +504,17 @@ colnames(temps.matrix) <- days
 temps.matrix
 ```
 
-<br>
-
 ## Matrix operations
 
-In R, matrix multiplication is denoted by <span style="color:blue">**%$*$%**</span>, as in 
-<span style="color:blue">**A %$*$% B**</span>
+In R, matrix multiplication is denoted by $\color{blue} \%{*}\%$, as in 
+$\color{blue} A \ \%{*}\% \ B$
 
-<span style="color:blue">**A * B**</span> instead performs *element-wise* (Hadamard) multiplication 
-of matrices, so that <span style="color:blue">**A * B**</span> has the entries $a_1 b_1$, $a_2 b_2$ etc.
+$\color{blue} A * B$ instead performs *element-wise* (Hadamard) multiplication 
+of matrices, so that $\color{blue} A * B$ has the entries $a_1 b_1$, $a_2 b_2$ etc.
 
-- An important thing to be aware of with R's <span style="color:blue">**A * B**</span> notation, 
+- An important thing to be aware of with R's $\color{blue} A * B$ notation, 
 however, is that if either of the terms is a 2D vector, the terms of this 
 vector will be distributed elementwise to each colomn of the matrix.
-
-<br>
 
 ## Elementwise operations with a vector and Matrix
 
@@ -495,12 +528,7 @@ vecA; matB
 vecA * matB
 ```
 
-<br>
-<br>
-
 # Data Frames
-
-<br>
 
 ## Creating a data frame
 
@@ -516,15 +544,15 @@ mydf <- as.data.frame(matB)
 mydf
 ```
 
-- Another way of creating a data frame is to combine other vectors or matrices (of
+## Creating a data frame ctd
+
+Another way of creating a data frame is to combine other vectors or matrices (of
 the same length) together.
 
 ```{r}
 mydf <- data.frame(vecA,matB)
 mydf
 ```
-
-<br>
 
 ## Defining a column of a data frame (or other 2D object):
 
@@ -534,9 +562,7 @@ manipulate particular columns of the object.
 The default way of invoking a named
 column in R is by appending a dollar sign and the column name to the data object.
 
-<br>
-
-### Example of adding a new column to a data frame
+## Example of adding a new column to a data frame
 ```{r, include=FALSE}
 library(Ecdat)
 library(tidyverse)
@@ -552,21 +578,17 @@ wages # View wages data frame
 wages$expersq <- wages$exper^2; wages  # Add expersq
 ```
 
-<br>
-
 ## Viewing the structure of a data frame
 
 Like viewing the class of a homogenous data object, it's often helpful to view
 the structure of data frames (or other 2D objects).  
 
-- You can easily do this using the <span style="color:blue">** str() **</span> function.
+- You can easily do this using the $\color{blue} str()$ function.
 
 ```{r}
 # View the structure of the wages data frame
 str(wages)
 ```
-
-<br>
 
 ## Changing the structure of a data frame:
 
@@ -574,29 +596,24 @@ A common task is to redefine the classes of columns in a data frame.
 
 - Common commands can help you with this when the data is formatted suitably:
  
-    + <span style="color:blue">**as.numeric()**</span> will take data that *looks like numbers* but 
+    + $\color{blue} as.numeric()$  will take data that ?looks like numbers? but 
     are formatted as characters/factors and change their formatting to numeric.
     
-    + <span style="color:blue">**as.character()**</span> will take data formatted as numbers/factors 
+    + $\color{blue} as.character()$ will take data formatted as numbers/factors 
     and change their class to character.
     
-    + <span style="color:blue">**as.factor()**</span> will reformat data as factors, taking by 
+    + $\color{blue} as.factor()$ will reformat data as factors, taking by 
     default the unique values of each column as the possible factor levels.
-
-<br>
 
 ## More about factors
 
-Although <span style="color:blue">**as.factor()**</span> will suggest factors 
-from the data, you may want more control over how factors are specified.
+Although $\color{blue} as.factor()$ will suggest factors from the data, you may 
+want more control over how factors are specified.
 
-With the <span style="color:blue">**factor()**</span>  function, you supply 
-the possible values of the factor and you can also specify ordering of factor 
-values if your data is ordinal.
+With the $\color{blue} factor()$ function, you supply the possible values of the 
+factor and you can also specify ordering of factor values if your data is ordinal.
 
-<br>
-
-### Example of creating ordered factors
+## Example of creating ordered factors
 A dataset  on number of extramarital affairs from Fair (Econometrica 1977) has 
 the following variables:  number of affairs, years married,
 presence of children, and a self-rated (Likert scale) 1-5 measure of marital
@@ -613,20 +630,21 @@ affairs <- Fair %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% select(n
 
 ```{r}
 str(affairs) # view structure
+```
 
-## Format mrating as ordered factor
+## Example of creating ordered factors ctd
+
+```{r}
 affairs$mrating <-factor(affairs$mrating, 
    levels=c(1,2,3,4,5), ordered=TRUE)
 str(affairs)
-```
 
+```
 Note that the marital rating (*mrating*) initially was stored as an integer,
 which is incorrect.  Using factors preserves the ordering while
 not asserting a numerical relationship between values.
 
-<br>
-
-## Selections and subsets in data frames
+## Subsets and selections in data frames
 
 Similar to subsetting a vector, matrices & data frames can also be subsetted for 
 both rows and columns by placing the selection arguments in brackets after the 
@@ -643,9 +661,7 @@ Arguments can be:
 
 - Rows (ie observations) that meet a given condition
 
-<br>
-
-### Example of subsetting a data frame
+## Example of subsetting a data frame
 
 ```{r}
 # Subset of wages df with schooling > 10, exper > 10

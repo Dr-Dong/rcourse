@@ -112,7 +112,7 @@ cover.
 <br>
 <br>
 
-# Getting Started in R
+# **Getting Started in R**
 
 <br>
 

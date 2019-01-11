@@ -550,7 +550,7 @@ str(wages)
 
 <br>
 
-## Changing the structure of a data frame:
+## Changing the structure of a data frame
 
 A common task is to redefine the classes of columns in a data frame.
 

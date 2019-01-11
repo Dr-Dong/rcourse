@@ -22,23 +22,6 @@ output:
 
 <br>
 
-# Learning Outcomes
-
-How to:
-
-1. Import and transform using standard R functions
-
-2. Extend R functionality through packages and user-written programming
-
-3. Create compelling presentations for data analysis projects
-
-4. Peform basic econometric analysis in R
-
-5. Understanding and perform basic Bayesian analysis in R
-
-<br>
-<br>
-
 # R & Statistical Programming 
 
 ## Purpose of statistical programming software

@@ -22,7 +22,7 @@ output:
 
 <br>
 
-# R & Statistical Programming 
+# **R & Statistical Programming** 
 
 ## Purpose of statistical programming software
 
@@ -182,14 +182,13 @@ To set the working directory, use the function  <span style="color:blue"> **setw
 The argument for the function is simply the path to the working directory, in 
 quotes.
 
-However:  be sure that the slashes in the path are backslashes 
-($\backslash$). For Windows, this is not the case if you copy the 
-path from File Explorer. 
+However:  be sure that the slashes in the path are forward slashes
+(/). For Windows, this is not the case if you copy the 
+path from File Explorer so you'll need to change them. 
 
 ```{r wd, eval=FALSE}
 # Set Working Directory
-setwd("C:/Users/AN.4271/OneDrive - 
-      Handelsh?gskolan i Stockholm/MyProject")
+setwd("C:/Users/Andrew/Documents/MyProject")
 ```
 
 
@@ -207,7 +206,7 @@ To create a comment in R, use a hash (<span style="color:blue"> **#**</span>.  F
 <br>
 <br>
 
-# Data Types & Operations
+# **Data Types & Operations**
 
 ## Math operations in R
 Examples of basic mathematical operations in R:
@@ -297,7 +296,7 @@ d <- "True"; class(d)
 <br>
 <br>
 
-# Vectors & Matrices
+# **Vectors & Matrices**
 
 <br>
 
@@ -481,7 +480,7 @@ vecA * matB
 <br>
 <br>
 
-# Data Frames
+# **Data Frames**
 
 <br>
 

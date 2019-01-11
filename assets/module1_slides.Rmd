@@ -143,19 +143,19 @@ prewritten functions, it is equally adept at programming solutions for yourself.
 
 ## Comparison to other statistical programming software
 
-* **Stata**: The traditional choice of (academic) economists.  
+  - **Stata**: The traditional choice of (academic) economists.  
+    
+    + Stata is more specifically econometrics focused and is much more 
+      command-oriented.  Easier to use for standard applications, but if there's 
+      not a Stata command for what you want to do, it's harder to write something yourself.  
+    
+    +  Stata is also very different than R in that you can only ever work with one 
+      dataset at a time, while in R, it's typical to have a number of data objects 
+      in the environment.
   
-  + Stata is more specifically econometrics focused and is much more 
-    command-oriented.  Easier to use for standard applications, but if there's 
-    not a Stata command for what you want to do, it's harder to write something yourself.  
-  
-  +  Stata is also very different than R in that you can only ever work with one 
-    dataset at a time, while in R, it's typical to have a number of data objects 
-    in the environment.
-
-* **SAS**:  Similar to Stata, but more commonly used in business & the private 
-sector, in part because it's typically more convenient for massive datasets.  Otherwise, 
-I think it's seen as a bit older and less user-friendly.
+  - **SAS**:  Similar to Stata, but more commonly used in business & the private 
+  sector, in part because it's typically more convenient for massive datasets. Otherwise, 
+  I think it's seen as a bit older and less user-friendly.
 
 
 ## Comparison to other statistical programming software ctd 
@@ -234,7 +234,7 @@ when the line actually ends.)
     + Go to **Tools -> Global Options -> Code -> Display**, then select
     **Show Margin** and enter 80 characters.
     
-You can also write multiple expressions on the same line by \ \ \ \ using 
+You can also write multiple expressions on the same line by \ \ \ \ \ \ \ \ using 
 $\color{blue} \textbf{;}$ as a manual line break.
 
 ## Help files in R

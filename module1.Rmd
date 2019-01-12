@@ -1,5 +1,5 @@
 ---
-title: "Module 1: Basic Environment"
+title: "Module 1: Intro to the base R environment"
 output: 
   html_document:
       self_contained: true

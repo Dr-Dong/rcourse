@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Data Analysis in R"
-subtitle: "Module 1: The basic R environment"
+subtitle: "Module 1: Intro to the base R environment"
 author: "Andrew Proctor" 
 institute: "andrew.proctor@phdstudent.hhs.se"
 date: "January 16, 2019"

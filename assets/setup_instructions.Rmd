@@ -65,5 +65,6 @@ click on the **Settings** link below the repository name and then click on
 **Collaborators**.  From there, add me as a collaborator by putting in my 
 GitHub username (andrewproctor) and clicking **Add collaborator**.
 
-    + Upload your course submissions to this repository.
-    + For the first seminar exercise, upload your "Statement of Accomplishment.""
+    + In the future, use this repository to upload your course submissions to 
+    this repository.
+    + For the first seminar exercise, upload your "Statement of Accomplishment."

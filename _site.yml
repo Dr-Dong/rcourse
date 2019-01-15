@@ -5,6 +5,9 @@ navbar:
   left:
   - text: Overview
     href: index.html
+    menu:
+    - text: Schedule
+      href: calendar.html
   - text: Modules
     menu:
     - text: 'M1:  Base R'

@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br />
 
-<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showTz=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=pqu7curfgfuf8re02dcufueuto%40group.calendar.google.com&amp;color=%23AB8B00&amp;ctz=Europe%2FStockholm" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&showTz=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23ffffff&src=pqu7curfgfuf8re02dcufueuto%40group.calendar.google.com&color=%23182C57&ctz=Europe%2FStockholm" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 
 ```{r cals, include=FALSE, eval=FALSE}

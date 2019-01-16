@@ -60,8 +60,10 @@ and data object types, especially vectors, matrices, and data frames.
 
 - **Seminar Exercises:**   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/setup_instructions.pdf" role="button">Setup Instructions</a> 
+ <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
+ 
 ```{r, include=FALSE}
-# <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
+#
 ```
 
 <br>

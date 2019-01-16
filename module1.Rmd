@@ -158,6 +158,17 @@ You can also write multiple expressions on the same line by using
 
 <br>
 
+## Comments
+
+To create a comment in R, use a hash (<span style="color:blue"> **#**</span>.  For example:
+
+```{r comments}
+# Here I add 2 + 2
+2 + 2
+```
+
+<br>
+
 ## Help files in R
 
 You can access the help file for any given function using the **help function.** 
@@ -193,16 +204,7 @@ setwd("C:/Users/Andrew/Documents/MyProject")
 ```
 
 
-<br>
 
-## Comments
-
-To create a comment in R, use a hash (<span style="color:blue"> **#**</span>.  For example:
-
-```{r comments}
-# Here I add 2 + 2
-2 + 2
-```
 
 <br>
 <br>

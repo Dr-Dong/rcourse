@@ -237,6 +237,16 @@ when the line actually ends.)
 You can also write multiple expressions on the same line by \ \ \ \ \ \ \ \ using 
 $\color{blue} \textbf{;}$ as a manual line break.
 
+## Comments
+
+To create a comment in R, use a hash ($\color{blue} \textbf{\#}$).  For example:
+
+```{r comments}
+# Here I add 2 + 2
+2 + 2
+```
+
+
 ## Help files in R
 
 You can access the help file for any given function using the **help function.** 
@@ -271,16 +281,6 @@ setwd("C:/Users/Andrew/Documents/MyProject")
 ```
 
 
-
-
-## Comments
-
-To create a comment in R, use a hash ($\color{blue} \textbf{\#}$).  For example:
-
-```{r comments}
-# Here I add 2 + 2
-2 + 2
-```
 
 
 

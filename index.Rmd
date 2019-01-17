@@ -69,7 +69,7 @@ and data object types, especially vectors, matrices, and data frames.
 <br>
 
 
-### **Module 2:**  Data Manipulation Using the Tidyverse
+### **Module 2:**  Data Preparation Using the Tidyverse
 
 This module introduces a series of tools for data manipulation/preparation 
 collectively known as the "Tidyverse."  Specifically, this module covers how to 

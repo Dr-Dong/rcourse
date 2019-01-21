@@ -598,7 +598,7 @@ A common task is to redefine the classes of columns in a data frame.
 
 - Common commands can help you with this when the data is formatted suitably:
  
-    + $\color{blue} as.numeric()$  will take data that ?looks like numbers? but 
+    + $\color{blue} as.numeric()$  will take data that *looks like numbers* but 
     are formatted as characters/factors and change their formatting to numeric.
     
     + $\color{blue} as.character()$ will take data formatted as numbers/factors 

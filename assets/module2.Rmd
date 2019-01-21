@@ -1,27 +1,44 @@
 ---
-title: "Module 2: Data Preparation using the Tidyverse"
+title: "Introduction to Data Analysis in R"
+subtitle: "Module 2: Data Preparation using the Tidyverse"
+author: "Andrew Proctor" 
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "January 21, 2019"
 output: 
-  html_document:
-      self_contained: true
-      theme: flatly
-      highlight: haddock
+  beamer_presentation:
+      theme: "Amsterdam"
+      highlight: espresso
+      slide_level: 2
       toc: true
-      toc_float: true
+header-includes:
+  - \usepackage{color}  
+  - \usepackage{hyperref}
+  - \definecolor{cornflower}{HTML}{1c86ee}
+  - \hypersetup{
+    colorlinks=true,
+    linkcolor=cornflower,
+    filecolor=magenta,      
+    urlcolor=blue,
+    }
 
 ---
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(fueleconomy)
-library(rio)
+
 ```
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module2.pdf" role="button">Slides</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2.pdf" role="button">Exercise</a>
+# Intro
 
-<br>
+## Goals for Today
 
-# **Packages in R**
+1. Learn how to use packages in R
+2. Learn how to import and export data.
+3. Learn how to perform common data prep functions from the tidyverse 
+collection of packages.
+4. Learn how to clean and "tidy" data.
+
+# Packages in R
 
 ## Role of Packages in R
 
@@ -31,51 +48,41 @@ library(rio)
 
 - In R, most of your analysis will probably be done using packages.
 
-<br>
-
-![](./data/cran.png)
-
-<br>
+\includegraphics[scale=0.4]{cran.png}
 
 ## Installing and using a package
 
-- To install a package, use the function (preferably in the console) [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/install.packages)
-
-
+- To install a package, use the function (preferably in the console)  \href{https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/install.packages}{install.packages()}
 
 - To begin with, let's install 2 packages:
-    + [tidyverse](https://www.rdocumentation.org/packages/tidyverse):  the
+    + \href{https://www.rdocumentation.org/packages/tidyverse}{tidyverse}:  the
     umbrella package for common data preparation and visualization in R.
-    + [rio](https://www.rdocumentation.org/packages/rio):  a package for easy
+    + \href{https://www.rdocumentation.org/packages/rio}{rio}:  a package for easy
     data import, export (saving), and conversion.
 
 ```{r , eval=FALSE}
 install.packages("tidyverse")    # Install tidyverse
 install.packages("rio")    # Install rio
 ```    
-
-<br>
     
 ## Loading a package during analysis
 
 Unlike Stata, in R you need to declare what packages you will be using at the
 beginning of each R document.
 
-To do this, use the [library()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/library) 
-function.
+  - To do this, use the 
+  \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/library}{library()}
+  function.
 
-  -[require()](https://www.rdocumentation.org/packages/tidyverse) also 
-  works, but its use is discouraged for this purpose.
+    + \href{https://www.rdocumentation.org/packages/tidyverse}{require()} also 
+    works, but its use is discouraged for this purpose.
 
 ```{r, warning= FALSE, message=FALSE}
 library("tidyverse")    # Install tidyverse
 library("rio")    # Install rio
 ```  
 
-<br>
-<br>
-
-# **Data Prep Preliminaries**
+# Data Prep Preliminaries
 
 ## Import and export using rio
 
@@ -85,21 +92,22 @@ functions for different file formats:
 - Stata DTA files alone required two functions:   read.dta (for Stata 6-12 
 DTA files),  read.dta13 (for Stata 13 and later files), etc.
 
-The [rio](https://www.rdocumentation.org/packages/rio) package simplifies 
+The \href{https://www.rdocumentation.org/packages/rio}{rio} package simplifies 
 this by reducing all of this to just one function, 
-[import()](https://www.rdocumentation.org/packages/rio/versions/0.5.5/topics/import)
+\href{https://www.rdocumentation.org/packages/rio/versions/0.5.5/topics/import}{import()}
 
 - Automatically determines the file format of the file and uses the appropriate
-function from other packages to load in a file.
+function from other packages to load in \ \ \ \ \ \ \ \ \ \ \ a file.
+
+## Import and export using rio II
 
 ```{r, warning= FALSE}
-PISA_2015 <- import("data/PISA2015.sas7bdat")
+PISA_2015 <- import("PISA2015.sas7bdat")
 PISA_2015[1:5,1:6]
 
 export(PISA_2015, "PISA_2015.rds")
 ``` 
 
-<br>
 
 ## Tibbles: an update to the data frame
 
@@ -108,12 +116,10 @@ sets with a mix of data class.
 
 Today, we introduce one final data object: the **tibble**!
 
-The tibble can be thought of as an update to the data frame---and it's the first 
-part of the *tidyverse* package that we'll look at.
+  - The tibble can be thought of as an update to the data frame---and it's the 
+  first part of the *tidyverse* package that we'll look at.
 
-<br>
-
-### Tibble vs data frames
+## Tibble vs data frames
 
 There are three main benefits to the tibble:
 
@@ -124,77 +130,62 @@ There are three main benefits to the tibble:
     as will fit in the window.
 
 2. Partial matching in data frames:  
-    + When using the <span style="color:blue">**$**</span> method to reference columns of a
+    + When using the $\color{blue} \textbf{\$}$ method to reference columns of a
     data frame, partial names will be matched if the reference isn't exact.  This
     might sound good, but the only real reason for there to be a partial match
     is a typo, in which case the match might be wrong.
     
 3. Tibbles are required for some functions.
 
-<br>
-
-### Creating or converting to tibbles
+## Creating or converting to tibbles
 The syntax for creating tibbles exactly parallels the syntax for data frames:
 
-- [tibble()](https://www.rdocumentation.org/packages/tibble) creates a 
+- \href{https://www.rdocumentation.org/packages/tibble}{tibble()} creates a 
 tibble from underlying data or vectors.
 
-- [as.tibble()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble)
+- \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble}{as.tibble()}
 coerces an existing data object into a tibble.
 
 ```{r, warning= FALSE}
 PISA_2015 <- as.tibble(PISA_2015); PISA_2015[1:5,1:5]
 ``` 
 
-<br>
-
 ## Glimpse
 
-Another tidyverse function that's very useful is 
-[glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) \href{}{}, a function very similar to 
-[str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str).
+Another tidyverse function that's very useful is \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse}{glimpse()}, a function very similar to \href{https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str}{str()}.
 
 - Both functions display information about the structure of a data object.
 
-- [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
-provides more information, such as column (variable) attributes embedded 
+- \href{https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str}{str()} provides more information, such as column (variable) attributes embedded 
 from external data formats, but consequently is much less readable for complex 
 data objects.
 
-- [glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) 
-provides only column names, classes, and some data values (much more
+- \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse}{glimpse()} provides only column names, classes, and some data values (much more
 readable)
 
-- I will often use [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
-when I want more detailed information about data structure, but use [glimpse()](https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse) 
-for quicker glances at the data.
+- I will often use \href{https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str}{str()} when I want more detailed information about data structure, but use \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/glimpse}{glimpse()} 
+for quicker glances \ \ \ \ \ at the data.
 
-<br>
 
 ## Pipes
 
 Another major convenience enhancement from the tidyverse is ***pipes***, denoted
-<span style="color:blue">**%>%**</span>,
+$\color{blue} \textbf{\%>\%}$,
 
 - Pipes allow you to combine multiple steps into a single piece of code.
 
 - Specifically, after performing a function in one step, a pipe takes the data 
 generated from the first step and uses it as the data input to a second step.
 
-<br>
-
-### Pipes Example
+## Pipes Example
 
 ```{r}
 
-barro.lee.data <- import("data/BL2013_MF1599_v2.1.dta") %>% 
+barro.lee.data <- import("BL2013_MF1599_v2.1.dta") %>% 
   as.tibble() %>% glimpse(width = 50)
 ```
 
-<br>
-<br>
-
-# **Data Preparation**
+# Data Preparation
 
 ## Tidyverse and the verbs of data manipulation
 
@@ -204,21 +195,16 @@ programming should really behave like a language.
 Data manipulation in the tidyverse is oriented around a few key "verbs" that 
 perform common types of data manipulation.
 
-1. [filter()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter) 
+1. \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter}{filter()} 
 subsets the rows of a data frame based on their values.
-2. [select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) 
-keeps variables (columns) based on their names.
-3. [mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
-adds new variables that are functions of existing variables.
-4. [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
-creates a number of summary statistics out of many values.
-5. [arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange) 
-changes the ordering of the rows.
+2. \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{select()} 
+selects variables (columns) based on their names.
+3. \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{mutate()} adds new variables that are functions of existing variables.
+4. \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{summarize()} creates a number of summary statistics out of many values.
+5. \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange}{arrange()} changes the ordering of the rows.
 
 **Note**:  the first argument for each these functions is the data \ \ \ 
 object (so pipe!).
-
-<br>
 
 ## Filtering data
 
@@ -230,9 +216,7 @@ Filtering keeps observations (rows) based on conditions.
 library(Ecdat)
 data(Males)
 set.seed(28133)
-wages <- Wages1 %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% 
-  select(wage,school, sex, exper) %>% rename(schooling = school) %>% 
-  mutate(wage=exp(wage))
+wages <- Wages1 %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% select(wage,school, sex, exper) %>% rename(schooling = school) %>% mutate(wage=exp(wage))
 
 # Source: Verbeek, Marno (2004) A Guide to Modern Econometrics, John Wiley and Sons.
 ```
@@ -246,9 +230,11 @@ wages  %>% filter(schooling > 10,exper > 10)
 
 ```
 
+## Filtering data ctd
+
 Notice a couple of things about the output:
 
-1.  It doesn't look like we told [filter()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter)
+1.  It doesn't look like we told \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/filter}{filter()} 
 what data set we would be filtering.
 + That's because the data set has already been supplied by the pipe.  We could
 have also written the filter as:
@@ -256,17 +242,15 @@ have also written the filter as:
 filter(wages, schooling > 10,exper > 10)  
 ```
 
-2.  We didn't need to use the logical <span style="color:blue">**&**</span>. Though 
+2.  We didn't need to use the logical $\color{blue} \textbf{\&}$. Though 
 multiple conditions can still be written in this way with filter(), the default
 is just to separate them with a comma.
-
-<br>
 
 ## Selecting data
 
 Just like filter is in many ways a more convenient form of writing out bracketed
 row subset conditions, the verb 
-[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select)
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{select()} 
 is largely a more convenient method for writing column arguments.
 
 ```{r, include=FALSE}
@@ -281,40 +265,37 @@ wages_row1[,c("wage","schooling","exper")]
 wages_row1  %>% select(wage,schooling,exper)  
 ```
 
-<br>
-
-### An example of dropping a column
+## An example of dropping a column
 
 One option we have not covered so far in creating subsets is dropping rows or columns.
 
-R has a specific notation for this, easily used with 
-[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select):
+R has a specific notation for this, easily used with \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{select()}:
 ```{r}
 wages_row1 # What wages_row1 looks like:
 wages_row1  %>% select(-exper) #drop exper
 ```
 
-Dropping columns (or rows) using the <span style="color:blue">**-**</span> notation also 
+## An example of dropping a column
+
+Dropping columns (or rows) using the $\color{blue} \textbf{-}$ notation also 
 works with brackets, but only when using the number location of the row or 
 column to be dropped.
 
 ```{r}
 wages_row1[,-4] # works
 # wages_row1[,-"exper"] does not work
+wages_row1[,"exper"] <- NULL # works (NULL is R delete)
+
 ```
 
-Because of the ability to use name arguments, dropping with 
-[select()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select)
-is generally easier.
-
-<br>
+Because of \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{select()}'s ability to use named arguments when  \ \ dropping, it is generally easier (except when quotes are required \ \ \ due to improper names).
 
 ## "Mutating" data
 
 Creating new variables that are functions of existing variables in a data set 
-can be done with [mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate).
+can be done with \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{mutate()}.
 
-[mutate()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{mutate()} 
 takes as its first argument the data set to be used and the equation for the new
 variable:
 
@@ -324,18 +305,16 @@ wages <- wages %>%
 wages # Display wages
 ```
 
-<br>
-
 ## Summarizing data
 
 Summary statistics can also be easily created using the tidyverse function 
-[summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate) 
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{summarize()}
 
-The [summarize](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise) 
+The \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/mutate}{summarize()} 
 functions uses summary statistic functions in R to create a new summary tibble, with syntax
 largely identical to mutate().
 
-Let's try summarizing with the [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean) 
+Let's try summarizing with the \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean}{mean()} 
 summary statistic.
 
 ```{r}
@@ -343,37 +322,34 @@ wages %>%
   summarize(avg_wage = mean(wage))
 ```
 
-<br>
 
-### Summary Statistics functions in R
+## Summary Statistics functions in R
 
 There are a number of summary statistics available in R, which can be used 
-either with the [summarize()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise)
+either with the \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/summarise}{summarize()} 
 command or outside of it:
 
 **Measures of central tendency and spread:**
 
-- [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean),
-[median()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/median),
-[sd()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/sd),
-[var()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/cor),
-[quantile()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/quantile),
-[IQR()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/IQR) 
+- \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/mean}{mean()},
+\href{https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/median}{median()}
+\href{https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/sd}{sd()},
+\href{https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/cor}{var()},
+\href{https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/quantile}{quantile()},
+\href{https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/IQR}{IQR()}
 
 **Position:**
 
-- [first()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
-[last()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
-[nth()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth),
+- \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth}{first()},
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth}{last()},
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/nth}{nth()},
 
 **Count:** 
 
-- [n()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n),
-[n_distinct()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct),
+- \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n}{n()},
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/n_distinct}{n\_distinct()},
 
-<br>
-
-### Multiple summary variables
+## Multiple summary variables
 
 Let's look at an example of using multiple summary variables with a larger 
 50-observation sample for the `wages` data set.
@@ -395,12 +371,11 @@ wages %>%
         avg.exper = mean(exper), sd.exper = sd(exper))
 ```
 
-<br>
 
 ## Grouping data
 
 Creating summary statistics by group is another routine task.  This is 
-accommodated in the tidyverse using the [group_by()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/group_by).
+accommodated in the tidyverse using the \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/group_by}{group\_by()}.
 
 - The arguments of group_by(), in addition to the data set, are simply the grouping
 variables separated by commas.
@@ -410,37 +385,32 @@ wages %>% group_by(sex) %>%
   summarize(avg.wage = mean(wage), sd.wage = sd(wage))
 ```
 
-<br>
-
 ## Arranging (sorting) data
 
 If you want to sort your data by the values of a particular variable, you can 
 easily do so as well with the 
-[arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange)  
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange}{arrange()} 
 function.
 
 ```{r}
 wages[1:3,] %>% arrange(exper)
 ```
 
-**Not:** [arrange()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange) 
+**Not:** \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/arrange}{arrange()} 
 sorts values in ascending order by default.  If you want to sort in descending 
-order, wrap the variable name inside <span style="color:blue">**desc()**</span> in the function.
-
-<br>
+order, wrap the variable name inside $\color{blue} \textbf{desc()}$ in the function.
 
 ## Sampling from data
 
 Creating a sample from a data set in R is made easy by two main function in R: 
-[sample_n](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample) and [sample_frac](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample).
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample}{sample\_n} and \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/sample}{sample\_frac}.
 
 **Syntax:**
 
-- sample_n(data, size, replace = FALSE/TRUE)
-
-- sample_frac(data, size = 1, replace = FALSE/TRUE)
-
-<br>
+```{r, eval=FALSE} 
+sample_n(data, size, replace = FALSE/TRUE)
+sample_frac(data, size = 1, replace = FALSE/TRUE)
+```
 
 ## A data prep example with fuel economy data
 
@@ -449,7 +419,7 @@ problem from start to finish.
 
 For the problem, Let's use fuel economy data again, but with half of the data set. 
 The data comes from the `vehicles` data set in the 
-[fueleconomy](https://cran.r-project.org/web/packages/fueleconomy/index.html) 
+\href{https://cran.r-project.org/web/packages/fueleconomy/index.html}{fueleconomy} 
 package.
 
 
@@ -462,17 +432,13 @@ Now let's look at how fuel efficiency has changed over time in the data set.
 Specifically, let's create descriptive statistics of fuel efficiency by year for 
 "normal" passenger vehicles (4-8 cylinders).
 
-<br>
-
-### What's in the data set?
+## What's in the data set?
 
 ```{r}
 glimpse(vehicles[2:12], width=50)
 ```
 
-<br>
-
-### Create summary tibble
+## Create summary tibble
 
 ```{r}
 
@@ -483,16 +449,16 @@ annual.mpg <- vehicles %>% sample_frac(0.5) %>%
   arrange(desc(city.avg))
 ```
 
-**Note:** Here I used <span style="color:blue">**%in%**</span>, which works like 
-<span style="color:blue">**inrange**</span> in Stata.  You could alternately write two 
+**Note:** Here I used $\color{blue} \textbf{\%in\%}$, which works like 
+$\color{blue} \textbf{inrange}$ in Stata.  You could alternately write two 
 inequalities to achieve the same thing.
+
+## View summary tibble
 
 ```{r}
 # Print annual.mpg
 annual.mpg
 ```
-
-<br>
 
 ## Summarizing a data set with the summary() function
 
@@ -501,7 +467,7 @@ function is more powerful, often you just a want a quick look at summary statist
 for the whole data set.
 
 - You can easily do this with the base R
-[summary()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary) 
+\href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary}{summary()}  
 function, which produces summaries not just for data sets, but also for other R output like the 
 results of a regression.
 
@@ -510,10 +476,7 @@ summary(wages)
 
 ```
 
-<br>
-<br>
-
-# **Cleaning data**
+# Cleaning data
 
 
 ## Common data cleaning tasks
@@ -524,29 +487,27 @@ There are a few data cleaning tasks that are pervasive in empirical work:
 2. Recoding variable values
 3. Addressing missing values
 
-<br>
-
 ## Renaming columns
 
 Renaming columns is easily accommodated with the tidyverse 
- [rename()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) \href{}{}
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{rename()}
 command.
 
 - Arguments are the data set and *NewVarName* = *OldVarName*.
 
-To see [rename()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select) 
+To see \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{rename()} 
 in action, let's go back to the `barro.lee.data` educational data set we imported earlier:
 
-<br>
-
-### Renaming columns example
+## Renaming columns example
 
 Let's look at columns 1 and 7 through 9:
 ```{r}
 glimpse(barro.lee.data[,c(1,7:9)], width = 50)
 ```
 
-See how these variable names are uninformative?  Let's use str() now.
+See how these variable names are uninformative?
+
+## Renaming columns example ctd
 
 ```{r}
 str(barro.lee.data[,c(1,7:9)])
@@ -554,8 +515,10 @@ str(barro.lee.data[,c(1,7:9)])
 
 **Although** the column names here are uninformative, the imported SAS file
 included variable labels saved as attributes, which can be seen using the more
-verbose [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str) 
+verbose \href{https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/str}{str()}
 function.
+
+## Renaming columns example ctd
 
 ```{r}
 barro.lee.data <- barro.lee.data %>% 
@@ -566,13 +529,13 @@ barro.lee.data <- barro.lee.data %>%
 
 ```
 
+## Renaming columns example ctd
+
 Now let's look at the variable names again:
 
 ```{r}
 glimpse(barro.lee.data[,c(1,7:9)], width = 50)
 ```
-
-<br>
 
 ## Recoding variables
 
@@ -581,23 +544,26 @@ data wrangling.
 
 ```{r}
 wages[1:4,"sex"] # Look at sex column
+```
 
+## Recoding variables ctd 
+
+```{r}
 wages$sex <- wages$sex %>% recode("male"=0, 
                             "female"=1) # recode
 wages[1:4,"sex"] # Look at sex column
 
 ```
 
-<br>
-
 ## Missing Values
 
 Another problem characteristic of observational data is missing data.  In R,
-the way to represent missing data is with the value <span style="color:blue">**NA**</span>.
+the way to represent missing data is with the value $\color{blue} \textbf{NA}$.
 
 - You can recode missing value that *should be* NA but are code using a different 
 schema either by using brackets, or the tidyverse 
-[na_if()](http://dplyr.tidyverse.org/reference/na_if.html) function.
+\href{http://dplyr.tidyverse.org/reference/na_if.html}{na\_if()} 
+function.
 
 ```{r, eval=FALSE}
 ## Replace 99-denoted missing data with NA
@@ -607,8 +573,9 @@ wages[wages$schooling==99,] <- NA
 wages$schooling <- wages$schooling %>% na_if(99) 
 ```
 
-You can check for (correctly-coded) missing-values using the 
-[is.na()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA) 
+## Missing values continued
+
+You can check for (correctly-coded) missing-values using the \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/NA}{is.na()} 
 function.
 
 ```{r, include=FALSE}
@@ -623,15 +590,11 @@ wages[is.na(wages$wage),]
 
 ```
 
-**Note:** R does not naturally support multiple types of missingness like other 
-languages, although it's possible to use the [sjmisc](https://cran.r-project.org/web/packages/sjmisc/index.html) 
+**Note:** R does not naturally support multiple types of \ \ \ \ missingness like other 
+languages, although it's possible to use \ \ the \href{https://cran.r-project.org/web/packages/sjmisc/index.html}{sjmisc} 
 package to do this.
 
-<br>
-<br>
-
-
-# **Tidy data**
+# Tidy data
 
 ## Principles of tidy data
 
@@ -641,30 +604,24 @@ Rules for tidy data (from *R for Data Science*):
 2. Each observation must have its own row.
 3. Each value must have its own cell.
 
-<br>
-
 ## Tidy data tools in the tidyverse
 
 There two main tidyverse verbs for making data tidy are:
 
-**[gather()](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather)**:  reduces variable values are spread over multiples columns into a single column.
+**\href{https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather}{gather()}**:  reduces variable values are spread over multiples columns into a single column.
 
-**[spread()](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/spread)**:  when multiple variables values are stored in the same columns, moves each variable into it's own column.
+**\href{https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/spread}{spread()}**:  when multiple variables values are stored in the same columns, moves each variable into it's own column.
 
-<br>
 
 ## Gathering data
 
 If values for a single variable are spread across multiple columns (e.g. income 
-for different years), [gather](https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather) 
-moves this into single "values" column with a "key" 
+for different years), \href{https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather}{gather()} moves this into single "values" column with a "key" 
 column to identify what the different columns differentiated.
 
 **Syntax:** gather(*data*, *key*, *value*, *columnstocombine*)
 
-<br>
-
-### Gather example
+## Gather example
 ```{r, include = FALSE}
 
 person <- c("Elsa","Mickey","Ariel","Gaston","Jasmine","Peter","Alice")
@@ -676,15 +633,18 @@ earnings.panel <-tibble(person,y1999,y2000)
 
 ```{r}
 earnings.panel
+```
 
+## Gather example ctd
+
+
+```{r}
 earnings.panel <- earnings.panel %>% 
   gather(key="year", value="wage",y1999:y2000)
 earnings.panel
 ```
 
-<br>
-
-## Spreading data
+## Spread
 
 Spread tackles the other major problem - that often times (particularly in 
 longitudinal data) many variables are condensed into just a "key" (or indicator) 
@@ -702,6 +662,9 @@ colnames(wages2)[1] <- "person"
 wages2
 
 ```
+
+
+## Spread ctd
 
 ```{r, eval=FALSE}
 wages2 %>% spread("indicator", "values")

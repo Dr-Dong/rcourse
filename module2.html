@@ -641,9 +641,9 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 <p>The syntax for creating tibbles exactly parallels the syntax for data frames:</p>
 <ul>
 <li><p><a href="https://www.rdocumentation.org/packages/tibble">tibble()</a> creates a tibble from underlying data or vectors.</p></li>
-<li><p><a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble">as.tibble()</a> coerces an existing data object into a tibble.</p></li>
+<li><p><a href="https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble">as_tibble()</a> coerces an existing data object into a tibble.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PISA_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">as.tibble</span>(PISA_<span class="dv">2015</span>); PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PISA_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(PISA_<span class="dv">2015</span>); PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   CNTRYID CNT   CNTSCHID CYC   NatCen
 ##     &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -677,7 +677,7 @@ PISA_<span class="dv">2015</span>[<span class="dv">1</span><span class="op">:</s
 <div id="pipes-example" class="section level3">
 <h3>Pipes Example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">barro.lee.data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/BL2013_MF1599_v2.1.dta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>(<span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>(<span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
 <pre><code>## Observations: 1,898
 ## Variables: 20
 ## $ BLcode      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1...
@@ -957,9 +957,8 @@ annual.mpg</code></pre></div>
 <div id="renaming-columns" class="section level2">
 <h2>Renaming columns</h2>
 <p>Renaming columns is easily accommodated with the tidyverse <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">rename()</a>  command.</p>
-<ul>
-<li>Arguments are the data set and <em>NewVarName</em> = <em>OldVarName</em>.</li>
-</ul>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe &lt;-<span class="st">  </span>mydataframe <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">NewVarName =</span> OldVarName)</code></pre></div>
 <p>To see <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select">rename()</a> in action, let’s go back to the <code>barro.lee.data</code> educational data set we imported earlier:</p>
 <p><br></p>
 <div id="renaming-columns-example" class="section level3">
@@ -1073,7 +1072,8 @@ wages[<span class="kw">is.na</span>(wages<span class="op">$</span>wage),]</code>
 <div id="gathering-data" class="section level2">
 <h2>Gathering data</h2>
 <p>If values for a single variable are spread across multiple columns (e.g. income for different years), <a href="https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather">gather</a> moves this into single “values” column with a “key” column to identify what the different columns differentiated.</p>
-<p><strong>Syntax:</strong> gather(<em>data</em>, <em>key</em>, <em>value</em>, <em>columnstocombine</em>)</p>
+<p><strong>Syntax:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(data, key, value, columnstocombine)</code></pre></div>
 <p><br></p>
 <div id="gather-example" class="section level3">
 <h3>Gather example</h3>

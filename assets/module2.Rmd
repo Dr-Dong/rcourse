@@ -143,11 +143,11 @@ The syntax for creating tibbles exactly parallels the syntax for data frames:
 - \href{https://www.rdocumentation.org/packages/tibble}{tibble()} creates a 
 tibble from underlying data or vectors.
 
-- \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble}{as.tibble()}
-coerces an existing data object into a tibble.
+- \href{https://www.rdocumentation.org/packages/tibble/versions/1.4.2/topics/as_tibble}{as\_tibble()} coerces an 
+existing data object into a tibble.
 
 ```{r, warning= FALSE}
-PISA_2015 <- as.tibble(PISA_2015); PISA_2015[1:5,1:5]
+PISA_2015 <- as_tibble(PISA_2015); PISA_2015[1:5,1:5]
 ``` 
 
 ## Glimpse
@@ -182,7 +182,7 @@ generated from the first step and uses it as the data input to a second step.
 ```{r}
 
 barro.lee.data <- import("BL2013_MF1599_v2.1.dta") %>% 
-  as.tibble() %>% glimpse(width = 50)
+  as_tibble() %>% glimpse(width = 50)
 ```
 
 # Data Preparation
@@ -216,7 +216,7 @@ Filtering keeps observations (rows) based on conditions.
 library(Ecdat)
 data(Males)
 set.seed(28133)
-wages <- Wages1 %>% as.tibble() %>% sample_n(3) %>% as.data.frame() %>% select(wage,school, sex, exper) %>% rename(schooling = school) %>% mutate(wage=exp(wage))
+wages <- Wages1 %>% as_tibble() %>% sample_n(3) %>% as.data.frame() %>% select(wage,school, sex, exper) %>% rename(schooling = school) %>% mutate(wage=exp(wage))
 
 # Source: Verbeek, Marno (2004) A Guide to Modern Econometrics, John Wiley and Sons.
 ```
@@ -358,7 +358,7 @@ Let's look at an example of using multiple summary variables with a larger
 library(Ecdat)
 data(Males)
 set.seed(1)
-wages <- Wages1 %>% as.tibble() %>% select(wage,school, sex, exper) %>% 
+wages <- Wages1 %>% as_tibble() %>% select(wage,school, sex, exper) %>% 
   rename(schooling = school) %>% filter(wage > 0) %>% filter(wage < 13) %>% 
   sample_n(30) %>% mutate(wage=exp(wage))
 
@@ -493,8 +493,11 @@ Renaming columns is easily accommodated with the tidyverse
 \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{rename()}
 command.
 
-- Arguments are the data set and *NewVarName* = *OldVarName*.
-
+**Syntax:**
+```{r,eval=FALSE}
+mydataframe <-  mydataframe %>% 
+  rename(NewVarName = OldVarName)
+```
 To see \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/select}{rename()} 
 in action, let's go back to the `barro.lee.data` educational data set we imported earlier:
 
@@ -591,7 +594,7 @@ wages[is.na(wages$wage),]
 ```
 
 **Note:** R does not naturally support multiple types of \ \ \ \ missingness like other 
-languages, although it's possible to use \ \ the \href{https://cran.r-project.org/web/packages/sjmisc/index.html}{sjmisc} 
+languages, although it's possible to use \ \  \ \ \ \ the \href{https://cran.r-project.org/web/packages/sjmisc/index.html}{sjmisc} 
 package to do this.
 
 # Tidy data
@@ -619,7 +622,10 @@ If values for a single variable are spread across multiple columns (e.g. income
 for different years), \href{https://www.rdocumentation.org/packages/tidyr/versions/0.8.0/topics/gather}{gather()} moves this into single "values" column with a "key" 
 column to identify what the different columns differentiated.
 
-**Syntax:** gather(*data*, *key*, *value*, *columnstocombine*)
+**Syntax:** 
+```{r, eval=FALSE}
+gather(data, key, value, columnstocombine)
+```
 
 ## Gather example
 ```{r, include = FALSE}

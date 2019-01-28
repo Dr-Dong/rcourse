@@ -279,7 +279,7 @@ map_dbl(ztransform, function(x)
   round(sd(x, na.rm=TRUE),10))
 ```
 
-# **Conditional Statements**
+# **Conditionals**
 
 ## If statements
 
@@ -567,7 +567,8 @@ variables are added to the dataset.
 ## semi_join example
 
 ```{r, warning=FALSE}
-filtered_data <- semi_join(earnings, educ, by="person_id")
+filtered_data <- semi_join(earnings, educ, 
+                           by="person_id")
 filtered_data
 ```
 

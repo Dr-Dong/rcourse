@@ -26,7 +26,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -57,7 +57,29 @@ code > span.an { color: #008000; } /* Annotation */
 code > span.cv { color: #008000; } /* CommentVar */
 code > span.at { } /* Attribute */
 code > span.in { color: #008000; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -114,8 +136,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -131,7 +159,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -151,6 +178,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -172,18 +236,77 @@ $(document).ready(function () {
 });
 </script>
 
-
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -292,12 +415,21 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SSE Intro to R</a>
+      <a class="navbar-brand" href="index.html">Data Analysis in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">Overview</a>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Overview
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="calendar.html">Schedule</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -310,23 +442,13 @@ div.tocify {
       <a href="module1.html">M1:  Base R</a>
     </li>
     <li>
-      <a href="module2.html">M2: Tidyverse Data Manipulation</a>
+      <a href="module2.html">M2: Tidyverse Data Preparation</a>
     </li>
-    <li>
-      <a href="module3.html">M3: Loops, Conditionals, and Joins</a>
-    </li>
-    <li>
-      <a href="module4.html">M4: RMarkdown and Project Management</a>
-    </li>
-    <li>
-      <a href="module5.html">M5: Regression Modelling and Data Viz</a>
-    </li>
-    <li>
-      <a href="module6.html">M6: Capstone Project</a>
-    </li>
-    <li>
-      <a href="module7.html">M7: Bayesian Methods</a>
-    </li>
+    <li class="dropdown-header">M3: Loops, Conditionals, and Joins</li>
+    <li class="dropdown-header">M4: Project Management and Dynamic Documents</li>
+    <li class="dropdown-header">M5: Regression Modelling and Data Visualization</li>
+    <li class="dropdown-header">M6:  Further Regression Methods</li>
+    <li class="dropdown-header">M7: Intro to Bayesian Methods</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -379,6 +501,9 @@ div.tocify {
       <a href="http://www.tug.org/mactex/mactex-download.html">MacTex (Mac)</a>
     </li>
     <li>
+      <a href="https://www.tug.org/texlive/debian.html">TeX Live (Linux)</a>
+    </li>
+    <li>
       <a href="https://www.sumatrapdfreader.org/free-pdf-reader.html">Sumatra PDF (Windows)</a>
     </li>
     <li>
@@ -425,26 +550,94 @@ div.tocify {
 </div>
 
 
-<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module3.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m3.pdf" role="button">Exercise</a></p>
+<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module3.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3.pdf" role="button">Exercise</a></p>
 <p><br></p>
-<div id="intro" class="section level1">
-<h1>Intro</h1>
-<div id="goals-for-module" class="section level3">
-<h3>Goals for Module</h3>
-<ol style="list-style-type: decimal">
-<li>Basics of programming in R—learn how to write and use:
+<div id="revisiting-basics" class="section level1">
+<h1><strong>Revisiting basics</strong></h1>
+<div id="assignment-operator" class="section level2">
+<h2>Assignment Operator</h2>
+<p>So far, when changing a data object, we have always been a bit repetitive:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe &lt;-<span class="st">  </span>mydataframe <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">NewVarName =</span> OldVarName)</code></pre></div>
+<p>Along with the standard pipe <strong>(%&gt;%)</strong>, by loading the <a href="https://magrittr.tidyverse.org/">magrittr</a> package, you can also use the so-called “assignment pipe” <strong>(%&lt;&gt;%)</strong>.</p>
 <ul>
-<li>Iterations (loops and map functions)</li>
-<li>Conditional statements</li>
-<li>Basic functions</li>
-</ul></li>
-<li>Learn how to perform different types of dataset joins.</li>
-</ol>
+<li>The above rename with the assignment pipe appears as:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">NewVarName =</span> OldVarName)</code></pre></div>
 <p><br></p>
+</div>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
+<p>Another subtlety glossed over so far are <em>lists.</em></p>
+<ul>
+<li><p>As mentioned in module 1, vectors come in two forms: atomic vectors (with a single data type) and lists (with heterogenous data types).</p></li>
+<li><p>Lists can take as inputs not only single-valued elements, but also vectors or data frames.</p></li>
+<li><p>Creating a list from other objects is done with the <strong>list()</strong> function. The syntax of list is:</p></li>
+</ul>
+<p><br></p>
+<div id="list-creation-example" class="section level3">
+<h3>List Creation Example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages_df; date_df; description</code></pre></div>
+<pre><code>##        wage schooling    sex exper
+## 1 134.23058        13 female     8
+## 2 249.67744        13 female    11
+## 3  53.56478        10 female    11</code></pre>
+<pre><code>##   month year
+## 1   Jan 2017
+## 2   Feb 2018
+## 3 March 2019</code></pre>
+<pre><code>## [1] &quot;Data on wages and date information.&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">wages =</span> wages_df, <span class="dt">dates =</span> date_df, description)</code></pre></div>
+<p>Where <em>wages_df</em> and <em>date_df</em> are data frames and description is a single character element.</p>
+<p><br></p>
+</div>
+<div id="list-creation-example-ctd" class="section level3">
+<h3>List Creation Example ctd</h3>
+<div class="figure">
+<img src="assets/mylist.png" />
+
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="subsetting-a-list" class="section level2">
+<h2>Subsetting a list</h2>
+<ul>
+<li><p>To subset a vector/matrix/data frame, one uses single brackets, eg <em>mydf[,]</em>.</p></li>
+<li><p>To refer to an object of a list, use double brackets.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist[[<span class="dv">3</span>]]</code></pre></div>
+<pre><code>## [1] &quot;Data on wages and date information.&quot;</code></pre>
+<p><strong>Note:</strong> The function <strong>list()</strong> does not take transfer the names of the data frames, so you will need to either subset by position or assign names to the list objects.</p>
+<p><br></p>
+</div>
+<div id="extracting-a-list" class="section level2">
+<h2>Extracting a list</h2>
+<p>An easy way of extracting an object from a list is with the <strong>extract2()</strong> function from <a href="https://magrittr.tidyverse.org/">magrittr</a>. This allows you to extra a given list object by name or position.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wage_data &lt;-<span class="st"> </span>mylist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extract2</span>(<span class="dv">1</span>)
+wage_data</code></pre></div>
+<pre><code>##        wage schooling    sex exper
+## 1 134.23058        13 female     8
+## 2 249.67744        13 female    11
+## 3  53.56478        10 female    11</code></pre>
+</div>
+<div id="the-unlist-function" class="section level2">
+<h2>The unlist function</h2>
+<p>Instead of creating more complicated data objects, sometimes formatted as list into a simple (atomic) vector. The <strong>unlist()</strong> function does this.</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_list &lt;-<span class="kw">list</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+<span class="kw">str</span>(simple_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ : num 1
+##  $ : num 2
+##  $ : num 3
+##  $ : num 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_list <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</code></pre></div>
+<pre><code>##  num [1:4] 1 2 3 4</code></pre>
+<p><br> <br></p>
 </div>
 </div>
 <div id="iteration" class="section level1">
-<h1>Iteration</h1>
+<h1><strong>Iteration</strong></h1>
 <div id="for-loops" class="section level2">
 <h2>For loops</h2>
 <p>For tasks that you want to iterate over multiple data frames/variables/elements, you may want to think about creating a <strong>loop</strong>.</p>
@@ -455,6 +648,7 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(indexname <span class="cf">in</span> range) {
   do stuff
 }</code></pre></div>
+<p><br></p>
 <div id="for-loop-across-numeric-values" class="section level3">
 <h3>For loop across numeric values</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){
@@ -464,22 +658,20 @@ div.tocify {
 ## [1] 4
 ## [1] 9
 ## [1] 16</code></pre>
+<p><br></p>
 </div>
 <div id="for-loop-across-named-elements" class="section level3">
 <h3>For loop across named elements</h3>
 <p>You can also loop over elements instead of values.</p>
 <ul>
-<li>In the last module exercises, you had to convert many columns to numeric. Here’s how you could do that with a loop:</li>
+<li>In the last module exercises, you had to convert the type of many variables. Here’s one way you could do that with a loop:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wdi_data &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;./data/wdi_data.rds&quot;</span>)
-
-vars &lt;-<span class="kw">colnames</span>(wdi_data)
-indicators &lt;-<span class="st"> </span>vars[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)]
-
-<span class="cf">for</span> (i <span class="cf">in</span> indicators){
-  wdi_data[,i] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(wdi_data[,i])
-}</code></pre></div>
-<p><br></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;./data/nlsy97.rds&quot;</span>)
+factor.vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;personid&quot;</span>,<span class="st">&quot;year&quot;</span>,<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;race&quot;</span>,<span class="st">&quot;region&quot;</span>,<span class="st">&quot;schooltype&quot;</span>)
+  <span class="cf">for</span> (i <span class="cf">in</span> factor.vars){
+   nlsy97[,i] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.factor</span>()
+  }</code></pre></div>
+<p><br> <br></p>
 </div>
 </div>
 <div id="the-map-function" class="section level2">
@@ -495,13 +687,14 @@ indicators &lt;-<span class="st"> </span>vars[<span class="op">-</span>(<span cl
 <ul>
 <li><strong><em>Sidenote</em></strong>: Map is a part of the tidyverse collection of packages. In base R, the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/apply">apply()</a> family of functions does roughly the same thing, but <a href="https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map">map()</a> simplifies and improves this task.</li>
 </ul>
+<p><br></p>
 <div id="using-the-map-function" class="section level3">
 <h3>Using the map() function</h3>
 <p><strong>Syntax:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(data, fxn, option1, option2...)</code></pre></div>
 <p><strong>Example:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wdi_data[,<span class="dv">4</span><span class="op">:</span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="kw">map</span>(wdi_data[,<span class="dv">4</span><span class="op">:</span><span class="dv">15</span>], as.numeric)</code></pre></div>
-<p><em>Applies the function as.numeric to the columns 4-15 of wdi_data.</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97[,factor.vars] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">map</span>(as.numeric) </code></pre></div>
+<p><br></p>
 </div>
 <div id="using-class-specific-map-variants" class="section level3">
 <h3>Using class-specific map variants</h3>
@@ -512,18 +705,33 @@ indicators &lt;-<span class="st"> </span>vars[<span class="op">-</span>(<span cl
 <li><p>map_chr for character vector</p></li>
 <li><p>map_df for a data frame</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(wdi_data, IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>##      GDP_pc         pop         pov 
-##    10548.89 40860583.00       65.40</code></pre>
+<p><br></p>
+</div>
+<div id="example-of-difference-with-class-specific-map-variants" class="section level3">
+<h3>Example of difference with class-specific map variants</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy.sub &lt;-<span class="st"> </span>nlsy97 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(parentincome, motheredyrs, gpa)
+nlsy.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map_dbl</span>(IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## parentincome  motheredyrs          gpa 
+##        55000            2          226</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## $parentincome
+## [1] 55000
+## 
+## $motheredyrs
+## [1] 2
+## 
+## $gpa
+## [1] 226</code></pre>
+<p><br></p>
 </div>
 <div id="using-map-with-anonymous-functions" class="section level3">
 <h3>Using map() with anonymous functions</h3>
 <p><strong><a href="https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map">map()</a></strong> works with not only predefined functions, but also “anonymous functions”— unnamed functions defined inside of map().</p>
 <ul>
-<li>In the example below, I z-standardize the values of year, GDP, population, and poverty.</li>
+<li>Suppose I want the z-standardized values of the variables from the previous example:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create Z Transform</span>
-ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data, <span class="cf">function</span>(x) 
+ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(nlsy.sub, <span class="cf">function</span>(x) 
   (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x,  <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
   )
 
@@ -532,19 +740,19 @@ ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data
 <span class="co"># Means</span>
 <span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
   <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
-<pre><code>##   year GDP_pc    pop    pov 
-##      0      0      0      0</code></pre>
+<pre><code>## parentincome  motheredyrs          gpa 
+##            0            0            0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Standard deviations</span>
 <span class="kw">map_dbl</span>(ztransform, <span class="cf">function</span>(x) 
   <span class="kw">round</span>(<span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dv">10</span>))</code></pre></div>
-<pre><code>##   year GDP_pc    pop    pov 
-##      1      1      1      1</code></pre>
-<p><br></p>
+<pre><code>## parentincome  motheredyrs          gpa 
+##            1            1            1</code></pre>
+<p><br> <br></p>
 </div>
 </div>
 </div>
 <div id="conditional-statements" class="section level1">
-<h1>Conditional Statements</h1>
+<h1><strong>Conditional Statements</strong></h1>
 <div id="if-statements" class="section level2">
 <h2>If statements</h2>
 <p>“If statements” are also a useful part of programming, either in conjunction with iteration or seperately.</p>
@@ -559,18 +767,20 @@ ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(wdi_data
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(condition){
      do stuff
     }</code></pre></div>
+<p><br></p>
 <div id="example-of-an-if-statement" class="section level3">
 <h3>Example of an if statement</h3>
 <ul>
 <li><p>In the for loop example, the loop was indexed over only the columns of indicator codes.</p></li>
 <li><p>Equally, the loop could be done over all columns with an if-statement to change only the indicator codes.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">colnames</span>(wdi_data)){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">colnames</span>(nlsy97)){
   
-  <span class="cf">if</span>(j <span class="op">%in%</span><span class="st"> </span>indicators){
-      wdi_data[,j] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(wdi_data[,j])
+  <span class="cf">if</span>(j <span class="op">%in%</span><span class="st"> </span>factor.vars){
+      nlsy97[,j] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()
   }
 }</code></pre></div>
+<p><br></p>
 </div>
 <div id="multiple-conditions" class="section level3">
 <h3>Multiple conditions</h3>
@@ -594,17 +804,19 @@ do other other stuff
 <p><strong>Syntax:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(condition, true_statement, false_statement)</code></pre></div>
 <p>The statements returned can be simple values, but they can also be functions or even further conditions. You can easily nest multiple <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse">ifelses</a> if desired.</p>
+<p><br></p>
 <div id="an-ifelse-example" class="section level3">
 <h3>An ifelse example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> numbers &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dv">7</span>); numbers</code></pre></div>
-<pre><code>## [1]  8 10 18  1 28  3  6</code></pre>
+<pre><code>## [1] 29 11 13 22 27 12 30</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">ifelse</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;even&quot;</span>,<span class="st">&quot;odd&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
+<pre><code>## [1] &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;even&quot;</code></pre>
 <p><strong>Note:</strong> What if we tried a normal if statement instead?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="cf">if</span>(numbers <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){
    <span class="kw">print</span>(<span class="st">&quot;even&quot;</span>)} <span class="cf">else</span>{
      <span class="kw">print</span>(<span class="st">&quot;odd&quot;</span>)}</code></pre></div>
-<pre><code>## [1] &quot;even&quot;</code></pre>
+<pre><code>## [1] &quot;odd&quot;</code></pre>
+<p><br></p>
 </div>
 <div id="multiple-vectorized-if-statements" class="section level3">
 <h3>Multiple vectorized if statements</h3>
@@ -615,6 +827,7 @@ do other other stuff
   condition2 <span class="op">~</span><span class="st"> </span>statement2,
   condition3 <span class="op">~</span><span class="st"> </span>statement3,
 )</code></pre></div>
+<p><br></p>
 </div>
 <div id="a-case_when-example" class="section level3">
 <h3>A case_when example</h3>
@@ -627,20 +840,21 @@ nums_df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</sp
 <pre><code>## # A tibble: 4 x 2
 ##   value interval
 ##   &lt;int&gt; &lt;chr&gt;   
-## 1     8 1-10    
-## 2    10 1-10    
-## 3    18 10-20   
-## 4     1 1-10</code></pre>
-<p><br></p>
+## 1    29 20-30   
+## 2    11 10-20   
+## 3    13 10-20   
+## 4    22 20-30</code></pre>
+<p><br> <br></p>
 </div>
 </div>
 </div>
 <div id="functions" class="section level1">
-<h1>Functions</h1>
+<h1><strong>Functions</strong></h1>
 <div id="when-you-should-write-a-function" class="section level3">
 <h3>When you should write a function</h3>
 <p>If you find yourself performing the same specific steps more than a couple of times (perhaps with slight variations), then you should consider writing a function.</p>
 <p>A function can serve essentially as a wrapper for a series of steps, where you define generalized inputs/arguments.</p>
+<p><br></p>
 </div>
 <div id="writing-a-function" class="section level3">
 <h3>Writing a function</h3>
@@ -654,6 +868,7 @@ nums_df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</sp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, ...){
   do stuff
 }</code></pre></div>
+<p><br></p>
 </div>
 <div id="function-example" class="section level3">
 <h3>Function example</h3>
@@ -664,7 +879,8 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 }</code></pre></div>
 <p><strong><em>Notice</em></strong> that <em>obj</em> here is a descriptive placeholder name for the data object to be supplied as an argument for the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odd</span>(numbers)</code></pre></div>
-<pre><code>## [1] &quot;even&quot; &quot;even&quot; &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot;</code></pre>
+<pre><code>## [1] &quot;odd&quot;  &quot;odd&quot;  &quot;odd&quot;  &quot;even&quot; &quot;odd&quot;  &quot;even&quot; &quot;even&quot;</code></pre>
+<p><br></p>
 </div>
 <div id="rstudios-extract-function" class="section level3">
 <h3>RStudio’s “Extract Function”</h3>
@@ -672,11 +888,11 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 <ul>
 <li><em>Extract function</em> will take the code chunk and treat any data objects referenced but not created within the chunk as function arguments.</li>
 </ul>
-<p><br></p>
+<p><br> <br></p>
 </div>
 </div>
 <div id="joins" class="section level1">
-<h1>Joins</h1>
+<h1><strong>Joins</strong></h1>
 <div id="merging-data" class="section level2">
 <h2>Merging data</h2>
 <p><em>Shifting gears from programming…</em></p>
@@ -696,6 +912,7 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 <li><p>For cross-sectional data, this might be a personal identifier or (for aggregate data) something like municipality, state, country, etc.</p></li>
 <li><p>For panel data, this will typically be both the personal/group identifier and a timing variable, for example Sweden in 2015 in a cross-country analysis.</p></li>
 </ul>
+<p><br></p>
 <div id="mismatched-key-names-across-datasets" class="section level3">
 <h3>Mismatched key names across datasets</h3>
 <p>Sometimes the names of the key variables are different across datasets.</p>
@@ -717,6 +934,7 @@ odd &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
 <p><strong>Syntax:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">left_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>)</code></pre></div>
 <p>If the key is muliple columns, use <span style="color:blue"><strong>c()</strong></span> to list them.</p>
+<p><br></p>
 <div id="left_join-example" class="section level3">
 <h3>left_join example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Look at the datasets</span>
@@ -778,6 +996,218 @@ filtered_data</code></pre></div>
 <pre><code>##   person_id wage
 ## 1       002   90</code></pre>
 <p>There are still other join types, which you can read about <a href="http://dplyr.tidyverse.org/reference/join.html">here</a>.</p>
+<p><br></p>
+</div>
+<div id="appending-data" class="section level2">
+<h2>Appending data</h2>
+<p>Finally, instead of joining different datasets for the same individuals, sometimes you want to join together files that are for different individuals within the same dataset.</p>
+<ul>
+<li>When join data where the variables for each dataset are the same, but the observations are different, this is called <em>appending</em> data.</li>
+</ul>
+<p>The function for appending data in the tidyverse is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bind_rows</span>(<span class="kw">list</span>(dataframe1,dataframe2,...))</code></pre></div>
+<p><br> <br></p>
+</div>
+</div>
+<div id="manipulating-text" class="section level1">
+<h1><strong>Manipulating text</strong></h1>
+<div id="concatenating-strings" class="section level2">
+<h2>Concatenating strings</h2>
+<p>The last type of data preparation that we will cover in this course is manipulating string data.</p>
+<ul>
+<li><p>The simplest string manipulation may be concatenating (ie combining) strings.</p>
+<ul>
+<li>A great function for combining string in R is the <strong>glue()</strong> function, part of the Tiydverse [glue package][<a href="https://glue.tidyverse.org/reference/glue.html" class="uri">https://glue.tidyverse.org/reference/glue.html</a>].</li>
+</ul></li>
+<li><p>The glue function lets you reference variable values inside of text strings by writing the variable in curly brackets <strong>{}</strong> inside of the string.</p></li>
+</ul>
+<p><br></p>
+<div id="glue-example" class="section level3">
+<h3>Glue Example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">date_df <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(
+   <span class="dt">say.month =</span> <span class="kw">glue</span>(<span class="st">&quot;The month is {month}&quot;</span>),
+   <span class="dt">mo.yr =</span> <span class="kw">glue</span>(<span class="st">&quot;{month} {year}&quot;</span>)
+ )
+date_df</code></pre></div>
+<pre><code>##   month year          say.month      mo.yr
+## 1   Jan 2017   The month is Jan   Jan 2017
+## 2   Feb 2018   The month is Feb   Feb 2018
+## 3 March 2019 The month is March March 2019</code></pre>
+<p><br></p>
+</div>
+<div id="glue-example-2" class="section level3">
+<h3>Glue Example 2</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> numbers){
+  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The magic number is {i}&quot;</span>))
+}</code></pre></div>
+<pre><code>## The magic number is 1
+## The magic number is 2
+## The magic number is 3</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="extracting-and-replacing-parts-of-a-string" class="section level2">
+<h2>Extracting and replacing parts of a string</h2>
+<p>Other common string manipulating tasks include extracting or replacing parts of a string. These are accomplished via the <strong>str_extract()</strong> and <strong>str_replace()</strong> from the Tidyverse [stringr][<a href="https://stringr.tidyverse.org/index.html" class="uri">https://stringr.tidyverse.org/index.html</a>] package.</p>
+<ul>
+<li>We saw examples of these two functions in the last seminar exercise:</li>
+</ul>
+<p>The arguments for each function are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(string_object, <span class="st">&quot;pattern_to_match&quot;</span>)
+<span class="kw">str_replace</span>(string_object, <span class="st">&quot;pattern_to_match&quot;</span>,<span class="st">&quot;replacement_text&quot;</span>)</code></pre></div>
+<p>By default, both function operate on the first match of the specified pattern. To operate on <em>all</em> matchs, add “_all&quot; to the function name, as in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract_all</span>(string_object, <span class="st">&quot;pattern_to_match&quot;</span>)</code></pre></div>
+<p><br></p>
+<div id="extract-and-replace-example" class="section level3">
+<h3>Extract and replace example</h3>
+<p>In the last seminar, we created a “year” column from years indicated in the “variable” column text via the expression:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97<span class="op">$</span>year &lt;-<span class="st"> </span><span class="kw">str_extract</span>(nlsy97<span class="op">$</span>variable, <span class="st">&quot;[0-9]+&quot;</span>)</code></pre></div>
+<p>After creating the “year” column, we then removed the year values from the values of the “variable” column by replacing these numbers with an empty string.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97<span class="op">$</span>variable &lt;-<span class="st"> </span><span class="kw">str_replace</span>(nlsy97<span class="op">$</span>variable, <span class="st">&quot;[0-9]+&quot;</span>,<span class="st">&quot;&quot;</span>)</code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="trimming-a-string" class="section level2">
+<h2>Trimming a string</h2>
+<p>When working with formatted text, a third common task is to remove extra spaces before or after the string text.</p>
+<ul>
+<li>This is done with the <strong>str_trim()</strong> function. The syntax is:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_trim</span>(string, <span class="dt">side =</span> <span class="kw">c</span>(<span class="st">&quot;both&quot;</span>, <span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>))</code></pre></div>
+<p>Note, when printing a string, any formatting characters are shown. To view how the string looks formatted, use the <strong>ViewLines()</strong> function.</p>
+<p><br></p>
+</div>
+<div id="using-regular-expressions-with-strings" class="section level2">
+<h2>Using regular expressions with strings</h2>
+<p>Often we want to modify strings based on a pattern rather than an exact expression, as seen with the <strong>str_extract()</strong> and <strong>str_replace()</strong> examples.</p>
+<ul>
+<li><p>Patterns are specified in R (as in many other languages) using a syntax known as “regular expressions” or <em>regex</em>.</p></li>
+<li><p>Today, we will very briefly introduce some regular expressions.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="common-expressions" class="section level2">
+<h2>Common Expressions</h2>
+<ul>
+<li>To match “one of” several elements, refer to them in square brackets, eg: [abc]</li>
+<li>To match one of a range of values, use a hyphen to indicate the range: e.g. [a-Z],[0-9]</li>
+<li>To match either of a couple of patterns/expressions, use the OR operator, eg: “2017|2018”</li>
+<li><p>There are also abbreviation for one of specific types of characters</p>
+<ul>
+<li><p>eg: <strong>[:digit:]</strong> for numbers, <strong>[:alpha:]</strong> for letters, <strong>[:punct:]</strong> for punctuation, and <span class="math inline">\(\textbf{.}\)</span> for every character.</p></li>
+<li><p>See the RStudio cheat sheet on stringr for more examples (and in general, as a brilliant reference to <em>regex</em>)</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="how-many-times-to-match" class="section level2">
+<h2>How many times to match?</h2>
+<p>Aside from specifiying the characters to match, such as “[0-9]”, another important component of regular expressions is how many time should the characters appear.</p>
+<ul>
+<li>“[0-9]” will match any part of a string composed of exactly <em>1</em> number.</li>
+<li>“[0-9]+” will match any part of a string composed of <em>1 or more</em> numbers.</li>
+<li>“[0-9]{4}” will match any part of a string composed of exactly <em>4</em> numbers.</li>
+<li>“[0-9]*&quot; will match any part of a string composed of zero or more numbers.</li>
+</ul>
+<p><br></p>
+<div id="examples-with-repetition" class="section level3">
+<h3>Examples with repetition</h3>
+<p>Suppose we want to extract year data that is mixed in with other data as well.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">messy_var &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1987</span>,<span class="dv">2006</span>,<span class="dv">2010</span>,<span class="dv">307</span>,<span class="dv">2018</span>)
+<span class="kw">str_extract</span>(messy_var, <span class="st">&quot;[0-9]&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;1&quot; &quot;2&quot; &quot;2&quot; &quot;3&quot; &quot;2&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(messy_var, <span class="st">&quot;[0-9]+&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;1&quot;    &quot;1987&quot; &quot;2006&quot; &quot;2010&quot; &quot;307&quot;  &quot;2018&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(messy_var, <span class="st">&quot;[0-9]{4}&quot;</span>)</code></pre></div>
+<pre><code>## [1] NA     &quot;1987&quot; &quot;2006&quot; &quot;2010&quot; NA     &quot;2018&quot;</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="escaping-special-characters" class="section level2">
+<h2>Escaping special characters</h2>
+<p>Often, special characters can cause problems when working with strings. For example, trying to add a quote can result in R thinking you are trying to close the string.</p>
+<p>For most characters, you can “escape” (cause R to read as part of the string) special characters by prepending them with a backslash.</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quote &lt;-<span class="st"> &quot;</span><span class="ch">\&quot;</span><span class="st">Without data, you&#39;re just another person with an opinion.</span><span class="ch">\&quot;</span><span class="st"> </span>
+<span class="st">- W. Edwards Deming.&quot;</span>
+<span class="kw">writeLines</span>(quote)</code></pre></div>
+<pre><code>## &quot;Without data, you&#39;re just another person with an opinion.&quot; 
+## - W. Edwards Deming.</code></pre>
+<p><br></p>
+</div>
+<div id="matching-strings-that-precede-or-follow-specific-patterns" class="section level2">
+<h2>Matching strings that precede or follow specific patterns</h2>
+<p>To match part of a string that occurs before or after a specific other pattern, you can also specify “lookarounds”, the pattern the match should precede or follow:</p>
+<p>To match a string pattern x, preceded or followed by y:</p>
+<ul>
+<li><p><strong>y precedes x:</strong> “(?&lt;=y)x”</p></li>
+<li><p><strong>y follows x:</strong> “x(?=y)”</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="look-around-example" class="section level2">
+<h2>Look around example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">price_info &lt;-<span class="kw">c</span>(<span class="st">&quot;The price is 5 dollars&quot;</span>)
+<span class="kw">str_extract</span>(price_info, <span class="st">&quot;(?&lt;=(The price is )).+&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;5 dollars&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(price_info, <span class="st">&quot;.+(?=( dollars))&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;The price is 5&quot;</code></pre>
+<p><br> <br></p>
+</div>
+</div>
+<div id="web-scraping" class="section level1">
+<h1><strong>Web Scraping</strong></h1>
+<div id="web-scraping-with-rvest" class="section level2">
+<h2>Web scraping with Rvest</h2>
+<p>“Scraping” data from the web - that is, automating the retrieval of data displayed online (other than through API) is an increasingly common data analysis task.</p>
+<ul>
+<li><p>Today, we will briefly explore very rudimentary web scraping, using the <strong>rvest</strong> package.</p></li>
+<li><p>The specific focus today is only on scraping data structued as a table on a webpage. The basic method highlighted will work much of the time - but does not work for every table.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="using-rvest-to-scrape-a-table" class="section level2">
+<h2>Using rvest to scrape a table</h2>
+<ul>
+<li><p>The starting point for scraping a web table with rvest is the <strong>read_html()</strong> function, where the URL to the page with data should go.</p></li>
+<li><p>After reading the webpage, the table should be parsed. For many tables, the <strong>read_html</strong> can be piped directly into the <strong>html_table()</strong> function.</p>
+<ul>
+<li>If this works, the data should then be converted from a list into a dataframe/tibble.</li>
+</ul></li>
+<li><p>If <strong>html_table()</strong> does not work, a more robust option is to first pipe <strong>read_html</strong> into <strong>html_nodes(xpath = “//table”)</strong> and then into <strong>html_table(fill=TRUE)</strong></p>
+<ul>
+<li><strong>html_nodes(xpath = “//table”)</strong> looks for all HTML objects coded as a table, hence</li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="web-scraping-example" class="section level2">
+<h2>Web scraping example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tech_stock_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MSFT&quot;</span>,<span class="st">&quot;AMZN&quot;</span>,<span class="st">&quot;GOOGL&quot;</span>,<span class="st">&quot;AAPL&quot;</span>,<span class="st">&quot;FB&quot;</span>,<span class="st">&quot;INTC&quot;</span>,<span class="st">&quot;CSCO&quot;</span>)
+tech_stocks &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(tech_stock_names)){
+  tech_stocks[[j]] &lt;-<span class="kw">read_html</span>(
+    <span class="kw">glue</span>(<span class="st">&quot;https://finance.yahoo.com/quote/{tech_stock_names[j]}/history&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">html_table</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">stock =</span> tech_stock_names[j])
+}
+tech_stocks <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>()
+tech_stocks[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>)]</code></pre></div>
+<pre><code>##           Date Adj.Close..     Volume stock
+## 1 Jan 25, 2019      107.17 31,225,600  MSFT
+## 2 Jan 24, 2019      106.20 23,164,800  MSFT
+## 3 Jan 23, 2019      106.71 25,874,300  MSFT
+## 4 Jan 22, 2019      105.68 32,371,300  MSFT
+## 5 Jan 18, 2019      107.71 37,427,600  MSFT</code></pre>
+</div>
+<div id="another-webscraping-example" class="section level2">
+<h2>Another webscraping example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gini_list &lt;-<span class="kw">read_html</span>(<span class="st">&quot;http://wdi.worldbank.org/table/1.3&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="dt">xpath =</span><span class="st">&quot;//table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>(<span class="dt">fill=</span><span class="ot">TRUE</span>) 
+gini_data &lt;-<span class="st"> </span>gini_list <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extract2</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
+gini_data[<span class="dv">1</span>,<span class="dv">5</span>]</code></pre></div>
+<pre><code>## NULL</code></pre>
 </div>
 </div>
 

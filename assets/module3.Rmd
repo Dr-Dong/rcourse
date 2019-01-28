@@ -1,12 +1,25 @@
 ---
-title: "Introduction to R"
-subtitle: "Module 3: Conditionals, loops, functions, and joins"
+title: "Introduction to Data Analysis in R"
+subtitle: "Module 3: Loops, conditionals, joins, and more!"
+author: "Andrew Proctor" 
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "January 28, 2019"
 output: 
-  html_document:
-      theme: flatly
-      highlight: haddock
+  beamer_presentation:
+      theme: "Amsterdam"
+      highlight: espresso
+      slide_level: 2
       toc: true
-      toc_float: true
+header-includes:
+  - \usepackage{color}  
+  - \usepackage{hyperref}
+  - \definecolor{cornflower}{HTML}{1c86ee}
+  - \hypersetup{
+    colorlinks=true,
+    linkcolor=cornflower,
+    filecolor=magenta,      
+    urlcolor=blue,
+    }
 
 ---
 
@@ -16,13 +29,21 @@ library(rio)
 library(magrittr)
 library(rvest)
 library(glue)
-
 ```
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module3.pdf" role="button">Slides</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
+# Intro
 
-<br>
+## Goals for Module
+
+1. Basics of programming in R---learn how to write and use:
+    + Iterations (loops and map functions)
+    + Conditional statements
+    + Basic functions
+2. Learn how to perform different types of dataset joins.
+3. Learn how to manipulate strings and use "regular expressions""
+4. Learn basic web scraping
+
+
 
 # **Revisiting basics**
 
@@ -30,7 +51,8 @@ library(glue)
 
 So far, when changing a data object, we have always been a bit repetitive:
 ```{r,eval=FALSE}
-mydataframe <-  mydataframe %>% rename(NewVarName = OldVarName)
+mydataframe <-  mydataframe %>% 
+  rename(NewVarName = OldVarName)
 ```
 
 
@@ -44,7 +66,7 @@ so-called "assignment pipe" **(%<>%)**.
 mydataframe %<>% rename(NewVarName = OldVarName)
 ```
 
-<br>
+
 
 ## Lists
 
@@ -71,31 +93,25 @@ Another subtlety glossed over so far are *lists.*
   - Lists can take as inputs not only single-valued elements, but also vectors 
   or data frames.
   
-  - Creating a list from other objects is done with the **list()** function. The 
-  syntax of list is:
+  - Creating a list from other objects is done with the **list()** function.
   
-  <br>
+## List Creation Example  
 
-### List Creation Example  
 ```{r}
 wages_df; date_df; description
-mylist <- list(wages = wages_df, dates = date_df, description)
+mylist <- list(wages_df,date_df,description)
 ```
 
 Where *wages_df* and *date_df* are data frames and description is a single character
 element.
 
-<br>
+## List Creation Example ctd
 
-### List Creation Example ctd
-
-![](./assets/mylist.png)
-
-<br>
+\includegraphics[scale=0.5]{mylist.png}
 
 ## Subsetting a list
 
-- To subset a vector/matrix/data frame, one uses single brackets, eg *mydf[,]*.
+- To subset a vector/matrix/data frame, one uses single brackets, eg mydf[,].
 
 - To refer to an object of a list, use double brackets.  
 
@@ -107,12 +123,10 @@ mylist[[3]]
 frames, so you will need to either subset by position or assign names to the 
 list objects.
 
-<br>
-
 ## Extracting a list
 
 An easy way of extracting an object from a list is with the **extract2()** function 
-from [magrittr](https://magrittr.tidyverse.org/). This allows you to extra a 
+from \href{https://magrittr.tidyverse.org/}{magrittr}. This allows you to extract a 
 given list object by name or position.
 
 ```{r}
@@ -123,19 +137,19 @@ wage_data
 
 ## The unlist function
 
-Instead of creating more complicated data objects, sometimes formatted as list
-into a simple (atomic) vector. The **unlist()** function does this.
+Instead of creating more complicated data objects, **unlist()** takes a list
+and turns it into a simple (atomic) vector.
 
 **Example:**
+```{r, include=FALSE}
+simple_list <-list(1,2,3,4)
+```
 
 ```{r}
-simple_list <-list(1,2,3,4)
 str(simple_list)
 simple_list %<>% unlist() %>% str()
 ```
 
-<br>
-<br>
 
 # **Iteration**
 
@@ -154,9 +168,7 @@ for(indexname in range) {
 }
 ```
 
-<br>
-
-### For loop across numeric values
+## For loop across numeric values
 
 ```{r loopexample}
 for (i in 1:4){
@@ -165,9 +177,8 @@ for (i in 1:4){
 
 ```
 
-<br>
 
-### For loop across named elements
+## For loop across named elements
 
 You can also loop over elements instead of values.
 
@@ -175,21 +186,19 @@ You can also loop over elements instead of values.
 Here's one way you could do that with a loop:
 
 ```{r asnumeric}
-nlsy97 <- import("./data/nlsy97.rds")
-factor.vars <- c("personid","year","sex","race","region","schooltype")
+nlsy97 <- import("nlsy97.rds")
+factor.vars <- c("personid","year","sex","race",
+                 "region","schooltype")
   for (i in factor.vars){
    nlsy97[,i] %<>% unlist() %>% as.factor()
   }
 
 ```
 
-<br>
-<br>
-
 ## The map() function
 
 For iterations over vectors and dataframes, the 
-[map()](https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map) 
+\href{https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map}{map()}
 function is a great alternative to the for loop.
 
 Map functions take a user-supplied function and iterate it over:
@@ -203,13 +212,11 @@ Map functions take a user-supplied function and iterate it over:
 Map functions are much simpler to write than loops and are also generally a good 
 bit faster.
 
-- ***Sidenote***: Map is a part of the tidyverse collection of packages.  In base R, the [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/apply) 
-family of functions does roughly the same thing, but [map()](https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map) 
+- ***Sidenote***: Map is a part of the tidyverse collection of packages.  In base R, the \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/apply}{apply()}
+family of functions does roughly the same thing, but \href{https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map}{map()}
 simplifies and improves this task.
 
-<br>
-
-### Using the map() function
+## Using the map() function
 
 **Syntax:**
 
@@ -223,36 +230,30 @@ map(data, fxn, option1, option2...)
 nlsy97[,factor.vars] %<>% map(as.numeric) 
 ```
 
-<br>
-
-### Using class-specific map variants
+## Using class-specific map variants
 
 There are multiple map variants that enforce a given data type on results.  You should 
 use these whenever you want output of a certain class.
 
-- map_lgl for logical vector
+- **map_lgl** for logical vector
 
-- map_dbl for numeric vector
+- **map_dbl** for numeric vector
 
-- map_chr for character vector
+- **map_chr** for character vector
 
-- map_df for a data frame
+- **map_df** for a data frame
 
-<br>
-
-### Example of difference with class-specific map variants
-
+## Example of difference with class-specific map variants
 
 ```{r}
-nlsy.sub <- nlsy97 %>% select(parentincome, motheredyrs, gpa)
+nlsy.sub <- nlsy97 %>% select(parentincome, 
+                              motheredyrs, gpa)
 nlsy.sub %>% map_dbl(IQR, na.rm=TRUE)
 nlsy.sub %>% map(IQR, na.rm=TRUE)
 ```
 
-<br>
-
-### Using map() with anonymous functions
-**[map()](https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map)** 
+## Using map() with anonymous functions
+\href{https://www.rdocumentation.org/packages/purrr/versions/0.2.4/topics/map}{map()} 
 works with not only predefined functions, but also "anonymous functions"--- 
 unnamed functions defined inside of map().
 
@@ -263,20 +264,20 @@ unnamed functions defined inside of map().
 ztransform <- map_df(nlsy.sub, function(x) 
   (x - mean(x,  na.rm=TRUE)) / sd(x, na.rm=TRUE)
   )
+```
 
-### Did it work?
+## Using map() with anonymous functions ctd
 
+Did my anonymous function work? 
+
+```{r}
 # Means
 map_dbl(ztransform, function(x) 
   round(mean(x, na.rm=TRUE),10))
-
-# Standard deviations
+#  Standard deviations
 map_dbl(ztransform, function(x) 
   round(sd(x, na.rm=TRUE),10))
 ```
-
-<br>
-<br>
 
 # **Conditional Statements**
 
@@ -298,9 +299,7 @@ if(condition){
     }
 ```
 
-<br>
-
-### Example of an if statement
+## Example of an if statement
 
 - In the for loop example, the loop was indexed over only the columns of indicator 
 codes.  
@@ -318,9 +317,7 @@ for (j in colnames(nlsy97)){
 
 ```
 
-<br>
-
-### Multiple conditions
+## Multiple conditions
 
 You can encompass several conditions using the  <span style="color:blue">**else if**</span> 
 and catch-all <span style="color:blue">**else**</span> control statements.
@@ -335,15 +332,13 @@ do other other stuff
 }
 ```
 
-<br>
-
 ## Vectorized if statements
 
 - As alluded to earlier, if statements can't test-and-do for vectors, but only 
 single-valued objects.
 
 - Most of the time, you probably want to use conditional statements on vectors. 
-The vector equivalent to the if statement is [ifelse()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse)
+The vector equivalent to the if statement is \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse}{ifelse()}
 
 **Syntax:**
 ```{r, eval=FALSE}
@@ -351,12 +346,10 @@ ifelse(condition, true_statement, false_statement)
 ```
 
 The statements returned can be simple values, but they can also be functions or even
-further conditions.  You can easily nest multiple [ifelses](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse) 
+further conditions.  You can easily nest multiple \href{https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/ifelse}{ifelses} 
 if desired.
 
-<br>
-
-### An ifelse example
+## An ifelse example
 
 ```{r}
  numbers <- sample(1:30, 7); numbers
@@ -370,12 +363,11 @@ if desired.
      print("odd")}
 ```
 
-<br>
-
-### Multiple vectorized if statements
+## Multiple vectorized if statements
 
 A better alternative to multiple nested `ifelse` statements is the tidyverse
-[case_when](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/case_when) function.
+**[case_when](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/case_when)**
+function.
 
 **Syntax:**
 
@@ -387,9 +379,7 @@ case_when(
 )
 ```
 
-<br>
-
-### A case_when example
+## A case_when example
 
 ```{r}
 nums_df <- numbers %>% as.tibble() %>% 
@@ -400,13 +390,9 @@ nums_df <- numbers %>% as.tibble() %>%
 nums_df[1:4,]
 ```
 
-<br>
-<br>
-
-
 # **Functions**
 
-### When you should write a function
+## When you should write a function
 
 If you find yourself performing the same specific steps more than a couple of 
 times (perhaps with slight variations), then you should consider writing a function.
@@ -414,9 +400,7 @@ times (perhaps with slight variations), then you should consider writing a funct
 A function can serve essentially as a wrapper for a series of steps, where you 
 define generalized inputs/arguments.
 
-<br>
-
-### Writing a function
+## Writing a function
 
 **Ingredients:**
 
@@ -434,9 +418,7 @@ function_name <- function(arg1, arg2, ...){
 }
 ```
 
-<br>
-
-### Function example
+## Function example
 
 Let's turn the calculation of even or odd that was completed earlier into a 
 function:
@@ -454,9 +436,7 @@ to be supplied as an argument for the function.
 odd(numbers)
 ```
 
-<br>
-
-### RStudio's "Extract Function"
+## RStudio's "Extract Function"
 
 A useful way of writing simple functions when you've already written the code 
 for a specific instance is to use RStudio's *Extract Function* 
@@ -464,10 +444,6 @@ option, which is available from the code menu.
 
 - *Extract function* will take the code chunk and treat any data objects referenced 
 but not created within the chunk as function arguments.
-
-<br>
-<br>
-
 
 # **Joins**
 
@@ -494,8 +470,6 @@ in both dataset A and B.
 Keeps only columns of dataset A for \ \ \ observations that *do not* 
 appear in both dataset A and B.
 
-<br>
-
 ## Joining using keys
 
 The starting point for any merge is to enumerate the column or columns that 
@@ -507,9 +481,7 @@ uniquely identify observations in the dataset.
 - For panel data, this will typically be both the personal/group identifier and 
 a timing variable, for example Sweden in 2015 in a cross-country analysis.
 
-<br>
-
-### Mismatched key names across datasets
+## Mismatched key names across datasets
 
 Sometimes the names of the key variables are different across datasets.
 
@@ -523,11 +495,9 @@ Sometimes the names of the key variables are different across datasets.
 join_function(x, y, by = c("x_name" = "y_name"))
 ```
 
-<br>
-
 ## left_join
 
-The **[left_join()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join)** 
+The \href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join}{left\_join()} 
 is the most frequent type of join, corresponding to a standard **merge** in Stata. 
 
 - left_join simply appends additional variables from a second dataset to a main 
@@ -540,9 +510,7 @@ left_join(x, y, by = "key")
 
 If the key is muliple columns, use <span style="color:blue">**c()**</span> to list them.
 
-<br>
-
-### left_join example
+## left_join example
 ```{r,include=FALSE}
 person_id <-c("001","002","003")
 wage <- c(150,90,270)
@@ -556,7 +524,10 @@ educ <- data.frame(person_id,schooling)
 # Look at the datasets
 earnings
 educ
+```
 
+## left_join example ctd
+```{r}
 # Combine data
 combined_data <- left_join(earnings, educ, 
                            by="person_id")
@@ -568,14 +539,11 @@ combined_data
 ***Notice*** that schooling is equal to NA for person '002' because \ \ \ that person does 
 not appear in the *educ* dataset.
 
-<br>
-
-
 ## inner_join
 
 If you want to combine the variables of two data sets, but only keep the observations 
 present in both datasets, use the 
-[inner_join()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join) 
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join}{inner\_join()} 
 function.
 
 ```{r, warning=FALSE}
@@ -584,13 +552,11 @@ combined_data <- inner_join(earnings, educ,
 combined_data
 ```
 
-<br>
-
 ## semi_join
 
 To keep using only the variables in the first dataset, but where observations in 
 the first dataset are matched in the second dataset, use 
-[semi_join()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join).
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join}{semi\_join()}.
 
 - semi_join is an example of a *filtering join*. 
 Filtering joins don't add new columns, but instead just filter observations 
@@ -598,17 +564,17 @@ for matches in a second dataset.
 - left_join and inner_join are instead known as *mutating joins*, because new 
 variables are added to the dataset.
 
+## semi_join example
+
 ```{r, warning=FALSE}
 filtered_data <- semi_join(earnings, educ, by="person_id")
 filtered_data
 ```
 
-<br>
-
 ## anti_join
 
 Another *filtering join* is 
-[anti_join()](https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join), 
+\href{https://www.rdocumentation.org/packages/dplyr/versions/0.7.3/topics/join}{anti\_join()}, 
 which filters for observations that are *not matched* in a second dataset.
 
 ```{r, warning=FALSE}
@@ -617,9 +583,7 @@ filtered_data <- anti_join(earnings, educ,
 filtered_data
 ```
 
-There are still other join types, which you can read about [here](http://dplyr.tidyverse.org/reference/join.html).
-
-<br>
+There are still other join types, which you can read about \href{http://dplyr.tidyverse.org/reference/join.html}{here}.
 
 ## Appending data
 
@@ -634,8 +598,6 @@ The function for appending data in the tidyverse is:
 ```{r, eval=FALSE}
 bind_rows(list(dataframe1,dataframe2,...))
 ```
-<br>
-<br>
 
 # **Manipulating text**
 
@@ -647,14 +609,12 @@ string data.
   - The simplest string manipulation may be concatenating (ie combining) strings.
   
       + A great function for combining string in R is the **glue()** function, part 
-      of the Tiydverse [glue package][https://glue.tidyverse.org/reference/glue.html].
+      of the Tiydverse \href{https://glue.tidyverse.org/reference/glue.html}{glue package}.
       
   - The glue function lets you reference variable values inside of text strings 
   by writing the variable in curly brackets **{}** inside of the string.
   
-<br>
-
-### Glue Example
+## Glue Example
 
 ```{r}
 date_df %<>% mutate(
@@ -664,9 +624,7 @@ date_df %<>% mutate(
 date_df
 ```
 
-<br>
-
-### Glue Example 2
+## Glue Example 2
 
 ```{r}
 numbers <- c(1,2,3)
@@ -675,21 +633,24 @@ for (i in numbers){
 }
 ```
 
-<br>
-
 ## Extracting and replacing parts of a string
 
 Other common string manipulating tasks include extracting or replacing parts 
-of a string.  These are accomplished via the **str_extract()** and 
-**str_replace()** from the Tidyverse [stringr][https://stringr.tidyverse.org/index.html]
-package.
+of a string.
+
+  - These tasks can be done via the **str_extract()** and 
+  **str_replace()** in the Tidyverse \href{https://stringr.tidyverse.org/index.html}{stringr} 
+  package.
 
   - We saw examples of these two functions in the last seminar exercise:
 
-The arguments for each function are:
+##  Extracting and replacing parts of a string
+
+The syntax for each function is:
 ```{r, eval=FALSE}
 str_extract(string_object, "pattern_to_match")
-str_replace(string_object, "pattern_to_match","replacement_text")
+str_replace(string_object, "pattern_to_match",
+            "replacement_text")
 
 ```
 
@@ -701,10 +662,7 @@ str_extract_all(string_object, "pattern_to_match")
 
 ```
 
-
-<br>
-
-### Extract and replace example
+## Extract and replace example
 
 In the last seminar, we created a "year" column from years indicated in the "variable" 
 column text via the expression:
@@ -717,10 +675,9 @@ After creating the "year" column, we then removed the year values from the value
 of the "variable" column by replacing these numbers with an empty string.
 
 ```{r, eval=FALSE}
-nlsy97$variable <- str_replace(nlsy97$variable, "[0-9]+","")
+nlsy97$variable <- str_replace(nlsy97$variable, 
+                               "[0-9]+","")
 ```
-
-<br>
 
 ## Trimming a string
 
@@ -736,8 +693,6 @@ str_trim(string, side = c("both", "left", "right"))
 Note, when printing a string, any formatting characters are shown.  To view how 
 the string looks formatted, use the **ViewLines()** function.
 
-<br>
-
 ## Using regular expressions with strings
 
 Often we want to modify strings based on a pattern rather than an exact 
@@ -747,9 +702,7 @@ expression, as seen with the **str_extract()** and **str_replace()** examples.
   known as "regular expressions" or *regex*.
   
   - Today, we will very briefly introduce some regular expressions.
-  
-<br>
-
+ 
 ## Common Expressions
 
 - To match "one of" several elements, refer to them in square brackets, eg: [abc]
@@ -759,11 +712,9 @@ expression, as seen with the **str_extract()** and **str_replace()** examples.
   
     + eg: **[:digit:]** for numbers, **[:alpha:]** for letters, **[:punct:]** for punctuation, and $\textbf{.}$ for every character.
 
-    + See the RStudio cheat sheet on stringr for more examples (and in general,
+    + See the RStudio cheat sheet on stringr for more examples \ \ \ \ \ (and in general,
     as a brilliant reference to *regex*)
-    
-<br>
-
+ 
 ## How many times to match?
 
 Aside from specifiying the characters to match, such as "[0-9]", another important 
@@ -774,9 +725,8 @@ component of regular expressions is how many time should the characters appear.
 - "[0-9]{4}" will match any part of a string composed of exactly *4* numbers.
 - "[0-9]*" will match any part of a string composed of zero or more numbers.
 
-<br>
+## Examples with repetition
 
-### Examples with repetition
 ```{r, eval=FALSE, include=FALSE}
 str_extract(messy_var, "^(19|20)*[0-9]{2}$")
 ```
@@ -787,9 +737,6 @@ str_extract(messy_var, "[0-9]")
 str_extract(messy_var, "[0-9]+")
 str_extract(messy_var, "[0-9]{4}")
 ```
-
-<br>
-
 
 ## Escaping special characters
 
@@ -802,12 +749,10 @@ special characters by prepending them with a backslash.
 
 **Example:**
 ```{r}
-quote <- "\"Without data, you're just another person with an opinion.\" 
-- W. Edwards Deming."
+quote <- "\"Without data, you're just another person 
+with an opinion.\" - W. Edwards Deming."
 writeLines(quote)
 ```
-
-<br>
 
 ## Matching strings that precede or follow specific patterns
 
@@ -820,8 +765,6 @@ To match a string pattern x, preceded or followed by y:
   
   - **y follows x:** "x(?=y)"
 
-<br>
-
 ## Look around example
 
 ```{r}
@@ -831,9 +774,6 @@ str_extract(price_info, "(?<=(The price is )).+")
 str_extract(price_info, ".+(?=( dollars))")
 
 ```
-
-<br>
-<br>
 
 # **Web Scraping**
 
@@ -847,8 +787,6 @@ package.
 - The specific focus today is only on scraping data structued as a table on 
 a webpage.  The basic method highlighted will work much of the time - but does not 
 work for every table.
-
-<br>
 
 ## Using rvest to scrape a table
 
@@ -864,21 +802,45 @@ the **read_html** can be piped directly into the **html_table()**  function.
 - If **html_table()** does not work, a more robust option is to first pipe **read_html** 
 into **html_nodes(xpath = "//table")** and then into **html_table(fill=TRUE)**
   
-    + **html_nodes(xpath = "//table")** looks for all HTML objects coded as a 
-    table, hence 
+    + **html_nodes(xpath = "//table")** looks for all HTML \ \ \ \ \ \ objects coded as a 
+    table, hence tends to produces lists with several objects.
 
-<br>
+
+## Web scraping example
+
+```{r, include=FALSE}
+tech_stock_names <- c("MSFT","AMZN","GOOGL","AAPL",
+                      "FB","INTC","CSCO")
+tech_stocks <- list()
+for(j in 1:length(tech_stock_names)){
+tech_stocks[[j]] <-read_html(
+glue(
+"https://finance.yahoo.com/quote/{tech_stock_names[j]}/history")) %>%
+html_table() %>% as.data.frame() %>% 
+  mutate(stock = tech_stock_names[j])
+}
+```
+
+```{r, eval=FALSE}
+tech_stock_names <- c("MSFT","AMZN","GOOGL","AAPL",
+                      "FB","INTC","CSCO")
+tech_stocks <- list()
+for(j in 1:length(tech_stock_names)){
+  tech_stocks[[j]] <-read_html(
+  glue("https://finance.yahoo.com/quote/{tech_stock_
+       names[j]}/history")) %>%
+  html_table() %>% as.data.frame() %>% 
+    mutate(stock = tech_stock_names[j])
+}
+```
+
+## Web scraping example ctd
+
+\includegraphics[scale=0.5]{tech_stocks_list.png}
 
 ## Web scraping example
 
 ```{r}
-tech_stock_names <- c("MSFT","AMZN","GOOGL","AAPL","FB","INTC","CSCO")
-tech_stocks <- list()
-for(j in 1:length(tech_stock_names)){
-  tech_stocks[[j]] <-read_html(
-    glue("https://finance.yahoo.com/quote/{tech_stock_names[j]}/history")) %>%
-  html_table() %>% as.data.frame() %>% mutate(stock = tech_stock_names[j])
-}
 tech_stocks %<>% bind_rows()
 tech_stocks[1:5,c(1,6:8)]
 ```
@@ -886,9 +848,13 @@ tech_stocks[1:5,c(1,6:8)]
 ## Another webscraping example
 
 ```{r}
-gini_list <-read_html("http://wdi.worldbank.org/table/1.3") %>%
-  html_nodes(xpath ="//table") %>% html_table(fill=TRUE) 
+gini_list <-read_html(
+  "http://wdi.worldbank.org/table/1.3") %>%
+  html_nodes(xpath ="//table") %>% 
+  html_table(fill=TRUE) 
 gini_data <- gini_list %>% extract2(3) %>% 
   as.data.frame() %>% select(1:3)
-gini_data[1,5]
+gini_data[1:3,]
 ```
+
+ 

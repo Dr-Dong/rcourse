@@ -647,7 +647,7 @@ string data.
   - The simplest string manipulation may be concatenating (ie combining) strings.
   
       + A great function for combining string in R is the **glue()** function, part 
-      of the Tiydverse [glue package][https://glue.tidyverse.org/reference/glue.html].
+      of the Tiydverse [glue package](https://glue.tidyverse.org/reference/glue.html).
       
   - The glue function lets you reference variable values inside of text strings 
   by writing the variable in curly brackets **{}** inside of the string.
@@ -681,7 +681,7 @@ for (i in numbers){
 
 Other common string manipulating tasks include extracting or replacing parts 
 of a string.  These are accomplished via the **str_extract()** and 
-**str_replace()** from the Tidyverse [stringr][https://stringr.tidyverse.org/index.html]
+**str_replace()** from the Tidyverse [stringr](https://stringr.tidyverse.org/index.html)
 package.
 
   - We saw examples of these two functions in the last seminar exercise:
@@ -890,5 +890,5 @@ gini_list <-read_html("http://wdi.worldbank.org/table/1.3") %>%
   html_nodes(xpath ="//table") %>% html_table(fill=TRUE) 
 gini_data <- gini_list %>% extract2(3) %>% 
   as.data.frame() %>% select(1:3)
-gini_data[1,5]
+gini_data[1:5,]
 ```

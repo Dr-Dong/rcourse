@@ -444,7 +444,9 @@ div.tocify {
     <li>
       <a href="module2.html">M2: Tidyverse Data Preparation</a>
     </li>
-    <li class="dropdown-header">M3: Loops, Conditionals, and Joins</li>
+    <li>
+      <a href="module3.html">M3: Loops, Conditionals, and Joins</a>
+    </li>
     <li class="dropdown-header">M4: Project Management and Dynamic Documents</li>
     <li class="dropdown-header">M5: Regression Modelling and Data Visualization</li>
     <li class="dropdown-header">M6:  Further Regression Methods</li>
@@ -1017,7 +1019,7 @@ filtered_data</code></pre></div>
 <ul>
 <li><p>The simplest string manipulation may be concatenating (ie combining) strings.</p>
 <ul>
-<li>A great function for combining string in R is the <strong>glue()</strong> function, part of the Tiydverse [glue package][<a href="https://glue.tidyverse.org/reference/glue.html" class="uri">https://glue.tidyverse.org/reference/glue.html</a>].</li>
+<li>A great function for combining string in R is the <strong>glue()</strong> function, part of the Tiydverse <a href="https://glue.tidyverse.org/reference/glue.html">glue package</a>.</li>
 </ul></li>
 <li><p>The glue function lets you reference variable values inside of text strings by writing the variable in curly brackets <strong>{}</strong> inside of the string.</p></li>
 </ul>
@@ -1049,7 +1051,7 @@ date_df</code></pre></div>
 </div>
 <div id="extracting-and-replacing-parts-of-a-string" class="section level2">
 <h2>Extracting and replacing parts of a string</h2>
-<p>Other common string manipulating tasks include extracting or replacing parts of a string. These are accomplished via the <strong>str_extract()</strong> and <strong>str_replace()</strong> from the Tidyverse [stringr][<a href="https://stringr.tidyverse.org/index.html" class="uri">https://stringr.tidyverse.org/index.html</a>] package.</p>
+<p>Other common string manipulating tasks include extracting or replacing parts of a string. These are accomplished via the <strong>str_extract()</strong> and <strong>str_replace()</strong> from the Tidyverse <a href="https://stringr.tidyverse.org/index.html">stringr</a> package.</p>
 <ul>
 <li>We saw examples of these two functions in the last seminar exercise:</li>
 </ul>
@@ -1194,11 +1196,11 @@ tech_stocks &lt;-<span class="st"> </span><span class="kw">list</span>()
 tech_stocks <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>()
 tech_stocks[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>)]</code></pre></div>
 <pre><code>##           Date Adj.Close..     Volume stock
-## 1 Jan 25, 2019      107.17 31,225,600  MSFT
-## 2 Jan 24, 2019      106.20 23,164,800  MSFT
-## 3 Jan 23, 2019      106.71 25,874,300  MSFT
-## 4 Jan 22, 2019      105.68 32,371,300  MSFT
-## 5 Jan 18, 2019      107.71 37,427,600  MSFT</code></pre>
+## 1 Jan 29, 2019    102.7050 22,818,451  MSFT
+## 2 Jan 28, 2019    105.0800 29,405,500  MSFT
+## 3 Jan 25, 2019    107.1700 31,225,600  MSFT
+## 4 Jan 24, 2019    106.2000 23,164,800  MSFT
+## 5 Jan 23, 2019    106.7100 25,874,300  MSFT</code></pre>
 </div>
 <div id="another-webscraping-example" class="section level2">
 <h2>Another webscraping example</h2>
@@ -1206,8 +1208,13 @@ tech_stocks[<span class="dv">1</span><span class="op">:</span><span class="dv">5
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="dt">xpath =</span><span class="st">&quot;//table&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_table</span>(<span class="dt">fill=</span><span class="ot">TRUE</span>) 
 gini_data &lt;-<span class="st"> </span>gini_list <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extract2</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
-gini_data[<span class="dv">1</span>,<span class="dv">5</span>]</code></pre></div>
-<pre><code>## NULL</code></pre>
+gini_data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,]</code></pre></div>
+<pre><code>##               X1   X2   X3
+## 1    Afghanistan   ..   ..
+## 2        Albania 2012 29.0
+## 3        Algeria 2011 27.6
+## 4 American Samoa   ..   ..
+## 5        Andorra   ..   ..</code></pre>
 </div>
 </div>
 

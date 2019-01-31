@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Data Analysis in R"
-subtitle: "Module 3: Loops, conditionals, joins, and more!"
+subtitle: "Module 3: Programming, joining data, and more"
 author: "Andrew Proctor" 
 institute: "andrew.proctor@phdstudent.hhs.se"
 date: "January 28, 2019"
@@ -688,7 +688,7 @@ before or after the string text.
 - This is done with the **str_trim()** function.  The syntax is:
 
 ```{r, eval=FALSE}
-str_trim(string, side = c("both", "left", "right"))
+str_trim(string, side = left/right/both)
 ```
 
 Note, when printing a string, any formatting characters are shown.  To view how 

@@ -96,7 +96,7 @@ learn convenient tools to import and export data.
 <br>
 
 
-### **Module 3:**  Programming, joining data, and more
+### **Module 3:**  Programming, Joining Data, and More
 
 This module introduces more advanced programming techniques to adapt R 
 functionality to your own specific problems.  Contents include how to

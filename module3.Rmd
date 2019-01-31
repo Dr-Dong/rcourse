@@ -731,7 +731,7 @@ before or after the string text.
 - This is done with the **str_trim()** function.  The syntax is:
 
 ```{r, eval=FALSE}
-str_trim(string, side = left/right/both)
+str_trim(string, side = "left"/"right"/"both")
 ```
 
 Note, when printing a string, any formatting characters are shown.  To view how 

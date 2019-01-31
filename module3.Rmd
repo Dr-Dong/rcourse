@@ -1,14 +1,15 @@
 ---
-title: "Introduction to R"
-subtitle: "Module 3: Conditionals, loops, functions, and joins"
+title: "Module 3: Programming, joining data, and more"
 output: 
   html_document:
+      self_contained: true
       theme: flatly
       highlight: haddock
       toc: true
       toc_float: true
 
 ---
+
 
 ```{r setup, include=FALSE}
 library(tidyverse)

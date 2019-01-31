@@ -14,7 +14,7 @@ navbar:
       href: module1.html
     - text: 'M2: Tidyverse Data Preparation'
       href: module2.html
-    - text: 'M3: Loops, Conditionals, and Joins'
+    - text: 'M3: Programming, joining data, and more'
       href: module3.html
     - text: 'M4: Project Management and Dynamic Documents'
       href: ~

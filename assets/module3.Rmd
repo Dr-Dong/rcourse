@@ -707,7 +707,7 @@ expression, as seen with the **str_extract()** and **str_replace()** examples.
 ## Common Expressions
 
 - To match "one of" several elements, refer to them in square brackets, eg: [abc]
-- To match one of a range of values, use a hyphen to indicate the range: e.g. [a-Z],[0-9]
+- To match one of a range of values, use a hyphen to indicate the range: e.g. [a-z],[0-9]
 - To match either of a couple of patterns/expressions, use the OR operator, eg: "2017|2018"
 - There are also abbreviation for one of specific types of characters
   

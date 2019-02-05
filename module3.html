@@ -694,7 +694,7 @@ factor.vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class=
 <p><strong>Syntax:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(data, fxn, option1, option2...)</code></pre></div>
 <p><strong>Example:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97[,factor.vars] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">map</span>(as.numeric) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy97[,factor.vars] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">map</span>(as.factor) </code></pre></div>
 <p><br></p>
 </div>
 <div id="using-class-specific-map-variants" class="section level3">
@@ -778,7 +778,7 @@ ztransform &lt;-<span class="st"> </span><span class="kw">map_df</span>(nlsy.sub
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">colnames</span>(nlsy97)){
   
   <span class="cf">if</span>(j <span class="op">%in%</span><span class="st"> </span>factor.vars){
-      nlsy97[,j] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()
+      nlsy97[,j] <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.factor</span>()
   }
 }</code></pre></div>
 <p><br></p>
@@ -1195,11 +1195,11 @@ tech_stocks &lt;-<span class="st"> </span><span class="kw">list</span>()
 tech_stocks <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>()
 tech_stocks[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>)]</code></pre></div>
 <pre><code>##           Date Adj.Close..     Volume stock
-## 1 Feb 01, 2019      102.78 35,264,100  MSFT
-## 2 Jan 31, 2019      104.43 55,636,400  MSFT
-## 3 Jan 30, 2019      106.38 49,471,900  MSFT
-## 4 Jan 29, 2019      102.94 31,490,500  MSFT
-## 5 Jan 28, 2019      105.08 29,476,700  MSFT</code></pre>
+## 1 Feb 05, 2019      106.93 14,343,526  MSFT
+## 2 Feb 01, 2019      102.78 35,264,100  MSFT
+## 3 Jan 31, 2019      104.43 55,636,400  MSFT
+## 4 Jan 30, 2019      106.38 49,471,900  MSFT
+## 5 Jan 29, 2019      102.94 31,490,500  MSFT</code></pre>
 </div>
 <div id="another-webscraping-example" class="section level2">
 <h2>Another webscraping example</h2>

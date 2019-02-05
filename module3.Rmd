@@ -221,7 +221,7 @@ map(data, fxn, option1, option2...)
 **Example:**
 
 ```{r}
-nlsy97[,factor.vars] %<>% map(as.numeric) 
+nlsy97[,factor.vars] %<>% map(as.factor) 
 ```
 
 <br>
@@ -313,7 +313,7 @@ change only the indicator codes.
 for (j in colnames(nlsy97)){
   
   if(j %in% factor.vars){
-      nlsy97[,j] %<>% unlist() %>% as.numeric()
+      nlsy97[,j] %<>% unlist() %>% as.factor()
   }
 }
 

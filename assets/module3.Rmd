@@ -227,7 +227,7 @@ map(data, fxn, option1, option2...)
 **Example:**
 
 ```{r}
-nlsy97[,factor.vars] %<>% map(as.numeric) 
+nlsy97[,factor.vars] %<>% map(as.factor) 
 ```
 
 ## Using class-specific map variants
@@ -311,7 +311,7 @@ change only the indicator codes.
 for (j in colnames(nlsy97)){
   
   if(j %in% factor.vars){
-      nlsy97[,j] %<>% unlist() %>% as.numeric()
+      nlsy97[,j] %<>% unlist() %>% as.factor()
   }
 }
 
@@ -707,7 +707,7 @@ expression, as seen with the **str_extract()** and **str_replace()** examples.
 ## Common Expressions
 
 - To match "one of" several elements, refer to them in square brackets, eg: [abc]
-- To match one of a range of values, use a hyphen to indicate the range: e.g. [a-Z],[0-9]
+- To match one of a range of values, use a hyphen to indicate the range: e.g. [a-z],[0-9]
 - To match either of a couple of patterns/expressions, use the OR operator, eg: "2017|2018"
 - There are also abbreviation for one of specific types of characters
   

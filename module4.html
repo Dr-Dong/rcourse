@@ -11,7 +11,7 @@
 
 
 
-<title>Introduction to R</title>
+<title>Module 4: Dynamic documents and project management</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -57,7 +57,29 @@ code > span.an { color: #008000; } /* Annotation */
 code > span.cv { color: #008000; } /* CommentVar */
 code > span.at { } /* Attribute */
 code > span.in { color: #008000; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -114,8 +136,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -131,7 +159,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -151,6 +178,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -172,18 +236,77 @@ $(document).ready(function () {
 });
 </script>
 
-
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -292,12 +415,21 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SSE Intro to R</a>
+      <a class="navbar-brand" href="index.html">Data Analysis in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">Overview</a>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Overview
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="calendar.html">Schedule</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -310,23 +442,17 @@ div.tocify {
       <a href="module1.html">M1:  Base R</a>
     </li>
     <li>
-      <a href="module2.html">M2: Tidyverse Data Manipulation</a>
+      <a href="module2.html">M2: Tidyverse Data Preparation</a>
     </li>
     <li>
-      <a href="module3.html">M3: Loops, Conditionals, and Joins</a>
+      <a href="module3.html">M3: Programming, joining data, and more</a>
     </li>
     <li>
-      <a href="module4.html">M4: RMarkdown and Project Management</a>
+      <a href="module4.html">M4: Project Management and Dynamic Documents</a>
     </li>
-    <li>
-      <a href="module5.html">M5: Regression Modelling and Data Viz</a>
-    </li>
-    <li>
-      <a href="module6.html">M6: Capstone Project</a>
-    </li>
-    <li>
-      <a href="module7.html">M7: Bayesian Methods</a>
-    </li>
+    <li class="dropdown-header">M5: Regression Modelling and Data Visualization</li>
+    <li class="dropdown-header">M6:  Further Regression Methods</li>
+    <li class="dropdown-header">M7: Intro to Bayesian Methods</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -354,6 +480,9 @@ div.tocify {
     <li>
       <a href="http://r4ds.had.co.nz/">R for Data Science Online Book</a>
     </li>
+    <li>
+      <a href="https://style.tidyverse.org/">R Style Guide</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -377,6 +506,9 @@ div.tocify {
     </li>
     <li>
       <a href="http://www.tug.org/mactex/mactex-download.html">MacTex (Mac)</a>
+    </li>
+    <li>
+      <a href="https://www.tug.org/texlive/debian.html">TeX Live (Linux)</a>
     </li>
     <li>
       <a href="https://www.sumatrapdfreader.org/free-pdf-reader.html">Sumatra PDF (Windows)</a>
@@ -419,27 +551,17 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Introduction to R</h1>
-<h3 class="subtitle"><em>Module 4: Dynamic documents and project management</em></h3>
+<h1 class="title toc-ignore">Module 4: Dynamic documents and project management</h1>
 
 </div>
 
 
-<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module4.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m4.pdf" role="button">Exercise</a></p>
-<p><br> <br></p>
-<div id="goals-for-module" class="section level3">
-<h3>Goals for Module</h3>
-<ul>
-<li><p>Learn how to create dynamic R documents in a variety of formats using knitr and RMarkdown</p></li>
-<li><p>Learn how to how manage the project structure using RStudio projects.</p></li>
-<li><p>Learn how to perform local and online online version control using Git and GitHub.</p></li>
-</ul>
-<p><br> <br></p>
-</div>
-<div id="rmarkdown-documents" class="section level2">
-<h2>RMarkdown documents</h2>
-<div id="reproducible-r-reports" class="section level3">
-<h3>Reproducible R Reports</h3>
+<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module4.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a></p>
+<p><br></p>
+<div id="rmarkdown-documents" class="section level1">
+<h1><strong>RMarkdown documents</strong></h1>
+<div id="reproducible-r-reports" class="section level2">
+<h2>Reproducible R Reports</h2>
 <ul>
 <li><p>So far, we have been working purely with basic “R Script” files, which are very similar to Stata do-files.</p></li>
 <li><p>But thanks largely to the <a href="https://yihui.name/knitr/">knitr package</a>, you can easily create reports that interweaves text and R code in a neatly structured manner.</p></li>
@@ -448,8 +570,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="getting-started" class="section level3">
-<h3>Getting started</h3>
+<div id="getting-started" class="section level2">
+<h2>Getting started</h2>
 <ul>
 <li><p>Reports of different file formats are generated using the <a href="https://yihui.name/knitr/">knitr package</a>.</p></li>
 <li><p>Before installing knitr, make sure sure that you have a Latex distribution installed.</p></li>
@@ -462,8 +584,8 @@ div.tocify {
 <span class="kw">library</span>(<span class="st">&quot;knitr&quot;</span>)</code></pre></div>
 <p><br></p>
 </div>
-<div id="knitr-and-rmarkdown" class="section level3">
-<h3>Knitr and RMarkdown</h3>
+<div id="knitr-and-rmarkdown" class="section level2">
+<h2>Knitr and RMarkdown</h2>
 <p>Knitr allows for the creation of documents structured using two different typesetting languages:</p>
 <ul>
 <li><p>LaTex with the .RNW file</p></li>
@@ -475,16 +597,20 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="creating-an-rmarkdown-document" class="section level3">
-<h3>Creating an RMarkdown document</h3>
+<div id="creating-an-rmarkdown-document" class="section level2">
+<h2>Creating an RMarkdown document</h2>
 <ul>
 <li><p>After installing knitr, to create an RMarkdown document, go to <strong>File—New File—R Markdown</strong>.</p></li>
 <li><p>A popup shows up to ask enter the document Title and Author, as well as what type of document you want to create.</p></li>
 </ul>
-<p><img src="assets/NewRMD.png" /> <br></p>
+<div class="figure">
+<img src="assets/NewRMD.png" />
+
 </div>
-<div id="writing-and-code-in-rmarkdown" class="section level3">
-<h3>Writing and Code in RMarkdown</h3>
+<p><br></p>
+</div>
+<div id="writing-and-code-in-rmarkdown" class="section level2">
+<h2>Writing and Code in RMarkdown</h2>
 <p>In RMarkdown, expository writing and code “chunks” are differentiated in writing code in specific code chunks.</p>
 <pre><code>```{r}
 # Here is an example of a code chunk
@@ -496,22 +622,26 @@ div.tocify {
 <pre><code>## [1] 4</code></pre>
 <p><br></p>
 </div>
-<div id="inline-chunks" class="section level3">
-<h3>Inline Chunks</h3>
+<div id="inline-chunks" class="section level2">
+<h2>Inline Chunks</h2>
 <p>You can also include inline code by using initializing with a backtick and the letter r (no space between), writing the code, then closing the chunk with another backtick.</p>
 <ul>
 <li>For example: <code  class="r"><code>`r 2+2`</code></code></li>
 </ul>
 <p><br></p>
 </div>
-<div id="knitting-a-document" class="section level3">
-<h3>Knitting a document</h3>
+<div id="knitting-a-document" class="section level2">
+<h2>Knitting a document</h2>
 <p>To generate a document in the desired output format from a RMarkdown document, you need to <strong>“Knit”</strong> the document, which appears as a clickable icon on the menu atop the script pane.</p>
 <p>You do not need to Knit a document after every change, however. You can just as easily run the code chunks. There are specific specific buttons to run either the current chunk or all of the chunks above a given chunk.</p>
-<p><img src="assets/RMDbuttons.png" /> <br></p>
+<div class="figure">
+<img src="assets/RMDbuttons.png" />
+
 </div>
-<div id="writing-outside-of-code-chunks" class="section level3">
-<h3>Writing outside of code chunks</h3>
+<p><br></p>
+</div>
+<div id="writing-outside-of-code-chunks" class="section level2">
+<h2>Writing outside of code chunks</h2>
 <p>Anything not written inside of these bacticked sections is interpret as normal writing.</p>
 <p>RMarkdown makes styling your writing particularly easy. Some common formatting options include:</p>
 <ul>
@@ -525,20 +655,35 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="lists-and-latex-input" class="section level3">
-<h3>Lists and Latex Input</h3>
+<div id="lists-and-latex-input" class="section level2">
+<h2>Lists and Latex Input</h2>
 <ul>
-<li><p><strong>Lists/Bullet Points</strong>: Like the bullet points here, you will often want to structure output using lists. To do so, start each bulleted line with a dash (-).</p>
+<li><p><strong>Latex input:</strong> Most LaTex commands (except for generally longer multi-line structures) can be included in RMarkdown documents just as you’d write them in Tex document.</p></li>
+<li><p><strong>Lists/Bullet Points</strong>: Like the bullet points here, you will often want to structure output using lists.</p>
 <ul>
+<li><p>To create a bulleted list, start each bulleted line with a dash (-).</p></li>
 <li><p>Make sure to leave an empty line between the start of the list and any other text.</p></li>
 <li><p>To make an indent “sub-list”, start the sub-list with a plus sign (+) and use tab to indent the line twice for each of the sub-list items.</p></li>
 </ul></li>
-<li><p><strong>Latex input:</strong> Most LaTex commands (except for generally longer multi-line structures) can be included in RMarkdown documents just as you’d write them in Tex document.</p></li>
 </ul>
 <p><br></p>
 </div>
-<div id="seperating-lines-in-rmarkdown" class="section level3">
-<h3>Seperating Lines in RMarkdown</h3>
+<div id="ordered-lists" class="section level2">
+<h2>Ordered Lists</h2>
+<ul>
+<li><p>Ordered lists use the same indent rules as unordered lists, but with no dashes or plus signs.</p>
+<ul>
+<li>You can also generally uses automatic numbering by repeating the initial letter or number (e.g.)</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="assets/ordered_list.png" />
+
+</div>
+<p><br></p>
+</div>
+<div id="seperating-lines-in-rmarkdown" class="section level2">
+<h2>Seperating Lines in RMarkdown</h2>
 <ul>
 <li><p>Something you might wonder is how to obey the RStudio 80-character margins while allowing your text to wrap normally in the generated documents.</p></li>
 <li><p>The answer lies in how new lines are treated in RMarkdown documents.</p>
@@ -548,8 +693,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="code-chunk-options" class="section level3">
-<h3>Code chunk options</h3>
+<div id="code-chunk-options" class="section level2">
+<h2>Code chunk options</h2>
 <p>There are several output options you can specify for how R code and the code output are expressed in reports. These options are expressed as options in the {r} declaration at the top of the chunk.</p>
 <ul>
 <li><p><strong>echo=FALSE</strong>: do not show the R code itself (but potentially the code output depending on other chunk options).</p></li>
@@ -560,8 +705,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="output-options" class="section level3">
-<h3>Output options</h3>
+<div id="output-options" class="section level2">
+<h2>Output options</h2>
 <p>When a RMarkdown document is generated in a given output format, there are several common things you can do to customize the appearance of the document.</p>
 <p>To add options to your document, indent the name of the output type to an indented new line and a colon to it. Then indent under the output type and add the desired options.</p>
 <div class="figure">
@@ -574,8 +719,8 @@ div.tocify {
 </div>
 <p><br></p>
 </div>
-<div id="common-output-options" class="section level3">
-<h3>Common output options</h3>
+<div id="common-output-options" class="section level2">
+<h2>Common output options</h2>
 <p>Here are a few common options:</p>
 <ul>
 <li><p><strong>table of contents</strong>: to include a table of contents in your document, use the <span style="color:blue"><strong>toc: yes</strong></span> option.</p></li>
@@ -588,8 +733,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="working-directories-in-rmarkdown" class="section level3">
-<h3>Working Directories in RMarkdown</h3>
+<div id="working-directories-in-rmarkdown" class="section level2">
+<h2>Working Directories in RMarkdown</h2>
 <p>In RMarkdown documents, the working directory is automatically set to the folder in which the RMarkdown document is saved.</p>
 <ul>
 <li><p>From there, you can use <em>relative file paths</em>. If data etc is in the root of the project folder, then just refer to the file name directly.</p></li>
@@ -598,8 +743,8 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">import</span>(.<span class="op">/</span>assets<span class="op">/</span>mydata.rds)</code></pre></div>
 <p><br></p>
 </div>
-<div id="r-notebooks" class="section level3">
-<h3>R Notebooks</h3>
+<div id="r-notebooks" class="section level2">
+<h2>R Notebooks</h2>
 <p>Aside from the standard RMarkdown documents that we’ve covered so far, another format worth mentioning is the <strong>R Notebook</strong> format.</p>
 <ul>
 <li><p>R Notebooks essentially adapt html RMarkdown documents to be even more similar to something like Jupyter Notebooks.</p></li>
@@ -610,10 +755,10 @@ div.tocify {
 <p><br></p>
 </div>
 </div>
-<div id="rstudio-projects" class="section level2">
-<h2>RStudio Projects</h2>
-<div id="projects-intro" class="section level3">
-<h3>Projects Intro</h3>
+<div id="rstudio-projects" class="section level1">
+<h1><strong>RStudio Projects</strong></h1>
+<div id="projects-intro" class="section level2">
+<h2>Projects Intro</h2>
 <p>In addition to using RMarkdown documents to make your scripts and reports more compelling, another process upgrade is using <strong>RStudio Projects</strong>.</p>
 <p>Projects are useful because they:</p>
 <ul>
@@ -623,8 +768,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="working-folder-benefits-of-a-project" class="section level3">
-<h3>Working folder benefits of a Project</h3>
+<div id="working-folder-benefits-of-a-project" class="section level2">
+<h2>Working folder benefits of a Project</h2>
 <ul>
 <li><p>A project root folder is not only preferable to the need to use <strong>setwd()</strong>, but also to the default working directory used in RMarkdown documents outside of R Projects. Why?</p></li>
 <li><p>Because for substantial research projects, you likely will have a lot of files that you split into different subfolders, one of which is probably something like <strong><em>code</em></strong>.</p>
@@ -634,8 +779,8 @@ div.tocify {
 <p><br></p></li>
 </ul>
 </div>
-<div id="using-rstudio-projects" class="section level3">
-<h3>Using RStudio Projects</h3>
+<div id="using-rstudio-projects" class="section level2">
+<h2>Using RStudio Projects</h2>
 <p>To create a RStudio Project, go to <strong>File – New Project</strong>. From there, you can choose whether to create a new directory, use an existing directory, or use a Version Control repository.</p>
 <ul>
 <li><p>In practice, I’d suggest you use either a <strong>New Directory</strong> or <strong>Version Control</strong> depending on whether or not you want to sync your scripts to GitHub.</p>
@@ -646,24 +791,34 @@ div.tocify {
 <p>Once you have created a Project, you can either open it from the File Menu or by opening the .RProj file in the project directory     root.</p>
 <p><br></p>
 </div>
-<div id="project-workflow-structure" class="section level3">
-<h3>Project workflow structure</h3>
+<div id="project-workflow-structure" class="section level2">
+<h2>Project workflow structure</h2>
 <p><strong>Sample Folder Structure:</strong></p>
 <ul>
-<li>analysis/</li>
-<li>cache</li>
-<li>citation/</li>
-<li>code/</li>
-</ul>
-
+<li>code/
 <ul>
+<li>data_prep/</li>
+<li>analysis/</li>
+</ul></li>
 <li>data/
 <ul>
 <li>raw_data/</li>
 <li>derived_data/</li>
 </ul></li>
-<li>figures/</li>
+</ul>
+
+<ul>
+<li>docs/
+<ul>
+<li>report/</li>
+<li>presentation/</li>
+</ul></li>
 <li>images/</li>
+<li>results/
+<ul>
+<li>tables/</li>
+<li>figures/</li>
+</ul></li>
 </ul>
 <p><strong>Some workflow management packages:</strong></p>
 <ul>
@@ -672,13 +827,35 @@ div.tocify {
 <li><a href="http://projecttemplate.net/">ProjectTemplate</a></li>
 <li><a href="http://pirategrunt.com/represtools/">represtools</a></li>
 </ul>
+<p><br></p>
+</div>
+<div id="reproducibility-and-the-r-environment" class="section level2">
+<h2>Reproducibility and the R environment</h2>
+<ul>
+<li><p>A concern with any type of analysis project is that over time, the analysis environment can change – making it harder to reproduce results.</p>
+<ul>
+<li>The most common concern is that packages may change or become obsolete</li>
+<li>But also the program itself (R) can change, the OS can change, etc. All potentially leading to the inability to reproduce results.</li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="managing-the-r-environment" class="section level2">
+<h2>Managing the R environment</h2>
+<ul>
+<li>A solution to evolving package ecosystems built-in to R Projects is <a href="https://rstudio.github.io/packrat/">packrat</a>.
+<ul>
+<li><strong>packrat</strong> can create a package library specific to the individual project.</li>
+</ul></li>
+<li>A more robust reproducibility solution is with <a href="https://ropenscilabs.github.io/r-docker-tutorial/">Docker</a>, which creates “containers” in which not only packages are fixed, but also the software (and even the virtual machine).</li>
+</ul>
 <p><br> <br></p>
 </div>
 </div>
-<div id="version-control" class="section level2">
-<h2>Version Control</h2>
-<div id="what-is-version-control" class="section level3">
-<h3>What is version control?</h3>
+<div id="version-control" class="section level1">
+<h1><strong>Version Control</strong></h1>
+<div id="what-is-version-control" class="section level2">
+<h2>What is version control?</h2>
 <p>Version control is a means to track changes made to files</p>
 <p>Version control allows you to:</p>
 <ul>
@@ -686,8 +863,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="local-version-control-with-git" class="section level3">
-<h3>Local Version Control with Git</h3>
+<div id="local-version-control-with-git" class="section level2">
+<h2>Local Version Control with Git</h2>
 <p>The most popular software for managing version control is Git.</p>
 <ul>
 <li><p>There’s a good chance you’ve at least seen GitHub before, which is an online remote location for storing version control repositories.</p></li>
@@ -701,8 +878,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="remote-version-control-with-github" class="section level3">
-<h3>Remote version control with GitHub</h3>
+<div id="remote-version-control-with-github" class="section level2">
+<h2>Remote version control with GitHub</h2>
 <ul>
 <li><p>In addition to local version control, you can also back up the history of file changes to online repositories using GitHub.</p></li>
 <li><p>GitHub connects to the local Git repository on your computer, “pushing” and “pulling” changes between the local and remote repositories.</p></li>
@@ -710,8 +887,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="using-github-for-remote-version-control" class="section level3">
-<h3>Using GitHub for remote version control</h3>
+<div id="using-github-for-remote-version-control" class="section level2">
+<h2>Using GitHub for remote version control</h2>
 <p>With a GitHub account, you can create a new online repository by clicking the “+” icon in the top right of a GitHub page, and then clicking “New Repository”.</p>
 <div class="figure">
 <img src="assets/github.png" />
@@ -719,8 +896,8 @@ div.tocify {
 </div>
 <p><br></p>
 </div>
-<div id="setting-up-a-new-repository" class="section level3">
-<h3>Setting up a new repository</h3>
+<div id="setting-up-a-new-repository" class="section level2">
+<h2>Setting up a new repository</h2>
 <p>From there, you need to:</p>
 <ul>
 <li><p>Supply GitHub with a repository name (think folder name)</p></li>
@@ -735,8 +912,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="using-a-remote-repository-with-github" class="section level3">
-<h3>Using a Remote Repository with GitHub</h3>
+<div id="using-a-remote-repository-with-github" class="section level2">
+<h2>Using a Remote Repository with GitHub</h2>
 <p>Once you’ve created an online repository, <strong><em>Projects</em></strong> once again allows you to easily connect RStudio with the repository.</p>
 <ul>
 <li><p>To setup a project for use with GitHub, create a <strong>New Project</strong> and select <strong>Version Control</strong> instead of <strong>New Directory.</strong></p></li>
@@ -744,8 +921,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="tracking-changes-with-git" class="section level3">
-<h3>Tracking changes with Git</h3>
+<div id="tracking-changes-with-git" class="section level2">
+<h2>Tracking changes with Git</h2>
 <p>Once you have a Project setup with version control, the first key component of tracking changes is “Committing” them to the repository</p>
 <ul>
 <li>A “commit” is an update that saves revisions of files into the Git repository.</li>
@@ -761,8 +938,8 @@ div.tocify {
 </div>
 <p><br></p>
 </div>
-<div id="syncing-changes-with-a-remote-repository" class="section level3">
-<h3>Syncing changes with a remote repository</h3>
+<div id="syncing-changes-with-a-remote-repository" class="section level2">
+<h2>Syncing changes with a remote repository</h2>
 <ul>
 <li><p>If you are just tracking changes with a local repository, commit is sufficient to manage version control.</p></li>
 <li><p>But if you are using version control with an remote (ie online) repository, you will two other steps to make sure changes are sync between the local repository and online.</p>
@@ -773,8 +950,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="viewing-previous-commits" class="section level3">
-<h3>Viewing previous commits</h3>
+<div id="viewing-previous-commits" class="section level2">
+<h2>Viewing previous commits</h2>
 <ul>
 <li><p>To view previous versions of the files (along with annotations supplied with the commit message), click on the clock icon in the Git pane.</p></li>
 <li><p>From there, you can see not only a “difference” view of the file changes, but you can also open the document exactly how it was written in a previous commit.</p></li>

@@ -11,13 +11,26 @@ urlcolor: blue
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Create a project with remote version control
+### Enable version control in RStudio
 
-- From GitHub, create a new repository for the R minicourse.  Remember to initialize it 
-with a ReadMe file.  
+Go to **Tools - Global Options - Git/SVN** and click the "Enable version control 
+for RStudio" so that version control is enabled.
+
+### Add RStudio SSH Key to GitHub
+While you are on the page, click **Create RSA Key**. You don't need to add a 
+passphrase, just create the key.  When it is created, copy the key.
+
+Then go to your GitHub account, click on your user icon in the top right of the 
+screen, then click **Settings**.
+
+From there, click **SSH and GPG Keys** and then click on **New SSH key**.  Paste 
+the key into the **Key** box --- you don't need to add a title.  Click on **Add 
+SSH key** to finish adding the RStudio key.
+
+### Create a R project with remote version control
 
 - In RStudio, then create a new project with remote version control, setting it 
-up for use with the online repository you've just created.
+up for use with your Github course repository.
 
 - Now as make changes on the document below, use version control to routinely 
 update your documents on GitHub.
@@ -30,8 +43,8 @@ shows:
   
     + The instructions for each task, formatted as in the PDF,
     + Your code
-    + The output of each step.  If a step doesn't have any explicit output, 
-    print the tibbles that result from changes you make in the given step.
+    + Each dataframe created (IMDB 250, Top Box Office 
+    Movies, and the Combined Dataset) is displayed.
 
 - Make sure the results have the following:
 
@@ -59,7 +72,8 @@ instead of displaying the data frame itself.
 #### Now create a Beamer presentation copy
 
 Once again, save another copy of your work, now for use in generating a Beamer 
-presentation (you can try out other presentation types if you prefer).
+presentation (you can try out other presentation types if you prefer).  You need 
+only present questions 1 and 2 in the presentation.
 
 - This time, keep [head()](https://www.rdocumentation.org/packages/utils/versions/3.4.3/topics/head) 
 in the document but set the chunk options so that no output is displayed, just 
@@ -69,6 +83,6 @@ the code itself.
 the RStudio page on how to specify these options [here](https://rmarkdown.rstudio.com/beamer_presentation_format.html#themes) 
 and then choose a theme and color theme from the [Theme Matrix](https://hartwork.org/beamer-theme-matrix/).
 
-- Try adding an [image](http://s2.quickmeme.com/img/99/9903c7c14add3fd0758b7b5b80c24d48101f296f13ce34736799a82c71f61bc2.jpg) to the last slide of
+- Add an [image](http://s2.quickmeme.com/img/99/9903c7c14add3fd0758b7b5b80c24d48101f296f13ce34736799a82c71f61bc2.jpg) to the last slide of
 your presentation.
 

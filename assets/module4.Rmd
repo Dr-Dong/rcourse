@@ -1,26 +1,54 @@
 ---
-title: "Module 4: Dynamic documents and project management"
+title: "Introduction to Data Analysis in R"
+subtitle: "Module 4: Dynamic documents and project management"
+author: "Andrew Proctor" 
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "February 11, 2019"
 output: 
-  html_document:
-      self_contained: true
-      theme: flatly
-      highlight: haddock
+  beamer_presentation:
+      theme: "Amsterdam"
+      highlight: espresso
+      slide_level: 2
       toc: true
-      toc_float: true
+header-includes:
+  - \usepackage{color} 
+  - \usepackage{verbatim}
+  - \usepackage{hyperref}
+  - \definecolor{cornflower}{HTML}{1c86ee}
+  - \hypersetup{
+    colorlinks=true,
+    linkcolor=cornflower,
+    filecolor=magenta,      
+    urlcolor=blue,
+    }
+  - \renewcommand{\chaptername}{Part}
+  - \newcommand{\fullline}{\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}}
+  - \newcommand{\bminione}{\begin{minipage}{0.5 \textwidth}}
+  - \newcommand{\bminitwo}{\begin{minipage}{0.5 \textwidth}}
+  - \newcommand{\emini}{\end{minipage}}
 
 ---
 
-```{r setup, include=FALSE}
+```{r setup}
 library(tidyverse)
 library(rio)
+library(rprojroot)
+library(here)
 ```
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module4.pdf" role="button">Slides</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a> 
+# Intro
 
-<br>
+## Goals for Today
 
-# **RMarkdown documents**
+- Learn how to create dynamic R documents in a variety of formats using knitr 
+and RMarkdown
+
+- Learn how to how manage the project structure using RStudio projects.
+
+- Learn how to perform local and online online version control using Git and
+ GitHub.
+
+# RMarkdown documents
 
 ## Reproducible R Reports
 
@@ -36,9 +64,6 @@ various presentation formats including Beamer (LaTex) presentations.
 
   + The course website, lecture slides, and exercise instructions have all been
     generated in R.
-    
-<br>
-
 
 ## Getting started
 
@@ -58,8 +83,6 @@ installed.
 library("knitr")
 ```
 
-<br>
-
 ## Knitr and RMarkdown
 
 Knitr allows for the creation of documents structured using two different 
@@ -76,8 +99,6 @@ dominant method for "knitting" document because of it's lightweight and flexibil
 - More information about how to generate R reports using the Latex format can be 
 found at [https://rpubs.com/YaRrr/SweaveIntro](https://rpubs.com/YaRrr/SweaveIntro).
 
-<br>
-
 ## Creating an RMarkdown document
 
 - After installing knitr, to create an RMarkdown document, go to 
@@ -86,9 +107,7 @@ found at [https://rpubs.com/YaRrr/SweaveIntro](https://rpubs.com/YaRrr/SweaveInt
 - A popup shows up to ask enter the document Title and Author, as well as what 
 type of document you want to create.
 
-  ![](./assets/NewRMD.png)
-
-<br>
+\includegraphics[scale=0.4]{NewRMD.png}
 
 ## Writing and Code in RMarkdown
 
@@ -107,7 +126,6 @@ When you create the document, that statement gets evaluated as:
     2 +2 
 ```
 
-<br>
 
 ## Inline Chunks 
 
@@ -124,9 +142,6 @@ rinline <- function(code){
 
 - For example: `r rinline("2+2")`
 
-<br>
-
-
 ## Knitting a document
 
 To generate a document in the desired output format from a RMarkdown document, 
@@ -137,9 +152,8 @@ You do not need to Knit a document after every change, however.  You can just as
 easily run the code chunks.  There are specific specific buttons to run either 
 the current chunk or all of the chunks above a given chunk.
 
-![](./assets/RMDbuttons.png)
+\includegraphics[scale=0.4]{RMDbuttons.png}
 
-<br>
 
 ## Writing outside of code chunks
 
@@ -156,9 +170,6 @@ options include:
 - **Bold**:  To bold text, wrap it in two asterisks:  `**Bold Statement**`
 - **Italics:** To italicize text, wrap in a single asterisk: \ \ \ \ \ \ 
 `*Italics Statement*`
-
-<br>
-
 
 ## Lists and Latex Input
 
@@ -177,8 +188,6 @@ structure output using lists.
     + To make an indent "sub-list", start the sub-list with a plus sign (+) and use 
     tab to indent the line twice for each of the sub-list items.
 
-<br>
-
 ## Ordered Lists  
 
 - Ordered lists use the same indent rules as unordered lists, but with no dashes 
@@ -187,9 +196,7 @@ or plus signs.
     + You can also generally uses automatic numbering by repeating the initial 
     letter or number (e.g.)
     
-![](./assets/ordered_list.png)
-
-<br>
+\includegraphics[scale=0.4]{ordered_list.png}
 
 ## Seperating Lines in RMarkdown
 
@@ -201,8 +208,6 @@ allowing your text to wrap normally in the generated documents.
     + If the line ends with one space or less, a new line in RMarkdown will not 
     be treated as a new line in the documents generated.
     
-<br>
-
 ## Code chunk options
 
 There are several output options you can specify for how R code and the code output
@@ -222,8 +227,6 @@ it.
 - **warning=FALSE** / **message=FALSE**:  do not show \ \ \ warnings or messages 
 associated with the R code.
 
-<br>
-
 
 ## Output options
 
@@ -234,27 +237,30 @@ To add options to your document, indent the name of the output type to an indent
 new line and a colon to it.  Then indent under the output type and add the 
 desired options.
 
+\bminione
 
-![**Before**](./assets/output_options_before.png)
+\includegraphics[scale=0.6]{output_options_before.png}
 
-![**After**](./assets/output_options_after.png)
+\emini
+\bminitwo
 
-<br>
+\includegraphics[scale=0.6]{output_options_after.png}
 
+\emini
 
 ## Common output options
 
 Here are a few common options:
 
 - **table of contents**:  to include a table of contents in your document, use 
-the <span style="color:blue">**toc: yes**</span> option.
+the $\color{blue} \textbf{toc: yes}$ option.
 
-- To change the way data frame output is printed, use the <span style="color:blue">**df_print**</span>
- option.  Good options are <span style="color:blue">**kable**</span> 
-or <span style="color:blue">**tibble**</span>.
+- To change the way data frame output is printed, use the 
+$\color{blue} \textbf{df\_print: }$ option.  Good options are $\color{blue} \textbf{kable}$ 
+or $\color{blue} \textbf{tibble}$.
 
 - To add code highlighting for R chunks, use the 
- <span style="color:blue">**highlight:**</span> option.  
+$\color{blue} \textbf{highlight:}$ option.  
 
     + **Options include:** default, tango,  pygments, kate, monochrome, espresso, 
     zenburn, haddock, and textmate.
@@ -262,8 +268,6 @@ or <span style="color:blue">**tibble**</span>.
 - You can also specify output themes for html documents and beamer presentations. 
 For html documents, possible themes are listed [here](https://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style) 
 while beamer themes are typically supplied \ \ \ \ \ \ by .sty files in your project folder.
-
-<br>
     
 ## Working Directories in RMarkdown    
 
@@ -276,10 +280,8 @@ project folder, then just refer to the file name directly.
 - If data is in a subfolder, eg *data*, use a relative path like: 
 
 ```{r, eval=FALSE}
-import(./assets/mydata.rds)
+import(./data/mydata.rds)
 ```
-
-<br>
 
 ## R Notebooks
 
@@ -294,12 +296,7 @@ again.
 
 - The document also generally has the Notebook-style code-output-code layout.
 
-<br>
-
-<br>
-
-
-# **RStudio Projects**
+# RStudio Projects
 
 ## Projects Intro
 
@@ -311,9 +308,6 @@ Projects are useful because they:
 - Define a project root folder
 - Save a RStudio environment that is unique to each project
 - Allow for easy version control
-
-<br>
-
 
 ## Working folder benefits of a Project
 
@@ -328,9 +322,6 @@ that you split into different subfolders, one of which is probably something lik
     + In this case, you'd need to use somewhat convoluted relative file 
     paths to indicate that the paths should be from the parent folder 
     of ***code***.
-    
-    <br>
-
 
 ## Using RStudio Projects
 
@@ -345,13 +336,12 @@ depending on whether or not you want to sync your scripts to GitHub.
     
 Once you have created a Project, you can either open it from the File Menu or by 
 opening the .RProj file in the project directory \ \ \ \ root.
-
-<br>
     
 ## Project workflow structure
 
 **Sample Folder Structure:**
 
+\bminione
 
 - code/
     + data_prep/
@@ -362,6 +352,10 @@ opening the .RProj file in the project directory \ \ \ \ root.
 
 \vspace{1.5em}
 
+    
+\emini
+\bminitwo
+
 - docs/
     + report/
     + presentation/
@@ -370,16 +364,19 @@ opening the .RProj file in the project directory \ \ \ \ root.
     + tables/
     + figures/
 
+\emini
 
-**Some workflow management packages:**
+## Some workflow management packages:
+
+The following packages can help with setting up workflow, with predefined 
+structures and integration of other useful tools, such as caching, versioning, 
+and logging. 
 
 - [rrtools](https://github.com/benmarwick/rrtools)
 - [workflowr](https://jdblischak.github.io/workflowr/index.html)
 - [ProjectTemplate](http://projecttemplate.net/)
 - [represtools](http://pirategrunt.com/represtools/)
 
-<br>
-    
 ## Reproducibility and the R environment
 
 - A concern with any type of analysis project is that over time, the analysis 
@@ -389,7 +386,6 @@ environment can change -- making it harder to reproduce results.
     + But also the program itself (R) can change, the OS can change, etc. All 
     potentially leading to the inability to reproduce results.
 
-<br>
 
 ## Managing the R environment
     
@@ -401,12 +397,7 @@ environment can change -- making it harder to reproduce results.
 (and even the virtual machine).
 
 
-<br>
-<br>
-
-
-
-# **Version Control**
+# Version Control
 
 ## What is version control?
 
@@ -418,7 +409,6 @@ Version control allows you to:
 -Annotate changes
 -Allow you to revert files to previous versions
 
-<br>
 
 ## Local Version Control with Git
 
@@ -433,6 +423,8 @@ your local computer.
 Once Git is installed (and recognized in RStudio), you can use Projects to 
 perform local version control.
 
+## Local Version Control with Git ctd
+
 In **File -- New Project -- New Directory**, once you have Git installed there 
 is a checkbox that can be selected to enable to "Create a Git repository".  
 
@@ -442,8 +434,6 @@ folder, here the project folder. The Git repository is stored as a folder named
 
 - Creating a Project in this manner with a Git repository will enable version 
 control on your local computer.
-
-<br>
 
 ## Remote version control with GitHub
 
@@ -456,16 +446,12 @@ changes to online repositories using GitHub.
 - This also allows for easy collaboration on coding projects, as multiple person 
 can sync to files by connecting to the remote repository.
 
-<br>
-
 ## Using GitHub for remote version control
 
 With a GitHub account, you can create a new online repository by clicking the "+" 
 icon in the top right of a GitHub page, and then clicking "New Repository".
 
-  ![](./assets/github.png)
-
-<br>
+  \includegraphics[scale=0.4]{github.png}
 
 
 ## Setting up a new repository
@@ -486,8 +472,6 @@ repository).
     comment but is not strictly necessary.  Commenting uses Markdown, which 
     is essentially the same as RMarkdown!
 
-<br>
-
 ## Using a Remote Repository with GitHub
 
 Once you've created an online repository, ***Projects*** once again allows you 
@@ -499,7 +483,6 @@ to easily connect RStudio with the repository.
   + From there, simply choose "Git" and then copy the url of the repository from 
   GitHub into RStudio.
   
-<br>
   
 ## Tracking changes with Git
 
@@ -519,9 +502,9 @@ revision and asks for a commit message, where you should very briefly describe t
 changes.
 
 
-  ![](./assets/commit.png)
+## Tracking changes with Git
 
-<br>
+  \includegraphics[scale=0.3]{commit.png}
 
 ## Syncing changes with a remote repository
 
@@ -536,8 +519,6 @@ online.
     click on "Push."
     
     + To sync changes from the online repository to local files, click on "Pull".
-
-<br>
     
 ## Viewing previous commits
 

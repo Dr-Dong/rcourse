@@ -13,17 +13,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Enable version control in RStudio
 
-Go to **Tools - Global Options - Git/SVN** and click the "Enable version control 
+- Go to **Tools - Global Options - Git/SVN** and click the "Enable version control 
 for RStudio" so that version control is enabled.
 
 ### Add RStudio SSH Key to GitHub
-While you are on the page, click **Create RSA Key**. You don't need to add a 
+
+- While you are on the page, click **Create RSA Key**. You don't need to add a 
 passphrase, just create the key.  When it is created, copy the key.
 
-Then go to your GitHub account, click on your user icon in the top right of the 
+- Then go to your GitHub account, click on your user icon in the top right of the 
 screen, then click **Settings**.
 
-From there, click **SSH and GPG Keys** and then click on **New SSH key**.  Paste 
+- From there, click **SSH and GPG Keys** and then click on **New SSH key**.  Paste 
 the key into the **Key** box --- you don't need to add a title.  Click on **Add 
 SSH key** to finish adding the RStudio key.
 
@@ -31,6 +32,9 @@ SSH key** to finish adding the RStudio key.
 
 - In RStudio, then create a new project with remote version control, setting it 
 up for use with your Github course repository.
+
+    + For the exercise URL,  go to your Github account and click on the green 
+    "Clone or download button."  Ensure you copy the URL for "Clone with SSH".
 
 - Now as make changes on the document below, use version control to routinely 
 update your documents on GitHub.

@@ -29,7 +29,7 @@ header-includes:
 
 ---
 
-```{r setup}
+```{r setup, include=FALSE}
 library(tidyverse)
 library(rio)
 library(rprojroot)

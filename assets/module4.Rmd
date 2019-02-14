@@ -406,8 +406,8 @@ Version control is a means to track changes made to files
 Version control allows you to:
 
 - See a history of every change made to files
--Annotate changes
--Allow you to revert files to previous versions
+- Annotate changes
+- Allow you to revert files to previous versions
 
 
 ## Local Version Control with Git

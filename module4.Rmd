@@ -217,7 +217,7 @@ depending on other chunk options).
 - **eval=FALSE:** do not actually execute the code inside the chunk, only display 
 it.
 
-- **results=hide**:  run the code but do not show the results output.
+- **results="hide"**:  run the code but do not show the results output.
 
 - **warning=FALSE** / **message=FALSE**:  do not show \ \ \ warnings or messages 
 associated with the R code.

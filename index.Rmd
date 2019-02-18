@@ -36,10 +36,10 @@ and finally presentation.  During the mini-course, you will not only learn basic
 R functionality, but also how to leverage the extensive community-driven package 
 ecosystem, as well as how to write your own functions in R.
 
-Course content is broken up into 8 seminars, each covering one content module 
+Course content is broken up into 7 seminars, each covering one content module 
 except for the final review seminar. The length of each seminar may vary from 
-module to module, but should generally be less than 3 hours.  The first 30-45 
-minutes will be used to introduce new information, while the remainder of the 
+module to module, but should generally be less than 3 hours.  The first hour or so
+will be used to introduce new information, while the remainder of the 
 time will be spent doing hands-on practice.  The content for each module will be 
 posted the day before the seminar, so that you can familiarize yourself with the 
 material ahead of time if you like (though this isn't required).

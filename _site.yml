@@ -20,9 +20,7 @@ navbar:
       href: module4.html
     - text: 'M5: Regression Modelling and Data Visualization'
       href: module5.html
-    - text: 'M6:  Further Regression Methods'
-      href: ~
-    - text: 'M7: Intro to Bayesian Methods'
+    - text: 'M6: Intro to Bayesian Methods'
       href: ~
   - text: Learning Resources
     menu:

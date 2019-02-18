@@ -109,7 +109,7 @@ library(stargazer)
 
 ## Stargazer output
 ```{r, results='asis', echo=FALSE, message=FALSE}
-stargazer(cex_linreg, header=FALSE, type='latex')
+stargazer(cex_linreg, header=FALSE, no.space = TRUE, type='latex')
 ```
 
 ## Interactions and indicator variables

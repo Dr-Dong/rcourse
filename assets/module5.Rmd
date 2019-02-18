@@ -1,0 +1,840 @@
+---
+title: "Introduction to Data Analysis in R"
+subtitle: "Module 5: Regression analysis and data visualization"
+author: "Andrew Proctor" 
+institute: "andrew.proctor@phdstudent.hhs.se"
+date: "February 18, 2019"
+output: 
+  beamer_presentation:
+      theme: "Amsterdam"
+      highlight: espresso
+      df_print: kable
+      slide_level: 2
+      toc: true
+header-includes:
+  - \usepackage{color}  
+  - \usepackage{hyperref}
+  - \definecolor{cornflower}{HTML}{1c86ee}
+  - \hypersetup{
+    colorlinks=true,
+    linkcolor=cornflower,
+    filecolor=magenta,      
+    urlcolor=blue,
+    }
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rio)
+```
+
+# Intro
+
+## Goals for today
+
+1. Introduce basics of linear regression models in R, including model diagnostics and
+specifying error variance structures.
+2. Introduce further methods for panel data and instrumental variables.
+3. Explore data visualization methods using the ggplot2 package.
+
+# Regression Basics
+
+## Linear Regression
+
+The basic method of performing a linear regression in R is to the use the 
+[lm()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/lm) 
+function.  
+
+- To see the parameter estimates alone, you can just call the `lm()` function. 
+But much more results are available if you save the results to a regression output 
+object, which can then be accessed using the [summary()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary) 
+function.
+
+Syntax:
+```{r, eval=FALSE}
+myregobject <- lm(y ~ x1 + x2 + x3 + x4, 
+                  data = mydataset)
+
+```
+
+
+## CEX linear regression example
+
+```{r, include=FALSE}
+cex_data <- import("cex_data.rds")
+```
+
+```{r}
+lm(expenditures ~ educ_ref, data=cex_data)
+
+cex_linreg <- lm(expenditures ~ educ_ref, 
+                 data=cex_data)
+```
+
+## CEX linear regression example ctd
+```{r}
+summary(cex_linreg)
+```
+
+## Formatting regression output: tidyr
+
+With the [tidy()](https://www.rdocumentation.org/packages/broom/versions/0.4.3/topics/tidy) 
+function from the [broom](https://www.rdocumentation.org/packages/broom) package, you
+can easily create standard regression output tables.
+
+```{r}
+library(broom)
+tidy(cex_linreg)
+```
+
+## Formatting regression output: stargazer
+
+Another really good option for creating compelling regression and summary output 
+tables is the [stargazer](https://www.rdocumentation.org/packages/stargazer/) 
+package.
+
+- If you write your reports in LaTex, it's especially useful.
+
+```{r, eval=FALSE}
+# From console:  install.packages("stargazer")
+
+library(stargazer)
+
+stargazer(cex_linreg, header=FALSE, type='latex')
+```
+
+```{r, include=FALSE}
+library(stargazer)
+```
+
+## Stargazer output
+```{r, results='asis', echo=FALSE, message=FALSE}
+stargazer(cex_linreg, header=FALSE, type='latex')
+```
+
+## Interactions and indicator variables
+
+Including interaction terms and indicator variables in R is very easy. 
+
+- Including any variables coded as factors (ie categorical variables) will automatically 
+include indicators for each value of the factor.
+
+- To specify interaction terms, just specify `varX1*varX2`.
+
+- To specify higher order terms, write it mathematically inside of **I()**.
+
+**Example:**
+```{r, include=FALSE}
+library(Ecdat)
+data(Males)
+set.seed(28133)
+wages <- Wages1 %>% as.tibble() %>% as.data.frame() %>% 
+  select(wage,school, sex, exper) %>% rename(schooling = school)
+```
+
+```{r, eval=FALSE}
+wages_reg <- lm(wage ~ schooling + sex + 
+          schooling*sex + I(exper^2), data=wages)
+```
+
+## Example with interactions and factors
+```{r, echo=FALSE}
+wages_reg <- lm(wage ~ schooling + sex + 
+          schooling*sex + I(exper^2), data=wages)
+```
+
+```{r}
+tidy(wages_reg)
+```
+
+
+## Setting reference groups for factors
+
+By default, when including factors in R regression, the first *level* of the factor 
+is treated as the omitted reference group.
+
+- An easy way to instead specify the omitted reference group is to use the 
+[relevel()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/relevel) 
+function.
+
+**Example:**
+```{r}
+wages$sex <- wages$sex %>% relevel(ref="male")
+wagereg2 <- lm(wage ~ sex, data=wages); tidy(wagereg2)
+```
+
+
+## Useful output from regression
+
+A couple of useful data elements that are created with a regression output object
+are fitted values and residuals. You can easily access them as follows:
+
+- **Residuals:** Use the 
+[residuals()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/residuals) 
+function.
+```{r, eval=FALSE}
+myresiduals <- residuals(myreg)
+```
+
+- **Predicted values:** Use the 
+[fitted()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/fitted) 
+function.
+```{r, eval=FALSE}
+myfittedvalues <- fitted(myreg)
+```
+
+# Model Testing
+
+## Using the lmtest package
+
+The main package for specification testing of linear regressions in R is the 
+[lmtest](https://www.rdocumentation.org/packages/lmtest/) package.
+
+With it, you can:
+
+  - test for heteroskedasticity
+  - test for autocorrelation
+  - test functional form (eg Ramsey RESET test)
+  - discriminate between non-nested models and more
+
+All of the tests covered here are from the 
+[lmtest](https://www.rdocumentation.org/packages/lmtest/) package. As usual, you 
+need to install and initialize the package:
+
+```{r, message=FALSE}
+## In the console:  install.packages("lmtest")
+library(lmtest)
+```
+
+## Testing for heteroskedasticity
+
+Testing for heteroskedasticity in R can be done with the [bptest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest) 
+function from the [lmtest](https://www.rdocumentation.org/packages/lmtest) 
+to the model object.
+
+- By default, using a regression object as an argument to [bptest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest) 
+will perform the Koenker-Bassett version of the Breusch-Pagan test (aka 'generalized' 
+or 'studentized' Breusch-Pagan Test):
+
+```{r}
+bptest(wages_reg)
+```
+
+## Testing for heteroskedasticity ctd
+
+- If you want the "standard" form of the Breusch-Pagan Test, just use:
+```{r, eval=FALSE}
+bptest(myreg, studentize = FALSE)
+```
+
+- You can also perform the White Test of Heteroskedasticity using 
+[bptest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest) 
+by manually specifying the regressors of the auxiliary regression inside of `bptest`:
+    
+    + That is, specify the distinct regressors from the main equation, their squares, 
+    and cross-products.
+    
+```{r, eval=FALSE}
+bptest(myreg, ~ x1 + x2 + x1*x2 + I(x1^2) + 
+         I(x2^2), data=mydata)
+```
+
+## Functional form
+
+The **Ramsey RESET Test** tests functional form by evaluating if higher order 
+terms have any explanatory value.
+
+```{r}
+resettest(wages_reg)
+```
+
+## Testing for autocorrelation: Breusch-Godfrey test
+
+```{r}
+bgtest(wages_reg)
+```  
+
+##  Testing for autocorrelation: Durbin-Watson test
+```{r}
+dwtest(wages_reg)
+```   
+      
+## Specifying the variance structure
+
+In practice, errors should *almost always* be specified in a manner that is 
+heteroskedasticity and autocorrelation consistent.
+
+- In Stata, you can pretty much always use the **robust** option.
+- In R, you should more explicitly specify the variance structure. 
+
+    + The [sandwich](https://cran.r-project.org/web/packages/sandwich/) allows 
+    for specification of heteroskedasticity-robust, cluster-robust, and 
+    heteroskedasticity and autocorrelation-robust error structures.
+    
+    + These can then be used with t-tests [[coeftest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/coeftest)] and F-tests [[waldtest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/waldtest)] from [lmtest](https://www.rdocumentation.org/packages/lmtest).
+    
+```{r, include=FALSE}
+library(sandwich)
+```    
+
+
+## Heteroskedasticity-robust errors
+
+$HC_1$ Errors (MacKinnon and White, 1985):  $\Sigma = \frac{n}{n-k}diag{\hat\{u_i}^2\}$
+  
+  - Default heteroskedasticity-robust errors used by Stata with **robust**
+  
+$HC_3$ Errors (Davidson and MacKinnon, 1993): $\Sigma = diag \{ \big( \frac{\hat{u_i}}{1-h_i} \big)^2 \}$
+
+- Approximation of the jackknife covariance estimator
+
+- Recommended in some studies over $HC_1$ because it is better at keeping nominal 
+size with only a small loss of power in the presence of heteroskedasticity.
+
+
+## Heteroskedasticity-robust errors example
+
+```{r}
+
+cex_reg <- lm(expenditures ~ hh_size + educ_ref + 
+                region, data=cex_data)
+tidy(coeftest(cex_reg, vcov = 
+                vcovHC(cex_reg, type="HC1")))
+
+```
+
+## Computing marginal effects
+
+In linear regressions where the regressors and regressors are in "levels", the 
+coefficients are of course equal to the marginal effects.
+
+- But if the regression is nonlinear or a regressor enter in e.g. in logs or 
+quadratics, then marginal effects may be more important than coefficients.
+
+- You can use the package [margins](https://www.rdocumentation.org/packages/margins/versions/0.3.0) 
+to get marginal effects.
+
+```{r, message=FALSE}
+# install.packages("margins")
+library(margins)
+```
+
+## Marginal effects example
+
+We can get the Average Marginal Effects by using `summary` with **margins**:
+
+```{r}
+summary(margins(wages_reg))
+```
+
+
+# Further regression methods
+
+## Panel regression: first differences
+
+The package [plm](https://www.rdocumentation.org/packages/plm) provides a wide 
+variety of estimation methods and diagnostics for panel data. 
+
+- We will cover two common panel data estimators, first-differences regression and
+fixed effects regression.
+
+- To estimate first-differences estimator, use the [plm()](https://www.rdocumentation.org/packages/plm/versions/1.6-5/topics/plm) 
+in the plm package.
+```{r, message=FALSE}
+library(plm)
+```
+**Syntax:**
+```{r, eval=FALSE}
+myreg <- plm(y ~ x1 + x2 + x3, data = mydata, 
+          index=c("groupvar", "timevar"), model="fd")
+```
+
+## Panel regression: fixed effects
+
+Of course, in most cases fixed effects regression is a more efficient alternative 
+to first-difference regression.  
+
+To use fixed effects regression, instead specify the argument **model = "within"**.
+
+- Use the option **effect = "twoway"** to include group and year fixed effects.
+```{r, eval=FALSE}
+myreg <- plm(y ~ x1 + x2 + x3, data = mydata, 
+             index=c("groupvar", "timevar"), 
+             model="within", effect = "twoway")
+```
+
+
+
+## A crime example
+```{r, message=FALSE}
+crime_NC <- Crime %>% as.tibble() %>% 
+  select(county, year, crmrte, polpc, region, smsa, 
+  taxpc) %>% rename(crimerate=crmrte, 
+  police_pc = polpc, urban=smsa, tax_pc=taxpc)
+crime_NC[1:2,]
+```
+
+## First differences regression on the crime dataset
+```{r}
+crime_reg <- plm(crimerate ~ police_pc + tax_pc +
+                region + urban, data=crime_NC, 
+                index=c("county", "year"), model="fd")
+tidy(crime_reg)
+```
+
+## Fixed effects regression on the crime dataset
+```{r}
+crime_reg <- plm(crimerate ~ police_pc + police_pc +
+                tax_pc + urban, data=crime_NC, 
+                index=c("county", "year"), 
+                model="within", effect="twoway")
+tidy(crime_reg)
+```
+
+## Instrumental variables regression
+
+The most popular function for doing IV regression is the [ivreg()](https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg) in the
+[AER package](https://www.rdocumentation.org/packages/AER).
+
+```{r, message=FALSE}
+library(AER)
+```
+
+**Syntax:**
+```{r, eval=FALSE}
+myivreg <- ivreg(y ~ x1 + x2 | z1 + z2 + z3, 
+                 data = mydata)
+```
+
+## IV diagnostics
+
+Three common diagnostic tests are available with the **summary** output for regression
+objects from 
+[ivreg()](https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg).
+
+- **Durbin-Wu-Hausman Test of Endogeneity:** Tests for endogeneity of suspected 
+endogenous regressor under assumption that instruments are exogenous.
+
+- **F-Test of Weak Instruments**: Typical rule-of-thumb value of 10 to avoid weak 
+instruments, although you can compare again Stock and Yogo (2005) critical values 
+for more precise guidance concerning statistical size and relative bias.
+
+- **Sargan-Hansen Test of Overidentifying Restrictions:** In overidentified case,
+tests if some instruments are endogenous \ \ \ under the initial assumption that all 
+instruments are exogenous.
+
+## IV regression example
+
+Let's look at an IV regression from the seminal paper 
+"The Colonial Origins of Comparative Development" by Acemogulu, Johnson, and 
+Robinson (AER 2001)
+
+```{r}
+col_origins <- import("maketable5.dta") %>% 
+  as.tibble() %>% filter(baseco==1) %>% 
+  select(logpgp95, avexpr, logem4, shortnam) %>%
+  rename(logGDP95 = logpgp95, country = shortnam,
+    legalprotect = avexpr, log.settler.mort = logem4)
+
+col_origins_iv <- ivreg(logGDP95 ~ legalprotect | 
+      log.settler.mort, data = col_origins)
+```
+
+
+## IV regression example:  estimates
+
+```{r}
+IVsummary <- summary(col_origins_iv, diagnostics = TRUE)
+IVsummary["coefficients"]
+```
+
+## IV regression example:  diagnostics
+
+```{r}
+IVsummary["diagnostics"]
+```
+
+## Further regression methods
+
+Some useful functions for nonlinear regression include:
+
+- **Quantile Regression:** [rq()](https://www.rdocumentation.org/packages/quantreg/versions/5.34/topics/rq) 
+in the [quantreg](https://www.rdocumentation.org/packages/quantreg/) package.
+
+- **Limited Dependent Variable Models:** 
+
+    + These models, such as logit and probit (binary choice), or Poisson (count 
+    model) are incorporated in R as specific cases of a 
+    *generalized linear model* (GLM).
+    
+    + GLM models are estimated in R using the 
+    [glm()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/glm) 
+    function in base R.
+- **Regression Discontinutiy:** 
+
+    + RDD designs can easily be performed in R through a few different packages. 
+    + I suggest using the function 
+    [rdrobust()](https://www.rdocumentation.org/packages/rdrobust/versions/0.98/topics/rdrobust) 
+    from the package of \ \ \ the same name.
+
+# Graphs in R
+
+## Data visualization overview
+
+One of the strong points of R is creating very high-quality data visualization. 
+
+- R is very good at both "static" data visualization and interactive data 
+visualization designed for web use.
+
+- Today, I will be covering static data visualization, but here are a couple of 
+good resources for interactive visualization: [[1](http://www.rebeccabarter.com/blog/2017-04-20-interactive/)], [[2](https://www.r-graph-gallery.com/get-the-best-from-ggplotly/)]
+ 
+
+## ggplot2 for data visualization
+
+The main package for publication-quality static data visualization in R is 
+[ggplot2](https://www.rdocumentation.org/packages/ggplot2), which is part of the 
+tidyverse collection of packages.
+
+- The workhorse function of ggplot2 is [ggplot()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplot), response for creating 
+a very wide variety of graphs.
+
+- The "gg" stands for "grammar of graphics". In each  [ggplot()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplot) call,
+the appearance of the graph is determined by specifying:
+
+    + The **data**(frame) to be used.
+    + The **aes**(thetics) of the graph --- like size, color, x and y variables.
+    + The **geom**(etry) of the graph ---  type of data to be used.
+```{r, eval=FALSE}
+mygraph <- ggplot(mydata, aes(...)) + geom(...) + ... 
+```
+
+## Scatterplots
+
+First, let's look at a simple scatterplot, which is defined by using the geometry 
+**geom_point()**.
+
+```{r fig.height=1.8, fig.width=3.5}
+ggplot(col_origins, aes(x=legalprotect, 
+            y = logGDP95)) + geom_point() 
+
+```
+
+
+## Adding an aesthetic option to the points 
+
+Graphs can be extensively customized using additional arguments inside of elements:
+```{r, eval = FALSE}
+ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) + 
+  geom_point(aes(size=logGDP95))
+
+```
+
+## Adding an aesthetic option to the points 
+
+```{r, echo = FALSE}
+ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) +
+  geom_point(aes(size=logGDP95))
+
+```
+
+## Using country names instead of points
+
+Instead of using a scatter plot, we could use the names of the data points in 
+place of the dots.
+
+```{r, eval=FALSE}
+ggplot(col_origins, 
+       aes(x=legalprotect, y = logGDP95, 
+       label=country)) +  geom_text()
+
+```
+
+## Using country names instead of points ctd
+
+```{r, echo=FALSE}
+ggplot(col_origins, 
+       aes(x=legalprotect, y = logGDP95, 
+       label=country)) +   geom_text()
+
+```
+
+## Line graph
+
+A line graph uses the geometry **geom_line()**.
+
+```{r, eval=FALSE}
+ggplot(col_origins, aes(x=legalprotect, 
+            y = logGDP95)) + geom_line()
+
+```
+
+## Line graph
+
+```{r, echo=FALSE}
+ggplot(col_origins, aes(x=legalprotect, 
+            y = logGDP95)) + geom_line() 
+
+```
+
+## Plotting a regression line
+
+A more useful line is the fitted values from the regression.  Here's a plot of 
+that line with the points from the scatterplot for the Acemoglu IV: 
+
+```{r, eval=FALSE}
+IV_fitted <- tibble(col_origins$legalprotect, 
+                    fitted(col_origins_iv))
+colnames(IV_fitted) <- c("legalprotect", "hat")
+
+ggplot(col_origins, aes(x=legalprotect, 
+  y = logGDP95))  +  geom_point(color="red")  +  
+  geom_line(data = IV_fitted, aes(x=legalprotect, 
+                                  y=hat)) 
+```
+
+## Plotting a regression line
+
+```{r, echo=FALSE}
+IV_fitted <- tibble(col_origins$legalprotect, 
+                    fitted(col_origins_iv))
+colnames(IV_fitted) <- c("legalprotect", "hat")
+
+ggplot(col_origins, aes(x=legalprotect, 
+  y = logGDP95))  +  geom_point(color="red")  +  
+  geom_line(data = IV_fitted, aes(x=legalprotect, 
+                                  y=hat)) 
+```
+
+## Specifying axis and titles 
+
+A standard task in making the graph is specifying graph titles (main and axes), 
+as well as potentially specifying the scale of the axes.
+
+```{r, eval=FALSE}
+ggplot(col_origins, 
+  aes(x=legalprotect, y = logGDP95))  + 
+  geom_point(color="red") +  
+  geom_line(data = IV_fitted, 
+  aes(x=legalprotect, y=hat))  + 
+  ggtitle("GDP and Legal Protection") +
+  xlab("Legal Protection Index [0-10]") + 
+  ylab("Log of 1995 GDP") +
+  xlim(0, 10) + ylim(5,10)
+
+```
+
+## Specifying axis and titles 
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  + 
+  geom_point(color="red") +  geom_line(data = IV_fitted, 
+  aes(x=legalprotect, y=hat))  + 
+  ggtitle("GDP and Legal Protection") +
+  xlab("Legal Protection Index [0-10]") + 
+  ylab("Log of 1995 GDP") +
+  xlim(0, 10) + ylim(5,10)
+
+```
+
+## Histogram
+
+The geometry point for histogram is **geom_histogram()**.
+
+```{r, eval=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram() + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") 
+
+
+```
+
+## Histogram
+
+
+```{r, echo=FALSE, message=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram() + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") 
+
+
+```
+
+## Bar plot
+
+The geometry for a bar plot is **geom_bar()**. By default, a bar plot uses 
+frequencies for its values, but you can use values from a column by specifying 
+**stat = "identity"** inside **geom_bar()**.
+
+
+```{r, eval=FALSE}
+
+coeffs_IV <- tidy(col_origins_iv)
+
+ggplot(coeffs_IV, 
+  aes(x=term, y=estimate)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Parameter Estimates for Colonial Origins") +
+  xlab("Parameter") + ylab("Estimate")
+
+```
+
+## Bar plot
+
+```{r, echo=FALSE}
+
+coeffs_IV <- tidy(col_origins_iv)
+
+ggplot(coeffs_IV, 
+  aes(x=term, y=estimate)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Parameter Estimates for Colonial Origins") +
+  xlab("Parameter") + ylab("Estimate")
+
+```
+
+## Adding error bars
+
+You can easily add error bars by specifying the values for the error bar inside 
+of **geom_errorbar()**.
+
+```{r, eval=FALSE}
+ggplot(coeffs_IV, 
+  aes(x=term, y=estimate)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Parameter Estimates for Colonial Origins") +
+  xlab("Parameter") + ylab("Estimate") +
+  geom_errorbar(aes(ymin=estimate - 1.96 * std.error, 
+                    ymax=estimate + 1.96 * std.error), 
+                    size=.75, width=.3, color="red3")
+
+```
+
+## Adding error bars
+
+```{r, echo=FALSE}
+ggplot(coeffs_IV, 
+  aes(x=term, y=estimate)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Parameter Estimates for Colonial Origins") +
+  xlab("Parameter") + ylab("Estimate") +
+  geom_errorbar(aes(ymin=estimate - 1.96 * std.error, 
+                  ymax=estimate + 1.96 * std.error), 
+                  size=.75, width=.3, color="red3")
+
+```
+
+## Adding colors
+
+You can easily add color to graph points as well.  There are a lot of aesthetic 
+options to do that --- here I demonstrate adding a color *scale* to the graph.
+
+```{r, eval = FALSE}
+
+ggplot(col_origins, aes(x=legalprotect, 
+  y = logGDP95 , col= log.settler.mort)) +
+  geom_point() + 
+  ggtitle("GDP and Legal Protection") +
+  xlab("Legal Protection Index [0-10]") + 
+  ylab("Log of 1995 GDP") + 
+  scale_color_gradient(low="green",high="red3", 
+                       name="Log Settler Mortality")
+
+```
+
+## Adding colors
+
+
+```{r, echo = FALSE}
+ggplot(col_origins, aes(x=legalprotect, 
+  y = logGDP95 , col= log.settler.mort)) + geom_point() + 
+  ggtitle("GDP and Legal Protection") +
+  xlab("Legal Protection Index [0-10]") + 
+  ylab("Log of 1995 GDP") + 
+  scale_color_gradient(low="green",high="red", 
+                       name="Log Settler Mortality")
+
+```
+
+## Adding colors:  example 2
+
+```{r, eval=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram(col="black", fill="red2") + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") 
+
+```
+
+## Adding colors:  example 2
+
+```{r, echo=FALSE, message=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram(col="black", fill="red2") + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") 
+
+
+```
+
+## Adding themes
+
+Another option to affect the appearance of the graph is to use **themes**, which 
+affect a number of general aspects concerning how graphs are displayed.
+
+- Some default themes come installed with ggplot2/tidyverse, but some of the best 
+in my opinion come from the package [ggthemes](https://github.com/jrnold/ggthemes).
+
+```{r, message=FALSE}
+library(ggthemes)
+```
+
+## Adding themes
+
+- To apply a theme, just add **+ themename()** to your ggplot graphic.
+
+```{r, eval=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram(col="white", fill="red2") + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") + 
+  theme_economist()
+```
+
+## Adding themes
+
+```{r, echo=FALSE, message=FALSE}
+ggplot(col_origins, aes(x=legalprotect)) + 
+  geom_histogram(col="white", fill="red2") + 
+  ggtitle("Histogram of Legal Protection Scores") +
+  xlab("Legal Protection Index [0-10]") +
+  ylab("Frequency") + 
+  theme_economist()
+```
+
+## More with ggplot2
+
+This has been just a small overview of things you can do with ggplot2. To learn 
+more about it, here are some useful references:
+
+[**The ggplot2 website:**](http://ggplot2.tidyverse.org/)
+
+- Very informative although if you don't know what you're looking for, you can be a bit 
+inundated with information.
+
+[**STHDA Guide to ggplot2:**](http://www.sthda.com/english/wiki/ggplot2-essentials)
+
+- A bit less detailed, but a good general guide to ggplot2 that is still pretty 
+thorough.
+
+**[RStudio's ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf):**
+
+- As with all the cheat sheets, very concise but a great short reference to main options in the 
+package.

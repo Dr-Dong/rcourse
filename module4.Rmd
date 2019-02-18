@@ -276,7 +276,7 @@ project folder, then just refer to the file name directly.
 - If data is in a subfolder, eg *data*, use a relative path like: 
 
 ```{r, eval=FALSE}
-import(./assets/mydata.rds)
+import("./assets/mydata.rds"")
 ```
 
 <br>

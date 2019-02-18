@@ -19,7 +19,7 @@ navbar:
     - text: 'M4: Project Management and Dynamic Documents'
       href: module4.html
     - text: 'M5: Regression Modelling and Data Visualization'
-      href: ~
+      href: module5.html
     - text: 'M6:  Further Regression Methods'
       href: ~
     - text: 'M7: Intro to Bayesian Methods'

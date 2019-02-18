@@ -1,10 +1,10 @@
 ---
-title: "Introduction to R"
-subtitle: "Module 5: Regression analysis and data visualization"
+title: "Module 5: Regression analysis and data visualization"
 output: 
   html_document:
       self_contained: true
       theme: flatly
+      df_print: kable
       highlight: haddock
       toc: true
       toc_float: true
@@ -15,9 +15,12 @@ library(tidyverse)
 library("rio")
 ```
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module5.pdf" role="button">Slides</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
 
+```{r, include = FALSE, eval=FALSE}
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/wdi_data.rds" role="button">wdi_data.rds</a> 
+```
 <br>
 
 
@@ -59,7 +62,7 @@ myregobject <- lm(y ~ x1 + x2 + x3 + x4,
 #### CEX linear regression example
 
 ```{r importcex, include=FALSE}
-cex_data <- import("C:/Users/AN.4271/Desktop/cex_data.rds")
+cex_data <- import("./data/cex_data.rds")
 ```
 
 ```{r linreg}
@@ -519,7 +522,7 @@ in the [quantreg](https://www.rdocumentation.org/packages/quantreg/) package.
 
 ## Graphs in R
 
-### Data visualizaiton overview
+### Data visualization overview
 
 One of the strong points of R is creating very high-quality data visualization. 
 
@@ -544,7 +547,7 @@ a very wide variety of graphs.
 the appearance of the graph is determined by specifying:
 
     + The **data**(frame) to be used.
-    + The **aes**(thetics)s of the graph --- like size, color, x and y variables.
+    + The **aes**(thetics) of the graph --- like size, color, x and y variables.
     + The **geom**(etry) of the graph ---  type of data to be used.
     
 ```{r basicgg, eval=FALSE}

@@ -1,28 +1,274 @@
 ---
 title: "Exercise 2"
-author: "Andrew Proctor"
-date: "January 19, 2019"
-output: pdf_document
+output: 
+  pdf_document:
+    df_print: kable
+urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(rio)
+library(tidyverse)
 ```
 
-## Exercise 2
+# Educational opportunity in the NLSY
 
-1.  Run basic R file.
+For this exercise, you will be working with an extract from the 1997 *National 
+Longitudinal Survey of Youth* (NLSY97),\footnote{Available at \href{https://www.nlsinfo.org/investigator/}{https://www.nlsinfo.org/investigator/}. 
+Keep in mind that this exercise is strictly pedagogical - we ignore things like missing 
+value codes in the data, hence there are obvious errors.} 
+a major panel study tracking about 9,000 youth who were between 12 and 15 on 
+December 31, 1996. NLSY97 is intended to follow young adults both as they 
+complete their education and over their working lives.  It's also a pretty 
+messy data set to work with.
 
-```{r cars}
-summary(cars)
+1.  **Create your exercise directory**
+  
+    a. On your computer, create a folder for this seminar exercise.
+    
+    b. Download the NLSY97 data and extract the files into your seminar exercise folder.
+
+2.  **Perform the included processing of the NLSY data file**
+    
+    a. The NLSY provides some preliminary formatting to the raw data file (*nsl97.dat*)
+    via a R script file (here *nsly97.R*). Open this script file in RStudio.
+    
+    b. To run the script, you will first need to uncomment the **setwd()** 
+    function and provide the path to your exercise directory.
+    
+    c. At the end of the script, uncomment the necessary lines to "rename 
+    variables using Qnames instead of Reference Numbers."
+    
+    d. Export the data frame *new_data* as *nlsy97.rds*.
+    
+    e. Save the *nls97.R* and begin working in a new working R script file, 
+    wherein you will complete the remainder of the exercise.
+
+3. **Load the data and view the structure**
+
+    a. In the new script file you've created, import *nlsy97.rds* dataframe as
+    *nlsy97*.
+```{r, include = FALSE}
+nlsy97 <- import("m2_nlsy97.rds")
+```    
+    
+    b. Look at the structure of the data frame using the **glimpse()** and **str()** functions.
+```{r, include = FALSE}
+glimpse(nlsy97)
+str(nlsy97)
+```    
+    
+    c. The list of column names is a bit hard to read in either approach - and is even 
+    truncated with **str()**. To make it easier to scan the column names, save them
+    to a new data object formatted as a **tibble**.
+```{r, include = FALSE}
+cols_nlsy97 <-colnames(nlsy97) %>% as.tibble()
+```        
+
+4. **"Tidy" the dataset**: A key principle of data analysis is that data should follow the "tidy" data 
+structure, wherein each row of a data set corresponds to an observation, and
+each column a variable.
+
+    a. Notice that there are both time-varying and time-invariant variables. 
+    Rename the variables that are time-invariant as follows (to make your life 
+    easier in the next step):
+    
+    ```{r, echo = FALSE}    
+new_names <- c("personid","sex","race","birthyr","motheredyrs")
+old_names <- c("PUBID_1997","KEY_SEX_1997","KEY_RACE_ETHNICITY_1997",
+               "KEY_BDATE_Y_1997","CV_HGC_RES_MOM_1997")
+rename_matrix <- data.frame(old_names,new_names)
+colnames(rename_matrix) <- c("Old Name", "New Name")
+rename_matrix
+
+nlsy97 <- nlsy97 %>% rename(
+  personid = PUBID_1997,
+  sex = KEY_SEX_1997,
+  race = KEY_RACE_ETHNICITY_1997,
+  birthyr = KEY_BDATE_Y_1997,
+  motheredyrs = CV_HGC_RES_MOM_1997)
+``` 
+    
+    b. Begin to tidy the data by using the **gather()** function to gather 
+    all variables that are time-varying into a key and value column. To do that,
+    use the **gather()** function on all columns except those mentioned in step (d), with 
+    *variable* as the name of the key column and *value* as the name of the value 
+    column.
+    
+```{r, include = FALSE}
+nlsy97 <- nlsy97 %>% 
+  gather(variable, value, -c(personid,sex,race,birthyr,motheredyrs))
+```      
+  
+    c. All time-varying variables should now appear in a single column and all 
+    corresponding values in another. But notice that we have another issue -- 
+    each year of a variable has a different name. To fix this:
+    
+      (i) Create a *year* column, with values that are the numbers from the *variable* column. 
+      You can do so as follows:
+      
+    ```{r, include = TRUE}
+nlsy97$year <- str_extract(nlsy97$variable, "[0-9]+")
+```   
+      
+      (ii) Notice that some of the year values are written in the wrong format. 
+      Recode the following values of *year*:
+      
+    ```{r, echo = FALSE}    
+new_vals <- c(1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004)
+old_vals <- c("9293","9394","9495","9596","9697","9798","9899","9900","0001","0102","0203","0304")
+recode_matrix <- data.frame(old_vals,new_vals)
+colnames(recode_matrix) <- c("Old Value", "New Value")
+recode_matrix
+
+nlsy97$year <- nlsy97$year %>% recode(
+  "1993"="9293", "1994"="9394","9495"="1995","9697"="1997","9798"="1998",
+  "9899"="1999","9900"="2000","0001"="2001","0102"="2002","0203"="2003",
+  "0304"="2004")
+
+
+```       
+
+      (iii) Replace the numbers in the *variable* column with an empty string.  You can 
+      do so as follows:
+      
+    ```{r, include = TRUE}
+nlsy97$variable <- str_replace(nlsy97$variable, "[0-9]+","")
+```
+      
+      d. Now that the variable names and years are consistent, finish "tidying" 
+      the data by **spreading** each of the variables in *variable* to its 
+      own column.
+```{r, include = FALSE}
+nlsy97 <- nlsy97 %>% spread(key = variable, value=value)
 ```
 
-## Including Plots
+4. **Rename and select variables**
 
-You can also embed plots, for example:
+    a. Rename the time-varying variables as follows:
+    
+    ```{r, echo = FALSE}    
+new_names <- c("region","parentincome","schooltype","highestgrade","absences","gpa")
+old_names <- c("CV_CENSUS_REGION_","CV_INCOME_GROSS_YR_","CV_SCHOOL_TYPE_",
+               "CV_HGC_EVER_EDT_","TRANS_AB_AY_HSTR", "TRANS_CRD_GPA_YR__HSTR")
+rename_matrix <- data.frame(old_names,new_names)
+colnames(rename_matrix) <- c("Old Name", "New Name")
+rename_matrix
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+nlsy97 <- nlsy97 %>% rename(
+  region = CV_CENSUS_REGION_,
+  parentincome = CV_INCOME_GROSS_YR_,
+  schooltype = CV_SCHOOL_TYPE_,
+  highestgrade = CV_HGC_EVER_EDT_,
+  absences = TRANS_AB_AY_HSTR,
+  gpa = TRANS_CRD_GPA_YR__HSTR,
+)
+``` 
+
+    b. Keep only the variables you've renamed in 4(a) and 5(a) as well as the 
+    year variable. 
+  
+```{r, include = FALSE}
+
+nlsy97 <- nlsy97 %>% select(
+  personid, year, sex,race, birthyr, region, parentincome,
+  schooltype,motheredyrs,highestgrade, absences, gpa)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+5. **Finalize the data set**
+
+    a. Ensure that each variable has the correct data type.  This means you'll 
+    probably have to change the data type for the following variables: 
+    *personid*, *year*, *sex*, *race*, *region*, and *schooltype*.
+```{r, include = FALSE}
+
+export(nlsy97, "nlsy97.rds")
+
+nlsy97$personid <- as.factor(nlsy97$personid)
+nlsy97$year <- as.numeric(nlsy97$year)
+nlsy97$sex <- as.factor(nlsy97$sex)
+nlsy97$race <- as.factor(nlsy97$race)
+nlsy97$region <-as.factor(nlsy97$region)
+nlsy97$schooltype <- as.factor(nlsy97$schooltype)
+```
+
+    b. Create the following new variables:
+      - $age = year - birthyr$
+      - $gradesback = (age - 7)- highestgrade$
+      - A female indicator variable
+      - A non-white indicator variable
+      
+```{r, include = FALSE}
+nlsy97 <- nlsy97 %>% mutate(
+  age = year - birthyr,
+  gradesback = (age - 7) - highestgrade,
+  female = (sex == 2),
+  nonwhite = (race != 4)
+)
+```
+    
+    c. Rescale GPA: Redefine GPA so that it is the original value divided by 100.
+
+```{r, include = FALSE}
+nlsy97 <- nlsy97 %>% mutate(
+  gpa = gpa / 100
+)
+```   
+    
+    d. Filter the data set to only include the years 1997-2007, for individuals 
+    from the South-East (region 4), with a highest grade completed (*highestgrade*) 
+    between 8 and 17.
+
+```{r,include=FALSE}
+nlsy97 <- nlsy97 %>% filter(
+  year %in% 1997:2007,
+  region == 4,
+  highestgrade %in% 8:17
+)
+```
+  
+6. **Create and view summary statistics**
+
+    a. By age, create and display summary statistics with average values of:\footnote{For both summary statistics tables, you may need to use the na.rm = TRUE to remove missing values when calculating the averages.}
+        
+        - Highest grade completed (*highestgrade*)
+        - Number of grades below expected level (*gradesback*)
+        
+```{r,include=FALSE}
+summarybyage <- nlsy97 %>% group_by(age) %>% summarize(
+  avg_gradecompleted = mean(highestgrade, na.rm = TRUE),
+  avg_gradesback = mean(gradesback, na.rm = TRUE))
+summarybyage
+```
+    b. By highest grade completed, create and display summary statistics with average 
+    values of:
+    
+        - Parental income (*parentincome*)
+        - Mother's education (*motheredyrs*)
+        - GPA (*gpa*)
+        - Share women
+        - Share nonwhite
+```{r,include=FALSE}
+summarybygrade <- nlsy97 %>% group_by(highestgrade) %>% summarize(
+  avg_parincome = mean(parentincome, na.rm = TRUE),
+  avg_mothersed = mean(motheredyrs, na.rm = TRUE),
+  avg_gpa = mean(gpa, na.rm = TRUE),
+  share_female = mean(female, na.rm = TRUE),
+  share_nonwhite = mean(nonwhite, na.rm = TRUE)
+)
+summarybyage
+```
+    
+
+\vspace{15em}
+
+**Bonus!** If you aren't ready to stop having fun, the steps needed to really 
+make this analysis complete would be to consult the codebook (*.cdb*) file to 
+recode the factor variables into readable values and to appropriately recode 
+missing values using **na_if()**.
+
+```{r, include = FALSE}
+export(nlsy97, "nlsy97.rds")
+
+```

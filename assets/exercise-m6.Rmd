@@ -1,0 +1,138 @@
+---
+title: "Module 6: Practice with Bayesian Regression Analysis"
+output: 
+  pdf_document:
+    df_print: kable
+    highlight: zenburn
+urlcolor: blue
+---
+
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(include = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+library(rstanarm)
+library(rio)
+library(tidyverse)
+library(rstan)
+library(bayesplot)
+```
+
+## Preliminaries
+
+- Install RTools from 
+[here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows):
+
+- Install and initialize the packages rstan, rstanarm, and shinystan.  
+
+    + Be sure to initialize any other packages you would normally use.
+    
+- In a new folder of your project for the course, create a new pdf-type Rmarkdown
+document.
+
+## Analysis of Well Switching
+
+- Check out the descriptions of the datasets included with the rstanarm package [here](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/rstanarm-datasets):
+
+
+- Using the **wells** dataset, perform a Bayesian linear regression that uses arsenic level, 
+distance from well, and years of education to predict well-switching.
+    
+    + Try repeating the regression using both normal(0) and laplace(0) priors, 
+    viewing the summary of the regression output for each.
+    
+```{r, results = "hide"}
+wellsLM <- stan_glm(switch ~ arsenic + 
+    dist + educ, data = wells, 
+    family = binomial(link=logit),
+    prior = normal(0, autoscale = TRUE))
+```
+
+```{r}
+summary(wellsLM)
+```
+
+```{r, results="hide"}
+wells_laplacep <- stan_glm(switch ~ arsenic + 
+    dist + educ, data = wells, 
+    family = binomial(link=logit),
+    prior = laplace(0))
+```
+
+```{r}
+summary(wells_laplacep)
+```
+
+- Create a histogram of the posterior distribution for the *dist* variable from 
+the regression using normal(0) priors.
+
+```{r}
+wells_posterior <- wellsLM %>% as.tibble()
+
+ggplot(wells_posterior, aes(x=dist)) + geom_histogram()
+```
+
+- Use the leave-one-out method of measuring out-of-sample predictivenes to compute 
+the expected log predictive density.
+
+```{r}
+loo(wellsLM)
+```
+
+## Analysis of doctors visits
+
+- If necessary, install the package "Ecdat" and initialize it.
+
+- Using the dataset **Doctor**, perform a Bayesian Poisson regression that 
+estimates the number of doctor visits as a function of health care access and 
+health status.
+
+    + Perform the regression for a sample of 100 observations, for each of (1) 
+    the default priors and (2) uninformative priors.
+
+```{r, results = "hide"}
+library(Ecdat)
+doctordata <- Doctor
+doctordata <- doctordata %>% sample_n(100)
+
+doctorvisits_poissonreg <- stan_glm(doctor ~ access + 
+    health, data = doctordata, family = poisson, prior = normal(1))
+```
+
+```{r}
+summary(doctorvisits_poissonreg)
+```
+
+
+```{r, results = "hide"}
+doctorvisits_poissonreg_uninfprior <- stan_glm(doctor ~ access + 
+    health, 
+    data = doctordata, family = poisson, prior = NULL)
+```
+
+```{r}
+summary(doctorvisits_poissonreg_uninfprior)
+prior_summary(doctorvisits_poissonreg_uninfprior)
+```
+- Once again view the summary of the output but this time view a graphical plot 
+of the credible intervals for *access*.
+
+```{r}
+
+doctorvisits_posterior <- doctorvisits_poissonreg %>% as.tibble()
+
+ggplot(doctorvisits_posterior, aes(x=access)) + geom_histogram()
+
+```
+
+- Use the Watanabe-Aikake information criterion to view the predictiveness of the 
+Poisson model.
+
+```{r}
+waic(doctorvisits_poissonreg)
+```
+
+

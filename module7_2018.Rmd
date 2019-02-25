@@ -1,5 +1,6 @@
 ---
-title: "Module 6: Intro to Bayesian Methods in R"
+title: "Introduction to R"
+subtitle: "Module 7: Intro to Bayesian Methods in R"
 output: 
   html_document:
       self_contained: true
@@ -13,21 +14,17 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(message = FALSE)
-knitr::opts_chunk$set(warning = FALSE)
-
 library(rio)
 library(tidyverse)
 library(rstan)
 library(rstanarm)
 library(bayesplot)
-library(Stat2Data)
-library(magrittr)
+
 ```
 
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module6.pdf" role="button">Slides</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m6.pdf" role="button">Exercise</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module7.pdf" role="button">Slides</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m7.pdf" role="button">Exercise</a> 
 
 <br>
 
@@ -431,16 +428,19 @@ regression you want:
 #### **A Titanic survival example with rstanarm**
 
 ```{r}
-data(Titanic)
+titanic <- import("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/datasets/Titanic.csv")
 # Display titanic data
-glimpse(Titanic,width = 50)
+glimpse(titanic,width = 50)
 
-# Reformat Class
-Titanic$class <- str_extract(Titanic$PClass, "[0-9]")
+# Recode Class
+titanic$class  <- recode(titanic$PClass, "*"="NA",
+    "1st"="1", "2nd"="2", "3rd"="3")
+titanic$class [titanic$class == "NA"] <- NA
+titanic$class <- as.numeric(titanic$class)
 
 TitanicLinear <- stan_glm(Survived ~ Age + 
     SexCode + as.factor(class), 
-    data = Titanic, family = gaussian)
+    data = titanic, family = gaussian)
 
 summary(TitanicLinear)
 ```
@@ -470,8 +470,8 @@ plot(TitanicLinear)
 
 You can also easily plot the posterior distribution of a parameter in R.
 
-```{r}
-Titanic_posterior <- TitanicLinear %>% as_tibble() %>% 
+```{r, eval=FALSE}
+Titanic_posterior <- TitanicLinear %>% as.tibble() %>% 
   rename(sec.class = "as.factor(class)2",
          third.class = "as.factor(class)3")
 
@@ -592,12 +592,12 @@ loo(TitanicLinear)
 ```{r}
 Titanic_probit <- stan_glm(Survived ~ Age + 
     SexCode + as.factor(class), 
-    data = Titanic, family = binomial(link=probit))
+    data = titanic, family = binomial(link=probit))
 Loo_probit <- loo(Titanic_probit)
 
 Titanic_logit <- stan_glm(Survived ~ Age + 
     SexCode + as.factor(class), 
-    data = Titanic, family = binomial(link=logit))
+    data = titanic, family = binomial(link=logit))
 Loo_logit <- loo(Titanic_logit)
 
 # ELPD_diff>0 indicates more support for 2nd model

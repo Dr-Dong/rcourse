@@ -1,5 +1,7 @@
 ---
-title: "Module 7: Intro to Bayesian Methods in R"
+title: "Capstone Exercise"
+subtitle: "Reproducing Edelman, Luca, and Svirsky (AEJ Applied 2017)"
+date: "February 28, 2018"
 output: 
   html_document:
       self_contained: true
@@ -7,615 +9,564 @@ output:
       highlight: haddock
       toc: true
       toc_float: true
-      toc_depth: 5
-
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(include = FALSE)
 library(rio)
 library(tidyverse)
-library(rstan)
-library(rstanarm)
-library(bayesplot)
-
+library(multiwayvcov)
+library(lmtest)
+library(broom)
 ```
 
+<br>
 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/module7.pdf" role="button">Slides</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rminicourse/assets/exercise-m7.pdf" role="button">Exercise</a> 
+### Introduction
+
+For the capstone exercise, you will be applying what you've learned over the past 
+several modules to conduct a replication of a recent journal article.  Specifically,
+you will be reproducing the main results from "Racial Discrimination in the Sharing Economy:
+Evidence from a Field Experiment," by Benjamin Edelman, Michael Luca, and Dan 
+Svirsky and published in the *American Economic Journal: Applied Economics* last 
+April.
+
+In this article, Edelman, Luca, and Svirsky conduct an experiment wherein they 
+apply for Airbnb apartments using guest names that have distinctively white or 
+African American names.  Using this experiment, they then investigate racial 
+discrimination based on a number of host and location characteristics.
 
 <br>
 
-## Conceptual Introduction   
+### Data Preparation
 
-<br>
+#### **Preliminaries** 
 
-### **Thought Experiment** {.tabset .tabset-pills}
+- To begin the replication, download the paper and data from 
+[here](https://www.aeaweb.org/articles?id=10.1257/app.20160213).
 
-#### Question
+- Create a new Project for the exercise in RStudio with version-control 
+(preferably connected to a GitHub repository). 
 
-Imagine I'm conducting a raffle.  I have a large bowl, and inside of 
-it are many raffle entries, each with different numbers on them.  
+    + You should put the data from Edelman, Luca, and Svirsky in something like 
+    a *data* subfolder in the project directory.
 
-- Let the variable *x* represent the number drawn from the bowl.  
+- Within the project, create a new RMarkdown document.  
 
-- Before reaching into the bowl, I want to know:  
-
-
-    *''What is the probability that I'm going to pick up a number less than 10 from the bowl?''*
-
-- That is, what is $p(x \leq 10)$?
-
-    + ***Does this probability change if I tell you that all the numbers in the 
-    bowl have at least 3 digits (ie are $\geq 100$)?***
-
-<br>
-<br>
-    
-#### Answer
-
-**Classical Statistics:** *No.* 
-
-- Probability is defined as:  $\lim_{n \rightarrow \infty} \frac{n_S}{n}$, 
-where $n$ is the number of times I repeat the experiment and $n_S$ is the number 
-of times a number $x \leq 10$ is drawn.
-
-- $p(x \leq 10)$ was always equal to zero, all that changed was your knowledge of 
-the experiment.
-
-**Bayesian Statistics:** *Almost certainly.* 
-
--  Probability is a measure of subjective belief about how likely an event is, 
-based on prior understanding and new information.
-  
-  + Prior $\rightarrow$ Information $\rightarrow$ Posterior
-
-<br>
-<br>
-    
-### **Epistomological difference**
-- Bayesian statistics integrates the epistemological uncertainty of statistical 
-estimation into its core procedures.  It's fundamental goal is to assess and 
-improve the accuracy of one's beliefs based on a set of identifying statistical 
-assumptions.
-
-- Classical statistics attempts to instead conduct inference on the (unknown) 
-underlying reality, based on its own set of identifying assumptions.
-
-***NOT mutually exclusive***
-
-<br>
-
-### **Bayes Rule**
-
-The cornerstone of the Bayesian approach (and the source of its name) is the 
-conditional likelihood theorem known as **Bayes' rule**.
-
-In its simplest form, Bayes' Rule states that for two events and A and B (with $P(B) \neq 0$): 
-$$ P(A|B) = \frac{P(B|A)P(A)}{P(B)} $$
-
-Or, if A can take on multiple values, we 
-have the **extended form**:
-
-$$ p(A_i|B) = \frac{p(B | A_i) P(A_i)}{\sum_j P(B|A_j)P(A_j)} $$
-
-<br>
-
-### **Inference using Bayes' Rule**
-
-Adapting Bayes' Rule to the case of a parameter value, $\theta$ and observed data *y*, we have:
-
-$$ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} \underbrace{\propto}_{\text{proportional to}} f(y|\theta)p(\theta) $$
-
-Adding a bit of terminology:
-
-- $p(\theta)$ is the **prior** distribution: our initial subjective belief about 
-the probability distribution of $\theta$.
-- $f(y|\theta)$ you may recognize from Maximum Likelihood estimation as: 
-    
-    + $f(y | \theta) = \prod_{i=1}^n f(y_i |\theta) = \mathcal{L} (\theta)$, the **likelihood function**.
-    
-- Finally, $p(\theta)|y)$ is our **posterior** (post-experiment) belief \ \ \ 
- about the probability distribution of $\theta$.
+- As you go through each step, either add in the instructions found here or add 
+ your comments explaining what you are doing.
  
-$$ \overbrace{p(\theta \mid y)}^{\text{posterior}} = \frac{\overbrace{f(y\mid\theta)}^\text{likelihood} \overbrace{p(\theta)}^\text{prior}}{\underbrace{\int f(y \mid \theta) p(\theta) d\theta}_\text{average likelihood}}  \underbrace{\propto}_{\text{proportional to}} \overbrace{f(y|\theta)}^{likelihood} \overbrace{p(\theta)}^{prior}$$
+- Commit (and Push) your work every 15 minutes or so.
 
-Hence we have the basic statement:
+#### **Importing Data**
 
-$$ Posterior \propto Likelihood \times Prior $$
+- If you are not working inside of RMarkdown / RStudio Project, set the work 
+directory.
 
-- This is commonly summarized as saying that the posterior \ \ \ \ belief is a compromise 
-    between the data and prior belief.
+- Import the data set "main_data.csv"
 
-<br>
-
-### **Priors**
-
-Given this *compromise with prior beliefs*, Bayesian analysis is often attacked as 
-subjective and a lot of emphasis is placed on the role of prior beliefs.  **But fear 
-not!**
-
-- First, as the data sample increases, the data becomes the determining factor 
-of the posterior probability.
-
-- Moreover, if desired, we can easily specify priors that have *no effect* on the 
-posterior estimates.  
-
-<br>
-
-#### **Types of Priors**
-
-Different types of priors include:
-
-- **Uninformative (or "flat") priors**:  Priors that have no impact on 
-    posterior values (ie assuming total ignorance about the possible parameter 
-    value).
-    
-    + A classic uninformative prior is the uniform prior, which 
-    treats all possible parameter values as equally likely: 
-    $p(\theta) = c \text{ } \forall \theta \in \Theta$
-    
-- **Informative priors**:  Priors where we use prior knowledge to 
-    specify a prior with a best-guess of the prior mean and distribution for 
-    a parameter value.
-    
-- **Weakly informative** or **regularizing priors**:  Priors which are deliberately 
-less informative than our actual knowledge, affecting estimates less than informative 
-priors but at least incorporating *very conservative* information into the \ \ \ production 
-of posterior estimates.
-
-<br>
-
-#### **Intuition about priors**
-
-Think for instance of inference about possible life expectancy:
-
-- We could specify an uninformative prior that says allows for any possible lifespan
-(even living to 1 million years old).
-
-- We could specify some skewed normal distribution that approximates our current 
-estimates of the distribution of current lifespans.
-
-- Or we could specify some weaker prior that for instance allows life expectancy 
-to be more dispersed and ages to reach, say 150 or 200 years old.
-
-    + Weakly informative priors don't use our best understanding of life expectancy, 
-    but at least "tells" our analysis that some possibilities are very implausible.
-    
-***In almost all circumstances, a weak prior should be preferred.***
-
-<br>
-
-#### **Priors Example:**
-
-![From van de Schoot et al 2014](priors.png)
-
-<br>
-<br>
+```{r}
+# Import Data 
+#import delimited "main_data.csv", delimiter(comma) bindquote(strict) 
+main_data <- import("./data/main_data.csv", header=FALSE)
+```
 
 
-### **Bayesian Computation**
+#### **Recode missing values and convert to a tibble**
+- Using a map or for-loop, change text to lower case using the [tolower()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/chartr) function.
+- Using a map or for-loop, recode the following values to missing throughout the 
+dataset: "\textbackslash \textbackslash N", "Null", "-1".
+- Then convert the dataframe to a tibble.
 
-One major feature of Bayesian inference that I haven't mentioned so far is 
-the intractability of analytic solutions for estimating posterior distributions
-in most circumstances.
+```{r}
+main_data <- main_data %>% map(tolower)
+main_data <- main_data %>% map(na_if,"null")
+main_data <- main_data %>% map(na_if,"\\n")
+main_data <- main_data %>% map(na_if,"-1")
+main_data <- main_data %>% map(na_if,-1)
+main_data <- main_data %>% as.tibble()
 
-Recall:
-$$ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} $$
+```
 
-For models that are more complex or that involve high-dimensional data, closed-form
-solutions are not available for the integral in the denominator.
+#### **Rename the variables**
 
-Hence, Bayesian analysis instead typically relies on numerical methods, usually 
-Markov Chain Monte Carlo (MCMC) methods.
+Import the "datanames" csv file and assign it as the column names of the main 
+dataset.
+- You may want to change the format of *datanames* to matrix after you import it.
 
-<br>
-
-#### **MCMC Methods**
-
-This method relies on sequentially sampling values of $\theta$ from an approximation 
-of the posterior distribution and then correcting the approximation to create 
-better subsequent samples.
-
-- Because the approximated distribution used in 1 step relies on the sample 
-from the previous step, the simulation forms a **Markov chain**.
-
-- A critical property then is **convergence**:  Have our simulations converged 
-to the real target distribution?
-
-    + Typically instead of running one really long "chain", researchers use 
-    multiple short chains.  
-    + The aggregate can not only converge faster, but 
-    can provide a better sense of convergence through the noisiness between
-    multiple chains.
-    
-<br>
-
-### **Hypothesis Testing in Bayesian Analysis?**
-
-Another point of divergence for Bayesian vs. frequentist data analysis is even 
-more dramatic:
-
-- Largely, there is no place for null-hypothesis significance testing (NHST) in
-Bayesian analysis
-
-    + Bayesian analysis has *something* similar called a **Bayes' factor**, which 
-    essentially assigns a prior probability to the likilihood ratio of a null 
-    and alternative model and then estimates it's posterior probability.
-    
-    + But Bayes factors are heavily criticized by leading Bayesians like Andrew 
-    Gelman and Donald Rubin, because it is highly sensitive to prior probabilities 
-    and model structures, among other issues.
-    
-- Instead, analysis is oriented around estimation of the posterior distribution 
-of parameters (or predictions).
-
-<br>
-
-#### **Bayesian Inference with Credible Intervals**
-
-Without NHST to tell us if our results are significant, does that mean we just 
-get point estimates and no way to assess how reliable they are? ***No!***
-
-- Recall that we are estimating the posterior *distribution* of a parameter (or 
-predicted outcome).
-
-- Hence, we can easily produce a 95% interval for the parameter, simply using 
-the quantiles of the posterior CDF.
-
-In Bayesian analysis, we replace the 100($1-\alpha$)% frequentist confidence 
-interval with the 100($1-\alpha$)% **credible interval**.
-
- A credible interval, however, has a much more appealing interpretation than 
-a confidence interval.
-
-- A confidence interval has the interpretation that, in repeated samples, 
-    the true parameter lies within the confidence region 95% of the time.
-    
-- A credible interval is what people *think* a confidence interval should mean: 
-there is a 95% chance that the true value lies within the 95% credible interval.
-
-<br>
+```{r}
+datanames <- c("host_response", "response_date", "number_of_messages",
+  "automated_coding", "latitude", "longitude", "bed_type", "property_type",
+  "cancellation_policy", "number_guests", "bedrooms", "bathrooms",
+  "cleaning_fee", "price", "apt_rating", "property_setup", "city", "date_sent",
+  "listing_down", "number_of_listings", "number_of_reviews", "member_since",
+  "verified_id", "host_race", "super_host", "host_gender", "host_age",
+  "host_gender_1", "host_gender_2", "host_gender_3", "host_race_1",
+  "host_race_2", "host_race_3", "guest_first_name", "guest_last_name",
+  "guest_race", "guest_gender", "guest_id", "population", "whites", "blacks",
+  "asians", "hispanics", "available_september", "up_not_available_september",
+  "september_price", "census_tract", "host_id", "new_number_of_listings")
+datanames <- as.matrix(datanames)
+export(datanames, "./data/datanames.csv")
+datanames <-  import("./data/datanames.csv")
+datanames <- as.matrix(datanames)
+colnames(main_data) <- datanames
+```
 
 
-## Bayesian Regression with rstanarm
+#### **Convert columns to correct class**
 
-### **Stan**
+Using for-loops, change the class of columns in the main dataset as follows:
 
-Probably the best approach to doing Bayesian analysis in any software environment 
-is with [rstan](https://www.rdocumentation.org/packages/rstan), which is 
-an R interface to the Stan programming language designed for Bayesian analysis.
+- **Covert to numeric columns:** 3-6, 10-14, 19-21, 39-46, and 49.
+- **Convert to factor columns:** 1, 7-9, 15-17, 23-33, 36-38, and 47.
 
-- To use [rstan](https://www.rdocumentation.org/packages/rstan), you will first need to 
-install **RTools** from [this link](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows).
+```{r}
+# Convert numeric columns
+for (i in c(3:6,10:14,19:21,39:46,49)) {
+  main_data[[i]] <- as.numeric(main_data[[i]])
+}
 
-- Then install the package [rstan](https://www.rdocumentation.org/packages/rstan) 
-from RStudio (make sure to set `dependencies=TRUE` when installing).
+# Convert factor columns
+for (i in c(1, 7:9, 15:17, 23:33, 36:38, 47)) {
+  main_data[[i]] <- as.factor(main_data[[i]])
+}
+```
 
-<br>
 
-#### **Parallelization support**
+#### **Set reference groups**
 
-Once you've setup [rstan](https://www.rdocumentation.org/packages/rstan), there 
-is one more thing you should typically do:  tell it to run on multiple cores.
+- For the variable *guest_race*, set the reference group to the value "white".
+- For the variable *guest_gender*, set the reference group to the value "male".
 
-  + rstan includes support for basic parallelization that speeds up execution 
-  tremendous for larger / more complex regressions.
+```{r}
+main_data$guest_race <- main_data$guest_race %>% relevel(ref="white")
+main_data$guest_gender <- main_data$guest_gender %>% relevel(ref="male")
 
-```{r, message=FALSE,warning=FALSE}
-library(rstan)
-rstan_options (auto_write=TRUE)
-# Run on multiple cores
-options (mc.cores=parallel::detectCores ()) 
+```
+
+
+#### **Create a guest_name by city variable to identify individual guests**
+
+For clustering of standard errors in the regression analysis, create a 
+variable *namebycity* that concatenates the values from *guest_first_name* and
+*city*.  
+
+- Use the [paste()](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/paste) 
+function to do this.
+
+```{r}
+ main_data <- main_data %>% mutate(
+   namebycity = paste(guest_first_name,city))
+
+```
+
+
+#### **Import and merge survey results**
+
+- Import the file "name_survey_results.xlsx"
+- Again apply tolower() to the *guest_first_name* variable.
+- Merge in additional variables from this dataset for observations from the main 
+dataset, using the key *guest_first_name*.
+
+
+```{r}
+# Import
+survey_results <- import("./data/name_survey_results.xlsx")
+survey_results$guest_first_name <- tolower(survey_results$guest_first_name)
+
+# Merge
+merged_data <- left_join(main_data, survey_results, by="guest_first_name")
+```
+
+
+#### **Change the values of *guest_race_continuous***
+
+Change the value of *guest_race_continuous* by subtracting one from it's 
+current value, so that it's range is 0 to 1 instead of 1 to 2.
+
+```{r}
+# replace guest_race_continuous = guest_race_continuous - 1
+
+merged_data <- merged_data %>%
+  mutate(guest_race_continuous = guest_race_continuous - 1)
+```
+
+
+#### **Make host race and sex variables**
+
+Create the following indicator variables:
+
+- *host_race_black* equal to 1 if the host's race is "black" according to the 
+*host_race* variable.
+- *host_race_white* equal to 1 if the host's race is "white" according to the 
+*host_race* variable.
+- *host_male* equal to 1 if the host's race is "m" according to the *host_gender* 
+variable.
+
+```{r}
+merged_data <- merged_data  %>% mutate(
+  host_race_black = ifelse(host_race=="black", 1,0),
+  host_race_white = ifelse(host_race=="white", 1,0),
+  host_male = ifelse(host_gender =="m", 1,0)
+)
+```
+
+#### **Make a categorical host age variable**
+
+Make a categorical host age variable, *host_age_cat*, with values as follows:
+
+- Value of 0 if *host_age* is equal to any of "young","young/uu", "uu/young", 
+"young/na", or "na/young".
+- Value of 1 if *host_age* is equal to any of "middle/young", or "young/middle".
+- Value of 2 if *host_age* is equal to any of "middle","middle/uu","uu/middle","middle/na", 
+or "na/middle".
+- Value of 3 if *host_age* is equal to any of "middle/old" or "old/middle".
+- Value of 4 if *host_age* is equal to any of "old/middle","old","old/uu","uu/old","old/na",
+or "na/old".
+
+```{r}
+
+merged_data <- merged_data %>% 
+  mutate(host_age_cat = case_when(
+    host_age %in% c("young","young/uu", "uu/young", 
+                    "young/na", "na/young") ~ 0,
+    host_age %in% c("middle/young","young/middle") ~ 1,
+    host_age %in% c("middle","middle/uu","uu/middle",
+                    "middle/na","na/middle") ~ 2,
+    host_age %in% c("middle/old","old/middle") ~ 3,
+    host_age %in% c("old/middle","old","old/UU",
+                    "uu/old","old/na","na/old") ~ 3,
+    ))
+```
+
+
+```{r, eval=FALSE, include=FALSE}
+
+# Alternative method using recode:
+
+merged_data$host_age_cat <- merged_data$host_age
+
+merged_data$host_age_cat <- merged_data$host_age_cat %>% 
+  recode("young" = 0, "young/UU" = 0, "UU/young" = 0,
+         "young/NA" = 0, "NA/young" = 0, "middle/young" = 1,
+         "young/middle" = 1, "middle" = 2, "middle/UU" = 2,
+         "UU/middle" = 2, "middle/NA" = 2, "NA/middle" = 2,
+         "middle/old" = 3, "old/middle" = 3, "old" = 4, 
+         "old/UU" = 4, "UU/old" = 4, "old/NA" = 4,"NA/old" = 4)
+
+```
+
+
+#### **Make binary variables for other host characteristics:**
+
+Create the following binary variables:
+
+- *ten_reviews* indicating whether or not *number_of_reviews* is greater than or equal 
+to 10.
+- *five_star_property* indicating whether or not *apt_rating* is equal to five.
+- *multiple_listings* indicating whether or not *number_of_listings* is greater than 1.
+- *shared_property* indicating whether *property_setup* is ***either*** "private room" or 
+"shared room".
+- *shared_bathroom* for the conditions that *bathrooms* is less than 1.5 and the property is shared according to your variable above.
+- *has_cleaning_fee* indicating whether *cleaning_fee* is not missing.
+- *strict_cancellation* indicating whether *cancellation_policy* is equal to "strict".
+- *young* indicating whether *host_age_cat* is equal to zero.
+- *middle* indicating whether *host_age_cat* is equal to one or two.
+- *old* indicating whether *host_age_cat* is equal to three or four.
+
+
+```{r}
+merged_data <- merged_data %>%
+  mutate(ten_reviews = ifelse(number_of_reviews >= 10, "yes", "no"),
+    five_star_property = ifelse(apt_rating == 5, "yes", "no"),
+    multiple_listings = ifelse(number_of_listings > 1, "yes", "no"),
+    shared_property = ifelse((property_setup == "private room" | 
+                                property_setup == "shared room"), "yes", "no"),
+    shared_bathroom = ifelse((shared_property=="yes" 
+                              & bathrooms<1.5), "yes", "no"),
+    has_cleaning_fee = ifelse(!is.na(cleaning_fee), "yes", "no"),
+    strict_cancellation = ifelse(cancellation_policy == "strict", "yes", "no"),
+    young = ifelse(host_age_cat == 0, "yes", "no"),
+    middle = ifelse((host_age_cat == 1 | host_age_cat == 2), "yes", "no"),
+    old = ifelse((host_age_cat == 3 | host_age_cat == 4), "yes", "no"))
+
+```
+
+
+#### **Crate a simplified host response variable**
+
+Create a new variable *simplified_response* that has the following values:
+
+- "No Response" if *host_response* is equal to NA.
+- "Yes" if *host_response* is equal to 1.
+- "No" if *host_response* is equal to 0.
+- "Conditional Yes" if *host_response* is equal to 4, 5,6, 7 or 8.
+- "Conditional No" if *host_response* is equal to 2,3, 9, 10, or 11.
+
+```{r}
+merged_data <- merged_data %>% mutate(simplified_response = case_when(
+  is.na(host_response) ~  "No Response",
+  host_response == 0 ~  "No",
+  host_response == 1 ~  "Yes",
+  host_response %in% c(4,5,6,7,8) ~ "Conditional Yes",
+  host_response %in% c(2,3,9,10,11) ~ "Conditional No"
+  ))
+merged_data$simplified_response <- as.factor(merged_data$simplified_response)
+```
+
+#### **Create a binary host response variable**
+
+Create a new variable *yes* that that is equal to:
+
+- 1 if if *host_response* is equal to 1,4, or 6.
+- 0 if if *host_response* is equal to 0,2,3,7,8,9,10,11,12, or if *host_response* is missing.
+
+```{r}
+merged_data <- merged_data %>% mutate(yes = case_when(
+  host_response %in% c(1,4,6) ~ 1,
+  host_response %in% c(0,2,3,7,8,9,10,11,12) ~ 0,
+  is.na(host_response) ~ 0
+  ))
+```
+
+
+#### **Drop observations in Tampa and Atlanta**
+
+The experiment could not be completed in Tampa or Atlanta, so drop the observations 
+where *city* is equal to either of these two values.
+
+```{r}
+merged_data <- merged_data %>% filter(!((city == "tampa") | (city == "atlanta")))
+```
+
+
+#### **Merge in data on past guests**
+
+- Import the dataset "hosts.dta" and add in variables from this dataset to the 
+observations from the main dataset using the key *host_id*.
+
+```{r}
+hosts <- import("./data/hosts.dta")
+hosts$host_id <- as.character(hosts$host_id)
+final_data <- merged_data %>% left_join(hosts, by="host_id")
 ```
 
 <br>
 
-#### **A Stan regression example**
+### Main Analysis
 
-Now that you're ***hopefully*** excited about rstan, let's look at an example of
-a rstan regression from the package documentation:
+#### **Reproduce estimates from Table 2: The Impact of Race on Likelihood of Acceptance**
 
-```{r, eval = FALSE}
-# Create schools.stan --------------------------
-data {
-  int<lower=0> J;       // number of schools 
-  real y[J];            // estimated treatment effects
-  real<lower=0> sigma[J]; // s.e. of effect estimates 
+- Perform separate regressions corresponding to each of the columns of Table 2 
+and save the regressions objects
+
+    + "Guest is African-American" is captured by the *host_race* variable.
+  
+- For the first regression:
+
+    + Obtain the cluster-robust standard errors and test-statistics using the function 
+    [cluster.vcov](https://www.rdocumentation.org/packages/multiwayvcov/versions/1.2.3/topics/cluster.vcov) from
+    the [multiwayvcov package](https://www.rdocumentation.org/packages/multiwayvcov).
+    + Cluster on *namebycity*
+    + The syntax of [cluster.vcov](https://www.rdocumentation.org/packages/multiwayvcov/versions/1.2.3/topics/cluster.vcov) is:
+
+```{r, eval=FALSE, include=TRUE}
+cluster_obj <- cluster.vcov(reg_object, cluster=data$clustervar)
+```
+
+-
+    + Print a *tidy-ed* version of the estimates from each regression using the 
+    cluster-robust standard errors.
+    
+- After the first regression:
+
+    + create a function that takes a regression objects, 
+    obtains the clustered-standard errors, performs t-tests using the clustered 
+    standard errors, and then saves the tidy-ed version of those estimates.
+    
+    + Use the function to get the estimates from columns 2 and 3.
+
+```{r}
+
+# Column 1
+table2_c1 <- lm(data = final_data, yes ~ guest_race)
+cluster_t2c1 <-  cluster.vcov(table2_c1, cluster=final_data$namebycity)
+t2s1_clustered <- tidy(coeftest(table2_c1, cluster_t2c1))
+t2s1_clustered
+
+# Function to get cluster-robust results
+clustered_tstats <- function(regobj) {
+  cluster_est <-  cluster.vcov(regobj, cluster=final_data$namebycity)
+  results_clustered <- tidy(coeftest(regobj, cluster_est))
+  results_clustered
 }
-parameters {
-  real mu; 
-  real<lower=0> tau;
-  vector[J] eta;
-}
 
-## Still creating schools.stan
-transformed parameters {
-  vector[J] theta;
-  theta = mu + tau * eta;
-}
+# Column 2
+table2_c2 <- lm(data = final_data, yes ~ guest_race + host_race_black + host_male)
+t2c2_clustered <-  clustered_tstats(table2_c2)
+t2c2_clustered
 
-model {
-  target += normal_lpdf(eta | 0, 1);
-  target += normal_lpdf(y | theta, sigma);
-}
-# End of schools.stan --------------------------
+# Column 3
+table2_c3 <- lm(data = final_data, yes ~ guest_race + host_race_black + 
+                  host_male + multiple_listings + shared_property + ten_reviews
+                + log(price))
+t2c3_clustered <-  clustered_tstats(table2_c3)
+t2c3_clustered
 
-## Run Stan regression using schools.stan
-fit1 <- stan(
-  file = "schools.stan", # Stan program
-  data = schools_data,    # named list of data
-  chains = 4,             # number of Markov chains
-  warmup = 1000,          # number of warmup iterations per chain
-  iter = 2000,            # total number of iterations per chain
-  cores = 2,              # number of cores (using 2 just for the vignette)
-  refresh = 1000          # show progress every 'refresh' iterations
+```
+
+
+#### **Reproduce Figure 2: Host Responses by Race**
+
+ Create a grouped bar plot of host responses by Race, as in Figure 2 of 
+Edelman, Luca, and Svirsky.
+
+- First create a summary data frame that counts the number of observations 
+grouped by *guest_race* and *simplified_response*.
+
+- Then create a bar plot that is ***grouped*** by specifying *fill* color 
+according to *guest_race* inside of the base aesthetic, with the argument 
+`position="dodge"` inside of **geom_bar** (otherwise you'd get a stacked bar plot).
+
+
+```{r}
+
+figure2_df <- final_data %>% filter(!is.na(simplified_response)) %>% 
+  group_by(guest_race, simplified_response) %>% 
+  summarize(responses = n())
+figure2_df$simplified_response <- factor(figure2_df$simplified_response,
+                    levels(figure2_df$simplified_response)[c(5,2, 4,1,3)])
+
+# Grouped
+ggplot(figure2_df, aes(fill=guest_race, y=responses, x=simplified_response)) + 
+    geom_bar(position="dodge", stat="identity") + 
+  ggtitle("Figure 2: Host Reponses by Race") + xlab("") + ylab("")  +
+  labs(fill='Guest Race') 
+
+```
+
+<br>
+<br>
+<br>
+
+
+### **Bonus!** 
+
+### Table 5. Are Effects Driven by Host Characteristics?
+
+Reproduce columns 4 and 5 from Table 5 (again using your helper function 
+for cluster-robust test statistics).
+
+- "Host has 1+ reviews from an African American guest" is represented by the 
+*any_black* variable.
+
+```{r}
+
+# Column 1
+table5_c1 <- lm(data = final_data, yes ~ guest_race + shared_property +
+                  shared_property*guest_race)
+table5_c1_clustered <-  clustered_tstats(table5_c1)
+table5_c1_clustered
+
+# Column 2
+table5_c2 <- lm(data = final_data, yes ~ guest_race + multiple_listings +
+                  multiple_listings*guest_race)
+table5_c2_clustered <-  clustered_tstats(table5_c2)
+table5_c2_clustered
+
+# Column 4
+table5_c5 <- lm(data = final_data, yes ~ guest_race + young +
+                  young*guest_race)
+table5_c5_clustered <-  clustered_tstats(table5_c5)
+table5_c5_clustered
+
+# Column 5
+table5_c5 <- lm(data = final_data, yes ~ guest_race + any_black + 
+                  any_black*guest_race)
+table5_c5_clustered <-  clustered_tstats(table5_c5)
+table5_c5_clustered
+
+```
+
+<br>
+
+### Table 6: Are Effects Driven by Location Characteristics?
+
+#### **Make a variable that lists the number of properties within the census tract**
+
+- Using the *group_by* and *summarize* function, first create a variable that 
+tallies the number of Airbnb listings in each tract using the summary condition:
+
+```{r, eval=FALSE, include=TRUE}
+tract_listings = sum(latitude > 0)
+```
+
+- Use a join operation to add this data to the main dataset.
+
+```{r}
+tract_listings_df <- final_data %>% group_by(census_tract) %>% 
+  summarize(tract_listings = sum(latitude > 0))
+
+final_data <- final_data %>% left_join(tract_listings_df, by="census_tract")
+```
+
+#### **Generate Price Variables**
+
+Generate *price_geq_median* indicating whether or not the apartment price is 
+greater than equal to the median of apartment prices, according to *price*.
+
+```{r}
+top_decile_price <- quantile(final_data$price, .90, na.rm=TRUE) 
+final_data <-  final_data %>% mutate(
+  pricey = ifelse(price >= top_decile_price, "yes", "no"))
+
+price_median <- median(final_data$price, na.rm=TRUE)
+final_data <- final_data %>% mutate(
+  price_geq_median = ifelse(price >= price_median, "yes", "no"))
+
+```
+
+#### **Generate racial composition of Census tract variables**
+
+Create the racial composition variables as follows:
+
+- *white_proportion* equal to the variable *whites* divided by *population*.
+- *black_proportion* equal to the variable *blacks* divided by *population*.
+- *asian_proportion* equal to the variable *asians* divided by *population*.
+- *hispanic_proportion* equal to the variable *hispanics* divided by *population*.
+
+
+```{r}
+final_data <-  final_data %>% mutate(
+  white_proportion = whites/population,
+  black_proportion = blacks/population,
+  asian_proportion = asians/population,
+  hispanic_proportion = hispanics/population
   )
 ```
 
-<br>
+#### **Analysis**
 
-### **Rstanarm:  making RStan easy**
-
-***Oops!  That was a lot of code!***  And there's still a bit more left out. Luckily, 
-there are a couple of packages that exist to make your life easier:
-
-- First, there is [rstanarm](https://www.rdocumentation.org/packages/rstanarm), 
-which was created by the developers of Stan and rstan to make running a 
-Bayesian regression with rstan much more like you would run a normal frequentist 
-regression.
-
-- Another very similar package to rstanarm is 
-[brms](https://www.rdocumentation.org/packages/brms), which also makes 
-running Bayesian regression much simpler and 'R-like'.
-
-<br>
-
-#### **Short comparison of rstanarm and brms**
-
-**rstanarm** is faster, has better posterior checking, and is a bit simpler to 
-use.
-
-**brms** is generally a bit more flexible, with support for some regression types 
-missing in rstanarm, more flexible specification of priors, and support for 
-more types of error correlational structures.
-
-- My sense is that [rstanarm](https://www.rdocumentation.org/packages/rstanarm) is 
-the more popular choice, so that's what we'll use here.
-
-<br>
-
-#### **Using rstanarm**
-
-With rstanarm, most regressions you run using the function [stan_glm()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/stan_glm) 
-
-- Since generalized linear models (GLMs) incorporates models like linear 
-regression, probit, logit, Poisson, binomial, exponential, etc)
-
-**Syntax:**
-```{r, eval=FALSE}
-
-mybayesreg <- stan_glm(y ~ X1 + x2 + x3 ..., 
-                       family = myfamily, data = mydata, 
-                       prior = myprior)
-```
-
-<br>
-
-#### **Options with stan_glm**
-
-**Family** (with a possible **link** argument needed as well) defines the type of 
-regression you want:
-
-- Linear regression:  `family = gaussian`
-- Logit: `family = binomial(link = "logit")`
-- Probit: `family = binomial(link = "probit")`
-- Poisson: `family = poisson`
-- More options can be read from the main [GLM page](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/glm)
-
-**Prior distributions:**
-
-- **Flat priors** can be set by using `prior = NULL`
-- *[Weakly]* Informative Priors can be specified by using `prior = ` with one of: 
-
-    + *normal, student_t, cauchy, laplace* and more found 
-    [here](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/priors)
-
-<br>
-
-#### **A Titanic survival example with rstanarm**
+Reproduce columns 1 through 3 of Table 6.
 
 ```{r}
-titanic <- import("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/datasets/Titanic.csv")
-# Display titanic data
-glimpse(titanic,width = 50)
 
-# Recode Class
-titanic$class  <- recode(titanic$PClass, "*"="NA",
-    "1st"="1", "2nd"="2", "3rd"="3")
-titanic$class [titanic$class == "NA"] <- NA
-titanic$class <- as.numeric(titanic$class)
-
-TitanicLinear <- stan_glm(Survived ~ Age + 
-    SexCode + as.factor(class), 
-    data = titanic, family = gaussian)
-
-summary(TitanicLinear)
-```
-
-<br>
-<br>
-
-### **Credible intervals**
-
-You can also easily get print the credible intervals with the function [posterior_interval()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/posterior_interval.stanreg) 
-
-```{r}
-posterior_interval(TitanicLinear, prob=0.95)
-```
-
-
-#### **Graphical credible intervals**
-
-```{r}
-plot(TitanicLinear)
-```
-
-<br>
-<br>
-
-### **Plotting the posterior distribution**
-
-You can also easily plot the posterior distribution of a parameter in R.
-
-```{r, eval=FALSE}
-Titanic_posterior <- TitanicLinear %>% as.tibble() %>% 
-  rename(sec.class = "as.factor(class)2",
-         third.class = "as.factor(class)3")
-
-ggplot(Titanic_posterior, aes(x=third.class)) + 
-  geom_histogram()
-
-```
-
-<br>
-
-#### **Juxtaposing the prior and the posterior**
-
-```{r}
-posterior_vs_prior(TitanicLinear)
-```
-
-<br>
-
-## Model Testing
-
-### **Model testing basics**
-
-There are a number of different regression diagnostics after performing Bayesian 
-regression to help infer if the model converged, how well it performs, and 
-even compare between models.
-
-Today, we'll cover some of them included with rstanarm as well as the very useful 
-[shinystan package](https://www.rdocumentation.org/packages/shinystan).
-
-<br>
-
-### **Graphical posterior predictive analysis**
-
-To check the predictive accuracy of the posterior distribution, you can use the 
-function [pp_check()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/pp_check.stanreg), 
-which plots simulated y values from the posterior distribution against the 
-actual values of y.
-
-```{r}
-pp_check(TitanicLinear)
-```
-
-<br>
-<br>
-
-### **Regularization and Predictive Accuracy**
-
-A critical issue in both Bayesian and frequentist estimation is how to balance 
-predictive accuracy with parsimony.  Put another, the researcher should be 
-concerned with not overfitting the data while still creating a compelling model.
-
-The basic approach in frequentist method is to use the Akaike information criterion 
-(AIC):
-
-**Expected Log Predictive Density:**   $$\hat{elpd}_{AIC}  =  \log p(y | \hat{\theta}_{MLE}) - k$$
-
-- Where $\theta_{MLE}$ is the maximum likelihood estimator of $\theta$,
-- $\log p(y | \hat{\theta}_{MLE})$ is the log likelihood given $\theta_{MLE}$,
-- and k is the number of parameters in the model.
-
-<br>
-
-#### **Deviance information criterion**
-
-The most basic Bayesian adaptation of the AIC is the Deviance information criterion (DIC):
-
-$$\hat{elpd}_{DIC}  =  \log p(y | \hat{\theta}_{Bayes}) - p_{DIC}$$
-
-- Where $\theta_{Bayes}$ is the mean posterior estimate and
-- $p_{DIC}$ is the number of "effective parameters in the model" using a data-biased correction
-
-<br>
-
-#### **Watanabe-Akaike information criterion**
-
-An improvement over the DIC is the Watanabe-Akaike information criterion:
-
-
-$$\hat{elpd}_{WAIC} = \sum_{i=1}^{n} \log p(y_i) - \sum_{i=1}^{n} \log V \Big[p(y_i) \Big]$$
-
-The WAIC has the advantages of:
-
-- Averaging the likelihood over the posterior distribution rather than using the mean
-
-- Does not assume a multivariate Gaussian posterior distribution, as does the DIC (and AIC)
-
-<br>
-
-##### **WAIC example**
-
-```{r, message=FALSE}
-waic(TitanicLinear)
-```
-
-<br>
-
-#### **Leave One Out Cross-Validation**
-
-Another method alongside WAIC for comparing out-of-sample predictive ability is to apply 
-leave-one-out cross-validation (LOO).
-
-- LOO assesses predictive ability of posterior simulations in which the data is 
-iteratively partitioned into training and prediction sets.
-
-**Expected Log Predictive Density:**  
-$$\hat{elpd}_{LOO} = \sum_{i=1}^{n} \log p(y_i | y_{-i})$$
-
-##### **LOO example**
-
-```{r, message=FALSE}
-loo(TitanicLinear)
-```
-
-<br>
-
-#### **Comparing models**
-
-```{r}
-Titanic_probit <- stan_glm(Survived ~ Age + 
-    SexCode + as.factor(class), 
-    data = titanic, family = binomial(link=probit))
-Loo_probit <- loo(Titanic_probit)
-
-Titanic_logit <- stan_glm(Survived ~ Age + 
-    SexCode + as.factor(class), 
-    data = titanic, family = binomial(link=logit))
-Loo_logit <- loo(Titanic_logit)
-
-# ELPD_diff>0 indicates more support for 2nd model
-compare_models(Loo_probit, Loo_logit)
-```
-
-<br>
-
-#### **Many more diagnostics with shinystan**
-
-Probably the most popular diagnostic for Bayesian regression in R is the 
-functionality from the [shinystan package](https://www.rdocumentation.org/packages/shinystan).
-
-- Shinystan launches a "Shiny" web application to show you model diagnostics, so 
-it can't be done inside of a RMarkdown document (but works just fine if called 
-from the console.)
-
-```{r, eval=FALSE}
-# Do in console not RMarkdown
-launch_shinystan(TitanicLinear)
-
+# Column 1
+table6_c1 <- lm(data = final_data, yes ~ guest_race + price_geq_median +
+                  price_geq_median*guest_race)
+table6_c1_clustered <-  clustered_tstats(table6_c1)
+table6_c1_clustered
+
+# Column 2
+table6_c2 <- lm(data = final_data, yes ~ guest_race + black_proportion +
+                  black_proportion*guest_race)
+table6_c2_clustered <-  clustered_tstats(table6_c2)
+table6_c2_clustered
+
+# Column 3
+table6_c3 <- lm(data = final_data, yes ~ guest_race + tract_listings +
+                  tract_listings*guest_race)
+table6_c3_clustered <-  clustered_tstats(table6_c3)
+table6_c3_clustered
 ```

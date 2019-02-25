@@ -21,7 +21,7 @@ navbar:
     - text: 'M5: Regression Modelling and Data Visualization'
       href: module5.html
     - text: 'M6: Intro to Bayesian Methods'
-      href: ~
+      href: module6.html
   - text: Learning Resources
     menu:
     - text: DataCamp

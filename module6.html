@@ -453,7 +453,9 @@ div.tocify {
     <li>
       <a href="module5.html">M5: Regression Modelling and Data Visualization</a>
     </li>
-    <li class="dropdown-header">M6: Intro to Bayesian Methods</li>
+    <li>
+      <a href="module6.html">M6: Intro to Bayesian Methods</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -850,7 +852,7 @@ fit1 &lt;-<span class="st"> </span><span class="kw">stan</span>(
 ## $ Sex      &lt;fct&gt; female, female, male, female, …
 ## $ Survived &lt;int&gt; 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, …
 ## $ SexCode  &lt;int&gt; 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, …</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Numeric Class</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reformat Class</span>
 Titanic<span class="op">$</span>class &lt;-<span class="st"> </span><span class="kw">str_extract</span>(Titanic<span class="op">$</span>PClass, <span class="st">&quot;[0-9]&quot;</span>)
 
 TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Survived <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>
@@ -879,18 +881,18 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 ## as.factor(class)3   -0.4    0.0   -0.5   -0.4   -0.4   -0.4   -0.3 
 ## sigma                0.4    0.0    0.4    0.4    0.4    0.4    0.4 
 ## mean_PPD             0.4    0.0    0.4    0.4    0.4    0.4    0.5 
-## log-posterior     -364.8    1.7 -368.9 -365.8 -364.5 -363.5 -362.5 
+## log-posterior     -364.8    1.7 -368.9 -365.7 -364.5 -363.6 -362.5 
 ## 
 ## Diagnostics:
 ##                   mcse Rhat n_eff
-## (Intercept)       0.0  1.0  2549 
-## Age               0.0  1.0  3354 
-## SexCode           0.0  1.0  4115 
-## as.factor(class)2 0.0  1.0  2862 
-## as.factor(class)3 0.0  1.0  2574 
-## sigma             0.0  1.0  4354 
-## mean_PPD          0.0  1.0  4553 
-## log-posterior     0.0  1.0  1971 
+## (Intercept)       0.0  1.0  2294 
+## Age               0.0  1.0  3168 
+## SexCode           0.0  1.0  3953 
+## as.factor(class)2 0.0  1.0  2815 
+## as.factor(class)3 0.0  1.0  2502 
+## sigma             0.0  1.0  4174 
+## mean_PPD          0.0  1.0  3765 
+## log-posterior     0.0  1.0  1837 
 ## 
 ## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
 <p><br> <br></p>
@@ -901,12 +903,12 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 <p>You can also easily get print the credible intervals with the function <a href="https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/posterior_interval.stanreg">posterior_interval()</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">posterior_interval</span>(TitanicLinear, <span class="dt">prob=</span><span class="fl">0.95</span>)</code></pre></div>
 <pre><code>##                           2.5%        97.5%
-## (Intercept)        0.521603510  0.735208521
-## Age               -0.008129555 -0.003827011
-## SexCode            0.442731361  0.560569995
-## as.factor(class)2 -0.280156629 -0.130527181
-## as.factor(class)3 -0.467020082 -0.317740204
-## sigma              0.369205529  0.408262526</code></pre>
+## (Intercept)        0.524131299  0.733029097
+## Age               -0.008178664 -0.003942273
+## SexCode            0.443016245  0.561969161
+## as.factor(class)2 -0.283879669 -0.133217453
+## as.factor(class)3 -0.467082496 -0.318925289
+## sigma              0.369328091  0.408310633</code></pre>
 <div id="graphical-credible-intervals" class="section level4">
 <h4><strong>Graphical credible intervals</strong></h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(TitanicLinear)</code></pre></div>
@@ -987,8 +989,8 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 ## 
 ##           Estimate   SE
 ## elpd_waic   -360.5 19.4
-## p_waic         6.0  0.3
-## waic         720.9 38.7</code></pre>
+## p_waic         6.1  0.3
+## waic         721.0 38.7</code></pre>
 <p><br></p>
 </div>
 </div>
@@ -1008,8 +1010,8 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 ## 
 ##          Estimate   SE
 ## elpd_loo   -360.5 19.4
-## p_loo         6.0  0.3
-## looic       720.9 38.7
+## p_loo         6.1  0.3
+## looic       721.0 38.7
 ## ------
 ## Monte Carlo SE of elpd_loo is 0.0.
 ## 
@@ -1037,7 +1039,7 @@ Loo_logit &lt;-<span class="st"> </span><span class="kw">loo</span>(Titanic_logi
 ## (negative &#39;elpd_diff&#39; favors 1st model, positive favors 2nd) 
 ## 
 ## elpd_diff        se 
-##       1.0       0.8</code></pre>
+##       1.2       0.8</code></pre>
 <p><br></p>
 </div>
 <div id="many-more-diagnostics-with-shinystan" class="section level4">

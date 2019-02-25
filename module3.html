@@ -453,7 +453,9 @@ div.tocify {
     <li>
       <a href="module5.html">M5: Regression Modelling and Data Visualization</a>
     </li>
-    <li class="dropdown-header">M6: Intro to Bayesian Methods</li>
+    <li>
+      <a href="module6.html">M6: Intro to Bayesian Methods</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -719,16 +721,16 @@ factor.vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy.sub &lt;-<span class="st"> </span>nlsy97 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(parentincome, motheredyrs, gpa)
 nlsy.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map_dbl</span>(IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## parentincome  motheredyrs          gpa 
-##        55000            2          226</code></pre>
+##   55947.2500       3.0000       2.8075</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlsy.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(IQR, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## $parentincome
-## [1] 55000
+## [1] 55947.25
 ## 
 ## $motheredyrs
-## [1] 2
+## [1] 3
 ## 
 ## $gpa
-## [1] 226</code></pre>
+## [1] 2.8075</code></pre>
 <p><br></p>
 </div>
 <div id="using-map-with-anonymous-functions" class="section level3">
@@ -1200,12 +1202,12 @@ tech_stocks &lt;-<span class="st"> </span><span class="kw">list</span>()
 }
 tech_stocks <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>()
 tech_stocks[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>)]</code></pre></div>
-<pre><code>##           Date Adj.Close..     Volume stock
-## 1 Feb 15, 2019      108.22 26,537,100  MSFT
-## 2 Feb 14, 2019      106.90 21,784,700  MSFT
-## 3 Feb 13, 2019      106.81 18,394,900  MSFT
-## 4 Feb 12, 2019      106.89 25,056,600  MSFT
-## 5 Feb 11, 2019      105.25 18,914,100  MSFT</code></pre>
+<pre><code>##           Date   Adj.Close..        Volume stock
+## 1 Feb 22, 2019        110.97    27,748,500  MSFT
+## 2 Feb 21, 2019        109.41    29,063,200  MSFT
+## 3 Feb 20, 2019        107.15    21,607,700  MSFT
+## 4 Feb 20, 2019 0.46 Dividend 0.46 Dividend  MSFT
+## 5 Feb 19, 2019        107.71    18,038,500  MSFT</code></pre>
 </div>
 <div id="another-webscraping-example" class="section level2">
 <h2>Another webscraping example</h2>

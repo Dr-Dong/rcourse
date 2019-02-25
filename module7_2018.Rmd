@@ -1,5 +1,6 @@
 ---
-title: "Module 7: Intro to Bayesian Methods in R"
+title: "Introduction to R"
+subtitle: "Module 7: Intro to Bayesian Methods in R"
 output: 
   html_document:
       self_contained: true

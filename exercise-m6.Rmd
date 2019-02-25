@@ -1,0 +1,18 @@
+---
+title: "Module 5 Exercise - Part B"
+author: "Andrew Proctor"
+date: "February 24, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the NLSY Dataset
+
+```{r}
+
+import
+
+```

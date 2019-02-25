@@ -172,7 +172,7 @@ is introduced as a means of creating compelling graphs in R.
 - **Seminar Exercises:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5b-extract.Rmd" role="button">Exercise Part B</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">wdi_data.rds</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a>
 
 ```{r, include=FALSE}
 # <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Solutions (PDF)</a> 

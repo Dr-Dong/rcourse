@@ -581,7 +581,7 @@ loo(TitanicLinear)
 
 ## Comparing models
 
-```{r}
+```{r, results="hide"}
 Titanic_probit <- stan_glm(Survived ~ Age + 
     SexCode + as.factor(class), 
     data = Titanic, family = binomial(link=probit))
@@ -596,6 +596,10 @@ Loo_logit <- loo(Titanic_logit)
 compare_models(Loo_probit, Loo_logit)
 ```
 
+## Comparing models
+```{r, echo = FALSE}
+compare_models(Loo_probit, Loo_logit)
+```
 
 ## Many more diagnostics with shinystan
 

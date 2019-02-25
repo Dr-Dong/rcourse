@@ -98,7 +98,7 @@ Create a scatterplot with:
 - The dataset is 75 randomly sampled observations from **nlsy_sample** 
 - Log Parental income is on the x-axis, shown from values of 8 to 12.
 - GPA is on the y-axis, shown from values 1 to 4.
-- The color of points based on the mother's years of education.
+- The color of points based on the mother's highest degree completed.
 - The color scale set using the following:
     ```{r, eval=FALSE}
     scale_colour_brewer(palette = "Set1")

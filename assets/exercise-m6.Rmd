@@ -21,10 +21,16 @@ library(rstan)
 library(bayesplot)
 ```
 
+\newcommand{\andrewcomment}[1]{{\leavevmode\color{blue}#1}}
+
+\andrewcomment{\textbf{Note: } Completion of this exercise is voluntary - you 
+are not required to submit this assignment. 
+}
+
 ## Preliminaries
 
-- Install RTools from 
-[here](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows):
+- If you are on Windows, you may first need to install RTools from 
+[here](https://cran.r-project.org/bin/windows/Rtools/):
 
 - Install and initialize the packages rstan, rstanarm, and shinystan.  
 

@@ -559,7 +559,7 @@ div.tocify {
 </div>
 
 
-<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a></p>
+<p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5b-extract.Rmd" role="button">Exercise Part B</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a></p>
 <p><br></p>
 <div id="intro" class="section level2">
 <h2>Intro</h2>
@@ -1106,7 +1106,7 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <td align="left">exper</td>
 <td align="right">0.1209297</td>
 <td align="right">0.0232234</td>
-<td align="right">5.207228</td>
+<td align="right">5.207226</td>
 <td align="right">2e-07</td>
 <td align="right">0.0754126</td>
 <td align="right">0.1664468</td>
@@ -1114,11 +1114,11 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <tr class="even">
 <td align="left">schooling</td>
 <td align="right">0.6422357</td>
-<td align="right">0.0334054</td>
-<td align="right">19.225493</td>
+<td align="right">0.0334052</td>
+<td align="right">19.225648</td>
 <td align="right">0e+00</td>
-<td align="right">0.5767623</td>
-<td align="right">0.7077091</td>
+<td align="right">0.5767628</td>
+<td align="right">0.7077086</td>
 </tr>
 <tr class="odd">
 <td align="left">sexfemale</td>
@@ -1252,7 +1252,7 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 </div>
 <div id="fixed-effects-regression-on-the-crime-dataset" class="section level5">
 <h5>Fixed effects regression on the crime dataset</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_reg &lt;-<span class="st"> </span><span class="kw">plm</span>(crimerate <span class="op">~</span><span class="st"> </span>police_pc <span class="op">+</span><span class="st"> </span>police_pc <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_reg &lt;-<span class="st"> </span><span class="kw">plm</span>(crimerate <span class="op">~</span><span class="st"> </span>police_pc <span class="op">+</span>
 <span class="st">                </span>tax_pc <span class="op">+</span><span class="st"> </span>urban, <span class="dt">data=</span>crime_NC, 
                 <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;year&quot;</span>), 
                 <span class="dt">model=</span><span class="st">&quot;within&quot;</span>, <span class="dt">effect=</span><span class="st">&quot;twoway&quot;</span>)

@@ -384,7 +384,7 @@ tidy(crime_reg)
 
 ## Fixed effects regression on the crime dataset
 ```{r}
-crime_reg <- plm(crimerate ~ police_pc + police_pc +
+crime_reg <- plm(crimerate ~ police_pc + 
                 tax_pc + urban, data=crime_NC, 
                 index=c("county", "year"), 
                 model="within", effect="twoway")

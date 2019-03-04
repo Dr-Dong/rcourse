@@ -114,7 +114,7 @@ Tidyverse functions, manipulating strings, and scrape tables from the web.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.R" role="button">Solutions (R Script)</a>
 
-- **Seminar Exercises:**   \ \ \ \ 
+- **Seminar Exercises 2018:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-2018.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions-2018.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions-2018.R" role="button">Solutions (R Script)</a>
@@ -169,14 +169,14 @@ is introduced as a means of creating compelling graphs in R.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-parta-solutions.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-parta-solutions.Rmd" role="button">Solutions (Rmd)</a>
 
-- **Seminar Exercises:**   \ \ \ \ 
+- **Seminar Exercises 2018:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Part A Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.Rmd" role="button">Part A Solutions (Rmd)</a>
 
 
-- **Seminar Exercises - 2018:**   \ \ \ \ 
+- **Seminar Exercises 2018:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-2018.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/wdi_data.rds" role="button">nlsy97.rds</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions-2018.pdf" role="button">Solutions (PDF)</a>

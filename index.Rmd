@@ -144,6 +144,7 @@ introduced to perform version control.
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-pdf.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-beamer.pdf" role="button">Solutions (Beamer)</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-html.html" role="button">Solutions (html)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-solutions.Rmd" role="button">Solutions (Rmd)</a>
 
 <br>
@@ -172,8 +173,8 @@ is introduced as a means of creating compelling graphs in R.
 - **Seminar Exercises 2018:**   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Part A Solutions (PDF)</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.Rmd" role="button">Part A Solutions (Rmd)</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.pdf" role="button">Solutions (PDF)</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions.Rmd" role="button">Solutions (Rmd)</a>
 
 
 - **Seminar Exercises 2018:**   \ \ \ \ 

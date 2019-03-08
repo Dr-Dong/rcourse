@@ -9,7 +9,7 @@ urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(include = FALSE)
+knitr::opts_chunk$set(include = TRUE)
 library(rio)
 library(tidyverse)
 library(multiwayvcov)

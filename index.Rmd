@@ -54,11 +54,11 @@ This module introduces the R programming language and the RStudio software.  R
 programming topics will include coverage of basic operations
 and data object types, especially vectors, matrices, and data frames.
 
-- **Lecture** **Notes**:   \ \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module1.html" role="button">Webpage</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module1_slides.pdf" role="button">Slides</a>
 
-- **Seminar Exercises:**   \ \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/setup_instructions.pdf" role="button">Setup Instructions</a> 
  <a class="btn btn-primary" href="https://www.datacamp.com/courses/6356" role="button">DataCamp Exercises</a>
  
@@ -76,20 +76,20 @@ collectively known as the "Tidyverse."  Specifically, this module covers how to
 subset data, arrange it, transform it, and aggregate it.  Participants will also 
 learn convenient tools to import and export data.
 
-- **Lecture** **Notes**:   \ \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module2.html" role="button">Webpage</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module2.pdf" role="button">Slides</a>
 
 ```{r, include=FALSE}
 ```
   
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.zip" role="button">nlsy97.zip</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions.R" role="button">Solutions (R Script)</a>
 
-- **Seminar Exercise 2018:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercise 2018:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-2018.pdf" role="button">Exercise</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions-2018.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m2-solutions-2018.R" role="button">Solutions (R Script)</a>
@@ -105,16 +105,16 @@ perform loops, use conditional statements, and write basic functions.  In
 addition, this module will cover how to join data sets in R using 
 Tidyverse functions, manipulating strings, and scrape tables from the web.
 
-- **Lecture** **Notes**:   \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module3.html" role="button">Webpage</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module3.pdf" role="button">Slides</a> 
 
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions.R" role="button">Solutions (R Script)</a>
 
-- **Seminar Exercises 2018:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises 2018:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-2018.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions-2018.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m3-solutions-2018.R" role="button">Solutions (R Script)</a>
@@ -131,7 +131,7 @@ documents, and beamer presentations.  Then, RStudio Projects are introduced as
 means of organizing folders for empirical projects.  Finally, Git and GitHub are 
 introduced to perform version control.
 
-- **Lecture** **Notes**:   \ \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module4.html" role="button">Webpage</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module4.pdf" role="button">Slides</a> 
 
@@ -140,7 +140,7 @@ introduced to perform version control.
 
 ```
 
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4.pdf" role="button">Exercise</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-pdf.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m4-beamer.pdf" role="button">Solutions (Beamer)</a>
@@ -159,18 +159,18 @@ methods for panel and instrumental variables data.  Finally, the ggplot2 package
 is introduced as a means of creating compelling graphs in R.
 
 
-- **Lecture** **Notes**:   \ \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module5.html" role="button">Webpage</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> 
 
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5b-extract.Rmd" role="button">Exercise Part B</a>
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5b-extract.Rmd" role="button">Exercise -  Part B</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-parta-solutions.pdf" role="button">Solutions (PDF)</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-parta-solutions.Rmd" role="button">Solutions (Rmd)</a>
 
-- **Seminar Exercises 2018:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises 2018:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-2018.pdf" role="button">Exercise</a> 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/wdi_data.rds" role="button">wdi_data.rds</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5-solutions-2018.pdf" role="button">Solutions (PDF)</a>
@@ -186,14 +186,14 @@ is introduced as a means of creating compelling graphs in R.
 This module introduces the basic intuition of Bayesian statistical methods and 
 how to perform Bayesian analysis in R, primarily using the rstanarm package.
 
-- **Lecture** **Notes**:   \ \ \ \ \ 
+- <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/module6.html" role="button">Webpage</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module6.pdf" role="button">Slides</a>
 ```{r, include=FALSE}
 
 ```
 
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m6.pdf" role="button">Exercise</a>
 
 ```{r, include=FALSE}
@@ -209,11 +209,11 @@ developed over the preceding seminars.  The review will function as preparation
 for the capstone project, in which students individually replicate results from 
 a recent economics paper.
 
-- **Seminar Exercises:**   \ \ \ \ 
+- <font size="4"> **Seminar Exercises:**</font>   \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/review_exercise.pdf" role="button">Exercise</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/datanames.csv" role="button">datanames.csv</a>
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.pdf" role="button">Solutions (PDF)</a> 
-<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone-solutions.Rmd" role="button">Solutions (Rmd)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/review_exercise-solutions.pdf" role="button">Solutions (PDF)</a> 
+<a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/review_exercise-solutions.Rmd" role="button">Solutions (Rmd)</a> 
 ```{r, include=FALSE}
 
 
@@ -230,7 +230,8 @@ For the capstone project, you will be replicating results from
 "Intergenerational Mobility and Preferences for Redistribution" (AER 2018) by 
 Alberto Alesina, Stefanie Stantcheva, Edoardo Teso.  The capstone project is 
 due on March 18^th^.
-- **Files:**   \ \ \ \ 
+
+-  <font size="4"> **Files:**</font> \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone.pdf" role="button">Instructions</a>
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/actual_probabilities" role="button">Instructions</a>
 

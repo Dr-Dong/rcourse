@@ -224,7 +224,7 @@ a recent economics paper.
 
 <br>
 
-### **Capstone Project:**  Review Seminar for Capstone Project
+### **Capstone Project:**
 For the capstone project, you will be replicating results from 
 "Intergenerational Mobility and Preferences for Redistribution" (AER 2018) by 
 Alberto Alesina, Stefanie Stantcheva, Edoardo Teso.  The capstone project is 

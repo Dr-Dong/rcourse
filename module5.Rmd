@@ -26,22 +26,11 @@ library("rio")
 <br>
 
 
-## Intro
-
-### Goals for module
-
-1. Introduce basics of linear regression models in R, including model diagnostics and
-specifying error variance structures.
-2. Introduce further methods for panel data and instrumental variables.
-3. Explore data visualization methods using the ggplot2 package.
+# Regression Basics
 
 <br>
 
-## Regression Basics
-
-<br>
-
-### Linear Regression
+## Linear Regression
 
 The basic method of performing a linear regression in R is to the use the 
 [lm()](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/lm) 
@@ -61,7 +50,7 @@ myregobject <- lm(y ~ x1 + x2 + x3 + x4,
 
 <br>
 
-#### CEX linear regression example
+### CEX linear regression example
 
 ```{r importcex, include=FALSE}
 cex_data <- import("./data/cex_data.rds")
@@ -78,7 +67,7 @@ summary(cex_linreg)
 
 <br>
 
-### Formatting regression output: tidyr
+## Formatting regression output: tidyr
 
 With the [tidy()](https://www.rdocumentation.org/packages/broom/versions/0.4.3/topics/tidy) 
 function from the [broom](https://www.rdocumentation.org/packages/broom) package, you
@@ -91,7 +80,7 @@ tidy(cex_linreg)
 
 <br>
 
-### Formatting regression output: stargazer
+## Formatting regression output: stargazer
 
 Another really good option for creating compelling regression and summary output 
 tables is the [stargazer](https://www.rdocumentation.org/packages/stargazer/) 
@@ -119,7 +108,7 @@ stargazer(cex_linreg, header=FALSE, type='html')
 
 <br>
 
-### Interactions and indicator variables
+## Interactions and indicator variables
 
 Including interaction terms and indicator variables in R is very easy. 
 
@@ -150,7 +139,7 @@ tidy(wages_reg)
 
 <br>
 
-### Setting reference groups for factors
+## Setting reference groups for factors
 
 By default, when including factors in R regression, the first *level* of the factor 
 is treated as the omitted reference group.
@@ -171,7 +160,7 @@ wagereg2 <- lm(wage ~ sex, data=wages); tidy(wagereg2)
 <br>
 
 
-### Useful output from regression
+## Useful output from regression
 
 A couple of useful data elements that are created with a regression output object
 are fitted values and residuals. You can easily access them as follows:
@@ -194,9 +183,9 @@ myfittedvalues <- fitted(myreg)
 <br>
 
 
-## Model Testing
+# Model Testing
 
-### Using the lmtest package
+## Using the lmtest package
 
 The main package for specification testing of linear regressions in R is the 
 [lmtest](https://www.rdocumentation.org/packages/lmtest/) package.
@@ -219,7 +208,7 @@ library(lmtest)
 
 <br>
 
-### Testing for heteroskedasticity
+## Testing for heteroskedasticity
 
 Testing for heteroskedasticity in R can be done with the [bptest()](https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest) 
 function from the [lmtest](https://www.rdocumentation.org/packages/lmtest) 
@@ -253,7 +242,7 @@ bptest(myreg, ~ x1 + x2 + x1*x2 + I(x1^2) +
 
 <br>
 
-### Functional form
+## Functional form
 
 The **Ramsey RESET Test** tests functional form by evaluating if higher order 
 terms have any explanatory value.
@@ -264,7 +253,7 @@ resettest(wages_reg)
 
 <br>
 
-### Testing for autocorrelation: Breusch-Godfrey test
+## Testing for autocorrelation: Breusch-Godfrey test
 
 ```{r bgtest}
 bgtest(wages_reg)
@@ -272,14 +261,14 @@ bgtest(wages_reg)
 
 <br>
 
-###  Testing for autocorrelation: Durbin-Watson test
+##  Testing for autocorrelation: Durbin-Watson test
 ```{r dwtest}
 dwtest(wages_reg)
 ```   
 
 <br>
       
-### Specifying the variance structure
+## Specifying the variance structure
 
 In practice, errors should *almost always* be specified in a manner that is 
 heteroskedasticity and autocorrelation consistent.
@@ -299,7 +288,7 @@ library(sandwich)
 
 <br>
 
-### Heteroskedasticity-robust errors
+## Heteroskedasticity-robust errors
 
 $HC_1$ Errors (MacKinnon and White, 1985):  $\Sigma = \frac{n}{n-k}diag{\hat\{u_i}^2\}$
   
@@ -314,7 +303,7 @@ size with only a small loss of power in the presence of heteroskedasticity.
 
 <br>
 
-#### Heteroskedasticity-robust errors example
+### Heteroskedasticity-robust errors example
 
 ```{r robcoef}
 
@@ -327,7 +316,7 @@ tidy(coeftest(cex_reg, vcov =
 
 <br>
 
-### Computing marginal effects
+## Computing marginal effects
 
 In linear regressions where the regressors and regressors are in "levels", the 
 coefficients are of course equal to the marginal effects.
@@ -345,7 +334,7 @@ library(margins)
 
 <br>
 
-#### Marginal effects example
+### Marginal effects example
 
 We can get the Average Marginal Effects by using `summary` with **margins**:
 
@@ -356,9 +345,9 @@ summary(margins(wages_reg))
 <br>
 <br>
 
-## Further regression methods
+# Further regression methods
 
-### Panel regression: first differences
+## Panel regression: first differences
 
 The package [plm](https://www.rdocumentation.org/packages/plm) provides a wide 
 variety of estimation methods and diagnostics for panel data. 
@@ -379,7 +368,7 @@ myreg <- plm(y ~ x1 + x2 + x3, data = mydata,
 
 <br>
 
-### Panel regression: fixed effects
+## Panel regression: fixed effects
 
 Of course, in most cases fixed effects regression is a more efficient alternative 
 to first-difference regression.  
@@ -407,7 +396,7 @@ crime_NC[1:2,]
 
 <br>
 
-##### First differences regression on the crime dataset
+#### First differences regression on the crime dataset
 ```{r crimefd}
 crime_reg <- plm(crimerate ~ police_pc + tax_pc +
                 region + urban, data=crime_NC, 
@@ -417,7 +406,7 @@ tidy(crime_reg)
 
 <br>
 
-##### Fixed effects regression on the crime dataset
+#### Fixed effects regression on the crime dataset
 ```{r crimefe}
 crime_reg <- plm(crimerate ~ police_pc +
                 tax_pc + urban, data=crime_NC, 
@@ -428,7 +417,7 @@ tidy(crime_reg)
 
 <br>
 
-### Instrumental variables regression
+## Instrumental variables regression
 
 The most popular function for doing IV regression is the [ivreg()](https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg) in the
 [AER package](https://www.rdocumentation.org/packages/AER).
@@ -445,7 +434,7 @@ myivreg <- ivreg(y ~ x1 + x2 | z1 + z2 + z3,
 
 <br>
 
-#### IV diagnostics
+### IV diagnostics
 
 Three common diagnostic tests are available with the **summary** output for regression
 objects from 
@@ -464,7 +453,7 @@ instruments are exogenous.
 
 <br>
 
-#### IV regression example
+### IV regression example
 
 Let's look at an IV regression from the seminal paper 
 "The Colonial Origins of Comparative Development" by Acemogulu, Johnson, and 
@@ -496,7 +485,7 @@ IVsummary["diagnostics"]
 
 <br>
 
-### Further regression methods
+## Further regression methods
 
 Some useful functions for nonlinear regression include:
 
@@ -522,9 +511,9 @@ in the [quantreg](https://www.rdocumentation.org/packages/quantreg/) package.
 <br>
 <br>
 
-## Graphs in R
+# Graphs in R
 
-### Data visualization overview
+## Data visualization overview
 
 One of the strong points of R is creating very high-quality data visualization. 
 
@@ -536,7 +525,7 @@ good resources for interactive visualization: [[1](http://www.rebeccabarter.com/
  
 <br>
 
-### ggplot2 for data visualization
+## ggplot2 for data visualization
 
 The main package for publication-quality static data visualization in R is 
 [ggplot2](https://www.rdocumentation.org/packages/ggplot2), which is part of the 
@@ -558,7 +547,7 @@ mygraph <- ggplot(mydata, aes(...)) + geom(...) + ...
 
 <br>
 
-### Scatterplots
+## Scatterplots
 
 First, let's look at a simple scatterplot, which is defined by using the geometry 
 **geom_point()**.
@@ -572,7 +561,7 @@ ggplot(col_origins, aes(x=legalprotect,
 <br>
 
 
-### Adding an aesthetic option to the points 
+## Adding an aesthetic option to the points 
 
 Graphs can be extensively customized using additional arguments inside of elements:
 ```{r aesth}
@@ -583,7 +572,7 @@ ggplot(col_origins, aes(x=legalprotect,y = logGDP95)) +
 
 <br>
 
-### Using country names instead of points
+## Using country names instead of points
 
 Instead of using a scatter plot, we could use the names of the data points in 
 place of the dots.
@@ -597,7 +586,7 @@ ggplot(col_origins,
 
 <br>
 
-### Line graph
+## Line graph
 
 A line graph uses the geometry **geom_line()**.
 
@@ -608,7 +597,7 @@ ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  +
 
 <br>
 
-#### Plotting a regression line
+### Plotting a regression line
 
 A more useful line is the fitted values from the regression.  Here's a plot of 
 that line with the points from the scatterplot for the Acemoglu IV: 
@@ -627,7 +616,7 @@ ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  +
 
 <br>
 
-### Specifying axis and titles 
+## Specifying axis and titles 
 
 A standard task in making the graph is specifying graph titles (main and axes), 
 as well as potentially specifying the scale of the axes.
@@ -645,7 +634,7 @@ ggplot(col_origins, aes(x=legalprotect, y = logGDP95))  +
 
 <br>
 
-### Histogram
+## Histogram
 
 The geometry point for histogram is **geom_histogram()**.
 
@@ -662,7 +651,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
 
 <br>
 
-### Bar plot
+## Bar plot
 
 The geometry for a bar plot is **geom_bar()**. By default, a bar plot uses 
 frequencies for its values, but you can use values from a column by specifying 
@@ -683,7 +672,7 @@ ggplot(coeffs_IV,
 
 <br>
 
-### Adding error bars
+## Adding error bars
 
 You can easily add error bars by specifying the values for the error bar inside 
 of **geom_errorbar()**.
@@ -703,7 +692,7 @@ ggplot(coeffs_IV,
 
 <br>
 
-### Adding colors
+## Adding colors
 
 You can easily add color to graph points as well.  There are a lot of aesthetic 
 options to do that --- here I demonstrate adding a color *scale* to the graph.
@@ -723,7 +712,7 @@ ggplot(col_origins, aes(x=legalprotect,
 
 <br>
 
-#### Adding colors:  example 2
+### Adding colors:  example 2
 
 ```{r, message=FALSE}
 
@@ -737,7 +726,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
 
 <br>
 
-### Adding themes
+## Adding themes
 
 Another option to affect the appearance of the graph is to use **themes**, which 
 affect a number of general aspects concerning how graphs are displayed.
@@ -764,7 +753,7 @@ ggplot(col_origins, aes(x=legalprotect)) +
 
 <br>
 
-### More with ggplot2
+## More with ggplot2
 
 This has been just a small overview of things you can do with ggplot2. To learn 
 more about it, here are some useful references:

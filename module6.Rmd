@@ -31,13 +31,13 @@ library(magrittr)
 
 <br>
 
-## Conceptual Introduction   
+# Conceptual Introduction   
 
 <br>
 
-### **Thought Experiment** {.tabset .tabset-pills}
+## **Thought Experiment** {.tabset .tabset-pills}
 
-#### Question
+### Question
 
 Imagine I'm conducting a raffle.  I have a large bowl, and inside of 
 it are many raffle entries, each with different numbers on them.  
@@ -57,7 +57,7 @@ it are many raffle entries, each with different numbers on them.
 <br>
 <br>
     
-#### Answer
+### Answer
 
 **Classical Statistics:** *No.* 
 
@@ -78,7 +78,7 @@ based on prior understanding and new information.
 <br>
 <br>
     
-### **Epistomological difference**
+## **Epistomological difference**
 - Bayesian statistics integrates the epistemological uncertainty of statistical 
 estimation into its core procedures.  It's fundamental goal is to assess and 
 improve the accuracy of one's beliefs based on a set of identifying statistical 
@@ -91,7 +91,7 @@ underlying reality, based on its own set of identifying assumptions.
 
 <br>
 
-### **Bayes Rule**
+## **Bayes Rule**
 
 The cornerstone of the Bayesian approach (and the source of its name) is the 
 conditional likelihood theorem known as **Bayes' rule**.
@@ -106,7 +106,7 @@ $$ p(A_i|B) = \frac{p(B | A_i) P(A_i)}{\sum_j P(B|A_j)P(A_j)} $$
 
 <br>
 
-### **Inference using Bayes' Rule**
+## **Inference using Bayes' Rule**
 
 Adapting Bayes' Rule to the case of a parameter value, $\theta$ and observed data *y*, we have:
 
@@ -134,7 +134,7 @@ $$ Posterior \propto Likelihood \times Prior $$
 
 <br>
 
-### **Priors**
+## **Priors**
 
 Given this *compromise with prior beliefs*, Bayesian analysis is often attacked as 
 subjective and a lot of emphasis is placed on the role of prior beliefs.  **But fear 
@@ -148,7 +148,7 @@ posterior estimates.
 
 <br>
 
-#### **Types of Priors**
+### **Types of Priors**
 
 Different types of priors include:
 
@@ -171,7 +171,7 @@ of posterior estimates.
 
 <br>
 
-#### **Intuition about priors**
+### **Intuition about priors**
 
 Think for instance of inference about possible life expectancy:
 
@@ -191,52 +191,13 @@ to be more dispersed and ages to reach, say 150 or 200 years old.
 
 <br>
 
-#### **Priors Example:**
+### **Priors Example:**
 
 ![From van de Schoot et al 2014](priors.png)
 
 <br>
 <br>
-
-
-### **Bayesian Computation**
-
-One major feature of Bayesian inference that I haven't mentioned so far is 
-the intractability of analytic solutions for estimating posterior distributions
-in most circumstances.
-
-Recall:
-$$ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} $$
-
-For models that are more complex or that involve high-dimensional data, closed-form
-solutions are not available for the integral in the denominator.
-
-Hence, Bayesian analysis instead typically relies on numerical methods, usually 
-Markov Chain Monte Carlo (MCMC) methods.
-
-<br>
-
-#### **MCMC Methods**
-
-This method relies on sequentially sampling values of $\theta$ from an approximation 
-of the posterior distribution and then correcting the approximation to create 
-better subsequent samples.
-
-- Because the approximated distribution used in 1 step relies on the sample 
-from the previous step, the simulation forms a **Markov chain**.
-
-- A critical property then is **convergence**:  Have our simulations converged 
-to the real target distribution?
-
-    + Typically instead of running one really long "chain", researchers use 
-    multiple short chains.  
-    + The aggregate can not only converge faster, but 
-    can provide a better sense of convergence through the noisiness between
-    multiple chains.
-    
-<br>
-
-### **Hypothesis Testing in Bayesian Analysis?**
+## **Hypothesis Testing in Bayesian Analysis?**
 
 Another point of divergence for Bayesian vs. frequentist data analysis is even 
 more dramatic:
@@ -257,7 +218,7 @@ of parameters (or predictions).
 
 <br>
 
-#### **Bayesian Inference with Credible Intervals**
+### **Bayesian Inference with Credible Intervals**
 
 Without NHST to tell us if our results are significant, does that mean we just 
 get point estimates and no way to assess how reliable they are? ***No!***
@@ -282,10 +243,48 @@ there is a 95% chance that the true value lies within the 95% credible interval.
 
 <br>
 
+## **Bayesian Computation**
 
-## Bayesian Regression with rstanarm
+One major feature of Bayesian inference that I haven't mentioned so far is 
+the intractability of analytic solutions for estimating posterior distributions
+in most circumstances.
 
-### **Stan**
+Recall:
+$$ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} $$
+
+For models that are more complex or that involve high-dimensional data, closed-form
+solutions are not available for the integral in the denominator.
+
+Hence, Bayesian analysis instead typically relies on numerical methods, usually 
+Markov Chain Monte Carlo (MCMC) methods.
+
+<br>
+
+### **MCMC Methods**
+
+This method relies on sequentially sampling values of $\theta$ from an approximation 
+of the posterior distribution and then correcting the approximation to create 
+better subsequent samples.
+
+- Because the approximated distribution used in 1 step relies on the sample 
+from the previous step, the simulation forms a **Markov chain**.
+
+- A critical property then is **convergence**:  Have our simulations converged 
+to the real target distribution?
+
+    + Typically instead of running one really long "chain", researchers use 
+    multiple short chains.  
+    + The aggregate can not only converge faster, but 
+    can provide a better sense of convergence through the noisiness between
+    multiple chains.
+    
+<br>
+
+
+
+# Bayesian Regression with rstanarm
+
+## **Stan**
 
 Probably the best approach to doing Bayesian analysis in any software environment 
 is with [rstan](https://www.rdocumentation.org/packages/rstan), which is 
@@ -299,7 +298,7 @@ from RStudio (make sure to set `dependencies=TRUE` when installing).
 
 <br>
 
-#### **Parallelization support**
+### **Parallelization support**
 
 Once you've setup [rstan](https://www.rdocumentation.org/packages/rstan), there 
 is one more thing you should typically do:  tell it to run on multiple cores.
@@ -316,7 +315,7 @@ options (mc.cores=parallel::detectCores ())
 
 <br>
 
-#### **A Stan regression example**
+### **A Stan regression example**
 
 Now that you're ***hopefully*** excited about rstan, let's look at an example of
 a rstan regression from the package documentation:
@@ -360,7 +359,7 @@ fit1 <- stan(
 
 <br>
 
-### **Rstanarm:  making RStan easy**
+## **Rstanarm:  making RStan easy**
 
 ***Oops!  That was a lot of code!***  And there's still a bit more left out. Luckily, 
 there are a couple of packages that exist to make your life easier:
@@ -376,7 +375,7 @@ running Bayesian regression much simpler and 'R-like'.
 
 <br>
 
-#### **Short comparison of rstanarm and brms**
+### **Short comparison of rstanarm and brms**
 
 **rstanarm** is faster, has better posterior checking, and is a bit simpler to 
 use.
@@ -390,7 +389,7 @@ the more popular choice, so that's what we'll use here.
 
 <br>
 
-#### **Using rstanarm**
+### **Using rstanarm**
 
 With rstanarm, most regressions you run using the function [stan_glm()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/stan_glm) 
 
@@ -407,7 +406,7 @@ mybayesreg <- stan_glm(y ~ X1 + x2 + x3 ...,
 
 <br>
 
-#### **Options with stan_glm**
+### **Options with stan_glm**
 
 **Family** (with a possible **link** argument needed as well) defines the type of 
 regression you want:
@@ -428,7 +427,7 @@ regression you want:
 
 <br>
 
-#### **A Titanic survival example with rstanarm**
+### **A Titanic survival example with rstanarm**
 
 ```{r}
 data(Titanic)
@@ -448,7 +447,7 @@ summary(TitanicLinear)
 <br>
 <br>
 
-### **Credible intervals**
+##### **Credible intervals**
 
 You can also easily get print the credible intervals with the function [posterior_interval()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/posterior_interval.stanreg) 
 
@@ -466,7 +465,7 @@ plot(TitanicLinear)
 <br>
 <br>
 
-### **Plotting the posterior distribution**
+#### **Plotting the posterior distribution**
 
 You can also easily plot the posterior distribution of a parameter in R.
 
@@ -490,9 +489,9 @@ posterior_vs_prior(TitanicLinear)
 
 <br>
 
-## Model Testing
+# Model Testing
 
-### **Model testing basics**
+## **Model testing basics**
 
 There are a number of different regression diagnostics after performing Bayesian 
 regression to help infer if the model converged, how well it performs, and 
@@ -503,7 +502,7 @@ Today, we'll cover some of them included with rstanarm as well as the very usefu
 
 <br>
 
-### **Graphical posterior predictive analysis**
+## **Graphical posterior predictive analysis**
 
 To check the predictive accuracy of the posterior distribution, you can use the 
 function [pp_check()](https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/pp_check.stanreg), 
@@ -517,7 +516,7 @@ pp_check(TitanicLinear)
 <br>
 <br>
 
-### **Regularization and Predictive Accuracy**
+## **Regularization and Predictive Accuracy**
 
 A critical issue in both Bayesian and frequentist estimation is how to balance 
 predictive accuracy with parsimony.  Put another, the researcher should be 
@@ -534,7 +533,7 @@ The basic approach in frequentist method is to use the Akaike information criter
 
 <br>
 
-#### **Deviance information criterion**
+### **Deviance information criterion**
 
 The most basic Bayesian adaptation of the AIC is the Deviance information criterion (DIC):
 
@@ -545,7 +544,7 @@ $$\hat{elpd}_{DIC}  =  \log p(y | \hat{\theta}_{Bayes}) - p_{DIC}$$
 
 <br>
 
-#### **Watanabe-Akaike information criterion**
+### **Watanabe-Akaike information criterion**
 
 An improvement over the DIC is the Watanabe-Akaike information criterion:
 
@@ -560,7 +559,7 @@ The WAIC has the advantages of:
 
 <br>
 
-##### **WAIC example**
+#### **WAIC example**
 
 ```{r, message=FALSE}
 waic(TitanicLinear)
@@ -568,7 +567,7 @@ waic(TitanicLinear)
 
 <br>
 
-#### **Leave One Out Cross-Validation**
+### **Leave One Out Cross-Validation**
 
 Another method alongside WAIC for comparing out-of-sample predictive ability is to apply 
 leave-one-out cross-validation (LOO).
@@ -579,7 +578,7 @@ iteratively partitioned into training and prediction sets.
 **Expected Log Predictive Density:**  
 $$\hat{elpd}_{LOO} = \sum_{i=1}^{n} \log p(y_i | y_{-i})$$
 
-##### **LOO example**
+#### **LOO example**
 
 ```{r, message=FALSE}
 loo(TitanicLinear)
@@ -587,7 +586,7 @@ loo(TitanicLinear)
 
 <br>
 
-#### **Comparing models**
+### **Comparing models**
 
 ```{r}
 Titanic_probit <- stan_glm(Survived ~ Age + 
@@ -606,7 +605,7 @@ compare_models(Loo_probit, Loo_logit)
 
 <br>
 
-#### **Many more diagnostics with shinystan**
+## **Many more diagnostics with shinystan**
 
 Probably the most popular diagnostic for Bayesian regression in R is the 
 functionality from the [shinystan package](https://www.rdocumentation.org/packages/shinystan).

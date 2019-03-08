@@ -456,6 +456,10 @@ div.tocify {
     <li>
       <a href="module6.html">M6: Intro to Bayesian Methods</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="all.html">Single-page view of all modules</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -561,13 +565,13 @@ div.tocify {
 
 <p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module6.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m6.pdf" role="button">Exercise</a></p>
 <p><br></p>
-<div id="conceptual-introduction" class="section level2">
-<h2>Conceptual Introduction</h2>
+<div id="conceptual-introduction" class="section level1">
+<h1>Conceptual Introduction</h1>
 <p><br></p>
-<div id="thought-experiment" class="section level3 tabset tabset-pills">
-<h3><strong>Thought Experiment</strong></h3>
-<div id="question" class="section level4">
-<h4>Question</h4>
+<div id="thought-experiment" class="section level2 tabset tabset-pills">
+<h2><strong>Thought Experiment</strong></h2>
+<div id="question" class="section level3">
+<h3>Question</h3>
 <p>Imagine I’m conducting a raffle. I have a large bowl, and inside of it are many raffle entries, each with different numbers on them.</p>
 <ul>
 <li><p>Let the variable <em>x</em> represent the number drawn from the bowl.</p></li>
@@ -580,8 +584,8 @@ div.tocify {
 </ul>
 <p><br> <br></p>
 </div>
-<div id="answer" class="section level4">
-<h4>Answer</h4>
+<div id="answer" class="section level3">
+<h3>Answer</h3>
 <p><strong>Classical Statistics:</strong> <em>No.</em></p>
 <ul>
 <li><p>Probability is defined as: <span class="math inline">\(\lim_{n \rightarrow \infty} \frac{n_S}{n}\)</span>, where <span class="math inline">\(n\)</span> is the number of times I repeat the experiment and <span class="math inline">\(n_S\)</span> is the number of times a number <span class="math inline">\(x \leq 10\)</span> is drawn.</p></li>
@@ -595,8 +599,8 @@ div.tocify {
 <p><br> <br></p>
 </div>
 </div>
-<div id="epistomological-difference" class="section level3">
-<h3><strong>Epistomological difference</strong></h3>
+<div id="epistomological-difference" class="section level2">
+<h2><strong>Epistomological difference</strong></h2>
 <ul>
 <li><p>Bayesian statistics integrates the epistemological uncertainty of statistical estimation into its core procedures. It’s fundamental goal is to assess and improve the accuracy of one’s beliefs based on a set of identifying statistical assumptions.</p></li>
 <li><p>Classical statistics attempts to instead conduct inference on the (unknown) underlying reality, based on its own set of identifying assumptions.</p></li>
@@ -604,16 +608,16 @@ div.tocify {
 <p><strong><em>NOT mutually exclusive</em></strong></p>
 <p><br></p>
 </div>
-<div id="bayes-rule" class="section level3">
-<h3><strong>Bayes Rule</strong></h3>
+<div id="bayes-rule" class="section level2">
+<h2><strong>Bayes Rule</strong></h2>
 <p>The cornerstone of the Bayesian approach (and the source of its name) is the conditional likelihood theorem known as <strong>Bayes’ rule</strong>.</p>
 <p>In its simplest form, Bayes’ Rule states that for two events and A and B (with <span class="math inline">\(P(B) \neq 0\)</span>): <span class="math display">\[ P(A|B) = \frac{P(B|A)P(A)}{P(B)} \]</span></p>
 <p>Or, if A can take on multiple values, we have the <strong>extended form</strong>:</p>
 <p><span class="math display">\[ p(A_i|B) = \frac{p(B | A_i) P(A_i)}{\sum_j P(B|A_j)P(A_j)} \]</span></p>
 <p><br></p>
 </div>
-<div id="inference-using-bayes-rule" class="section level3">
-<h3><strong>Inference using Bayes’ Rule</strong></h3>
+<div id="inference-using-bayes-rule" class="section level2">
+<h2><strong>Inference using Bayes’ Rule</strong></h2>
 <p>Adapting Bayes’ Rule to the case of a parameter value, <span class="math inline">\(\theta\)</span> and observed data <em>y</em>, we have:</p>
 <p><span class="math display">\[ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} \underbrace{\propto}_{\text{proportional to}} f(y|\theta)p(\theta) \]</span></p>
 <p>Adding a bit of terminology:</p>
@@ -633,16 +637,16 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="priors" class="section level3">
-<h3><strong>Priors</strong></h3>
+<div id="priors" class="section level2">
+<h2><strong>Priors</strong></h2>
 <p>Given this <em>compromise with prior beliefs</em>, Bayesian analysis is often attacked as subjective and a lot of emphasis is placed on the role of prior beliefs. <strong>But fear not!</strong></p>
 <ul>
 <li><p>First, as the data sample increases, the data becomes the determining factor of the posterior probability.</p></li>
 <li><p>Moreover, if desired, we can easily specify priors that have <em>no effect</em> on the posterior estimates.</p></li>
 </ul>
 <p><br></p>
-<div id="types-of-priors" class="section level4">
-<h4><strong>Types of Priors</strong></h4>
+<div id="types-of-priors" class="section level3">
+<h3><strong>Types of Priors</strong></h3>
 <p>Different types of priors include:</p>
 <ul>
 <li><p><strong>Uninformative (or “flat”) priors</strong>: Priors that have no impact on posterior values (ie assuming total ignorance about the possible parameter value).</p>
@@ -654,8 +658,8 @@ div.tocify {
 </ul>
 <p><br></p>
 </div>
-<div id="intuition-about-priors" class="section level4">
-<h4><strong>Intuition about priors</strong></h4>
+<div id="intuition-about-priors" class="section level3">
+<h3><strong>Intuition about priors</strong></h3>
 <p>Think for instance of inference about possible life expectancy:</p>
 <ul>
 <li><p>We could specify an uninformative prior that says allows for any possible lifespan (even living to 1 million years old).</p></li>
@@ -668,39 +672,13 @@ div.tocify {
 <p><strong><em>In almost all circumstances, a weak prior should be preferred.</em></strong></p>
 <p><br></p>
 </div>
-<div id="priors-example" class="section level4">
-<h4><strong>Priors Example:</strong></h4>
+<div id="priors-example" class="section level3">
+<h3><strong>Priors Example:</strong></h3>
 <div class="figure">
 <img src="priors.png" alt="From van de Schoot et al 2014" />
 <p class="caption">From van de Schoot et al 2014</p>
 </div>
-<p><br> <br></p>
-</div>
-</div>
-<div id="bayesian-computation" class="section level3">
-<h3><strong>Bayesian Computation</strong></h3>
-<p>One major feature of Bayesian inference that I haven’t mentioned so far is the intractability of analytic solutions for estimating posterior distributions in most circumstances.</p>
-<p>Recall: <span class="math display">\[ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} \]</span></p>
-<p>For models that are more complex or that involve high-dimensional data, closed-form solutions are not available for the integral in the denominator.</p>
-<p>Hence, Bayesian analysis instead typically relies on numerical methods, usually Markov Chain Monte Carlo (MCMC) methods.</p>
-<p><br></p>
-<div id="mcmc-methods" class="section level4">
-<h4><strong>MCMC Methods</strong></h4>
-<p>This method relies on sequentially sampling values of <span class="math inline">\(\theta\)</span> from an approximation of the posterior distribution and then correcting the approximation to create better subsequent samples.</p>
-<ul>
-<li><p>Because the approximated distribution used in 1 step relies on the sample from the previous step, the simulation forms a <strong>Markov chain</strong>.</p></li>
-<li><p>A critical property then is <strong>convergence</strong>: Have our simulations converged to the real target distribution?</p>
-<ul>
-<li>Typically instead of running one really long “chain”, researchers use multiple short chains.<br />
-</li>
-<li>The aggregate can not only converge faster, but can provide a better sense of convergence through the noisiness between multiple chains.</li>
-</ul></li>
-</ul>
-<p><br></p>
-</div>
-</div>
-<div id="hypothesis-testing-in-bayesian-analysis" class="section level3">
-<h3><strong>Hypothesis Testing in Bayesian Analysis?</strong></h3>
+<p><br> <br> ## <strong>Hypothesis Testing in Bayesian Analysis?</strong></p>
 <p>Another point of divergence for Bayesian vs. frequentist data analysis is even more dramatic:</p>
 <ul>
 <li><p>Largely, there is no place for null-hypothesis significance testing (NHST) in Bayesian analysis</p>
@@ -711,8 +689,9 @@ div.tocify {
 <li><p>Instead, analysis is oriented around estimation of the posterior distribution of parameters (or predictions).</p></li>
 </ul>
 <p><br></p>
-<div id="bayesian-inference-with-credible-intervals" class="section level4">
-<h4><strong>Bayesian Inference with Credible Intervals</strong></h4>
+</div>
+<div id="bayesian-inference-with-credible-intervals" class="section level3">
+<h3><strong>Bayesian Inference with Credible Intervals</strong></h3>
 <p>Without NHST to tell us if our results are significant, does that mean we just get point estimates and no way to assess how reliable they are? <strong><em>No!</em></strong></p>
 <ul>
 <li><p>Recall that we are estimating the posterior <em>distribution</em> of a parameter (or predicted outcome).</p></li>
@@ -727,19 +706,41 @@ div.tocify {
 <p><br></p>
 </div>
 </div>
+<div id="bayesian-computation" class="section level2">
+<h2><strong>Bayesian Computation</strong></h2>
+<p>One major feature of Bayesian inference that I haven’t mentioned so far is the intractability of analytic solutions for estimating posterior distributions in most circumstances.</p>
+<p>Recall: <span class="math display">\[ p(\theta \mid y) = \frac{f(\theta, y)}{f(y)} =  \frac{f(y\mid\theta)p(\theta)}{ \int f(y \mid \theta) p(\theta) d\theta} \]</span></p>
+<p>For models that are more complex or that involve high-dimensional data, closed-form solutions are not available for the integral in the denominator.</p>
+<p>Hence, Bayesian analysis instead typically relies on numerical methods, usually Markov Chain Monte Carlo (MCMC) methods.</p>
+<p><br></p>
+<div id="mcmc-methods" class="section level3">
+<h3><strong>MCMC Methods</strong></h3>
+<p>This method relies on sequentially sampling values of <span class="math inline">\(\theta\)</span> from an approximation of the posterior distribution and then correcting the approximation to create better subsequent samples.</p>
+<ul>
+<li><p>Because the approximated distribution used in 1 step relies on the sample from the previous step, the simulation forms a <strong>Markov chain</strong>.</p></li>
+<li><p>A critical property then is <strong>convergence</strong>: Have our simulations converged to the real target distribution?</p>
+<ul>
+<li>Typically instead of running one really long “chain”, researchers use multiple short chains.<br />
+</li>
+<li>The aggregate can not only converge faster, but can provide a better sense of convergence through the noisiness between multiple chains.</li>
+</ul></li>
+</ul>
+<p><br></p>
 </div>
-<div id="bayesian-regression-with-rstanarm" class="section level2">
-<h2>Bayesian Regression with rstanarm</h2>
-<div id="stan" class="section level3">
-<h3><strong>Stan</strong></h3>
+</div>
+</div>
+<div id="bayesian-regression-with-rstanarm" class="section level1">
+<h1>Bayesian Regression with rstanarm</h1>
+<div id="stan" class="section level2">
+<h2><strong>Stan</strong></h2>
 <p>Probably the best approach to doing Bayesian analysis in any software environment is with <a href="https://www.rdocumentation.org/packages/rstan">rstan</a>, which is an R interface to the Stan programming language designed for Bayesian analysis.</p>
 <ul>
 <li><p>To use <a href="https://www.rdocumentation.org/packages/rstan">rstan</a>, you will first need to install <strong>RTools</strong> from <a href="https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows">this link</a>.</p></li>
 <li><p>Then install the package <a href="https://www.rdocumentation.org/packages/rstan">rstan</a> from RStudio (make sure to set <code>dependencies=TRUE</code> when installing).</p></li>
 </ul>
 <p><br></p>
-<div id="parallelization-support" class="section level4">
-<h4><strong>Parallelization support</strong></h4>
+<div id="parallelization-support" class="section level3">
+<h3><strong>Parallelization support</strong></h3>
 <p>Once you’ve setup <a href="https://www.rdocumentation.org/packages/rstan">rstan</a>, there is one more thing you should typically do: tell it to run on multiple cores.</p>
 <ul>
 <li>rstan includes support for basic parallelization that speeds up execution tremendous for larger / more complex regressions.</li>
@@ -750,8 +751,8 @@ div.tocify {
 <span class="kw">options</span> (<span class="dt">mc.cores=</span>parallel<span class="op">::</span><span class="kw">detectCores</span> ()) </code></pre></div>
 <p><br></p>
 </div>
-<div id="a-stan-regression-example" class="section level4">
-<h4><strong>A Stan regression example</strong></h4>
+<div id="a-stan-regression-example" class="section level3">
+<h3><strong>A Stan regression example</strong></h3>
 <p>Now that you’re <strong><em>hopefully</em></strong> excited about rstan, let’s look at an example of a rstan regression from the package documentation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create schools.stan --------------------------</span>
 data {
@@ -790,16 +791,16 @@ fit1 &lt;-<span class="st"> </span><span class="kw">stan</span>(
 <p><br></p>
 </div>
 </div>
-<div id="rstanarm-making-rstan-easy" class="section level3">
-<h3><strong>Rstanarm: making RStan easy</strong></h3>
+<div id="rstanarm-making-rstan-easy" class="section level2">
+<h2><strong>Rstanarm: making RStan easy</strong></h2>
 <p><strong><em>Oops! That was a lot of code!</em></strong> And there’s still a bit more left out. Luckily, there are a couple of packages that exist to make your life easier:</p>
 <ul>
 <li><p>First, there is <a href="https://www.rdocumentation.org/packages/rstanarm">rstanarm</a>, which was created by the developers of Stan and rstan to make running a Bayesian regression with rstan much more like you would run a normal frequentist regression.</p></li>
 <li><p>Another very similar package to rstanarm is <a href="https://www.rdocumentation.org/packages/brms">brms</a>, which also makes running Bayesian regression much simpler and ‘R-like’.</p></li>
 </ul>
 <p><br></p>
-<div id="short-comparison-of-rstanarm-and-brms" class="section level4">
-<h4><strong>Short comparison of rstanarm and brms</strong></h4>
+<div id="short-comparison-of-rstanarm-and-brms" class="section level3">
+<h3><strong>Short comparison of rstanarm and brms</strong></h3>
 <p><strong>rstanarm</strong> is faster, has better posterior checking, and is a bit simpler to use.</p>
 <p><strong>brms</strong> is generally a bit more flexible, with support for some regression types missing in rstanarm, more flexible specification of priors, and support for more types of error correlational structures.</p>
 <ul>
@@ -807,8 +808,8 @@ fit1 &lt;-<span class="st"> </span><span class="kw">stan</span>(
 </ul>
 <p><br></p>
 </div>
-<div id="using-rstanarm" class="section level4">
-<h4><strong>Using rstanarm</strong></h4>
+<div id="using-rstanarm" class="section level3">
+<h3><strong>Using rstanarm</strong></h3>
 <p>With rstanarm, most regressions you run using the function <a href="https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/stan_glm">stan_glm()</a></p>
 <ul>
 <li>Since generalized linear models (GLMs) incorporates models like linear regression, probit, logit, Poisson, binomial, exponential, etc)</li>
@@ -819,8 +820,8 @@ fit1 &lt;-<span class="st"> </span><span class="kw">stan</span>(
                        <span class="dt">prior =</span> myprior)</code></pre></div>
 <p><br></p>
 </div>
-<div id="options-with-stan_glm" class="section level4">
-<h4><strong>Options with stan_glm</strong></h4>
+<div id="options-with-stan_glm" class="section level3">
+<h3><strong>Options with stan_glm</strong></h3>
 <p><strong>Family</strong> (with a possible <strong>link</strong> argument needed as well) defines the type of regression you want:</p>
 <ul>
 <li>Linear regression: <code>family = gaussian</code></li>
@@ -839,8 +840,8 @@ fit1 &lt;-<span class="st"> </span><span class="kw">stan</span>(
 </ul>
 <p><br></p>
 </div>
-<div id="a-titanic-survival-example-with-rstanarm" class="section level4">
-<h4><strong>A Titanic survival example with rstanarm</strong></h4>
+<div id="a-titanic-survival-example-with-rstanarm" class="section level3">
+<h3><strong>A Titanic survival example with rstanarm</strong></h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Titanic)
 <span class="co"># Display titanic data</span>
 <span class="kw">glimpse</span>(Titanic,<span class="dt">width =</span> <span class="dv">50</span>)</code></pre></div>
@@ -881,43 +882,41 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 ## as.factor(class)3   -0.4    0.0   -0.5   -0.4   -0.4   -0.4   -0.3 
 ## sigma                0.4    0.0    0.4    0.4    0.4    0.4    0.4 
 ## mean_PPD             0.4    0.0    0.4    0.4    0.4    0.4    0.5 
-## log-posterior     -364.8    1.7 -368.9 -365.7 -364.5 -363.6 -362.5 
+## log-posterior     -364.8    1.8 -369.0 -365.8 -364.5 -363.5 -362.4 
 ## 
 ## Diagnostics:
 ##                   mcse Rhat n_eff
-## (Intercept)       0.0  1.0  2294 
-## Age               0.0  1.0  3168 
-## SexCode           0.0  1.0  3953 
-## as.factor(class)2 0.0  1.0  2815 
-## as.factor(class)3 0.0  1.0  2502 
-## sigma             0.0  1.0  4174 
-## mean_PPD          0.0  1.0  3765 
-## log-posterior     0.0  1.0  1837 
+## (Intercept)       0.0  1.0  2096 
+## Age               0.0  1.0  3087 
+## SexCode           0.0  1.0  4754 
+## as.factor(class)2 0.0  1.0  2660 
+## as.factor(class)3 0.0  1.0  2176 
+## sigma             0.0  1.0  4131 
+## mean_PPD          0.0  1.0  3971 
+## log-posterior     0.0  1.0  1741 
 ## 
 ## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
 <p><br> <br></p>
-</div>
-</div>
-<div id="credible-intervals" class="section level3">
-<h3><strong>Credible intervals</strong></h3>
+<div id="credible-intervals" class="section level5">
+<h5><strong>Credible intervals</strong></h5>
 <p>You can also easily get print the credible intervals with the function <a href="https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/posterior_interval.stanreg">posterior_interval()</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">posterior_interval</span>(TitanicLinear, <span class="dt">prob=</span><span class="fl">0.95</span>)</code></pre></div>
-<pre><code>##                           2.5%        97.5%
-## (Intercept)        0.524131299  0.733029097
-## Age               -0.008178664 -0.003942273
-## SexCode            0.443016245  0.561969161
-## as.factor(class)2 -0.283879669 -0.133217453
-## as.factor(class)3 -0.467082496 -0.318925289
-## sigma              0.369328091  0.408310633</code></pre>
+<pre><code>##                           2.5%       97.5%
+## (Intercept)        0.522467174  0.73215738
+## Age               -0.008253736 -0.00381582
+## SexCode            0.442385749  0.56045498
+## as.factor(class)2 -0.281720155 -0.12944070
+## as.factor(class)3 -0.466034311 -0.31756088
+## sigma              0.369875717  0.40839844</code></pre>
+</div>
 <div id="graphical-credible-intervals" class="section level4">
 <h4><strong>Graphical credible intervals</strong></h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(TitanicLinear)</code></pre></div>
 <p><img src="module6_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p><br> <br></p>
 </div>
-</div>
-<div id="plotting-the-posterior-distribution" class="section level3">
-<h3><strong>Plotting the posterior distribution</strong></h3>
+<div id="plotting-the-posterior-distribution" class="section level4">
+<h4><strong>Plotting the posterior distribution</strong></h4>
 <p>You can also easily plot the posterior distribution of a parameter in R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Titanic_posterior &lt;-<span class="st"> </span>TitanicLinear <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">sec.class =</span> <span class="st">&quot;as.factor(class)2&quot;</span>,
@@ -927,6 +926,7 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 <span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
 <p><img src="module6_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p><br></p>
+</div>
 <div id="juxtaposing-the-prior-and-the-posterior" class="section level4">
 <h4><strong>Juxtaposing the prior and the posterior</strong></h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">posterior_vs_prior</span>(TitanicLinear)</code></pre></div>
@@ -935,23 +935,24 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 </div>
 </div>
 </div>
-<div id="model-testing" class="section level2">
-<h2>Model Testing</h2>
-<div id="model-testing-basics" class="section level3">
-<h3><strong>Model testing basics</strong></h3>
+</div>
+<div id="model-testing" class="section level1">
+<h1>Model Testing</h1>
+<div id="model-testing-basics" class="section level2">
+<h2><strong>Model testing basics</strong></h2>
 <p>There are a number of different regression diagnostics after performing Bayesian regression to help infer if the model converged, how well it performs, and even compare between models.</p>
 <p>Today, we’ll cover some of them included with rstanarm as well as the very useful <a href="https://www.rdocumentation.org/packages/shinystan">shinystan package</a>.</p>
 <p><br></p>
 </div>
-<div id="graphical-posterior-predictive-analysis" class="section level3">
-<h3><strong>Graphical posterior predictive analysis</strong></h3>
+<div id="graphical-posterior-predictive-analysis" class="section level2">
+<h2><strong>Graphical posterior predictive analysis</strong></h2>
 <p>To check the predictive accuracy of the posterior distribution, you can use the function <a href="https://www.rdocumentation.org/packages/rstanarm/versions/2.17.2/topics/pp_check.stanreg">pp_check()</a>, which plots simulated y values from the posterior distribution against the actual values of y.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pp_check</span>(TitanicLinear)</code></pre></div>
 <p><img src="module6_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><br> <br></p>
 </div>
-<div id="regularization-and-predictive-accuracy" class="section level3">
-<h3><strong>Regularization and Predictive Accuracy</strong></h3>
+<div id="regularization-and-predictive-accuracy" class="section level2">
+<h2><strong>Regularization and Predictive Accuracy</strong></h2>
 <p>A critical issue in both Bayesian and frequentist estimation is how to balance predictive accuracy with parsimony. Put another, the researcher should be concerned with not overfitting the data while still creating a compelling model.</p>
 <p>The basic approach in frequentist method is to use the Akaike information criterion (AIC):</p>
 <p><strong>Expected Log Predictive Density:</strong> <span class="math display">\[\hat{elpd}_{AIC}  =  \log p(y | \hat{\theta}_{MLE}) - k\]</span></p>
@@ -961,8 +962,8 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 <li>and k is the number of parameters in the model.</li>
 </ul>
 <p><br></p>
-<div id="deviance-information-criterion" class="section level4">
-<h4><strong>Deviance information criterion</strong></h4>
+<div id="deviance-information-criterion" class="section level3">
+<h3><strong>Deviance information criterion</strong></h3>
 <p>The most basic Bayesian adaptation of the AIC is the Deviance information criterion (DIC):</p>
 <p><span class="math display">\[\hat{elpd}_{DIC}  =  \log p(y | \hat{\theta}_{Bayes}) - p_{DIC}\]</span></p>
 <ul>
@@ -971,8 +972,8 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 </ul>
 <p><br></p>
 </div>
-<div id="watanabe-akaike-information-criterion" class="section level4">
-<h4><strong>Watanabe-Akaike information criterion</strong></h4>
+<div id="watanabe-akaike-information-criterion" class="section level3">
+<h3><strong>Watanabe-Akaike information criterion</strong></h3>
 <p>An improvement over the DIC is the Watanabe-Akaike information criterion:</p>
 <p><span class="math display">\[\hat{elpd}_{WAIC} = \sum_{i=1}^{n} \log p(y_i) - \sum_{i=1}^{n} \log V \Big[p(y_i) \Big]\]</span></p>
 <p>The WAIC has the advantages of:</p>
@@ -981,37 +982,37 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 <li><p>Does not assume a multivariate Gaussian posterior distribution, as does the DIC (and AIC)</p></li>
 </ul>
 <p><br></p>
-<div id="waic-example" class="section level5">
-<h5><strong>WAIC example</strong></h5>
+<div id="waic-example" class="section level4">
+<h4><strong>WAIC example</strong></h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">waic</span>(TitanicLinear)</code></pre></div>
 <pre><code>## 
 ## Computed from 4000 by 756 log-likelihood matrix
 ## 
 ##           Estimate   SE
-## elpd_waic   -360.5 19.4
+## elpd_waic   -360.6 19.4
 ## p_waic         6.1  0.3
-## waic         721.0 38.7</code></pre>
+## waic         721.1 38.8</code></pre>
 <p><br></p>
 </div>
 </div>
-<div id="leave-one-out-cross-validation" class="section level4">
-<h4><strong>Leave One Out Cross-Validation</strong></h4>
+<div id="leave-one-out-cross-validation" class="section level3">
+<h3><strong>Leave One Out Cross-Validation</strong></h3>
 <p>Another method alongside WAIC for comparing out-of-sample predictive ability is to apply leave-one-out cross-validation (LOO).</p>
 <ul>
 <li>LOO assesses predictive ability of posterior simulations in which the data is iteratively partitioned into training and prediction sets.</li>
 </ul>
 <p><strong>Expected Log Predictive Density:</strong><br />
 <span class="math display">\[\hat{elpd}_{LOO} = \sum_{i=1}^{n} \log p(y_i | y_{-i})\]</span></p>
-<div id="loo-example" class="section level5">
-<h5><strong>LOO example</strong></h5>
+<div id="loo-example" class="section level4">
+<h4><strong>LOO example</strong></h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">loo</span>(TitanicLinear)</code></pre></div>
 <pre><code>## 
 ## Computed from 4000 by 756 log-likelihood matrix
 ## 
 ##          Estimate   SE
-## elpd_loo   -360.5 19.4
+## elpd_loo   -360.6 19.4
 ## p_loo         6.1  0.3
-## looic       721.0 38.7
+## looic       721.1 38.8
 ## ------
 ## Monte Carlo SE of elpd_loo is 0.0.
 ## 
@@ -1020,8 +1021,8 @@ TitanicLinear &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sur
 <p><br></p>
 </div>
 </div>
-<div id="comparing-models" class="section level4">
-<h4><strong>Comparing models</strong></h4>
+<div id="comparing-models" class="section level3">
+<h3><strong>Comparing models</strong></h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Titanic_probit &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Survived <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span>SexCode <span class="op">+</span><span class="st"> </span><span class="kw">as.factor</span>(class), 
     <span class="dt">data =</span> Titanic, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link=</span>probit))
@@ -1039,18 +1040,18 @@ Loo_logit &lt;-<span class="st"> </span><span class="kw">loo</span>(Titanic_logi
 ## (negative &#39;elpd_diff&#39; favors 1st model, positive favors 2nd) 
 ## 
 ## elpd_diff        se 
-##       1.2       0.8</code></pre>
+##       1.3       0.8</code></pre>
 <p><br></p>
 </div>
-<div id="many-more-diagnostics-with-shinystan" class="section level4">
-<h4><strong>Many more diagnostics with shinystan</strong></h4>
+</div>
+<div id="many-more-diagnostics-with-shinystan" class="section level2">
+<h2><strong>Many more diagnostics with shinystan</strong></h2>
 <p>Probably the most popular diagnostic for Bayesian regression in R is the functionality from the <a href="https://www.rdocumentation.org/packages/shinystan">shinystan package</a>.</p>
 <ul>
 <li>Shinystan launches a “Shiny” web application to show you model diagnostics, so it can’t be done inside of a RMarkdown document (but works just fine if called from the console.)</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Do in console not RMarkdown</span>
 <span class="kw">launch_shinystan</span>(TitanicLinear)</code></pre></div>
-</div>
 </div>
 </div>
 

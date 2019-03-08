@@ -456,6 +456,10 @@ div.tocify {
     <li>
       <a href="module6.html">M6: Intro to Bayesian Methods</a>
     </li>
+    <li class="divider"></li>
+    <li>
+      <a href="all.html">Single-page view of all modules</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -561,23 +565,11 @@ div.tocify {
 
 <p><a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/module5.pdf" role="button">Slides</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5.pdf" role="button">Exercise</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/exercise-m5b-extract.Rmd" role="button">Exercise Part B</a> <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/data/nlsy97.rds" role="button">nlsy97.rds</a></p>
 <p><br></p>
-<div id="intro" class="section level2">
-<h2>Intro</h2>
-<div id="goals-for-module" class="section level3">
-<h3>Goals for module</h3>
-<ol style="list-style-type: decimal">
-<li>Introduce basics of linear regression models in R, including model diagnostics and specifying error variance structures.</li>
-<li>Introduce further methods for panel data and instrumental variables.</li>
-<li>Explore data visualization methods using the ggplot2 package.</li>
-</ol>
+<div id="regression-basics" class="section level1">
+<h1>Regression Basics</h1>
 <p><br></p>
-</div>
-</div>
-<div id="regression-basics" class="section level2">
-<h2>Regression Basics</h2>
-<p><br></p>
-<div id="linear-regression" class="section level3">
-<h3>Linear Regression</h3>
+<div id="linear-regression" class="section level2">
+<h2>Linear Regression</h2>
 <p>The basic method of performing a linear regression in R is to the use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/lm">lm()</a> function.</p>
 <ul>
 <li>To see the parameter estimates alone, you can just call the <code>lm()</code> function. But much more results are available if you save the results to a regression output object, which can then be accessed using the <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/summary">summary()</a> function.</li>
@@ -586,8 +578,8 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myregobject &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3 <span class="op">+</span><span class="st"> </span>x4, 
                   <span class="dt">data =</span> mydataset)</code></pre></div>
 <p><br></p>
-<div id="cex-linear-regression-example" class="section level4">
-<h4>CEX linear regression example</h4>
+<div id="cex-linear-regression-example" class="section level3">
+<h3>CEX linear regression example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(expenditures <span class="op">~</span><span class="st"> </span>educ_ref, <span class="dt">data=</span>cex_data)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -622,8 +614,8 @@ div.tocify {
 <p><br></p>
 </div>
 </div>
-<div id="formatting-regression-output-tidyr" class="section level3">
-<h3>Formatting regression output: tidyr</h3>
+<div id="formatting-regression-output-tidyr" class="section level2">
+<h2>Formatting regression output: tidyr</h2>
 <p>With the <a href="https://www.rdocumentation.org/packages/broom/versions/0.4.3/topics/tidy">tidy()</a> function from the <a href="https://www.rdocumentation.org/packages/broom">broom</a> package, you can easily create standard regression output tables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 <span class="kw">tidy</span>(cex_linreg)</code></pre></div>
@@ -658,8 +650,8 @@ div.tocify {
 </div>
 <p><br></p>
 </div>
-<div id="formatting-regression-output-stargazer" class="section level3">
-<h3>Formatting regression output: stargazer</h3>
+<div id="formatting-regression-output-stargazer" class="section level2">
+<h2>Formatting regression output: stargazer</h2>
 <p>Another really good option for creating compelling regression and summary output tables is the <a href="https://www.rdocumentation.org/packages/stargazer/">stargazer</a> package.</p>
 <ul>
 <li>If you write your reports in LaTex, it’s especially useful.</li>
@@ -800,8 +792,8 @@ F Statistic
 </table>
 <p><br></p>
 </div>
-<div id="interactions-and-indicator-variables" class="section level3">
-<h3>Interactions and indicator variables</h3>
+<div id="interactions-and-indicator-variables" class="section level2">
+<h2>Interactions and indicator variables</h2>
 <p>Including interaction terms and indicator variables in R is very easy.</p>
 <ul>
 <li><p>Including any variables coded as factors (ie categorical variables) will automatically include indicators for each value of the factor.</p></li>
@@ -866,8 +858,8 @@ F Statistic
 </div>
 <p><br></p>
 </div>
-<div id="setting-reference-groups-for-factors" class="section level3">
-<h3>Setting reference groups for factors</h3>
+<div id="setting-reference-groups-for-factors" class="section level2">
+<h2>Setting reference groups for factors</h2>
 <p>By default, when including factors in R regression, the first <em>level</em> of the factor is treated as the omitted reference group.</p>
 <ul>
 <li>An easy way to instead specify the omitted reference group is to use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/relevel">relevel()</a> function.</li>
@@ -908,8 +900,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 </div>
 <p><br></p>
 </div>
-<div id="useful-output-from-regression" class="section level3">
-<h3>Useful output from regression</h3>
+<div id="useful-output-from-regression" class="section level2">
+<h2>Useful output from regression</h2>
 <p>A couple of useful data elements that are created with a regression output object are fitted values and residuals. You can easily access them as follows:</p>
 <ul>
 <li><strong>Residuals:</strong> Use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/residuals">residuals()</a> function.</li>
@@ -922,10 +914,10 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <p><br> <br></p>
 </div>
 </div>
-<div id="model-testing" class="section level2">
-<h2>Model Testing</h2>
-<div id="using-the-lmtest-package" class="section level3">
-<h3>Using the lmtest package</h3>
+<div id="model-testing" class="section level1">
+<h1>Model Testing</h1>
+<div id="using-the-lmtest-package" class="section level2">
+<h2>Using the lmtest package</h2>
 <p>The main package for specification testing of linear regressions in R is the <a href="https://www.rdocumentation.org/packages/lmtest/">lmtest</a> package.</p>
 <p>With it, you can:</p>
 <ul>
@@ -939,8 +931,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <span class="kw">library</span>(lmtest)</code></pre></div>
 <p><br></p>
 </div>
-<div id="testing-for-heteroskedasticity" class="section level3">
-<h3>Testing for heteroskedasticity</h3>
+<div id="testing-for-heteroskedasticity" class="section level2">
+<h2>Testing for heteroskedasticity</h2>
 <p>Testing for heteroskedasticity in R can be done with the <a href="https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest">bptest()</a> function from the <a href="https://www.rdocumentation.org/packages/lmtest">lmtest</a> to the model object.</p>
 <ul>
 <li>By default, using a regression object as an argument to <a href="https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/bptest">bptest()</a> will perform the Koenker-Bassett version of the Breusch-Pagan test (aka ‘generalized’ or ‘studentized’ Breusch-Pagan Test):</li>
@@ -965,8 +957,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <span class="st">         </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>mydata)</code></pre></div>
 <p><br></p>
 </div>
-<div id="functional-form" class="section level3">
-<h3>Functional form</h3>
+<div id="functional-form" class="section level2">
+<h2>Functional form</h2>
 <p>The <strong>Ramsey RESET Test</strong> tests functional form by evaluating if higher order terms have any explanatory value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">resettest</span>(wages_reg)</code></pre></div>
 <pre><code>## 
@@ -976,8 +968,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 ## RESET = 7.1486, df1 = 2, df2 = 3287, p-value = 0.0007983</code></pre>
 <p><br></p>
 </div>
-<div id="testing-for-autocorrelation-breusch-godfrey-test" class="section level3">
-<h3>Testing for autocorrelation: Breusch-Godfrey test</h3>
+<div id="testing-for-autocorrelation-breusch-godfrey-test" class="section level2">
+<h2>Testing for autocorrelation: Breusch-Godfrey test</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bgtest</span>(wages_reg)</code></pre></div>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 1
@@ -986,8 +978,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 ## LM test = 7.0938, df = 1, p-value = 0.007735</code></pre>
 <p><br></p>
 </div>
-<div id="testing-for-autocorrelation-durbin-watson-test" class="section level3">
-<h3>Testing for autocorrelation: Durbin-Watson test</h3>
+<div id="testing-for-autocorrelation-durbin-watson-test" class="section level2">
+<h2>Testing for autocorrelation: Durbin-Watson test</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dwtest</span>(wages_reg)</code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
@@ -997,8 +989,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
 <p><br></p>
 </div>
-<div id="specifying-the-variance-structure" class="section level3">
-<h3>Specifying the variance structure</h3>
+<div id="specifying-the-variance-structure" class="section level2">
+<h2>Specifying the variance structure</h2>
 <p>In practice, errors should <em>almost always</em> be specified in a manner that is heteroskedasticity and autocorrelation consistent.</p>
 <ul>
 <li>In Stata, you can pretty much always use the <strong>robust</strong> option.</li>
@@ -1010,8 +1002,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 </ul>
 <p><br></p>
 </div>
-<div id="heteroskedasticity-robust-errors" class="section level3">
-<h3>Heteroskedasticity-robust errors</h3>
+<div id="heteroskedasticity-robust-errors" class="section level2">
+<h2>Heteroskedasticity-robust errors</h2>
 <p><span class="math inline">\(HC_1\)</span> Errors (MacKinnon and White, 1985): <span class="math inline">\(\Sigma = \frac{n}{n-k}diag{\hat\{u_i}^2\}\)</span></p>
 <ul>
 <li>Default heteroskedasticity-robust errors used by Stata with <strong>robust</strong></li>
@@ -1022,8 +1014,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <li><p>Recommended in some studies over <span class="math inline">\(HC_1\)</span> because it is better at keeping nominal size with only a small loss of power in the presence of heteroskedasticity.</p></li>
 </ul>
 <p><br></p>
-<div id="heteroskedasticity-robust-errors-example" class="section level4">
-<h4>Heteroskedasticity-robust errors example</h4>
+<div id="heteroskedasticity-robust-errors-example" class="section level3">
+<h3>Heteroskedasticity-robust errors example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cex_reg &lt;-<span class="st"> </span><span class="kw">lm</span>(expenditures <span class="op">~</span><span class="st"> </span>hh_size <span class="op">+</span><span class="st"> </span>educ_ref <span class="op">+</span><span class="st"> </span>
 <span class="st">                </span>region, <span class="dt">data=</span>cex_data)
 <span class="kw">tidy</span>(<span class="kw">coeftest</span>(cex_reg, <span class="dt">vcov =</span> 
@@ -1074,8 +1066,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <p><br></p>
 </div>
 </div>
-<div id="computing-marginal-effects" class="section level3">
-<h3>Computing marginal effects</h3>
+<div id="computing-marginal-effects" class="section level2">
+<h2>Computing marginal effects</h2>
 <p>In linear regressions where the regressors and regressors are in “levels”, the coefficients are of course equal to the marginal effects.</p>
 <ul>
 <li><p>But if the regression is nonlinear or a regressor enter in e.g. in logs or quadratics, then marginal effects may be more important than coefficients.</p></li>
@@ -1084,8 +1076,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;margins&quot;)</span>
 <span class="kw">library</span>(margins)</code></pre></div>
 <p><br></p>
-<div id="marginal-effects-example" class="section level4">
-<h4>Marginal effects example</h4>
+<div id="marginal-effects-example" class="section level3">
+<h3>Marginal effects example</h3>
 <p>We can get the Average Marginal Effects by using <code>summary</code> with <strong>margins</strong>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">margins</span>(wages_reg))</code></pre></div>
 <div class="kable-table">
@@ -1136,10 +1128,10 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
 </div>
 </div>
 </div>
-<div id="further-regression-methods" class="section level2">
-<h2>Further regression methods</h2>
-<div id="panel-regression-first-differences" class="section level3">
-<h3>Panel regression: first differences</h3>
+<div id="further-regression-methods" class="section level1">
+<h1>Further regression methods</h1>
+<div id="panel-regression-first-differences" class="section level2">
+<h2>Panel regression: first differences</h2>
 <p>The package <a href="https://www.rdocumentation.org/packages/plm">plm</a> provides a wide variety of estimation methods and diagnostics for panel data.</p>
 <ul>
 <li><p>We will cover two common panel data estimators, first-differences regression and fixed effects regression.</p></li>
@@ -1151,8 +1143,8 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
           <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;groupvar&quot;</span>, <span class="st">&quot;timevar&quot;</span>), <span class="dt">model=</span><span class="st">&quot;fd&quot;</span>)</code></pre></div>
 <p><br></p>
 </div>
-<div id="panel-regression-fixed-effects" class="section level3">
-<h3>Panel regression: fixed effects</h3>
+<div id="panel-regression-fixed-effects" class="section level2">
+<h2>Panel regression: fixed effects</h2>
 <p>Of course, in most cases fixed effects regression is a more efficient alternative to first-difference regression.</p>
 <p>To use fixed effects regression, instead specify the argument <strong>model = “within”</strong>.</p>
 <ul>
@@ -1162,7 +1154,6 @@ wagereg2 &lt;-<span class="st"> </span><span class="kw">lm</span>(wage <span cla
              <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;groupvar&quot;</span>, <span class="st">&quot;timevar&quot;</span>), 
              <span class="dt">model=</span><span class="st">&quot;within&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;twoway&quot;</span>)</code></pre></div>
 <p><br></p>
-</div>
 <div id="a-crime-example" class="section level3">
 <h3>A crime example</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_NC &lt;-<span class="st"> </span>Crime <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
@@ -1206,8 +1197,8 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 </table>
 </div>
 <p><br></p>
-<div id="first-differences-regression-on-the-crime-dataset" class="section level5">
-<h5>First differences regression on the crime dataset</h5>
+<div id="first-differences-regression-on-the-crime-dataset" class="section level4">
+<h4>First differences regression on the crime dataset</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_reg &lt;-<span class="st"> </span><span class="kw">plm</span>(crimerate <span class="op">~</span><span class="st"> </span>police_pc <span class="op">+</span><span class="st"> </span>tax_pc <span class="op">+</span>
 <span class="st">                </span>region <span class="op">+</span><span class="st"> </span>urban, <span class="dt">data=</span>crime_NC, 
                 <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">model=</span><span class="st">&quot;fd&quot;</span>)
@@ -1250,8 +1241,8 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 </div>
 <p><br></p>
 </div>
-<div id="fixed-effects-regression-on-the-crime-dataset" class="section level5">
-<h5>Fixed effects regression on the crime dataset</h5>
+<div id="fixed-effects-regression-on-the-crime-dataset" class="section level4">
+<h4>Fixed effects regression on the crime dataset</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime_reg &lt;-<span class="st"> </span><span class="kw">plm</span>(crimerate <span class="op">~</span><span class="st"> </span>police_pc <span class="op">+</span>
 <span class="st">                </span>tax_pc <span class="op">+</span><span class="st"> </span>urban, <span class="dt">data=</span>crime_NC, 
                 <span class="dt">index=</span><span class="kw">c</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;year&quot;</span>), 
@@ -1289,16 +1280,17 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 <p><br></p>
 </div>
 </div>
-<div id="instrumental-variables-regression" class="section level3">
-<h3>Instrumental variables regression</h3>
+</div>
+<div id="instrumental-variables-regression" class="section level2">
+<h2>Instrumental variables regression</h2>
 <p>The most popular function for doing IV regression is the <a href="https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg">ivreg()</a> in the <a href="https://www.rdocumentation.org/packages/AER">AER package</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(AER)</code></pre></div>
 <p><strong>Syntax:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myivreg &lt;-<span class="st"> </span><span class="kw">ivreg</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">|</span><span class="st"> </span>z1 <span class="op">+</span><span class="st"> </span>z2 <span class="op">+</span><span class="st"> </span>z3, 
                  <span class="dt">data =</span> mydata)</code></pre></div>
 <p><br></p>
-<div id="iv-diagnostics" class="section level4">
-<h4>IV diagnostics</h4>
+<div id="iv-diagnostics" class="section level3">
+<h3>IV diagnostics</h3>
 <p>Three common diagnostic tests are available with the <strong>summary</strong> output for regression objects from <a href="https://www.rdocumentation.org/packages/AER/versions/1.2-5/topics/ivreg">ivreg()</a>.</p>
 <ul>
 <li><p><strong>Durbin-Wu-Hausman Test of Endogeneity:</strong> Tests for endogeneity of suspected endogenous regressor under assumption that instruments are exogenous.</p></li>
@@ -1307,8 +1299,8 @@ crime_NC[<span class="dv">1</span><span class="op">:</span><span class="dv">2</s
 </ul>
 <p><br></p>
 </div>
-<div id="iv-regression-example" class="section level4">
-<h4>IV regression example</h4>
+<div id="iv-regression-example" class="section level3">
+<h3>IV regression example</h3>
 <p>Let’s look at an IV regression from the seminal paper “The Colonial Origins of Comparative Development” by Acemogulu, Johnson, and Robinson (AER 2001)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_origins &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;./data/maketable5.dta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(baseco<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -1336,8 +1328,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><br></p>
 </div>
 </div>
-<div id="further-regression-methods-1" class="section level3">
-<h3>Further regression methods</h3>
+<div id="further-regression-methods-1" class="section level2">
+<h2>Further regression methods</h2>
 <p>Some useful functions for nonlinear regression include:</p>
 <ul>
 <li><p><strong>Quantile Regression:</strong> <a href="https://www.rdocumentation.org/packages/quantreg/versions/5.34/topics/rq">rq()</a> in the <a href="https://www.rdocumentation.org/packages/quantreg/">quantreg</a> package.</p></li>
@@ -1355,10 +1347,10 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><br> <br></p>
 </div>
 </div>
-<div id="graphs-in-r" class="section level2">
-<h2>Graphs in R</h2>
-<div id="data-visualization-overview" class="section level3">
-<h3>Data visualization overview</h3>
+<div id="graphs-in-r" class="section level1">
+<h1>Graphs in R</h1>
+<div id="data-visualization-overview" class="section level2">
+<h2>Data visualization overview</h2>
 <p>One of the strong points of R is creating very high-quality data visualization.</p>
 <ul>
 <li><p>R is very good at both “static” data visualization and interactive data visualization designed for web use.</p></li>
@@ -1366,8 +1358,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 </ul>
 <p><br></p>
 </div>
-<div id="ggplot2-for-data-visualization" class="section level3">
-<h3>ggplot2 for data visualization</h3>
+<div id="ggplot2-for-data-visualization" class="section level2">
+<h2>ggplot2 for data visualization</h2>
 <p>The main package for publication-quality static data visualization in R is <a href="https://www.rdocumentation.org/packages/ggplot2">ggplot2</a>, which is part of the tidyverse collection of packages.</p>
 <ul>
 <li><p>The workhorse function of ggplot2 is <a href="https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplot">ggplot()</a>, response for creating a very wide variety of graphs.</p></li>
@@ -1381,24 +1373,24 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mygraph &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(...)) <span class="op">+</span><span class="st"> </span><span class="kw">geom</span>(...) <span class="op">+</span><span class="st"> </span>... </code></pre></div>
 <p><br></p>
 </div>
-<div id="scatterplots" class="section level3">
-<h3>Scatterplots</h3>
+<div id="scatterplots" class="section level2">
+<h2>Scatterplots</h2>
 <p>First, let’s look at a simple scatterplot, which is defined by using the geometry <strong>geom_point()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, 
             <span class="dt">y =</span> logGDP95)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </code></pre></div>
 <p><img src="module5_files/figure-html/scatter-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="adding-an-aesthetic-option-to-the-points" class="section level3">
-<h3>Adding an aesthetic option to the points</h3>
+<div id="adding-an-aesthetic-option-to-the-points" class="section level2">
+<h2>Adding an aesthetic option to the points</h2>
 <p>Graphs can be extensively customized using additional arguments inside of elements:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect,<span class="dt">y =</span> logGDP95)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>logGDP95))</code></pre></div>
 <p><img src="module5_files/figure-html/aesth-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="using-country-names-instead-of-points" class="section level3">
-<h3>Using country names instead of points</h3>
+<div id="using-country-names-instead-of-points" class="section level2">
+<h2>Using country names instead of points</h2>
 <p>Instead of using a scatter plot, we could use the names of the data points in place of the dots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, 
        <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, <span class="dt">y =</span> logGDP95, 
@@ -1406,15 +1398,15 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/countrynames-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="line-graph" class="section level3">
-<h3>Line graph</h3>
+<div id="line-graph" class="section level2">
+<h2>Line graph</h2>
 <p>A line graph uses the geometry <strong>geom_line()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, <span class="dt">y =</span> logGDP95))  <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_line</span>() </code></pre></div>
 <p><img src="module5_files/figure-html/line-1.png" width="672" /></p>
 <p><br></p>
-<div id="plotting-a-regression-line" class="section level4">
-<h4>Plotting a regression line</h4>
+<div id="plotting-a-regression-line" class="section level3">
+<h3>Plotting a regression line</h3>
 <p>A more useful line is the fitted values from the regression. Here’s a plot of that line with the points from the scatterplot for the Acemoglu IV:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_origins_fitted &lt;-<span class="st"> </span><span class="kw">tibble</span>(col_origins<span class="op">$</span>legalprotect, 
                              <span class="kw">fitted</span>(col_origins_iv))
@@ -1427,8 +1419,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><br></p>
 </div>
 </div>
-<div id="specifying-axis-and-titles" class="section level3">
-<h3>Specifying axis and titles</h3>
+<div id="specifying-axis-and-titles" class="section level2">
+<h2>Specifying axis and titles</h2>
 <p>A standard task in making the graph is specifying graph titles (main and axes), as well as potentially specifying the scale of the axes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, <span class="dt">y =</span> logGDP95))  <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;red&quot;</span>)  <span class="op">+</span><span class="st">  </span>
@@ -1442,8 +1434,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/titles-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="histogram" class="section level3">
-<h3>Histogram</h3>
+<div id="histogram" class="section level2">
+<h2>Histogram</h2>
 <p>The geometry point for histogram is <strong>geom_histogram()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span>
@@ -1453,8 +1445,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/histo-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="bar-plot" class="section level3">
-<h3>Bar plot</h3>
+<div id="bar-plot" class="section level2">
+<h2>Bar plot</h2>
 <p>The geometry for a bar plot is <strong>geom_bar()</strong>. By default, a bar plot uses frequencies for its values, but you can use values from a column by specifying <strong>stat = “identity”</strong> inside <strong>geom_bar()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coeffs_IV &lt;-<span class="st"> </span><span class="kw">tidy</span>(col_origins_iv)
 
@@ -1466,8 +1458,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/bar-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="adding-error-bars" class="section level3">
-<h3>Adding error bars</h3>
+<div id="adding-error-bars" class="section level2">
+<h2>Adding error bars</h2>
 <p>You can easily add error bars by specifying the values for the error bar inside of <strong>geom_errorbar()</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(coeffs_IV, 
   <span class="kw">aes</span>(<span class="dt">x=</span>term, <span class="dt">y=</span>estimate)) <span class="op">+</span><span class="st"> </span>
@@ -1480,8 +1472,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/errorbar-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="adding-colors" class="section level3">
-<h3>Adding colors</h3>
+<div id="adding-colors" class="section level2">
+<h2>Adding colors</h2>
 <p>You can easily add color to graph points as well. There are a lot of aesthetic options to do that — here I demonstrate adding a color <em>scale</em> to the graph.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect, 
   <span class="dt">y =</span> logGDP95 , <span class="dt">col=</span> log.settler.mort)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
@@ -1492,8 +1484,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
                        <span class="dt">name=</span><span class="st">&quot;Log Settler Mortality&quot;</span>)</code></pre></div>
 <p><img src="module5_files/figure-html/colors1-1.png" width="672" /></p>
 <p><br></p>
-<div id="adding-colors-example-2" class="section level4">
-<h4>Adding colors: example 2</h4>
+<div id="adding-colors-example-2" class="section level3">
+<h3>Adding colors: example 2</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(col_origins, <span class="kw">aes</span>(<span class="dt">x=</span>legalprotect)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;red2&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Legal Protection Scores&quot;</span>) <span class="op">+</span>
@@ -1503,8 +1495,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><br></p>
 </div>
 </div>
-<div id="adding-themes" class="section level3">
-<h3>Adding themes</h3>
+<div id="adding-themes" class="section level2">
+<h2>Adding themes</h2>
 <p>Another option to affect the appearance of the graph is to use <strong>themes</strong>, which affect a number of general aspects concerning how graphs are displayed.</p>
 <ul>
 <li>Some default themes come installed with ggplot2/tidyverse, but some of the best in my opinion come from the package <a href="https://github.com/jrnold/ggthemes">ggthemes</a>.</li>
@@ -1522,8 +1514,8 @@ IVsummary[<span class="st">&quot;coefficients&quot;</span>]</code></pre></div>
 <p><img src="module5_files/figure-html/themeex-1.png" width="672" /></p>
 <p><br></p>
 </div>
-<div id="more-with-ggplot2" class="section level3">
-<h3>More with ggplot2</h3>
+<div id="more-with-ggplot2" class="section level2">
+<h2>More with ggplot2</h2>
 <p>This has been just a small overview of things you can do with ggplot2. To learn more about it, here are some useful references:</p>
 <p><a href="http://ggplot2.tidyverse.org/"><strong>The ggplot2 website:</strong></a></p>
 <ul>

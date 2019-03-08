@@ -22,6 +22,9 @@ navbar:
       href: module5.html
     - text: 'M6: Intro to Bayesian Methods'
       href: module6.html
+    - text: '---------'
+    - text: 'Single-page view of all modules'
+      href: all.html
   - text: Learning Resources
     menu:
     - text: DataCamp

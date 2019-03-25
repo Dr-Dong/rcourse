@@ -32,7 +32,7 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 This is an introduction to the R statistical programming language, focusing on
 essential skills needed to perform data analysis from entry, to preparation, analysis,
-and finally presentation.  During the mini-course, you will not only learn basic
+and finally presentation.  During the course, you will not only learn basic
 R functionality, but also how to leverage the extensive community-driven package 
 ecosystem, as well as how to write your own functions in R.
 
@@ -73,7 +73,7 @@ and data object types, especially vectors, matrices, and data frames.
 
 This module introduces a series of tools for data manipulation/preparation 
 collectively known as the "Tidyverse."  Specifically, this module covers how to 
-subset data, arrange it, transform it, and aggregate it.  Participants will also 
+subset data, arrange it, transform it, and aggregate it.  Students will also 
 learn convenient tools to import and export data.
 
 - <font size="4"> **Lecture Notes**:</font>   \ \ \ \ \ 
@@ -222,13 +222,15 @@ a recent economics paper.
 #
 ```
 
+
+<br>
 <br>
 
-### **Capstone Project:**
+## Capstone Project
 For the capstone project, you will be replicating results from 
 "Intergenerational Mobility and Preferences for Redistribution" (AER 2018) by 
-Alberto Alesina, Stefanie Stantcheva, Edoardo Teso.  The capstone project is 
-due on March 18^th^.
+Alberto Alesina, Stefanie Stantcheva, and Edoardo Teso.  The capstone project is 
+due on March 28^th^.
 
 -  <font size="4"> **Files:**</font> \ \ \ \ 
 <a class="btn btn-primary" href="https://andrewproctor.github.io/rcourse/assets/capstone.pdf" role="button">Instructions</a>

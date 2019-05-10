@@ -1,0 +1,832 @@
+---
+title: "Capstone Project"
+subtitle: 'Replicating "Intergenerational Mobility and Preferences for Redistribution" (AER 2018)'
+date: "March 8, 2019"
+output: 
+  html_document:
+    df_print: kable
+    highlight: zenburn
+    theme: readable
+    code_folding: hide
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+```
+
+# Overview
+
+The following capstone project replicates some of the key results from the paper "Intergenerational Mobility and Preferences for Redistribution" by Alberto Alesina, Stefanie Stantcheva, and Edoardo Teso (*American Economic Review* 2018). 
+In their paper, Alesina, Stantcheva, and Teso explore how overly optimistic or 
+pessimistic beliefs about intergenerational mobility (as measured by the difference between true and perceived mobility) is related to support for redistribution.
+
+In this replication, you will reproduce three of the main tables and two figures, 
+either in part or in whole. **You have 10 days to complete the replication 
+exercise - it is due by the end of the day on March 18^th^.** During the 
+replication, you are expected to work on your own - do not collaborate
+with other students.  If you have devoted substantial time to a 
+problem and are still in need of assistance, you may contact me for suitable 
+hints.  But please try to use the course materials, R help files, and online 
+documentation to figure out the solutions yourself as much as possible. In the 
+future, it is important that you're able to troubleshoot problems and navigate 
+resources in R on your own.
+
+
+# Preliminaries
+
+i. In your project folder for the course, create a new folder for the capstone 
+exercise.
+ii.  Download the paper and data for the paper from [here](https://www.aeaweb.org/articles?id=10.1257/aer.20162015) and store them 
+in the capstone folder.
+iii. Within the capstone folder, create a new R Markdown file for the exercise 
+that will produce an HTML file.
+iv.  Set the following options for the document:
+
+    - Set the data frame print method to "kable".
+    - Set the code highlighting to "zenburn".
+    - Set the theme to "readable".
+    - Set the document to use code folding, with the code hidden by default.
+    
+i. Reproduce the instructions in your RMarkdown document, with code entered 
+between each instruction. 
+v. Be sure to commit and push your work to Github after each section AT A 
+MINIMUM (hence, at least after "Preliminaries", "Basic data set preparation", 
+"Table 1","Table 2", "Table 3", "Figure 2", and "Figure 3").
+ 
+# Basic data set preparation
+
+```{r, message=FALSE, warning=FALSE}
+# Load libaries
+library(rio)
+library(tidyverse)
+library(broom)
+library(knitr)
+library(stargazer)
+library(glue)
+library(ggthemes)
+```
+
+i. Import the data file "Data_Descriptive_Waves_ABC.dta".
+```{r}
+# Import data
+base_data <- import("Data_Descriptive_Waves_ABC.dta")
+```
+ii. Keep observations where *flag_1* and *flag_2* are equal to 0.
+```{r}
+# Filter for flag_1 and flag_2 equal to zero
+base_data <- base_data %>% filter(flag_1 == 0, flag_2 == 0)
+```
+iii. Generate a University indicator variable, as follows:
+
+    - The variable should equal 1 when any of the following conditions hold:
+    
+        - *education* is greater than or equal to 6 and *US* is equal to 1.
+        - *education* is greater than or equal to 6 and *UK* is equal to 1.
+        - *education* is greater than or equal to 5 and *Italy* is equal to 1.
+        - *education* is greater than or equal to 7 and *France* is equal to 1.
+        - *education* is greater than or equal to 5, *Sweden* is equal to 1, and 
+        *wave* is equal to "September".
+        - *education* is greater than or equal to 6, *Sweden* is equal to 1, and 
+        *wave* is equal to "February".
+    - The variable should equal to NA_real_ (NA value specific to numeric values) 
+    if the value of education is missing.
+    - Zero otherwise (if using a case_when function, you can do this by setting 
+    the last case to be "TRUE ~ 0". )
+
+```{r}
+# Generate university indicator
+base_data <- base_data %>% mutate(university = case_when(
+  (education >= 6 & US==1) ~ 1,
+  (education>=6 & UK==1) ~ 1,
+  (education>=5 & Italy==1) ~ 1,
+  (education>=7 & France==1) ~ 1,
+  (education>=5 & Sweden==1 & wave=="September") ~ 1,
+  (education>=6 & Sweden==1 & wave=="February") ~ 1,
+  (is.na(education)) ~ NA_real_,
+  TRUE ~ 0
+))
+```
+
+iv. Turn married into an indicator variable by recoding values of 2 for *married* 
+to 0.  
+```{r}
+# Turn married into indicator variable by recoding values of 2 for "married" to 0
+base_data <- base_data %>% mutate(married = if_else(married == 2, 0, married))
+```
+v. Generate age bracket indicators as follows:
+
+    - *age_1*, equal to 1 if age is between 18 and 29 (inclusive).
+    - *age_2*, equal to 1 if age is between 30 and 39 (inclusive).
+    - *age_3*, equal to 1 if age is between 40 and 49 (inclusive).
+    - *age_4*, equal to 1 if age is between 50 and 59 (inclusive).
+    - *age_5*, equal to 1 if age is greater than or equal to 60.
+
+```{r}
+# Generate Age Bracket Variables
+base_data <- base_data %>% mutate(
+  age_1 = if_else(age >= 18 & age <= 29, 1, 0),
+  age_2 = if_else(age >= 30 & age <= 39, 1, 0),
+  age_3 = if_else(age >= 40 & age <= 49, 1, 0),
+  age_4 = if_else(age >= 50 & age <= 59, 1, 0),
+  age_5 = if_else(age >= 60, 1, 0)
+)
+```
+vi. Generate a *country* variable, equal to:
+
+    - "US" if *US* is equal to 1.
+    - "UK" if *UK* is equal to 1.
+    - "France" if *France* is equal to 1.
+    - "Italy" if *Italy* is equal to 1.
+    - "Sweden" if *Sweden* is equal to 1.
+
+```{r}
+# Generate Country Variable
+base_data <- base_data %>% mutate(country = case_when(
+  (US == 1) ~ "US",
+  (UK == 1) ~ "UK",
+  (France == 1) ~ "France",
+  (Italy == 1) ~ "Italy",
+  (Sweden == 1) ~ "Sweden"
+))
+```
+
+# Table 1 - Summary Statistics
+
+i. Begin by creating a summary statistics data frame, with averages for selected 
+variables by country (with missing values removed when calculating the mean). Be 
+sure to create new variable names that match the description in Table 1 of 
+Alesina, Stantcheva, & Teso. The variables should be as follows:
+
+    ```{r, include=TRUE, echo = FALSE}
+    summary_vars <- matrix(c("age_1","age_2","age_3","age_4","age_5",
+                             "inc_bracket_1","inc_bracket_2","inc_bracket_3",
+                             "inc_bracket_4", "married", "born_in_country",
+                             "employed", "unemployed", "university"),
+                           nrow=7) %>% as_tibble() 
+    colnames(summary_vars) <- c("Variables","")
+    summary_vars
+    ```
+
+```{r}
+summary_data <- base_data %>% group_by(country) %>% summarize(
+  "Male" = mean(male),
+  "18-29 years old" = mean(age_1, na.rm = TRUE),
+  "30-39 years old" = mean(age_2, na.rm = TRUE),
+  "40-49 years old" = mean(age_3, na.rm = TRUE),
+  "50-59 years old" = mean(age_4, na.rm = TRUE),
+  "60-69 years old" = mean(age_5, na.rm = TRUE),
+  "Income bracket 1" = mean(inc_bracket_1, na.rm = TRUE),
+  "Income bracket 2" = mean(inc_bracket_2, na.rm = TRUE),
+  "Income bracket 3" = mean(inc_bracket_3, na.rm = TRUE),
+  "Income bracket 4" = mean(inc_bracket_4, na.rm = TRUE),
+  "Married" = mean(married, na.rm = TRUE),
+  "Native" = mean(born_in_country, na.rm = TRUE),
+  "Employed" = mean(employed, na.rm = TRUE),
+  "Unemployed" = mean(unemployed, na.rm = TRUE),
+  "College" = mean(university, na.rm = TRUE)
+)
+```
+
+ii. Rearrange the summary statistics dataframe to look more like Table 1 in 
+Alesina, Stantcheva, & Teso.  
+
+    - First, transpose the dataframe and convert it into a tibble - saving this 
+    to a new object.
+    - Set the country variable from the original summary statistics data frame 
+    as the column names of the new tibble.
+    - Remove the country names from the first row of the new tibble.
+    - Define a new variable, called *Variable*, equal to the column names of the 
+    original summary data frame (except for the first element of the column 
+    names vector).
+    - Rearrange the columns to match the layout of Table 1, by using the 
+    **select()** function.
+    - Convert the variables *US*, *UK*,*France*,*Italy*, and *Sweden* in the summary 
+    tibble into numeric and then round the values to two digits (using the 
+    **round()** function).  Be sure to vectorize the data type conversion and 
+    round functions.
+
+```{r}
+
+# Rearrange the Table 
+summary_data_2 <- t(summary_data) %>% as_tibble()
+colnames(summary_data_2) <- summary_data$country
+summary_data_2 <- summary_data_2[-1,]
+summary_data_2$Variable <- colnames(summary_data)[-1]
+
+## Use the Select Function to rearrange the columns to match column 1
+summary_data_2 <- summary_data_2 %>% select(Variable,US, UK, France,Italy,Sweden)
+
+# Turn the columns that should be numeric into numbers
+summary_data_2[,c("US","UK","France","Italy","Sweden")] <- 
+  summary_data_2[,c("US","UK","France","Italy","Sweden")]  %>% 
+  map(as.numeric) %>% 
+  map(round,2)
+```
+
+iii.  Turn the work in part (ii) into a function, that takes a generic summary 
+data frame and does the exact steps outlined above.
+
+```{r}
+# Turn Data Transformation Into a Function
+transform_tab <-function(sum_obj){
+  new_summary <- t(sum_obj) %>% as_tibble()
+  colnames(new_summary) <- sum_obj$country
+  new_summary <- new_summary[-1,]
+  new_summary$Variable <- colnames(sum_obj)[-1]
+  
+  new_summary <- new_summary %>% select(Variable,US,UK,France,Italy,Sweden)
+  new_summary[,c("US","UK","France","Italy","Sweden")] <- 
+    new_summary[,c("US","UK","France","Italy","Sweden")]  %>% 
+    map_df(as.numeric) %>% 
+    map_df(round,2)
+  
+  return(new_summary)
+
+} 
+
+
+```
+
+iv. Transform the original summary data frame now using the function you've 
+created instead.  View the resulting tibble, replicating the summary 
+statistics of Table 1.
+```{r}
+summary_data <- transform_tab(summary_data)
+summary_data
+```
+
+
+# Table 2 - Perceived and Actual Transition Probabilities
+
+i. Begin by taking the basic data set and restricting it to keep only 
+observations where *Treated* is equal to zero.
+```{r}
+table2_data <- base_data %>% filter(Treated == 0) %>% as_tibble()
+```
+ii. Create a table 2 summary statistics data frame, with averages again computed 
+by country and missing values excluded.  The summary statistics should comprise 
+the averages of the following variables (again with new variable names that 
+match the formatting of Table 2 in the paper):
+    
+    ```{r, include=TRUE, echo = FALSE}
+    t2_summary_vars <- matrix(c("q1_to_q5","q1_to_q4","age_3","q1_to_q3",
+                                "q1_to_q2","q1_to_q1"),
+                           nrow=3) %>% as_tibble() 
+    colnames(t2_summary_vars) <- c("Variables"," ")
+    t2_summary_vars
+
+    ```
+
+```{r}
+table2 <- table2_data %>% group_by(country) %>% summarize(
+  "Q1 to Q5" = mean(q1_to_q5, na.rm = TRUE),
+  "Q1 to Q4" = mean(q1_to_q4, na.rm = TRUE),
+  "Q1 to Q3" = mean(q1_to_q3, na.rm = TRUE),
+  "Q1 to Q2" = mean(q1_to_q2, na.rm = TRUE),
+  "Q1 to Q1" = mean(q1_to_q1, na.rm = TRUE)
+)
+```
+iii.  Use your table rearrangement function to transform your table 2 summary 
+data frame so that the variables are rows and the countries are columns.
+```{r}
+table2 <- transform_tab(table2)
+```
+iv. Create a new variable *type* equal to "perceived".
+```{r}
+table2 <- table2 %>% mutate(
+  type = "perceived")
+```
+v. Import the actual probabilities from the csv file on the course website and convert it into a tibble.
+```{r}
+# Actual Probabilities (supplied)
+actual <- matrix(c(7.8,12.7,18.7,27.7,33.1,
+                   11.4,12.9,19.9,25.1,30.6,
+                   11.2,12.8,23.0,23.8,29.2,
+                   10.4,15.6,21.0,25.8,27.3,
+                   11.1,17.3,21.0,23.8,26.7),
+                 nrow=5, ncol=5, byrow=FALSE)
+actual <- actual %>% as_tibble()
+actual <- actual %>% mutate(
+  Variable = table2$Variable,
+  type = "actual"
+)
+actual <- actual %>% select(Variable, everything())
+colnames(actual) <- colnames(table2)
+export(actual, "actual.csv")
+```
+vi. Append the actual probabilities to the perceived probabilities summary you 
+create and then sort the resulting data frame by the variable *Variable* 
+(in descending alphabetical order).
+vii. Display your data frame for Table 2
+```{r}
+table2 <- bind_rows(table2, actual) %>% arrange(desc(Variable))
+table2
+```
+
+# Table 3 - Relation between Perceptions and Policy Preferences
+
+## Prepare the data for analysis
+i. Import the table 3 data from the file "Data_Experiment_Waves_BC.dta".
+ii. Keep only the observations where *flag_1*, *flag_2*, and *Treated* all 
+equal zero.
+```{r}
+table3_data <- import("Data_Experiment_Waves_BC.dta") %>%
+  filter(flag_1 == 0, flag_2 == 0, Treated == 0)
+```
+iii. Repeat the creation of the *country* variable for the table 3 data set
+```{r}
+# Repeat the creation of the country variable for the table 3 dataset
+table3_data <- table3_data %>% mutate(country = case_when(
+  (US == 1) ~ "US",
+  (UK == 1) ~ "UK",
+  (France == 1) ~ "France",
+  (Italy == 1) ~ "Italy",
+  (Sweden == 1) ~ "Sweden"
+))
+```
+iv. Generate political spectrum position indicators as follows:
+
+    - *left*, equal to 1 if *ideology_economic* is equal to 1 or 2.
+    - *right*, equal to 1 if *ideology_economic* is equal to 4 or 5.
+    - *center*, equal to 1 if *ideology_economic* is equal to 3.
+```{r}
+# Generate political spectrum position indicators
+table3_data <- table3_data %>% mutate(
+  left = ifelse((ideology_economic ==1 | ideology_economic ==2), 1, 0),
+  right = ifelse((ideology_economic ==4 | ideology_economic ==5), 1, 0),
+  center = ifelse((ideology_economic==3), 1, 0)
+)
+```
+v. Generate variables for specific policy support beliefs, as follows:
+
+    - *budget_opportunities*, equal to the sum of *budget_education* and 
+    *budget_health*.
+    - *support_estate_45*, an indicator equal to 1 if the value of 
+    *estate_tax_support* is greater than or equal to 4.
+    - *unequal_opp_problem_d*, an indicator equal to 1 if 
+    *unequal_opportunities_problem* is equal to 4.
+    - *tools_d*, an indicator equal to 1 if *tools_government* is greater than 
+    or equal to 1.
+```{r}
+# Generate policy support indicators
+table3_data <- table3_data %>% mutate(
+  budget_opportunities = budget_education+budget_health,
+  support_estate_45 = (estate_tax_support>=4),
+  unequal_opp_problem_d = (unequal_opportunities_problem==4),
+  tools_d = (tools_government >=2)
+)
+```
+vi. Rename the following policy support variables:
+
+    - Rename *level_playing_field_policies* to *support_eq_opp_pol*
+    - Rename *income_tax_bottom50* to *income_tax_bot50*
+```{r}
+# Rename policy support variables
+table3_data <- table3_data %>% rename(
+  support_eq_opp_pol = level_playing_field_policies,
+  income_tax_bot50 = income_tax_bottom50
+)
+```
+vii. Generate an indicator for whether or not someone is "rich" (household income 
+is above the 75^th^ percentile for the country.)
+
+    - First, create a summary data frame with a new variable *income_p75*, 
+    the 75th percentile of *household_income* by country.  You may need to 
+    use the **quantile()** function with **summarize()**.
+    - Then merge these values into the table 3 data frame.
+    -  Finally, create the *rich* indicator, equal to 1 if *household_income* is 
+    greater than the 75th^th^ percentile of income.
+    
+```{r}
+
+## First create a summary table with income_p75, the 75th percentile of household_income by country
+## You should probably use the quantile() function with summarize to do so.
+country_rich_levels <- table3_data %>% group_by(country) %>% 
+  summarize(income_p75 = quantile(household_income, probs = 0.75, na.rm = TRUE))
+
+## Then murge in income_p75 into the main table 3 dataframe
+table3_data <- table3_data %>% left_join(country_rich_levels, by = "country")
+
+## Finally, create the *rich* indicator equal to 1 if household_income is greater than 
+## the 75th percentile level
+table3_data <- table3_data %>% mutate(
+  rich = ifelse((household_income > income_p75), 1, 0)
+)
+```
+
+viii.  Generate the following further indicator variables:
+
+    - *young*, equal to 1 if *age* is less than 45.
+    - *moved_up*, equal to 1 if *job_prestige_father* is greater than 3.
+    - *immigrant*, equal to 1 if *parents_born_in_country* is equal to zero.
+```{r}
+# Generate further indicators
+table3_data <- table3_data %>% mutate(
+  young = ifelse(age<45, 1, 0),
+  moved_up = ifelse((job_prestige_father>3),1,0),
+  immigrant = ifelse((parents_born_in_country==0), 1,0)
+)
+```
+ix. Create a *country_survey* variable, which is a concatenation of the 
+*country* and *round* variables.  Convert this variable so that it is a factor.
+```{r}
+# Generate a country_survey and turn it into a factor variable
+table3_data <- table3_data %>% mutate(
+  country_survey = as.factor(glue("{country} {round}"))
+)
+```
+
+## Perform Table 3 Regressions
+i. To reproduce Panels A and B Table 3:
+    - Create four basic model specifications, with explanatory variables comprising 
+    the controls mentioned in the next step and primary explanatory variables as 
+    follows:
+        1. **Panel A, Q1 to Q1 Specification:** The main explanatory variable 
+        should be the *q1_to_q1* variable.
+        2. **Panel A, Q1 to Q5 Specification:** The main explanatory variable 
+        should be the *q1_to_q5* variable.
+        3. **Panel B, Q1 to Q1 Specification:** The main explanatory variables 
+        should be *q1_to_q1* $\times$ *left*, *q1_to_q1* $\times$ *right*, 
+        and *q1_to_q1* $\times$ *center*.
+        4. **Panel B, Q1 to Q5 Specification:** The main explanatory variables 
+        should be *q1_to_q5* $\times$ *left*, *q1_to_q5* $\times$ *right*, and 
+        *q1_to_q5* $\times$ *center*.
+        
+        
+            - To specify just the interaction effect and exclude the main 
+            effects of interaction terms in panel B, use the interaction 
+            notation x:y instead of x*y (supposing x and y are interacted).
+    
+    - For every specification, include the following control variables: 
+        ```{r, include=TRUE, echo = FALSE}
+            control_vars <- matrix(c("country_survey","left",
+                                        "right", "male",
+                                     "young", "children_dummy", "rich",
+                                     "university_degree", "immigrant", "moved_up"),
+                                   nrow=5, ncol=2) %>% as_tibble() 
+            colnames(control_vars) <- c("Control Variables","")
+            control_vars
+        ```
+        
+    \newpage
+    - For every specification, perform a separate regression for each of the 
+    following dependent variables (corresponding to the model titles of Table 3):
+        ```{r, include=TRUE, echo = FALSE}
+            dependents_vars <- matrix(c("budget_opportunities","support_estate_45",
+                                        "support_eq_opp_pol", 
+                                        "government_intervention",
+                                     "unequal_opp_problem_d", "budget_safetynet", 
+                                     "income_tax_top1","income_tax_bot50", 
+                                     "tools_d",""),
+                                   nrow=5, ncol=2, byrow = TRUE) %>% as_tibble() 
+            colnames(dependents_vars) <- c("Dependent Variables","")
+            dependents_vars
+        ```
+    - Save each of the regressions into a named regression object.  You can 
+    either run perform these regressions using a for-loop, which is much more 
+    concise but more difficult, or manually write each of the 4 sets of 9 
+    regressions.  If you use a loop, you may need to use the **get()** 
+    function with the iterated dependent variables (and store the 
+    regressions in a list).
+    
+        + Here's a short way:
+        ```{r}
+        # Create a vector of dependent varaibles and then use a for-loop to iterate 
+        # across them to perform each regression [you need to use get() for this].
+        
+        
+        ## Vector of dependent variables
+        dep <- c("budget_opportunities", "support_estate_45", "support_eq_opp_pol", 
+                 "government_intervention", "unequal_opp_problem_d", "budget_safetynet",
+                 "income_tax_top1", "income_tax_bot50", "tools_d")
+        
+        # Table 3, Panel A:
+        t3a_q1toq1 <- list()
+        t3a_q1toq5 <- list()
+        
+        for(yvar in 1:length(dep)){
+          t3a_q1toq1[[yvar]] <- lm(get(dep[yvar]) ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+          t3a_q1toq5[[yvar]] <- lm(get(dep[yvar]) ~ q1_to_q5 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        }
+        
+        
+        # Table 3, Panel B: Q1 to Q1
+        t3b_q1toq1 <- list()
+        t3b_q1toq5 <- list()
+        
+        for(yvar in 1:length(dep)){
+          t3b_q1toq1[[yvar]] <- lm(get(dep[yvar]) ~ q1_to_q1:left + q1_to_q1:right + 
+                                     q1_to_q1:center + country_survey +left + right + 
+                                     male + young + children_dummy + rich + 
+                                     university_degree +immigrant + moved_up, 
+                                   data = table3_data)
+          t3b_q1toq5[[yvar]] <- lm(get(dep[yvar]) ~ q1_to_q5:left + q1_to_q5:right + 
+                                     q1_to_q5:center + country_survey +left + right + 
+                                     male + young + children_dummy + rich + 
+                                     university_degree + immigrant + moved_up, 
+                                   data = table3_data)
+        }
+        ```
+
+        + Now here's the long, manual way:
+        
+        ```{r}
+        # Table 3, Panel A Q1 to Q1 Regressions
+        t3_a_q1_1 <- lm(budget_opportunities ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_2 <- lm(support_estate_45 ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_3 <- lm(support_eq_opp_pol ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_4 <- lm(government_intervention ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_5 <- lm(unequal_opp_problem_d ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_6 <- lm(budget_safetynet ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_7 <- lm(income_tax_top1 ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_8 <- lm(income_tax_bot50 ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        t3_a_q1_9 <- lm(tools_d ~ q1_to_q1 + country_survey +
+               left + right + male + young + children_dummy + rich + university_degree +
+               immigrant + moved_up, data = table3_data)
+        
+        # Table 3, Panel B Q1 to Q1 Regressions
+        t3_b_q1_1 <- lm(budget_opportunities ~ q1_to_q1*left + q1_to_q1*right +
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree + 
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_2 <- lm(support_estate_45 ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_3 <- lm(support_eq_opp_pol ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_4 <- lm(government_intervention ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + 
+                          left + right + male + young + children_dummy + 
+                          rich + university_degree + 
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_5 <- lm(unequal_opp_problem_d ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_6 <- lm(budget_safetynet ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey +  left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_7 <- lm(income_tax_top1 ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_8 <- lm(income_tax_bot50 ~ q1_to_q1*left + q1_to_q1*right + 
+                          q1_to_q1*center + country_survey + left + right + male + 
+                          young + children_dummy + rich + university_degree +
+                          immigrant + moved_up, data = table3_data)
+        t3_b_q1_9 <- lm(tools_d ~ q1_to_q1*left + q1_to_q1*right + q1_to_q1*center + 
+                          country_survey +left + right + male + young + children_dummy + 
+                          rich + university_degree + immigrant + moved_up, 
+                        data = table3_data)     
+        
+        ```
+ii. If you did not place the regression objects in lists in the previous step, 
+place the regressions for each of the 4 specifications in their own list now.
+iii. Use stargazer with the each of the 4 lists to produce Panels A and B of 
+Table 3. You will need to specify options for the stargazer function:
+    - First, create a *table_columns* vector, using the following code to get the 
+    column titles as written in the paper:
+        ```{r, include=TRUE, echo=TRUE}
+        table_columns <- c("Budget opp",
+                        "Support estate tax",
+                        "Support equality opp. policies",
+                        "Government interv",
+                        "Unequal opp. very serious problem",
+                        "Budget safety net",
+                        "Tax rate top 1",
+                        "Tax rate bottom 50",
+                        "Govt. tools")
+        ```
+    - Then use the following options in the stargazer function call (in quotes 
+    if appropriate):
+        ```{r, include=TRUE, echo = FALSE}
+        stargazer_opts <- matrix(c("type:", "html", 
+                                   "object.names", "FALSE", 
+                                   "style", "aer",
+                                   "omit.stat", "all", 
+                                   "column.sep.width", "2pt", 
+                                   "font.size", "footnotesize",
+                                   "digits", "3",
+                                   "column.labels", "table_columns"
+                                   ), ncol = 2, byrow = TRUE) %>% as_tibble()
+        colnames(stargazer_opts) <- c("Option","Value")
+        stargazer_opts  
+        ```
+    - Finally, you will also need to manually specify the values for the 
+    following options: *title*, *keep*, *covariate.labels*.  Choose these such 
+    that the regressions looks like the respective panels of Table 3.
+
+    ```{r, results = "asis"}
+    # Table 3, Panel A
+    stargazer(t3a_q1toq1, type="html", header = FALSE, object.names=FALSE,
+              dep.var.labels.include = FALSE,
+              title = "Table 3: Panel A: Q1 to Q1",
+              keep = c("q1_to_q1"),
+              style = "aer", omit.stat = "all", column.sep.width = "2pt", 
+              font.size = "footnotesize", digits = 3,
+              covariate.labels = c("Q1 to Q1"),
+              column.labels =  table_columns
+              )
+    
+    stargazer(t3a_q1toq5, type="html", header = FALSE, object.names=FALSE,
+              dep.var.labels.include = FALSE,
+              title = "Table 3: Panel B, Q1 to Q5",
+              keep = c("q1_to_q5"),
+              style = "qje", omit.stat = "all", column.sep.width = "1pt", 
+              font.size = "footnotesize", digits = 3,
+              covariate.labels = c("Q1 to Q5"),
+              column.labels =  table_columns
+              )
+    
+    # Table 3, Panel B
+    stargazer(t3b_q1toq1, type="html", header = FALSE, object.names=FALSE,
+              dep.var.labels.include = FALSE,
+              title = "Table 3: Panel B, Q1 to Q1",
+              keep = c("q1_to_q1:left", "q1_to_q1:right","left", "right"),
+              style = "qje", omit.stat = "all", column.sep.width = "1pt", 
+              font.size = "footnotesize", digits = 3,
+              order = c("q1_to_q1:left", "q1_to_q1:right","left","right"),
+              covariate.labels = c("Q1 to Q1 x left-wing",
+                                   "Q1 to Q1 x right-wing",
+                                   "Left-wing",
+                                   "Right-wing"),
+              column.labels =  table_columns
+              )
+    
+    stargazer(t3b_q1toq5, type="html", header = FALSE, object.names=FALSE,
+              dep.var.labels.include = FALSE,
+              title = "Table 3: Panel B, Q1 to Q5",
+              keep = c("q1_to_q5:left", "q1_to_q5:right","left", "right"),
+              style = "qje", omit.stat = "all", column.sep.width = "1pt", 
+              font.size = "footnotesize", digits = 3,
+              order = c("q1_to_q5:left", "q1_to_q5:right","left","right"),
+              covariate.labels = c("Q1 to Q5 x left-wing",
+                                   "Q1 to Q5 x right-wing",
+                                   "Left-wing",
+                                   "Right-wing"),
+              column.labels =  table_columns
+              )
+    
+    ```
+
+# Figures
+
+## Figure 2, Panel B: Actual and Perceived Mobility Across Countries
+
+i.  Create a data set for Figure 2, by modifying the basic data set to keep 
+only the observations where *Treated* is equal to zero. 
+```{r}
+# Get sample
+figure2_data <- base_data %>% filter(Treated == 0)
+```
+ii. Create a figure 2 summary statistics data frame, which computes the average 
+by country for the following variables:
+
+    - **Perceived Q1 to Q5 Transition Probability**: *q1_to_q5*
+    - **True Q1 to Q5 Transition Probability**: *true_q1_to_q5*
+```{r}
+# Generate Average perceived and true probability of Q1 to Q5 transition
+figure2_sum <- figure2_data %>% group_by(country) %>% summarize(
+  perceived_q1_to_q5 = mean(q1_to_q5),
+  true_q1_to_q5 = mean(true_q1_to_q5)
+)
+```
+iii. Recode the country variable so that:
+
+    - Sweden is abbreviated to "SE"
+    - Italy is abbreviated to "IT" 
+    - France is abbreviated to "FR"
+    
+```{r}
+# Recode Country
+figure2_sum <- figure2_sum %>% mutate(country = recode(country,
+  "Sweden" = "SE",
+  "Italy" = "IT",
+  "France" = "FR"
+))
+```
+iv. Generate a scatterplot using text labels for country instead of points, with 
+the following formatting:
+
+    - The true Q1 to Q5 probability is on the x-axis, with range 6 to 12. 
+    - The perceived Q1 to Q5 probability is on the y-axis, with range 6 to 12.
+    - Each data point (or rather text label) is colored according to *country*.
+    - There is a dotted reference line, using **geom_abline()**, with an 
+    intercept of 0 and slope of 1.
+    - Suitable titles are added for the overall graph and each axis.
+    - The following annotations are added to the ggplot:
+    ```{r, include = TRUE, echo = TRUE, eval = FALSE}
+    annotate(geom="text", x=7, y=10, label = "Optimistic") +
+    annotate(geom="text", x=10, y=7, label = "Pessimistic")
+    ```
+    
+    
+```{r}
+# Generate text scatterplot
+ggplot(figure2_sum, 
+       aes(x=true_q1_to_q5, y = perceived_q1_to_q5, 
+       label=country, col = country)) +  
+  geom_text() + xlim(6,12) + ylim(6, 12) + 
+  xlab("True Q1 to Q1 Probability") + ylab("Perceived Q1 to Q1 Probability") +
+  geom_abline(intercept = 0, slope=1, linetype="dotted") +
+  annotate(geom="text", x=7, y=10, label = "Optimistic") +
+  annotate(geom="text", x=10, y=7, label = "Pessimistic")
+```
+
+## Figure 3 - Accuracy of Individual-Level Perceptions
+
+i.  Create a data set for Figure 3, by modifying the basic data set to keep 
+only the observations where *Treated* is equal to zero. *q1_to_q1* is not 
+equal to 100, and *q1_to_q5* is less than 80.
+```{r}
+# Take out outliers
+figure3_data <- base_data %>% filter(Treated == 0, q1_to_q1 != 100,
+                                     q1_to_q5 < 80)
+```
+ii. Generate the following misperception variable:
+
+    - *misperception_q1*, equal to the negative absolute value of *q1_to_q1* 
+    minus *true_q1_to_q1*
+    - *misperception_q5*, equal to the negative absolute value of *q1_to_q5* 
+    minus *true_q1_to_q5*
+   
+
+```{r}
+# Generate misperception variables
+figure3_data <- figure3_data %>% mutate(
+  misperception_q1 = -abs(q1_to_q1 - true_q1_to_q1),
+  misperception_q5 = -abs(q1_to_q5 - true_q1_to_q5)
+)
+```
+iii.  Generate two different data sets:
+
+    - A *figure3_US* dataset, keeping only the observations where country is 
+    equal to *US* from the figure 3 dataset.
+    -  A *figure3_Europe* dataset, keeping only the observations where country 
+    is *not* equal to *US* from the figure 3 dataset.
+    
+```{r}
+figure3_US <- figure3_data %>% filter(country == "US")
+figure3_Europe <- figure3_data %>% filter(country != "US") 
+```
+
+iv. Use **ggplot** to reproduce the plots of the CDF of the 
+negative absolute error between perceived and actual transition probabilities by 
+country.
+
+    - For each of the two graphs (US and Europe), plot both *misperception_q1* 
+    and *misperception_q5* by two seperate **stat_ecdf()** geometries to the same 
+    graph.
+    - In each **stat_ecdf()**, you will need to specify the x-variable in the 
+    aesthetic, as well as  'geom = "step"' and a color to that particular ECDF. 
+    Choose 'col = "blue"' for *misperception_q1* and 'col = "red"' for 
+    *misperception_q5*.
+    - For each graph, add a suitable overall title, axis titles, and set the 
+    range of the x axis to between -80 and 0.
+    - Finally, apply the **theme_hc()** theme from **gg_themes()**.
+
+```{r}
+ ggplot(figure3_US) + stat_ecdf(aes(x = misperception_q1), 
+                                geom = "step", col="blue") +
+    ggtitle("Panel B. United States") + 
+  stat_ecdf(aes(x = misperception_q5),color ="red", geom = "step") +
+  xlim(-80,0) + theme_hc()
+
+  ggplot(figure3_Europe) + stat_ecdf(aes(x = misperception_q1), 
+                                     geom = "step", col="blue") +
+  ggtitle("Panel B. Europe") +
+  stat_ecdf(aes(x = misperception_q5),color ="red", geom = "step") +
+  xlim(-80,0) + theme_hc()
+
+
+```
+

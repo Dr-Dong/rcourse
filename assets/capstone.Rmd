@@ -496,7 +496,7 @@ i. To reproduce Panels A and B Table 3:
     
         + Here's a short way:
         ```{r}
-        # Create a vector of dependent variable and then use a for-loop to iterate 
+        # Create a vector of dependent variables and then use a for-loop to iterate 
         # across them to perform each regression [you need to use get() for this].
         
         
